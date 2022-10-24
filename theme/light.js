@@ -28,7 +28,10 @@ export default class LightTheme {
   onBoarding = {
     header: this.theme.gs7,
     icon: this.theme.gs7,
-    progressBar: this.theme.pa2,
+    progressBarPos: this.theme.pa2,
+    progressBarBg: this.theme.gs7,
+    nextBtn: this.theme.pa1,
+    nextBtnTxt: this.theme.gs7,
   };
 
   // @react-navigation/native

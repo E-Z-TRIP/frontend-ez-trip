@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// This reducer is just a template, it can be modified
 const user = createSlice({
   name: 'user',
   initialState: {

@@ -1,7 +1,5 @@
 .container {
   flex: 1;
-  align-items: center;
-  justify-content: center;
 }
 .bgImage {
   flex: 1;
@@ -9,7 +7,25 @@
   align-items: center;
   aspect-ratio: 0.51;
 }
+.headerTextContainer {
+  align-self: flex-start;
+  margin-left: 40;
+}
 .headerText {
   font-family: 'heading';
   font-size: 100;
+}
+.nextBtn {
+  margin-top: auto;
+  justify-self: flex-end;
+  align-items: center;
+  justify-content: center;
+  width: 220;
+  height: 50px;
+  margin-bottom: 40;
+  border-radius: 25px;
+}
+.nextBtnTxt {
+  font-family: 'txt';
+  font-size: 16;
 }

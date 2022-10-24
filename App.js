@@ -11,17 +11,11 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 const Stack = createNativeStackNavigator();
 
-export default function Index() {
-  return (
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
-}
-
 function App() {
   const dispatch = useDispatch();
   const theme = useSelector(selectTheme);
+
+  // Un comment this if using light and dark mode
 
   // Sets the theme to the operating systems theme
   //const colorScheme = useColorScheme();
@@ -30,6 +24,7 @@ function App() {
   //   dispatch(setTheme(colorScheme));
   // }, []);
 
+  // Application is setup with Redux persist
   return (
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <PersistGate persistor={persistor}>
@@ -38,5 +33,15 @@ function App() {
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>
+  );
+}
+
+// Wraps the application with the Redux store Provider
+// !!DONT TOUCH
+export default function Index() {
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
   );
 }

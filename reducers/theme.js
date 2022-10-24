@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// A reducer for switching the theme from light and dark mode
+// DO NOT TOUCH
 const theme = createSlice({
   name: 'theme',
   initialState: {

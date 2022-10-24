@@ -1,16 +1,9 @@
 {
   "expo": {
-    "name": "reactnative_redux_postcss",
-    "slug": "reactnative_redux_postcss",
+    "name": "ez-trip",
+    "slug": "ez-trip",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "packagerOpts": {
       "config": "metro.config.js",
       "sourceExts": ["js", "jsx", "css", "pcss"]
@@ -21,15 +14,6 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
   }
 }

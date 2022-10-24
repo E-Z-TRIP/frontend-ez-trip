@@ -1,8 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from './screens/Home';
+import OnBoarding from './screens/on_boarding/OnBoarding';
 import { Provider, useDispatch, useSelector } from 'react-redux';
-import { lightTheme, darkTheme } from './styles/theme/theme';
+import { lightTheme, darkTheme } from './theme/theme';
 import { useColorScheme } from 'react-native';
 import { useEffect } from 'react';
 import { setTheme, selectTheme } from './reducers/theme';
@@ -11,15 +11,15 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+export default function Index() {
   return (
     <Provider store={store}>
-      <Index />
+      <App />
     </Provider>
   );
 }
 
-function Index() {
+function App() {
   const dispatch = useDispatch();
   const theme = useSelector(selectTheme);
 
@@ -34,7 +34,7 @@ function Index() {
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <PersistGate persistor={persistor}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name='Home' component={Home} />
+          <Stack.Screen name='OnBoarding' component={OnBoarding} />
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

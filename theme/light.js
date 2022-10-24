@@ -6,18 +6,14 @@ export default class LightTheme {
   // Preffix bg = Background
   // Preffix gs = Greyscale
 
-  main = {
-    pa1: '#4285F4',
-    pa2: '#DB4437',
-    pa3: '#F4B400',
-    pa4: '#0F9D58',
+  theme = {
+    pa1: '#C46B4D',
+    pa2: '#177861',
     pa1C: '#ffffff',
     pa2C: '#ffffff',
-    pa3C: '#ffffff',
-    pa4C: '#ffffff',
 
     bg1: '#ffffff',
-    bg1C: '#0d0d0d',
+    bg1C: '#000000',
 
     gs0: '#000000',
     gs1: '#0d0d0d',
@@ -29,14 +25,20 @@ export default class LightTheme {
     gs7: '#ffffff',
   };
 
+  onBoarding = {
+    header: this.theme.gs7,
+    icon: this.theme.gs7,
+    progressBar: this.theme.pa2,
+  };
+
   // @react-navigation/native
   // NavigationContainer theme propertys
   colors = {
-    primary: this.main.pa1,
-    background: this.main.bg1,
-    card: this.main.gs6,
-    text: this.main.gs4,
-    border: this.main.gs6,
-    notification: this.main.gs4,
+    primary: this.theme.gs0,
+    background: this.theme.bg1,
+    card: this.theme.gs1,
+    text: this.theme.gs0,
+    border: this.theme.gs0,
+    notification: this.theme.gs0,
   };
 }

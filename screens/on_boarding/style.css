@@ -1,0 +1,15 @@
+.container {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+.bgImage {
+  flex: 1;
+  justify-content: flex-start;
+  align-items: center;
+  aspect-ratio: 0.51;
+}
+.headerText {
+  font-family: 'heading';
+  font-size: 100;
+}

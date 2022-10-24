@@ -6,7 +6,7 @@ export default class DarkTheme {
   // Preffix bg = Background
   // Preffix gs = Greyscale
 
-  main = {
+  theme = {
     pa1: '#764ABC',
     pa2: '#4d4d4d',
     pa3: '#4d4d4d',
@@ -32,11 +32,11 @@ export default class DarkTheme {
   // @react-navigation/native
   // NavigationContainer theme propertys
   colors = {
-    primary: this.main.pa1,
-    background: this.main.bg1,
-    card: this.main.gs5,
-    text: this.main.gs2,
-    border: this.main.gs5,
-    notification: this.main.gs4,
+    primary: this.theme.pa1,
+    background: this.theme.bg1,
+    card: this.theme.gs5,
+    text: this.theme.gs2,
+    border: this.theme.gs5,
+    notification: this.theme.gs4,
   };
 }

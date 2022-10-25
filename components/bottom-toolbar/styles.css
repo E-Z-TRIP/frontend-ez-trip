@@ -1,2 +1,46 @@
 .container {
+    flex:1;
+    background-color: pink;
+    width: 100%;
+    height: 70px;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    align-items: flex-end;
+}
+
+.footer {
+    height: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.icons1, .icons2 {
+    flex: 1;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.icons1 {
+    margin-right: 50px;
+}
+
+.icons2 {
+    margin-left: 50px;
+}
+
+.searchBtn{
+    position: absolute;
+    background-color: yellow;
+    z-index: 1;
+    left: 50%;
+    top: -50%;
+    width: 60px;
+    height: 60px;
+    margin-left:-30px;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
 }

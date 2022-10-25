@@ -1,0 +1,28 @@
+.container {
+    flex: 1;
+}
+
+.imgbackground {
+    margin-top: 15px;
+    height: 150px;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.title {
+    font-family: 'heading';
+    font-size: 2rem;
+    color: white;
+}
+
+.text {
+    font-family: 'txt';
+    color: white;
+}
+
+.bottomInfo {
+    flex: 1;
+    flex-direction: row;
+    justify-content: space-between;
+}

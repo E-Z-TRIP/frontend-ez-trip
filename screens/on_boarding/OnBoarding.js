@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, TouchableOpacity, SliderBase } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, Animated } from 'react-native';
 import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
@@ -45,10 +45,22 @@ function TitleSlide() {
   const { onBoarding } = useTheme();
 
   return (
-    <View style={styles.headerTextContainer}>
+    <Animated.View style={styles.headerTextContainer}>
       <Text style={{ ...styles.headerText, color: onBoarding.header }}>EZ</Text>
       <Text style={{ ...styles.headerText, color: onBoarding.header }}>TRIPS</Text>
-    </View>
+    </Animated.View>
+  );
+}
+
+function Slide() {
+  // Imported theme specific for on boarding colors
+  const { onBoarding } = useTheme();
+
+  return (
+    <Animated.View style={styles.headerTextContainer}>
+      <Text style={{ ...styles.headerText, color: onBoarding.header }}>EZ</Text>
+      <Text style={{ ...styles.headerText, color: onBoarding.header }}>TRIPS</Text>
+    </Animated.View>
   );
 }
 

@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, SliderBase } from 'react-native';
 import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
@@ -6,21 +6,18 @@ import bgImage from '../../assets/images/hero_background.png';
 import { loadFonts } from '../../assets/fonts/fonts';
 import { useState, useEffect } from 'react';
 import ProgressBar from '../../components/progressBar/progressBar';
-import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
+import SwipeContainer from '../../components/swipe_container/SwipeContainer';
 
 export default function OnBoarding({ navigation }) {
-  // Imported theme specific for on boarding
-  const { onBoarding } = useTheme();
-
   const loadedFonts = loadFonts();
   const dispatch = useDispatch();
   const [progress, setProgress] = useState(1);
-  const screens = 5;
+  const slides = [<TitleSlide />, <NextBtn />];
 
   if (!loadedFonts) return <></>;
 
   const incrementProgress = () => {
-    setProgress(progress < 5 ? progress + 1 : progress);
+    setProgress(progress < slides.length ? progress + 1 : progress);
   };
   const decrementProgress = () => {
     setProgress(progress > 1 ? progress - 1 : progress);
@@ -29,18 +26,28 @@ export default function OnBoarding({ navigation }) {
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.bgImage} source={bgImage} resizeMode='cover'>
-        <ProgressBar screens={screens} currentScreen={progress} />
-        <View style={styles.headerTextContainer}>
-          <Text style={{ ...styles.headerText, color: onBoarding.header }}>EZ</Text>
-          <Text style={{ ...styles.headerText, color: onBoarding.header }}>TRIPS</Text>
-        </View>
-        {/* <NextBtn onPress={decrementProgress} isVisable={progress < screens ? true : false} title={'back'} /> */}
-        {progress < screens ? (
-          <NextBtn onPress={incrementProgress} title={progress === 1 ? 'Bienvenue' : 'Suivant'} />
-        ) : (
-          <></>
-        )}
+        <SwipeContainer
+          style={styles.swipeContainer}
+          onSwipe={(direction) => {
+            if (direction === 'left') return incrementProgress();
+            if (direction === 'right') return decrementProgress();
+          }}>
+          <ProgressBar slideQty={slides.length} currentSlide={progress} />
+          {slides[progress - 1]}
+        </SwipeContainer>
       </ImageBackground>
+    </View>
+  );
+}
+
+function TitleSlide() {
+  // Imported theme specific for on boarding colors
+  const { onBoarding } = useTheme();
+
+  return (
+    <View style={styles.headerTextContainer}>
+      <Text style={{ ...styles.headerText, color: onBoarding.header }}>EZ</Text>
+      <Text style={{ ...styles.headerText, color: onBoarding.header }}>TRIPS</Text>
     </View>
   );
 }
@@ -57,9 +64,3 @@ function NextBtn({ title, onPress }) {
     </TouchableOpacity>
   );
 }
-
-const ExampleWithHoc = gestureHandlerRootHOC(() => (
-  <View>
-    <DraggableBox />
-  </View>
-));

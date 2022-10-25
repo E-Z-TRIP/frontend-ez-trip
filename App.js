@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OnBoarding from './screens/on_boarding/OnBoarding';
@@ -15,7 +16,7 @@ function App() {
   const dispatch = useDispatch();
   const theme = useSelector(selectTheme);
 
-  // Un comment this if using light and dark mode
+  // Un-comment this if using light and dark mode
 
   // Sets the theme to the operating systems theme
   //const colorScheme = useColorScheme();

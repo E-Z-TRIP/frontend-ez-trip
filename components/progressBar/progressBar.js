@@ -4,11 +4,11 @@ import { useTheme } from '@react-navigation/native';
 import { useState, useEffect, useRef } from 'react';
 
 // The progress bar for the on boarding screen
-export default function ProgressBar({ screens, currentScreen }) {
+export default function ProgressBar({ slideQty, currentSlide }) {
   const { theme } = useTheme();
   const { onBoarding } = useTheme();
   const width = 300;
-  let transition = new Animated.Value((width / screens) * currentScreen);
+  let transition = new Animated.Value((width / slideQty) * currentSlide);
 
   return (
     <View style={styles.container}>

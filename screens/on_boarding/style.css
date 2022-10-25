@@ -7,6 +7,11 @@
   align-items: center;
   aspect-ratio: 0.51;
 }
+.swipeContainer {
+  flex: 1;
+  align-items: center;
+  width: 100%;
+}
 .headerTextContainer {
   align-self: flex-start;
   margin-left: 40;

@@ -12,8 +12,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Discover({ navigation }) {
   const loadedFonts = loadFonts();
-  const dispatch = useDispatch();
-  const [progress, setProgress] = useState(1);
 
   if (!loadedFonts) return <></>;
 

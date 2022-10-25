@@ -1,10 +1,17 @@
 import { useRef, useEffect, useState } from 'react';
 import { Animated } from 'react-native';
 
-export default function HorizontalFadeContainer({ style, isVisible, children, speed, direction }) {
+export default function HorizontalFadeContainer({ style, isVisible, children, speed, direction, progressPos }) {
   let fadeRef = useRef(new Animated.Value(1)).current;
   let slideRef = useRef(new Animated.Value(0)).current;
   const [showView, setShowView] = useState(true);
+
+  useEffect(() => {
+    if (progressPos > 1) {
+      direction = 'right';
+      slideIn();
+    }
+  }, []);
 
   useEffect(() => {
     if (!isVisible) {
@@ -27,7 +34,7 @@ export default function HorizontalFadeContainer({ style, isVisible, children, sp
 
   const fadeIn = () => {
     Animated.timing(fadeRef, {
-      toValue: 1000,
+      toValue: 1,
       duration: speed,
       useNativeDriver: false,
     }).start();
@@ -43,7 +50,7 @@ export default function HorizontalFadeContainer({ style, isVisible, children, sp
 
   const slideOut = () => {
     Animated.timing(slideRef, {
-      toValue: 1000,
+      toValue: 500,
       duration: speed,
       useNativeDriver: false,
     }).start();
@@ -52,7 +59,7 @@ export default function HorizontalFadeContainer({ style, isVisible, children, sp
   return (
     <>
       {showView ? (
-        <Animated.View style={[style, { position: 'relative', right: slideRef, opacity: fadeRef }]}>
+        <Animated.View style={[style, direction === 'left' ? { right: slideRef } : { left: slideRef }]}>
           {children}
         </Animated.View>
       ) : (

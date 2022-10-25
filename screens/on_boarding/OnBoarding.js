@@ -33,11 +33,11 @@ export default function OnBoarding({ navigation }) {
       <ImageBackground style={styles.bgImage} source={bgImage} resizeMode='cover'>
         <SwipeContainer style={styles.swipeContainer} onSwipe={({ direction }) => setDirection(direction)}>
           <ProgressBar slideQty={slides} currentSlide={progress} animationSpeed={animationSpeed} />
-          <TitleSlide isVisible={progress === 1 ? true : false} />
-          <TitleSlide isVisible={progress === 2 ? true : false} />
-          <TitleSlide isVisible={progress === 3 ? true : false} />
-          <TitleSlide isVisible={progress === 4 ? true : false} />
-          <TitleSlide isVisible={progress === 5 ? true : false} />
+          <TitleSlide isVisible={progress === 1 ? true : false} direction={direction} progressPos={progress} />
+          <TitleSlide isVisible={progress === 2 ? true : false} direction={direction} progressPos={progress} />
+          <TitleSlide isVisible={progress === 3 ? true : false} direction={direction} progressPos={progress} />
+          <TitleSlide isVisible={progress === 4 ? true : false} direction={direction} progressPos={progress} />
+          <TitleSlide isVisible={progress === 5 ? true : false} direction={direction} progressPos={progress} />
           <View style={styles.bottomContainer}>
             <View style={styles.paddingBox}></View>
             <FadeContainer isVisible={progress > 1 ? false : true} speed={animationSpeed}>

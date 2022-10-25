@@ -1,6 +1,7 @@
 import { Animated, PanResponder } from 'react-native';
 import { useEffect, useState, useRef } from 'react';
 
+// Returns
 export default function SwipeContainer({ style, onSwipe, deadzone = 0, children }) {
   const panStart = useRef(new Animated.ValueXY()).current;
   const panEnd = useRef(new Animated.ValueXY()).current;

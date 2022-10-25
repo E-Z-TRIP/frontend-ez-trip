@@ -36,11 +36,14 @@ export default function Discover({ navigation }) {
       <Text style= {styles.text}>Our recommendations</Text>
     <View style = {styles.tripContainer}>
       <Trip></Trip>
+      <Trip></Trip>
+      <Trip></Trip>
     </View>
       </View>
       </View>
     </ScrollView>
     <BottomToolbar></BottomToolbar>
+    <View style={{height: 70}}></View>
     </View>
   )
 }

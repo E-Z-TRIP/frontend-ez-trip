@@ -5,6 +5,7 @@ import { useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { loadFonts } from '../../assets/fonts/fonts';
 import { useState, useEffect } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
 import highlightImg from '../../assets/images/highlightImg.jpeg';
 
 export default function Highlight({ navigation }) {
@@ -17,7 +18,16 @@ export default function Highlight({ navigation }) {
     <View style={styles.container}>
         <Text style={{fontFamily: 'txt'}}>Highlight</Text>
         <View style = {styles.highlightContainer}>
-            <Image source = {highlightImg} style = {styles.img}></Image>
+        
+        <ImageBackground imageStyle={{ borderRadius: 15}} source = {highlightImg} style = {styles.img}>
+        <LinearGradient 
+        start={[1, 1]}
+        end={[1, 0]}
+        colors={['rgba(0,0,0,0.3)', 'transparent']}
+        style={{height: '100%', width: '100%', borderRadius: 15}}>
+        </LinearGradient>
+        </ImageBackground>
+        
             <View style={styles.infoContainer}>
                 <Text style={styles.title}>Demon island, Tonga</Text>
                 <Text style={{fontFamily: 'txt', fontWeight: 'bold', marginBottom: 5}}>20 jan. - 30 fev.</Text>

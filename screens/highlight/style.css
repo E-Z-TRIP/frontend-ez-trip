@@ -20,8 +20,8 @@ flex-direction: row;
 }
 
 .img {
-    border-radius: 10px;
+    border-radius: 15px;
     flex: 1;
-    width: 100px;
+    width: 103px;
     height: 100%;
 }

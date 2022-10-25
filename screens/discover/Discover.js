@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { loadFonts } from '../../assets/fonts/fonts';
 import { useState, useEffect } from 'react';
 import Highlight from '../highlight/Highlight';
+import Trip from '../../components/trip/trip';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -31,8 +32,11 @@ export default function Discover({ navigation }) {
 
       <View style = {styles.highlight}><Highlight/></View>
 
-      <View style = {styles.tripContainer}>
+      <View style = {styles.catalogue}>
       <Text style= {styles.text}>Our recommendations</Text>
+    <View style = {styles.tripContainer}>
+      <Trip></Trip>
+    </View>
       </View>
       </View>
     </ScrollView>

@@ -6,7 +6,7 @@ import { loadFonts } from '../../assets/fonts/fonts';
 import { useState, useEffect } from 'react';
 import ProgressBar from '../../components/progressBar/progressBar';
 import SwipeContainer from '../../components/swipe_container/SwipeContainer';
-import SwipeArrow from '../../assets/icons/SwipeArrow';
+import SwipeArrow from '../../components/icons/SwipeArrow';
 import FadeContainer from '../../components/fade_container/FadeContainer';
 import HorizontalSlideContainer from '../../components/horizontal_slide_container/HorizontalSlideContainer';
 import SignupSlide from './signup_slide/SignupSlide';

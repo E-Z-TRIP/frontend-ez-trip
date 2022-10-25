@@ -2,6 +2,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OnBoarding from './screens/on_boarding/OnBoarding';
+import Cards from './components/Cards/Cards'
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { lightTheme, darkTheme } from './theme/theme';
 import { useColorScheme } from 'react-native';
@@ -30,7 +31,8 @@ function App() {
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <PersistGate persistor={persistor}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name='OnBoarding' component={OnBoarding} />
+          {/* <Stack.Screen name='OnBoarding' component={OnBoarding} /> */}
+          <Stack.Screen name='Cards' component={Cards}/>
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

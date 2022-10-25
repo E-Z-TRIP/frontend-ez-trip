@@ -3,17 +3,20 @@ import styles from './styles.css';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useNavigation } from '@react-navigation/native';
 
 
-export default function BottomToolbar({}) {
+export default function BottomToolbar() {
+  const navigation = useNavigation(); 
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style = {styles.searchBtn}>
+      <TouchableOpacity style = {styles.searchBtn} onPress={() => navigation.navigate('Search')}>
         <AntDesign name='search1' size={35} color='black' />
       </TouchableOpacity>
       <View style={styles.footer}>
         <View style={styles.icons1}>
-          <Entypo name='compass' size={35} color='black' />
+          <Entypo name='compass' size={35} color='black' onPress={() => navigation.navigate('Discover')} />
           <FontAwesome5 name='house-user' size={35} color='black' />
         </View>
         <View style= {styles.icons2}>

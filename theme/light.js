@@ -27,6 +27,7 @@ export default class LightTheme {
 
   onBoarding = {
     header: this.theme.gs7,
+    text: this.theme.gs7,
     welcomeTxt: this.theme.gs7,
     icon: this.theme.gs7,
     progressBarPos: this.theme.pa2,

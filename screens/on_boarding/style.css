@@ -13,17 +13,26 @@
   width: 100%;
 }
 .slideContainer {
-  align-items: center;
-  width: 100%;
-}
-.headerTextContainer {
   align-self: flex-start;
   margin-top: 60;
-  margin-left: 40;
+  width: 100%;
+  height: 100%;
+  padding: 0 40px 0 40px;
 }
 .headerText {
   font-family: 'heading';
   font-size: 100;
+}
+.descriptionSlideHeader {
+  font-family: 'heading';
+  font-size: 30;
+  text-align: center;
+}
+.descriptionSlideText {
+  font-family: 'txt';
+  font-size: 17;
+  text-align: center;
+  margin-top: 55;
 }
 .bottomContainer {
   flex-direction: row;

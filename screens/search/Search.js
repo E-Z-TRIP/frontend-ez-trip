@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Trip from '../../components/trip/trip';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { RangeSlider } from '@sharcoux/slider'
+import { RangeSlider } from '@sharcoux/slider';
 
 export default function Search({ navigation }) {
     const loadedFonts = loadFonts();
@@ -20,7 +20,7 @@ export default function Search({ navigation }) {
     const [nbTravelers, setnbTravelers] = useState(1);
 
     const increment = () => setnbTravelers(c => c + 1);
-    const decrement = () => setnbTravelers(c => c - 1);
+    const decrement = () => nbTravelers > 1 ? setnbTravelers(c => c - 1) : false;
 
     if (!loadedFonts) return <></>;
 

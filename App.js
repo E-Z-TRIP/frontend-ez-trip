@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Discover from './screens/discover/Discover';
 import Search from './screens/search/Search';
 import OnBoarding from './screens/on_boarding/OnBoarding';
+import FicheProduit from './screens/product/FicheProduit';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { lightTheme, darkTheme } from './theme/theme';
 import { useColorScheme } from 'react-native';
@@ -32,8 +33,8 @@ function App() {
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <PersistGate persistor={persistor}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name='Discover' component={Discover} />
-          <Stack.Screen name="Search" component={Search} />
+        <Stack.Screen name='FicheProduit' component={FicheProduit} />
+          <Stack.Screen name='OnBoarding' component={OnBoarding} />
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

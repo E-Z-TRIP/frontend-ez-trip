@@ -8,17 +8,22 @@ import Trip from '../../components/trip/trip';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { RangeSlider } from '@sharcoux/slider';
+import { getMonthName } from '../../assets/helpers';
+
 
 export default function Search({ navigation }) {
 ///////////////////////////////////////////////////////////REACT STATES////////////////////////////////////////////////////////////
-
-    //fait apparaître / disparaître la Modal
+    //tous les trips récupérés par la route GET au chargement
+    const [tripsData, setTripsData] = useState([]);
+    //fait apparaître / disparaître la Modal Filtres
     const [modalVisible, setModalVisible] = useState(false);
-    //écoute le slider Budget dans les filtres
+    //input Text haut de page
+    const [searchInput, setSearchInput] = useState('')
+    //Tous les inputs de la Modal filtres
     const [minBudget, setMinBudget] = useState(0);
     const [maxBudget, setMaxBudget] = useState(15000);
     const [nbTravelers, setnbTravelers] = useState(1);
-    const [tripsData, setTripsData] = useState([]);
+    
 
     //GET ALL THE TRIPS WHEN LOADING THE SCREEN
   useEffect(() => {
@@ -35,12 +40,35 @@ export default function Search({ navigation }) {
     if (!loadedFonts) return <></>;
 
 ////////////////////////////////////////////////////////////////SEARCH RESULTS - FUNCTIONS////////////////////////////////////////////////////////////
-  
+let trips;
  //MAP TO DISPLAY ALL THE TRIPS
- const trips = tripsData.map((data, i) => {
-  return <Trip key={i} background={data.background} name={data.name} price={data.program[0].price} start = {data.travelPeriod[0].start} end = {data.travelPeriod[0].end} />;
-  })
+ if(tripsData){
+  trips = tripsData.map((data, i) => {
+    let start = getMonthName(data.travelPeriod[0].start)
+      let end = getMonthName(data.travelPeriod[0].end)
+    return <Trip key={i} background={data.background} country= {data.country} name={data.name} price={data.program[0].price} start = {start} end = {end} />;
+    }) 
+ }
 
+
+  //HANDLE SEARCH WHEN BUTTON IS CLICKED
+
+  const handleSearch = () => {
+    //construit un objet regroupant tous les paramètres de filtres
+    let research={minBudget,maxBudget}
+    console.log(research);
+    //construit l'URL avec les query correspondants aux filtres
+    var url = new URL('http://192.168.1.96:3000/trips/filter');
+    Object.keys(research).forEach(key => url.searchParams.append(key, research[key]))
+    console.log(url)
+    //fetch avec l'URL personnalisé à la recherche
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        setTripsData(data.trips)
+        setModalVisible(false);
+      });
+  }
 
     ////////////////////////////////////////////////////////////MODAL FILTER - FUNCTIONS////////////////////////////////////////////////////////////
     //gère l'incrémentation du filter Nb Travelers
@@ -71,11 +99,11 @@ export default function Search({ navigation }) {
             </View>  
         <View style = {styles.catalogue}>
             <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
-            <Text style= {styles.text}>XXX results</Text>
+            <Text style= {styles.text}>{tripsData.length} results</Text>
             <AntDesign name='filter' size={20} color='black' onPress={() => setModalVisible(!modalVisible)} />
             </View>
       <View style = {styles.tripContainer}>
-            {trips}
+            {tripsData? trips: <View></View>}
       </View>
       <Modal
         transparent={true}
@@ -85,12 +113,13 @@ export default function Search({ navigation }) {
           setModalVisible(!modalVisible);
         }}>
         <View style={styles.modal}>
-            <View name="firstSection" style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
+            <View name="headerFilter" style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
                 <Text style={{fontFamily:'txt', fontSize: 24}}>Filters</Text>
                 <AntDesign name='close' size={30} color='black' onPress={() => setModalVisible(!modalVisible)}/>
             </View>
 
-            <View name="secondSection" style = {{marginTop: 40}}>
+            <View name="filters" style = {{marginTop: 40}}>
+              <View name="sectionBudget"> 
                 <Text style={styles.filterText}>Budget</Text>
                 <View name="sectionContent" style={{flexDirection: 'row', justifyContent:'space-between'}}>
                     <View name="field">
@@ -102,6 +131,8 @@ export default function Search({ navigation }) {
                         <TextInput placeholder="15 000">{maxBudget}</TextInput>
                     </View>      
                 </View>
+              
+                
 
             <View>
 
@@ -132,6 +163,7 @@ export default function Search({ navigation }) {
                 onSlidingComplete={undefined}     // Called when the press is released. The type is (range: [number, number]) => void             
                 />
           </View>
+          </View>
             </View>
 
             <View name="travelersSection" style = {{marginTop: 30, height: 50, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
@@ -143,9 +175,16 @@ export default function Search({ navigation }) {
                     </View>
                 </View>
 
-            <View name="calendar" style = {{marginTop: 30}}>
+            <View name="calendarSection" style = {{marginTop: 30, height: 50}}>
                 <Text style={styles.filterText}>Departure dates</Text>
             </View>
+
+            <View name="tagsSection" style = {{marginTop: 30}}>
+                <Text style={styles.filterText}>What are you looking for?</Text>
+                <TextInput placeholder="search tags" style={{marginTop: 5, width: '70%', borderBottomColor: 'darkgrey', borderBottomWidth: 1, height:25}}></TextInput>
+            </View>
+
+            <TouchableOpacity style={styles.btnSearch} onPress={() => handleSearch(minBudget, maxBudget, nbTravelers)}><Text style={styles.text}>Search results</Text></TouchableOpacity>
         </View>
 
       </Modal>

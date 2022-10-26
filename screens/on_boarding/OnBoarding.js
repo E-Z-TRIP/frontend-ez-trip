@@ -43,7 +43,12 @@ export default function OnBoarding({ navigation }) {
             {slides.map((Slide, i) => {
               return (
                 <View key={i} style={{ width: '100%' }}>
-                  <Slide isVisible={progress === i + 1 ? true : false} direction={direction} progressPos={progress} />
+                  <Slide
+                    isVisible={progress === i + 1 ? true : false}
+                    direction={direction}
+                    progressPos={progress}
+                    slideLength={slides.length}
+                  />
                 </View>
               );
             })}

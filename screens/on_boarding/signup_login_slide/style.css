@@ -5,17 +5,15 @@
   bottom: 50;
 }
 .logoContainer {
-  flex: 1;
   width: 100%;
 }
 .formBtnsContainer {
-  flex: 1;
   width: 100%;
   margin-top: 40px;
 }
 .dividerContainer {
   flex-direction: row;
-  margin: 35px 0 35px 0;
+  margin: 25px 0 25px 0;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -34,9 +32,17 @@
   font-family: 'txt';
 }
 .bottomContainer {
-  flex: 1;
+  align-items: center;
+  top: 50;
+}
+.seeCatalogBtn {
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  width: 200;
 }
 .seeCatalogTxt {
+  margin-top: 6px;
   flex: 1;
   font-family: 'txt';
   font-size: 18;
@@ -53,4 +59,7 @@
 .btnTxt {
   font-family: 'txt';
   font-size: 15;
+}
+.bottomBtn {
+  margin: 10px 0 10px 0;
 }

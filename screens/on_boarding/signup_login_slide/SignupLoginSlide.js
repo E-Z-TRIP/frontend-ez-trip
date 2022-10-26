@@ -1,41 +1,81 @@
-import { useDispatch } from 'react-redux';
-import { View, Text, ImageBackground, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, ImageBackground, SafeAreaView, Modal, TouchableOpacity } from 'react-native';
 import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
 import FadeContainer from '../../../components/fade_container/FadeContainer';
 import Logo from '../../../components/logo/Logo';
-import { useEffect } from 'react';
+import LoginForm from './forms/loginForm';
+import { useEffect, useState } from 'react';
 
-export default function SignupLogoinSlide({ isVisible, direction, progressPos }) {
+export default function SignupLogoinSlide({ direction, progressPos, slideLength }) {
   const { onBoarding } = useTheme();
+  const [isVisible, setIsVisible] = useState(false);
+  const [forms, setForms] = useState({ login: false, signUp: false });
+
+  useEffect(() => {
+    if (progressPos === slideLength) {
+      const timeout = setTimeout(() => setIsVisible(true), 100);
+      return () => clearTimeout(timeout);
+    }
+    setIsVisible(false);
+  }, [progressPos]);
+
+  const openForm = (form) => {
+    let updatedForms = forms;
+    Object.keys(updatedForms).forEach((key) => {
+      key !== form ? (updatedForms[key] = false) : null;
+    });
+    updatedForms[form] = true;
+    setForms(() => updatedForms);
+  };
 
   return (
-    <FadeContainer style={styles.slideContainer} isVisible={true} speed={200}>
-      <Logo containerStyle={styles.logoContainer} color={onBoarding.header} size={100} />
-      <View style={styles.formBtnsContainer}>
-        <FormBtn text='Login / Sign up' />
-        <BtnsDivider />
-        <View style={styles.alternativesContainer}>
-          <FormBtn style={{ marginBottom: 10 }} text='Sign in with Google' />
-          <FormBtn text='Sign in with Facebook' />
+    <>
+      <FadeContainer style={styles.slideContainer} isVisible={isVisible} speed={600}>
+        <Logo containerStyle={styles.logoContainer} color={onBoarding.header} size={100} />
+        <View style={styles.formBtnsContainer}>
+          <View style={styles.btnsWrapper}>
+            <FormBtn
+              style={{ backgroundColor: onBoarding.signupBtn }}
+              txtColor={onBoarding.signupBtnTxt}
+              text='Sign up'
+              onPress={() => openForm('signUp')}
+            />
+            <FormBtn
+              style={{ ...styles.bottomBtn, backgroundColor: onBoarding.loginBtn }}
+              txtColor={onBoarding.loginBtnTxt}
+              text='Login'
+              onPress={() => openForm('login')}
+            />
+          </View>
+          <BtnsDivider />
+          <View style={styles.btnsWrapper}>
+            <FormBtn
+              style={{ backgroundColor: onBoarding.alternativeBtn }}
+              txtColor={onBoarding.alternativeBtnTxt}
+              text='Sign in with Google'
+            />
+            <FormBtn
+              style={{ ...styles.bottomBtn, backgroundColor: onBoarding.alternativeBtn }}
+              txtColor={onBoarding.alternativeBtnTxt}
+              text='Sign in with Facebook'
+            />
+          </View>
         </View>
-      </View>
-      <View style={styles.bottomContainer}>
-        <SeeCatalogBtn />
-      </View>
-    </FadeContainer>
+        <View style={styles.bottomContainer}>
+          <SeeCatalogBtn />
+        </View>
+      </FadeContainer>
+      <Modal presentationStyle='overFullScreen' statusBarTranslucent={true} transparent={true}>
+        <LoginForm />
+      </Modal>
+    </>
   );
 }
 
-function FormBtn({ style, text, onPress }) {
-  const { onBoarding } = useTheme();
-
+function FormBtn({ style, text, onPress, txtColor }) {
   return (
-    <TouchableOpacity
-      style={{ ...styles.btn, backgroundColor: onBoarding.signupLoginBtn, ...style }}
-      onPress={onPress}
-      activeOpacity={0.8}>
-      <Text style={{ ...styles.btnTxt, color: onBoarding.signupLoginBtnTxt }}>{text}</Text>
+    <TouchableOpacity style={{ ...styles.btn, ...style }} onPress={onPress} activeOpacity={0.8}>
+      <Text style={{ ...styles.btnTxt, color: txtColor }}>{text}</Text>
     </TouchableOpacity>
   );
 }
@@ -44,7 +84,7 @@ function SeeCatalogBtn({ onPress }) {
   const { onBoarding } = useTheme();
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity style={styles.seeCatalogBtn} onPress={onPress}>
       <Text style={{ ...styles.seeCatalogTxt, color: onBoarding.seeCatalogTxt }}>See the catalog</Text>
     </TouchableOpacity>
   );

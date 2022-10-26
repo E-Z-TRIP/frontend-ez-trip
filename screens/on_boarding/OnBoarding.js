@@ -9,7 +9,8 @@ import SwipeContainer from '../../components/swipe_container/SwipeContainer';
 import SwipeArrow from '../../components/icons/SwipeArrow';
 import FadeContainer from '../../components/fade_container/FadeContainer';
 import HorizontalSlideContainer from '../../components/horizontal_slide_container/HorizontalSlideContainer';
-import SignupSlide from './signup_slide/SignupSlide';
+import SignupLoginSlide from './signup_login_slide/SignupLoginSlide';
+import Logo from '../../components/logo/Logo';
 
 export default function OnBoarding({ navigation }) {
   const loadedFonts = loadFonts();
@@ -17,7 +18,7 @@ export default function OnBoarding({ navigation }) {
   const animationSpeed = 250;
   const [progress, setProgress] = useState(1);
   const [direction, setDirection] = useState({ direction: false });
-  const slides = [TitleSlide, SecondSlide, ThirdSlide, FourthSlide, SignupSlide];
+  const slides = [TitleSlide, SecondSlide, ThirdSlide, FourthSlide, SignupLoginSlide];
 
   useEffect(() => {
     if (!direction.direction) return;
@@ -70,8 +71,7 @@ function TitleSlide(props) {
 
   return (
     <View {...props} style={styles.slideContainer}>
-      <Text style={{ ...styles.headerText, color: onBoarding.header }}>EZ</Text>
-      <Text style={{ ...styles.headerText, color: onBoarding.header }}>TRIPS</Text>
+      <Logo color={onBoarding.header} size={100} />
     </View>
   );
 }

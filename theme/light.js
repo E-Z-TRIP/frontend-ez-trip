@@ -29,11 +29,13 @@ export default class LightTheme {
     header: this.theme.gs7,
     text: this.theme.gs7,
     welcomeTxt: this.theme.gs7,
+    seeCatalogTxt: this.theme.gs7,
+    signupLoginBtn: this.theme.pa1,
+    signupLoginBtnTxt: this.theme.gs7,
     icon: this.theme.gs7,
     progressBarPos: this.theme.pa2,
     progressBarBg: this.theme.gs7,
-    nextBtn: this.theme.pa1,
-    nextBtnTxt: this.theme.gs7,
+    signupLoginDividerBar: this.theme.gs7,
   };
 
   // @react-navigation/native

@@ -8,6 +8,8 @@ import Trip from '../../components/trip/trip';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { RangeSlider } from '@sharcoux/slider';
+import { getMonthName } from '../../assets/helpers';
+
 
 export default function Search({ navigation }) {
 ///////////////////////////////////////////////////////////REACT STATES////////////////////////////////////////////////////////////
@@ -38,12 +40,35 @@ export default function Search({ navigation }) {
     if (!loadedFonts) return <></>;
 
 ////////////////////////////////////////////////////////////////SEARCH RESULTS - FUNCTIONS////////////////////////////////////////////////////////////
-  
+let trips;
  //MAP TO DISPLAY ALL THE TRIPS
- const trips = tripsData.map((data, i) => {
-  return <Trip key={i} background={data.background} country= {data.country} name={data.name} price={data.program[0].price} start = {data.travelPeriod[0].start} end = {data.travelPeriod[0].end} />;
-  })
+ if(tripsData){
+  trips = tripsData.map((data, i) => {
+    let start = getMonthName(data.travelPeriod[0].start)
+      let end = getMonthName(data.travelPeriod[0].end)
+    return <Trip key={i} background={data.background} country= {data.country} name={data.name} price={data.program[0].price} start = {start} end = {end} />;
+    }) 
+ }
 
+
+  //HANDLE SEARCH WHEN BUTTON IS CLICKED
+
+  const handleSearch = () => {
+    //construit un objet regroupant tous les paramètres de filtres
+    let research={minBudget,maxBudget}
+    console.log(research);
+    //construit l'URL avec les query correspondants aux filtres
+    var url = new URL('http://192.168.1.96:3000/trips/filter');
+    Object.keys(research).forEach(key => url.searchParams.append(key, research[key]))
+    console.log(url)
+    //fetch avec l'URL personnalisé à la recherche
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        setTripsData(data.trips)
+        setModalVisible(false);
+      });
+  }
 
     ////////////////////////////////////////////////////////////MODAL FILTER - FUNCTIONS////////////////////////////////////////////////////////////
     //gère l'incrémentation du filter Nb Travelers
@@ -74,11 +99,11 @@ export default function Search({ navigation }) {
             </View>  
         <View style = {styles.catalogue}>
             <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
-            <Text style= {styles.text}>XXX results</Text>
+            <Text style= {styles.text}>{tripsData.length} results</Text>
             <AntDesign name='filter' size={20} color='black' onPress={() => setModalVisible(!modalVisible)} />
             </View>
       <View style = {styles.tripContainer}>
-            {trips}
+            {tripsData? trips: <View></View>}
       </View>
       <Modal
         transparent={true}
@@ -149,6 +174,8 @@ export default function Search({ navigation }) {
             <View name="calendar" style = {{marginTop: 30}}>
                 <Text style={styles.filterText}>Departure dates</Text>
             </View>
+
+            <TouchableOpacity style={styles.btnSearch} onPress={() => handleSearch(minBudget, maxBudget, nbTravelers)}><Text style={styles.text}>Search results</Text></TouchableOpacity>
         </View>
 
       </Modal>

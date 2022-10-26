@@ -32,7 +32,7 @@ export default function Discover({ navigation }) {
 
   //MAP TO DISPLAY ALL THE TRIPS
   const trips = tripsData.map((data, i) => {
-    return <Trip key={i} background={data.background} name={data.name} price={data.program[0].price} start = {data.travelPeriod[0].start} end = {data.travelPeriod[0].end} />;
+    return <Trip key={i} background={data.background} country= {data.country} name={data.name} price={data.program[0].price} start = {data.travelPeriod[0].start} end = {data.travelPeriod[0].end} />;
     })
 
   //FINAL RETURN

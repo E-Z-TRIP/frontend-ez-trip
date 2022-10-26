@@ -11,14 +11,17 @@ import { RangeSlider } from '@sharcoux/slider';
 
 export default function Search({ navigation }) {
 ///////////////////////////////////////////////////////////REACT STATES////////////////////////////////////////////////////////////
-
-    //fait apparaître / disparaître la Modal
+    //tous les trips récupérés par la route GET au chargement
+    const [tripsData, setTripsData] = useState([]);
+    //fait apparaître / disparaître la Modal Filtres
     const [modalVisible, setModalVisible] = useState(false);
-    //écoute le slider Budget dans les filtres
+    //input Text haut de page
+    const [searchInput, setSearchInput] = useState('')
+    //Tous les inputs de la Modal filtres
     const [minBudget, setMinBudget] = useState(0);
     const [maxBudget, setMaxBudget] = useState(15000);
     const [nbTravelers, setnbTravelers] = useState(1);
-    const [tripsData, setTripsData] = useState([]);
+    
 
     //GET ALL THE TRIPS WHEN LOADING THE SCREEN
   useEffect(() => {
@@ -38,7 +41,7 @@ export default function Search({ navigation }) {
   
  //MAP TO DISPLAY ALL THE TRIPS
  const trips = tripsData.map((data, i) => {
-  return <Trip key={i} background={data.background} name={data.name} price={data.program[0].price} start = {data.travelPeriod[0].start} end = {data.travelPeriod[0].end} />;
+  return <Trip key={i} background={data.background} country= {data.country} name={data.name} price={data.program[0].price} start = {data.travelPeriod[0].start} end = {data.travelPeriod[0].end} />;
   })
 
 

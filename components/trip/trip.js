@@ -2,7 +2,7 @@ import { ImageBackground, TouchableOpacity, View, Text, StyleSheet } from 'react
 import styles from './styles.css';
 import { LinearGradient } from 'expo-linear-gradient';
 import perouImg from '../../assets/images/perou.jpeg';
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default function Trip(props) {
     // console.log("props", props.included)
@@ -11,12 +11,12 @@ export default function Trip(props) {
         <ImageBackground imageStyle={{ borderRadius: 15}} source={{uri: props.background}} style = {styles.imgbackground}>
         <LinearGradient 
         colors={['rgba(0,0,0,0.5)', 'transparent']}
-        style={{height : '33%', width : '100%', padding: 15, borderRadius: 15}}>
+        style={{height : '40%', width : '100%', padding: 15, borderRadius: 15}}>
         <View style = {styles.topInfos}>
             <Text style = {styles.title}>{props.name}</Text>
-            <Text style = {{fontFamily: 'txt', fontWeight: 'bold', color: 'white'}}>{props.country}</Text>
+            <AntDesign name='heart' size={18} color='white'/>
         </View>
-        
+        <Text style = {{fontFamily: 'txt', fontWeight: 'bold', color: 'white'}}>{props.country}</Text>
         </LinearGradient>
 
         <LinearGradient 

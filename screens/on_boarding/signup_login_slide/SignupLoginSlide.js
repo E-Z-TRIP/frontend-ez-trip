@@ -3,7 +3,7 @@ import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
 import FadeContainer from '../../../components/fade_container/FadeContainer';
 import Logo from '../../../components/logo/Logo';
-import LoginForm from './forms/loginForm';
+import LoginForm from './forms/LoginForm';
 import { useEffect, useState } from 'react';
 
 export default function SignupLogoinSlide({ direction, progressPos, slideLength }) {
@@ -25,7 +25,15 @@ export default function SignupLogoinSlide({ direction, progressPos, slideLength 
       key !== form ? (updatedForms[key] = false) : null;
     });
     updatedForms[form] = true;
-    setForms(() => updatedForms);
+    setForms({ ...updatedForms });
+  };
+
+  const resetForms = () => {
+    let updatedForms = forms;
+    Object.keys(updatedForms).forEach((key) => {
+      updatedForms[key] = false;
+    });
+    setForms({ ...updatedForms });
   };
 
   return (
@@ -65,8 +73,13 @@ export default function SignupLogoinSlide({ direction, progressPos, slideLength 
           <SeeCatalogBtn />
         </View>
       </FadeContainer>
-      <Modal presentationStyle='overFullScreen' statusBarTranslucent={true} transparent={true}>
-        <LoginForm />
+      <Modal
+        presentationStyle='overFullScreen'
+        statusBarTranslucent={true}
+        transparent={true}
+        visible={Object.values(forms).some((form) => form === true)}
+        animationType='fade'>
+        <LoginForm onClosePress={() => resetForms()} />
       </Modal>
     </>
   );

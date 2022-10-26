@@ -75,9 +75,9 @@ function TitleSlide(props) {
   const { onBoarding } = useTheme();
 
   return (
-    <View {...props} style={styles.slideContainer}>
+    <FadeContainer {...props} style={styles.slideContainer}>
       <Logo color={onBoarding.header} size={100} />
-    </View>
+    </FadeContainer>
   );
 }
 

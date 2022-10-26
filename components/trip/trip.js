@@ -2,30 +2,19 @@ import { ImageBackground, TouchableOpacity, View, Text, StyleSheet } from 'react
 import styles from './styles.css';
 import { LinearGradient } from 'expo-linear-gradient';
 import perouImg from '../../assets/images/perou.jpeg';
-import DropShadow from "react-native-drop-shadow";
 
 
-const style = StyleSheet.create({
-
-  shadowProp: {
-    shadowColor: '#17171',
-    shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.2,
-    shadowRadius: 1.5,
-  }
-})
-
-export default function Trip({}) {
+export default function Trip(props) {
+    // console.log("props", props.included)
     return (
       <View style={styles.container}>
-        <DropShadow style={style.shadowProp}>
-        <ImageBackground imageStyle={{ borderRadius: 15}} source={perouImg} style = {styles.imgbackground}>
+        <ImageBackground imageStyle={{ borderRadius: 15}} source={{uri: props.background}} style = {styles.imgbackground}>
         <LinearGradient 
         colors={['rgba(0,0,0,0.5)', 'transparent']}
         style={{height : '33%', width : '100%', padding: 15, borderRadius: 15}}>
         <View style = {styles.topInfos}>
-            <Text style = {styles.title}>Rainbow mountains</Text>
-            <Text style = {{fontFamily: 'txt', fontWeight: 'bold', color: 'white'}}>Peru</Text>
+            <Text style = {styles.title}>{props.name}</Text>
+            <Text style = {{fontFamily: 'txt', fontWeight: 'bold', color: 'white'}}>{props.country}</Text>
         </View>
         
         </LinearGradient>
@@ -36,13 +25,12 @@ export default function Trip({}) {
         end={[1, 0]}
         style={{height : '33%', width : '100%', padding: 15, borderRadius: 15}}>
         <View style= {styles.bottomInfo}>
-            <Text style = {styles.text}>from May to August</Text>
-            <Text style = {styles.text}>From 1200€</Text>
+            <Text style = {styles.text}>from {props.start} to {props.end}</Text>
+            <Text style = {styles.text}>From {props.price}€</Text>
         </View>
         </LinearGradient>
 
         </ImageBackground>
-        </DropShadow>
       </View>
     );
   }

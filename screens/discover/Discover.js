@@ -10,11 +10,32 @@ import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
+
 export default function Discover({ navigation }) {
-  const loadedFonts = loadFonts();
+ 
+  //STATE TO STORE ALL THE TRIPS TO DISPLAY
+  const [tripsData, setTripsData] = useState([]);
 
-  if (!loadedFonts) return <></>;
+ 
+  //GET ALL THE TRIPS WHEN LOADING THE SCREEN
+  useEffect(() => {
+    fetch('http://192.168.1.96:3000/trips')
+      .then(response => response.json())
+      .then(data => {
+        setTripsData(data.trips);
+      });
+  }, []);
 
+   //MAKE SURE THE FONTS ARE LOADED
+   const loadedFonts = loadFonts();
+   if (!loadedFonts) return <></>;
+
+  //MAP TO DISPLAY ALL THE TRIPS
+  const trips = tripsData.map((data, i) => {
+    return <Trip key={i} background={data.background} name={data.name} price={data.program[0].price} start = {data.travelPeriod[0].start} end = {data.travelPeriod[0].end} />;
+    })
+
+  //FINAL RETURN
   return (
     <View style ={{flex: 1}}>
       <ScrollView style ={styles.scrollView}>
@@ -34,8 +55,7 @@ export default function Discover({ navigation }) {
       <Text style= {styles.text}>Our recommendations</Text>
     <View style = {styles.tripContainer}>
       <Trip></Trip>
-      <Trip></Trip>
-      <Trip></Trip>
+      {trips}
     </View>
       </View>
       </View>

@@ -10,19 +10,43 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { RangeSlider } from '@sharcoux/slider';
 
 export default function Search({ navigation }) {
-    const loadedFonts = loadFonts();
-    const dispatch = useDispatch(); 
+///////////////////////////////////////////////////////////REACT STATES////////////////////////////////////////////////////////////
+
     //fait apparaître / disparaître la Modal
     const [modalVisible, setModalVisible] = useState(false);
     //écoute le slider Budget dans les filtres
     const [minBudget, setMinBudget] = useState(0);
     const [maxBudget, setMaxBudget] = useState(15000);
     const [nbTravelers, setnbTravelers] = useState(1);
+    const [tripsData, setTripsData] = useState([]);
 
+    //GET ALL THE TRIPS WHEN LOADING THE SCREEN
+  useEffect(() => {
+    fetch('http://192.168.1.96:3000/trips')
+      .then(response => response.json())
+      .then(data => {
+        setTripsData(data.trips);
+      });
+  }, []);
+
+    //S'assure que la police est bien chargée
+    const dispatch = useDispatch(); 
+    const loadedFonts = loadFonts();
+    if (!loadedFonts) return <></>;
+
+////////////////////////////////////////////////////////////////SEARCH RESULTS - FUNCTIONS////////////////////////////////////////////////////////////
+  
+ //MAP TO DISPLAY ALL THE TRIPS
+ const trips = tripsData.map((data, i) => {
+  return <Trip key={i} background={data.background} name={data.name} price={data.program[0].price} start = {data.travelPeriod[0].start} end = {data.travelPeriod[0].end} />;
+  })
+
+
+    ////////////////////////////////////////////////////////////MODAL FILTER - FUNCTIONS////////////////////////////////////////////////////////////
+    //gère l'incrémentation du filter Nb Travelers
     const increment = () => setnbTravelers(c => c + 1);
     const decrement = () => nbTravelers > 1 ? setnbTravelers(c => c - 1) : false;
 
-    if (!loadedFonts) return <></>;
 
     //petite fonction qui s'exécute quand le slider Budget est bougé
     const budgetChange = (value) => {
@@ -51,9 +75,7 @@ export default function Search({ navigation }) {
             <AntDesign name='filter' size={20} color='black' onPress={() => setModalVisible(!modalVisible)} />
             </View>
       <View style = {styles.tripContainer}>
-            <Trip></Trip>
-            <Trip></Trip>
-            <Trip></Trip>
+            {trips}
       </View>
       <Modal
         transparent={true}

@@ -10,34 +10,45 @@ import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { getMonthName } from '../../assets/helpers';
 import {addIP} from '../../reducers/IPAddress';
-// import * as Network from 'expo-network';
+import {addFavorites, setFavorites} from '../../reducers/user';
+
+import * as Network from 'expo-network';
 
 
 export default function Discover({ navigation }) {
  
   const dispatch = useDispatch();
-  // const API_ADDRESS=useSelector((state) => state.IPAdress.value);
+  const API_ADDRESS=useSelector((state) => state.IPAdress.value);
   //STATE TO STORE ALL THE TRIPS TO DISPLAY
   const [tripsData, setTripsData] = useState([]);
-
+  const TOKEN = "R1jjTe76KxKzzYm3Hs2w5of88DyxZZoP"
  
-  //GET ALL THE TRIPS WHEN LOADING THE SCREEN + IP ADDRESS
+  //GET ALL THE TRIPS WHEN LOADING THE SCREEN + IP ADDRESS + FAVORITES OF THE USER
   useEffect(() => {
     //GET THE IP ADDRESS
-    // const getIP = async() => {
-    //   const IP = await Network.getIpAddressAsync();
-    //   dispatch(addIP(IP.slice(0,10)))
-    //   console.log(IP.slice(0,10))
-    // }
-    // getIP();
-    // console.log(API_ADDRESS)
-    fetch(`http://192.168.1.96:3000/trips`)
+    const getIP = async() => {
+      const IP = await Network.getIpAddressAsync();
+      dispatch(addIP(IP.slice(0,10)))
+      console.log(IP.slice(0,10))
+    }
+    getIP();
+    console.log(API_ADDRESS)
+
+    //GET ALL THE TRIPS
+    fetch(`http://${API_ADDRESS}96:3000/trips`)
       .then(response => response.json())
       .then(data => {
         setTripsData(data.trips);
       });
+
+    //SAVE ALL THE FAVORITES IN THE REDUCER
+    fetch(`http://${API_ADDRESS}96:3000/users/like/token=${TOKEN}`)
+    .then(response => response.json())
+    .then(data => {
+      dispatch(setFavorites(data.tripsLiked))
+    });
   }, []);
-//192.168.1.96:3000/trips
+
    //MAKE SURE THE FONTS ARE LOADED
    const loadedFonts = loadFonts();
    if (!loadedFonts) return <></>;
@@ -47,8 +58,7 @@ export default function Discover({ navigation }) {
     //convert number into month's names
     let start = getMonthName(data.travelPeriod[0].start)
     let end = getMonthName(data.travelPeriod[0].end)
-
-    return <Trip key={i} background={data.background} country= {data.country} name={data.name} price={data.program[0].price} start = {start} end = {end} />;
+    return <Trip key={i} id={data.id} background={data.background} country= {data.country} name={data.name} price={data.program[0].price} start = {start} end = {end} />;
     })
 
   //FINAL RETURN

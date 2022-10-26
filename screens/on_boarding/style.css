@@ -12,15 +12,36 @@
   align-items: center;
   width: 100%;
 }
+.slideContainer {
+  align-items: center;
+  width: 100%;
+}
 .headerTextContainer {
   align-self: flex-start;
+  margin-top: 60;
   margin-left: 40;
 }
 .headerText {
   font-family: 'heading';
   font-size: 100;
 }
-.nextBtn {
+.bottomContainer {
+  flex-direction: row;
+  margin-top: auto;
+  width: 100%;
+  margin-bottom: 50;
+}
+.paddingBox {
+  flex: 1;
+  align-items: center;
+}
+.welcomeTxt {
+  flex: 1;
+  font-family: 'txt';
+  font-size: 18;
+  text-align: center;
+}
+.btn {
   margin-top: auto;
   justify-self: flex-end;
   align-items: center;
@@ -30,7 +51,7 @@
   margin-bottom: 40;
   border-radius: 25px;
 }
-.nextBtnTxt {
+.btnTxt {
   font-family: 'txt';
   font-size: 16;
 }

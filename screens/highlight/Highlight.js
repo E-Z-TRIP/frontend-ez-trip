@@ -10,7 +10,6 @@ import highlightImg from '../../assets/images/highlightImg.jpeg';
 
 export default function Highlight({ navigation }) {
   const loadedFonts = loadFonts();
-  const dispatch = useDispatch();
 
   if (!loadedFonts) return <></>;
 

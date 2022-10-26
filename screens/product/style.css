@@ -1,3 +1,4 @@
+/* LANDING PAGE */
 .scrollView {
      flex:1; 
     height: 100%;
@@ -45,9 +46,6 @@
 
 }
 
-.iconsHeader {
-}
-
 .recapTrip {
     background-color:rgba(255,255,255,0.8);
     margin-right: 10;
@@ -89,4 +87,78 @@
     font-size: 20;
     padding-right: 10;
     color: whitesmoke;
+}
+
+/* MODAL */
+.modal {
+    border: 2px solid blue;
+}
+.scrollViewModal {
+    padding-bottom: 70;
+}
+
+.caroussel {
+    background-color: bisque;
+    padding-top: 40;
+    height: 300px;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.headerModal {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 5;
+}
+
+.heartBoxModal {
+    margin-right: 12;
+    
+}
+.crossBoxModal {
+    margin-right: 12;
+    padding-top: 12;
+}
+.infoContainerModal {
+    flex-direction: row;
+
+}
+.flatListModal {
+    font-family: 'txt';
+    font-size: 14px;
+    padding-top: 5;
+    margin-left: 8;
+}
+.offeredByModal {
+    font-family: 'txt';
+    font-size: 14px;
+    padding-top: 5;
+    margin-right: 8;
+    margin-left: 2;
+}
+.smallTitle {
+    font-family: 'txtBold';
+    font-size: 14px;
+    padding-top: 12;
+    margin-top: 12;
+    margin-bottom: 5;
+    margin-left: 8;
+}
+.inclusModal {
+    font-family: 'txt';
+    font-size: 12px;
+    padding-top: 5;
+    margin-left: 8;
+    margin-right: 8;
+    text-align: justify;
+}
+.map {
+    flex:1;
+    position:relative;
+    top: 10;
+    left: 10;
+    bottom: 10;
+    right: 10;
+    height: 300;
+    width:300;
 }

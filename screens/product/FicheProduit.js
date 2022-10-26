@@ -11,7 +11,7 @@ import Cross from '../../components/icons/cross'
 import Scroll from '../../components/icons/scrollDown';
 
 
-export default function FicheProduit({ }) {
+export default function FicheProduit(props) {
   const loadedFonts = loadFonts();
   const dispatch = useDispatch();
   const [progress, setProgress] = useState(1);
@@ -20,7 +20,7 @@ export default function FicheProduit({ }) {
   if (!loadedFonts) return <></>;
 
   return (
-        <View style ={styles.scrollView } fillViewport={true}>
+        <View style ={styles.scrollView }>
 
         <ImageBackground style = {styles.landing} source={image} resizeMode='cover' >
           <View style= {styles.header}>

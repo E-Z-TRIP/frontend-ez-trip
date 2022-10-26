@@ -113,12 +113,13 @@ let trips;
           setModalVisible(!modalVisible);
         }}>
         <View style={styles.modal}>
-            <View name="firstSection" style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
+            <View name="headerFilter" style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
                 <Text style={{fontFamily:'txt', fontSize: 24}}>Filters</Text>
                 <AntDesign name='close' size={30} color='black' onPress={() => setModalVisible(!modalVisible)}/>
             </View>
 
-            <View name="secondSection" style = {{marginTop: 40}}>
+            <View name="filters" style = {{marginTop: 40}}>
+              <View name="sectionBudget"> 
                 <Text style={styles.filterText}>Budget</Text>
                 <View name="sectionContent" style={{flexDirection: 'row', justifyContent:'space-between'}}>
                     <View name="field">
@@ -130,6 +131,8 @@ let trips;
                         <TextInput placeholder="15 000">{maxBudget}</TextInput>
                     </View>      
                 </View>
+              
+                
 
             <View>
 
@@ -160,6 +163,7 @@ let trips;
                 onSlidingComplete={undefined}     // Called when the press is released. The type is (range: [number, number]) => void             
                 />
           </View>
+          </View>
             </View>
 
             <View name="travelersSection" style = {{marginTop: 30, height: 50, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
@@ -171,8 +175,13 @@ let trips;
                     </View>
                 </View>
 
-            <View name="calendar" style = {{marginTop: 30}}>
+            <View name="calendarSection" style = {{marginTop: 30, height: 50}}>
                 <Text style={styles.filterText}>Departure dates</Text>
+            </View>
+
+            <View name="tagsSection" style = {{marginTop: 30}}>
+                <Text style={styles.filterText}>What are you looking for?</Text>
+                <TextInput placeholder="search tags" style={{marginTop: 5, width: '70%', borderBottomColor: 'darkgrey', borderBottomWidth: 1, height:25}}></TextInput>
             </View>
 
             <TouchableOpacity style={styles.btnSearch} onPress={() => handleSearch(minBudget, maxBudget, nbTravelers)}><Text style={styles.text}>Search results</Text></TouchableOpacity>

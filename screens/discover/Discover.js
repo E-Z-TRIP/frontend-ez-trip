@@ -1,7 +1,7 @@
 import { SafeAreaView, View, Text, ImageBackground, TouchableOpacity, SliderBase } from 'react-native';
 import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadFonts } from '../../assets/fonts/fonts';
 import { useState, useEffect } from 'react';
 import Highlight from '../highlight/Highlight';
@@ -9,29 +9,43 @@ import Trip from '../../components/trip/trip';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { getMonthName } from '../../assets/helpers';
+import {addIP} from '../../reducers/IPAddress';
+import * as Network from 'expo-network';
+import { set } from 'react-native-reanimated';
 
 
 export default function Discover({ navigation }) {
  
+  const dispatch = useDispatch();
+  const API_ADDRESS=useSelector((state) => state.IPAdress.value);
   //STATE TO STORE ALL THE TRIPS TO DISPLAY
   const [tripsData, setTripsData] = useState([]);
 
  
-  //GET ALL THE TRIPS WHEN LOADING THE SCREEN
+  //GET ALL THE TRIPS WHEN LOADING THE SCREEN + IP ADDRESS
   useEffect(() => {
-    fetch('http://192.168.1.96:3000/trips')
+    //GET THE IP ADDRESS
+    const getIP = async() => {
+      const IP = await Network.getIpAddressAsync();
+      dispatch(addIP(IP.slice(0,10)))
+      console.log(IP.slice(0,10))
+    }
+    getIP();
+    console.log(API_ADDRESS)
+    fetch(`http://${API_ADDRESS}96:3000/trips`)
       .then(response => response.json())
       .then(data => {
         setTripsData(data.trips);
       });
   }, []);
-
+//192.168.1.96:3000/trips
    //MAKE SURE THE FONTS ARE LOADED
    const loadedFonts = loadFonts();
    if (!loadedFonts) return <></>;
 
   //MAP TO DISPLAY ALL THE TRIPS
   const trips = tripsData.map((data, i) => {
+    //convert number into month's names
     let start = getMonthName(data.travelPeriod[0].start)
     let end = getMonthName(data.travelPeriod[0].end)
 

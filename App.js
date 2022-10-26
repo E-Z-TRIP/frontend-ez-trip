@@ -3,6 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Discover from './screens/discover/Discover';
 import Search from './screens/search/Search';
+import Product from './screens/product/FicheProduit';
+
 import OnBoarding from './screens/on_boarding/OnBoarding';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { lightTheme, darkTheme } from './theme/theme';
@@ -36,6 +38,7 @@ function App() {
           {/* <Stack.Screen name='OnBoarding' component={OnBoarding} /> */}
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name="Search" component={Search} />
+          <Stack.Screen name="Trip" component={Product} />
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

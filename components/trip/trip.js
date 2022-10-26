@@ -36,7 +36,7 @@ export default function Trip({}) {
         end={[1, 0]}
         style={{height : '33%', width : '100%', padding: 15, borderRadius: 15}}>
         <View style= {styles.bottomInfo}>
-            <Text style = {styles.text}>from May to August</Text>
+            <Text style = {styles.text}>From May to August</Text>
             <Text style = {styles.text}>From 1200€</Text>
         </View>
         </LinearGradient>

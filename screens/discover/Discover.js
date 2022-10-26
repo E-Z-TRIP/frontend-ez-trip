@@ -10,14 +10,13 @@ import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { getMonthName } from '../../assets/helpers';
 import {addIP} from '../../reducers/IPAddress';
-import * as Network from 'expo-network';
-import { set } from 'react-native-reanimated';
+// import * as Network from 'expo-network';
 
 
 export default function Discover({ navigation }) {
  
   const dispatch = useDispatch();
-  const API_ADDRESS=useSelector((state) => state.IPAdress.value);
+  // const API_ADDRESS=useSelector((state) => state.IPAdress.value);
   //STATE TO STORE ALL THE TRIPS TO DISPLAY
   const [tripsData, setTripsData] = useState([]);
 
@@ -25,14 +24,14 @@ export default function Discover({ navigation }) {
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN + IP ADDRESS
   useEffect(() => {
     //GET THE IP ADDRESS
-    const getIP = async() => {
-      const IP = await Network.getIpAddressAsync();
-      dispatch(addIP(IP.slice(0,10)))
-      console.log(IP.slice(0,10))
-    }
-    getIP();
-    console.log(API_ADDRESS)
-    fetch(`http://${API_ADDRESS}96:3000/trips`)
+    // const getIP = async() => {
+    //   const IP = await Network.getIpAddressAsync();
+    //   dispatch(addIP(IP.slice(0,10)))
+    //   console.log(IP.slice(0,10))
+    // }
+    // getIP();
+    // console.log(API_ADDRESS)
+    fetch(`http://192.168.1.96:3000/trips`)
       .then(response => response.json())
       .then(data => {
         setTripsData(data.trips);

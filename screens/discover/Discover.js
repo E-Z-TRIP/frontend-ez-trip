@@ -8,7 +8,7 @@ import Highlight from '../highlight/Highlight';
 import Trip from '../../components/trip/trip';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import { getMonthName } from '../../assets/helpers';
 
 
 export default function Discover({ navigation }) {
@@ -32,7 +32,10 @@ export default function Discover({ navigation }) {
 
   //MAP TO DISPLAY ALL THE TRIPS
   const trips = tripsData.map((data, i) => {
-    return <Trip key={i} background={data.background} country= {data.country} name={data.name} price={data.program[0].price} start = {data.travelPeriod[0].start} end = {data.travelPeriod[0].end} />;
+    let start = getMonthName(data.travelPeriod[0].start)
+    let end = getMonthName(data.travelPeriod[0].end)
+
+    return <Trip key={i} background={data.background} country= {data.country} name={data.name} price={data.program[0].price} start = {start} end = {end} />;
     })
 
   //FINAL RETURN
@@ -54,7 +57,6 @@ export default function Discover({ navigation }) {
       <View style = {styles.catalogue}>
       <Text style= {styles.text}>Our recommendations</Text>
     <View style = {styles.tripContainer}>
-      <Trip></Trip>
       {trips}
     </View>
       </View>

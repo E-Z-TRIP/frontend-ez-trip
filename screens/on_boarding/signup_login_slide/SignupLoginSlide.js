@@ -70,7 +70,7 @@ export default function SignupLogoinSlide({ direction, progressPos, slideLength,
           </View>
         </View>
         <View style={styles.bottomContainer}>
-          <SeeCatalogBtn onPress={navigation.navigate('Discover')} />
+          <SeeCatalogBtn onPress={() => navigation.navigate('Discover')} />
         </View>
       </FadeContainer>
       <Modal

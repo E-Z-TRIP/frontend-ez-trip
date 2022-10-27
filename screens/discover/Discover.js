@@ -23,7 +23,7 @@ export default function Discover({ navigation }) {
   const [tripsData, setTripsData] = useState([]);
   const TOKEN = "R1jjTe76KxKzzYm3Hs2w5of88DyxZZoP"
  
-  //GET ALL THE TRIPS WHEN LOADING THE SCREEN + IP ADDRESS + FAVORITES OF THE USER
+  //GET ALL THE TRIPS WHEN LOADING THE SCREEN + IP ADDRESS + FAVORITES OF THE USER 
   useEffect(() => {
     //GET THE IP ADDRESS
     const getIP = async() => {
@@ -35,14 +35,14 @@ export default function Discover({ navigation }) {
     console.log(API_ADDRESS)
 
     //GET ALL THE TRIPS
-    fetch(`http://${API_ADDRESS}96:3000/trips`)
+    fetch(`http://192.168.10.121:3000/trips`)
       .then(response => response.json())
       .then(data => {
         setTripsData(data.trips);
       });
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
-    fetch(`http://${API_ADDRESS}96:3000/users/like/token=${TOKEN}`)
+    fetch(`http://192.168.10.121:3000/users/like/token=${TOKEN}`)
     .then(response => response.json())
     .then(data => {
       dispatch(setFavorites(data.tripsLiked))

@@ -1,4 +1,4 @@
-import { SafeAreaView, View, FlatList, Text, ImageBackground, TouchableOpacity, Modal} from 'react-native';
+import {ListHeaderComponent, ListFooterComponent, SafeAreaView, View, FlatList, Text, ImageBackground, TouchableOpacity, Modal} from 'react-native';
 import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
@@ -84,7 +84,7 @@ export default function ProductScreen() {
         }}>
 
           <View  style={styles.modal}>
-              <ScrollView style={styles.scrollViewModal} >
+              <ScrollView style={styles.scrollViewModal}>
             <View style={styles.caroussel}>
 
             <TouchableOpacity name='close'  

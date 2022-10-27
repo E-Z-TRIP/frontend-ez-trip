@@ -19,10 +19,10 @@ const user = createSlice({
     },
     setFavorites: (state, action) => {
       state.favorites = action.payload;
-    }
+    },
   },
 });
 
-export const { mountUser, addFavorites, setFavorites } = user.actions;
+export const { mountUser, dismountUser, addFavorites, setFavorites } = user.actions;
 export const selectUser = (state) => state.user.value;
 export default user.reducer;

@@ -30,7 +30,7 @@ export default function Trip(props) {
     
     // console.log("props", props.included)
     return (
-      <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Trip')}>
+      <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Product')}>
         <ImageBackground imageStyle={{ borderRadius: 15}} source={{uri: props.background}} style = {styles.imgbackground}>
         <LinearGradient 
         colors={['rgba(0,0,0,0.5)', 'transparent']}

@@ -23,8 +23,14 @@ export default function Discover({ navigation }) {
  
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN + IP ADDRESS + FAVORITES OF THE USER 
   useEffect(() => {
-   
-    console.log(API_ADDRESS);
+    //GET THE IP ADDRESS
+    // const getIP = async () => {
+    //   const IP = await Network.getIpAddressAsync();
+    //   dispatch(addIP(IP.slice(0, 10)));
+    //   console.log(IP);
+    // };
+    // getIP();
+    // console.log(API_ADDRESS);
 
     //GET ALL THE TRIPS
     fetch(`http://172.20.10.4:3000/trips`)

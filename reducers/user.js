@@ -16,6 +16,6 @@ const user = createSlice({
   },
 });
 
-export const { mountUser } = user.actions;
+export const { mountUser, dismountUser } = user.actions;
 export const selectUser = (state) => state.user.value;
 export default user.reducer;

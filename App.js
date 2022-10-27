@@ -33,6 +33,8 @@ function App() {
       <PersistGate persistor={persistor}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name='OnBoarding' component={OnBoarding} />
+          <Stack.Screen name='Discover' component={Discover} />
+          <Stack.Screen name='Search' component={Search} />
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

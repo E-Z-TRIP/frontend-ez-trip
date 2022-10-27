@@ -1,36 +1,28 @@
 import { View } from 'react-native';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
+import { mountUser } from '../../../../reducers/user';
 import Input from '../../../../components/form_elements/Input';
 import PasswordInput from '../../../../components/form_elements/PasswordInput';
 import SubmitBtn from '../../../../components/form_elements/SubmitBtn';
 import CloseBtn from '../../../../components/close_button/CloseButton';
-import { emailValidator, passwordValidator } from '../../../../lib/yupValidation';
 import { rnPaperTextInputTheme } from './sharedProps';
+import { postData } from '../../../../api/backend_request';
+import { HelperText } from 'react-native-paper';
 import styles from './style.css';
 
-const validationSchema = yup
-  .object({
-    email: emailValidator(),
-    password: passwordValidator(),
-  })
-  .required();
-
-export default function LoginForm({ onClosePress }) {
+export default function LoginForm({ onClosePress, navigation }) {
   const { onBoarding } = useTheme();
   const dispatch = useDispatch();
+  const [notFoundError, setNotFoundError] = useState(false);
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(validationSchema),
-  });
+  } = useForm();
 
   return (
     <View style={{ ...styles.modalInnerContainer, backgroundColor: onBoarding.formModalBackground }}>
@@ -52,12 +44,14 @@ export default function LoginForm({ onClosePress }) {
             (() => {
               const type = errors.email.type;
               if (type === 'required') return 'Email is required';
-              if (type === 'matches') return 'Invalid email';
             })()
           }
           wrapperStyle={styles.inputWrapper}
           inputStyle={styles.input}
           defaultStyleOverides={rnPaperTextInputTheme()}
+          rules={{
+            required: true,
+          }}
         />
         <PasswordInput
           name='password'
@@ -69,7 +63,6 @@ export default function LoginForm({ onClosePress }) {
             (() => {
               const type = errors.password.type;
               if (type === 'required') return 'Password is required';
-              if (type === 'matches') return 'Invalid password';
             })()
           }
           wrapperStyle={styles.inputWrapper}
@@ -80,9 +73,21 @@ export default function LoginForm({ onClosePress }) {
             required: true,
           }}
         />
+        <HelperText type='error' visible={true}>
+          {notFoundError && 'User not found'}
+        </HelperText>
         <SubmitBtn
           text='Login'
-          onSubmit={() => handleSubmit(() => {})}
+          onSubmit={() =>
+            handleSubmit(async (formData) => {
+              const res = await postData('/users/signin', formData);
+              if (res.error) return setNotFoundError(true);
+              const { firstName, lastName, email, token } = res;
+              dispatch(mountUser({ firstName, lastName, email, token }));
+              setNotFoundError(false);
+              navigation.navigate('Discover');
+            })
+          }
           activeOpacity={0.8}
           btnStyle={{ ...styles.submitBtn, backgroundColor: onBoarding.submitBtn }}
           textStyle={{ ...styles.submitBtnText, color: onBoarding.submitBtnText }}

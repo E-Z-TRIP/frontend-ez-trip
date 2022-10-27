@@ -6,7 +6,7 @@ import Logo from '../../../components/logo/Logo';
 import LoginForm from './forms/LoginForm';
 import { useEffect, useState } from 'react';
 
-export default function SignupLogoinSlide({ direction, progressPos, slideLength }) {
+export default function SignupLogoinSlide({ direction, progressPos, slideLength, navigation }) {
   const { onBoarding } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
   const [forms, setForms] = useState({ login: false, signUp: false });
@@ -70,7 +70,7 @@ export default function SignupLogoinSlide({ direction, progressPos, slideLength 
           </View>
         </View>
         <View style={styles.bottomContainer}>
-          <SeeCatalogBtn />
+          <SeeCatalogBtn onPress={navigation.navigate('Discover')} />
         </View>
       </FadeContainer>
       <Modal
@@ -79,7 +79,7 @@ export default function SignupLogoinSlide({ direction, progressPos, slideLength 
         transparent={true}
         visible={Object.values(forms).some((form) => form === true)}
         animationType='fade'>
-        <LoginForm onClosePress={() => resetForms()} />
+        <LoginForm onClosePress={() => resetForms()} navigation={navigation} />
       </Modal>
     </>
   );

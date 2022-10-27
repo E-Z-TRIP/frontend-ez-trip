@@ -48,6 +48,7 @@ export default function OnBoarding({ navigation }) {
                     direction={direction}
                     progressPos={progress}
                     slideLength={slides.length}
+                    navigation={navigation}
                   />
                 </View>
               );

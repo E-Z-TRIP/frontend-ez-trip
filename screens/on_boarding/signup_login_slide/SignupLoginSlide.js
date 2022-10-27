@@ -1,9 +1,10 @@
-import { View, Text, ImageBackground, SafeAreaView, Modal, TouchableOpacity } from 'react-native';
+import { View, Text, Modal, TouchableOpacity } from 'react-native';
 import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
 import FadeContainer from '../../../components/fade_container/FadeContainer';
 import Logo from '../../../components/logo/Logo';
 import LoginForm from './forms/LoginForm';
+import SignUpForm from './forms/SignUpForm';
 import { useEffect, useState } from 'react';
 
 export default function SignupLogoinSlide({ direction, progressPos, slideLength, navigation }) {
@@ -79,7 +80,13 @@ export default function SignupLogoinSlide({ direction, progressPos, slideLength,
         transparent={true}
         visible={Object.values(forms).some((form) => form === true)}
         animationType='fade'>
-        <LoginForm onClosePress={() => resetForms()} navigation={navigation} />
+        {forms.login ? (
+          <LoginForm onClosePress={() => resetForms()} navigation={navigation} />
+        ) : forms.signUp ? (
+          <SignUpForm onClosePress={() => resetForms()} openForm={openForm} />
+        ) : (
+          <></>
+        )}
       </Modal>
     </>
   );

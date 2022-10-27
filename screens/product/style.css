@@ -84,7 +84,7 @@
     margin-bottom: 25;
 }
 .textDetail {
-    font-family: 'txt';
+    font-family: "txt";
     font-size: 20;
     padding-right: 10;
     color: whitesmoke;
@@ -93,7 +93,7 @@
 /* MODAL */
 .modal {
     border-width: 2px;
-    border-color: blue;
+    
 }
 .scrollViewModal {
     padding-bottom: 70;
@@ -109,6 +109,7 @@
 }
 
 .headerModal {
+    /* margin-top: 90; */
     flex-direction: row;
     justify-content: space-between;
     padding-top: 5;
@@ -127,20 +128,20 @@
 
 }
 .flatListModal {
-    font-family: 'txt';
+    font-family: "txt";
     font-size: 14px;
     padding-top: 5;
     margin-left: 8;
 }
 .offeredByModal {
-    font-family: 'txt';
+    font-family: "txt";
     font-size: 14;
     padding-top: 5;
     margin-right: 8;
     margin-left: 2;
 }
 .smallTitle {
-    font-family: 'txtBold';
+    font-family: "txtBold";
     font-size: 14;
     padding-top: 12;
     margin-top: 12;
@@ -148,7 +149,7 @@
     margin-left: 8;
 }
 .inclusModal {
-    font-family: 'txt';
+    font-family: "txt";
     font-size: 12;
     padding-top: 5;
     margin-left: 8;
@@ -170,12 +171,56 @@
 }
 
 .nbDaysModal{
-background-color: aqua;
  padding-top: 5;
- padding-right: 5;
+ padding-right: 8;
  padding-bottom: 5;
- padding-left: 5;
+ padding-left: 8;
  margin-left: 12;
  margin-right: 12;
  border-radius: 15px;
+ border: 1px solid black;
+
+}
+.tagsContainer{
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.tagsModal {
+    padding-top: 5;
+    padding-right: 8;
+    padding-bottom: 5;
+    padding-left: 8;
+    margin-left: 12;
+    margin-top: 5;
+    border-radius: 15px;
+    border: 1px solid black;
+
+}
+.buttonsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15;
+}
+.quotationButton {
+    background-color: #C46B4D;
+    padding-top: 10;
+    padding-right: 20;
+    padding-bottom: 10;
+    padding-left: 20;
+    margin-bottom: 12;
+    border-radius: 3px;
+}
+
+.programButton {
+    
+    padding-top: 5;
+    padding-right: 8;
+    padding-bottom: 5;
+    padding-left: 8;
+
+}
+.buttonText {
+    font-family: "txt";
+    font-size: 16;   
 }

@@ -12,6 +12,7 @@ import { rnPaperTextInputTheme } from './sharedProps';
 import { postData } from '../../../../api/backend_request';
 import { HelperText } from 'react-native-paper';
 import styles from './style.css';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LoginForm({ onClosePress, navigation }) {
   const { onBoarding } = useTheme();

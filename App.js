@@ -14,7 +14,6 @@ import { setTheme, selectTheme } from './reducers/theme';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Quotation_Request from './screens/quotation_request/Quotation_Request';
-import Prout from './screens/quotation_request/Prout';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
@@ -50,6 +49,8 @@ function App() {
           {(store.getState()?.user?.value?.token && <></>) || <Stack.Screen name='OnBoarding' component={OnBoarding} />}
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
+          <Stack.Screen name='Product' component={ProductScreen} />
+
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

@@ -14,10 +14,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@hookform/resolvers": "^2.9.10",
-=======
->>>>>>> 1b0ec2577332c127fb1aa8d48ee5ca732568589e
     "@expo/webpack-config": "^0.17.0",
     "@react-native-async-storage/async-storage": "^1.17.10",
     "@react-native-community/datetimepicker": "6.2.0",
@@ -48,11 +45,7 @@
     "react-native-web": "~0.18.7",
     "react-redux": "^8.0.4",
     "redux-persist": "^6.0.0",
-<<<<<<< HEAD
     "yup": "^0.32.11"
-=======
-    "rnv-date-range-picker": "^1.2.6"
->>>>>>> 1b0ec2577332c127fb1aa8d48ee5ca732568589e
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

@@ -38,7 +38,7 @@ function App() {
           {/* <Stack.Screen name='OnBoarding' component={OnBoarding} /> */}
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
-          {/* <Stack.Screen name='Product' component={ProductScreen}/> */}
+          <Stack.Screen name='Product' component={ProductScreen}/>
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

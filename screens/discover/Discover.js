@@ -93,6 +93,7 @@ export default function Discover({ navigation }) {
 
           <View style={styles.catalogue}>
             <Text style={styles.text}>Our recommendations</Text>
+            {trips}
           </View>
         </View>
       </ScrollView>

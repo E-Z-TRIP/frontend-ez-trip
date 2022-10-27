@@ -3,7 +3,7 @@ import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
 import FadeContainer from '../../../components/fade_container/FadeContainer';
 import Logo from '../../../components/logo/Logo';
-import LoginForm from './forms/LoginForm';
+import LoginForm from './forms/loginForm';
 import { useEffect, useState } from 'react';
 
 export default function SignupLogoinSlide({ direction, progressPos, slideLength, navigation }) {

@@ -19,6 +19,9 @@ import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { RangeSlider } from '@sharcoux/slider';
 import { getMonthName } from '../../assets/helpers';
+import moment from 'moment';
+import DateRangePicker from 'rnv-date-range-picker';
+
 
 export default function Search({ navigation }) {
   ///////////////////////////////////////////////////////////REACT STATES////////////////////////////////////////////////////////////
@@ -32,6 +35,8 @@ export default function Search({ navigation }) {
   const [minBudget, setMinBudget] = useState(0);
   const [maxBudget, setMaxBudget] = useState(15000);
   const [nbTravelers, setnbTravelers] = useState(1);
+  const [selectedRange, setRange] = useState({});
+
 
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN
   useEffect(() => {
@@ -207,6 +212,16 @@ export default function Search({ navigation }) {
 
                 <View name='calendarSection' style={{ marginTop: 30, height: 50 }}>
                   <Text style={styles.filterText}>Departure dates</Text>
+                  <View style={styles.calendar}>
+                      <DateRangePicker
+                    onSelectDateRange={(range) => {
+                      setRange(range);
+                    }}
+                    responseFormat='YYYY-MM-DD'
+                    maxDate={moment()}
+                    minDate={moment().subtract(100, 'days')}
+                      />
+              </View>
                 </View>
 
                 <View name='tagsSection' style={{ marginTop: 30 }}>

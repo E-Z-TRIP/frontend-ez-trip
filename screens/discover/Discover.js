@@ -33,14 +33,14 @@ export default function Discover({ navigation }) {
     console.log(API_ADDRESS);
 
     //GET ALL THE TRIPS
-    fetch(`http://192.168.10.121:3000/trips`)
+    fetch(`http://172.20.10.3:3000/trips`)
       .then(response => response.json())
       .then(data => {
         setTripsData(data.trips);
       });
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
-    fetch(`http://192.168.10.121:3000/users/like/token=${TOKEN}`)
+    fetch(`http://172.20.10.3:3000/users/like/token=${TOKEN}`)
     .then(response => response.json())
     .then(data => {
       dispatch(setFavorites(data.tripsLiked))
@@ -52,23 +52,28 @@ export default function Discover({ navigation }) {
   if (!loadedFonts) return <></>;
 
   //MAP TO DISPLAY ALL THE TRIPS
-  const trips = tripsData.map((data, i) => {
-    //convert number into month's names
-    let start = getMonthName(data.travelPeriod[0].start);
-    let end = getMonthName(data.travelPeriod[0].end);
-    return (
-      <Trip
-        key={i}
-        id={data.id}
-        background={data.background}
-        country={data.country}
-        name={data.name}
-        price={data.program[0].price}
-        start={start}
-        end={end}
-      />
-    );
-  });
+  let trips;
+  if (tripsData) {
+    trips = tripsData.map((data, i) => {
+      console.log(data.travelPeriod)
+      //convert number into month's names
+      let start = getMonthName(data.travelPeriod[0].start);
+      let end = getMonthName(data.travelPeriod[0].end);
+      return (
+        <Trip
+          key={i}
+          id={data.id}
+          background={data.background}
+          country={data.country}
+          name={data.name}
+          price={data.program[0].price}
+          start={start}
+          end={end}
+        />
+      );
+    });
+  }
+  
 
   //FINAL RETURN
   return (

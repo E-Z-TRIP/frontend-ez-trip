@@ -32,6 +32,7 @@
 
 .text {
     font-family: 'txt';
+    
 }
 
 .border {
@@ -44,9 +45,6 @@
     align-self: center;
 }
 
-.tripContainer {
-   
-}
 
 .catalogue {
     flex: 1;

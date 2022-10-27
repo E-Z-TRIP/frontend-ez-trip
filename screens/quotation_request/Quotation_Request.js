@@ -15,13 +15,14 @@ import DateRangePicker from "rnv-date-range-picker";
 
 
 export default function Quotation_Request({ navigation }) {
-//     const loadedFonts = loadFonts();
+const [selectedRange, setRange] = useState({});
+const [nbTravelers, setnbTravelers] = useState(1);
 
-//   if (!loadedFonts) return <></>;
+const increment = () => setnbTravelers((c) => c + 1);
+const decrement = () => (nbTravelers > 1 ? setnbTravelers((c) => c - 1) : false);
 
-  const [selectedRange, setRange] = useState({});
- 
-
+const loadedFonts = loadFonts();
+if (!loadedFonts) return <></>;
   return (
     
     <View style ={{flex: 1}}>
@@ -37,16 +38,42 @@ export default function Quotation_Request({ navigation }) {
           <View style= {styles.header}>
             <View style={styles.text}>
               <Text style={styles.title}>Quotation request</Text>
-              <Text style= {styles.text}>Amazonie - EZ Trip</Text>
+              <Text style= {styles.texts}>Amazonie - EZ Trip</Text>
+              </View>
+            
+          
 
 
-            </View>
-            <View style = {styles.border}>
-            </View>
-          </View>
 
-<Text style= {styles.text}>Number of travelers</Text>
-<Text style= {styles.text}>Departure date</Text>
+<View
+                  name='travelersSection'
+                  style={{
+                    marginTop: 30,
+                    height: 50,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}>
+                  <Text style={styles.texts}>Number of travelers</Text>
+                  <View
+                    style={{
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      flexDirection: 'row',
+                      width: '20%',
+                    }}>
+                    <TouchableOpacity style={styles.button} title='Decrement' onPress={() => decrement()}>
+                      <Text style={{ textAlign: 'center', color: 'black' }}>-</Text>
+                    </TouchableOpacity>
+                    <Text>{nbTravelers}</Text>
+                    <TouchableOpacity style={styles.button} title='Increment' onPress={() => increment()}>
+                      <Text style={{ textAlign: 'center', color: 'black' }}>+</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+
+<Text style= {styles.texts}>Departure date</Text>
 
 <SafeAreaView>
       <View style={styles.container}>
@@ -59,11 +86,13 @@ export default function Quotation_Request({ navigation }) {
           minDate={moment().subtract(100, "days")}
         />
         <View style={styles.container}>
-          <Text>Departure: {selectedRange.firstDate}</Text>
-          <Text>Return: {selectedRange.secondDate}</Text>
+          
         </View>
       </View>
+      <Text>Departure: {selectedRange.firstDate}</Text>
+    <Text>Return: {selectedRange.secondDate}</Text>
     </SafeAreaView>
+    </View>
    
 
   <Text style= {styles.text}>Need to give us more infos ?</Text>    

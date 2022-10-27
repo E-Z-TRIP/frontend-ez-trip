@@ -1,10 +1,14 @@
 
+
+
+
 .container {
     padding: 25px;
     flex: 1;
     height: 100%;
     flex-direction: column; 
     justify-content: space-around;
+
 }
 
 .header {
@@ -23,12 +27,18 @@
     
 }
 
-.highlight {
-    flex: 1;
+.button {
+    height: 20px;
+    width: 20px;
+    border-radius: 3px;
+    border-color: black;
+    border-width: 1px;
 }
 
-.text {
-    font-family: 'txt';
+
+.texts {
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .border {
@@ -41,9 +51,7 @@
     align-self: center;
 }
 
-.tripContainer {
-   
-}
+
 
 .catalogue {
     flex: 1;

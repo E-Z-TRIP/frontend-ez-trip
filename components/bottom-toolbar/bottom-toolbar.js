@@ -4,7 +4,6 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
-// import DropShadow from "react-native-drop-shadow";
 
 export default function BottomToolbar() {
   // const style = StyleSheet.create({

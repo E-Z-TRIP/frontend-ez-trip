@@ -32,9 +32,10 @@ function App() {
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <PersistGate persistor={persistor}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name='OnBoarding' component={OnBoarding} />
+          {/* <Stack.Screen name='OnBoarding' component={OnBoarding} /> */}
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
+          {/* <Stack.Screen name='Product' component={ProductScreen}/> */}
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

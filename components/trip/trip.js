@@ -10,25 +10,30 @@ import { addFavorites } from '../../reducers/user';
 export default function Trip(props) {
   const dispatch = useDispatch();
   const TOKEN = "R1jjTe76KxKzzYm3Hs2w5of88DyxZZoP"
-    const navigation = useNavigation();
-    const favorites = useSelector((state) => state.user.favorites);
-    const isFavorite = false;
-    //favorites.some(favorite => favorite.id === props.id);
+  const navigation = useNavigation();
+  const favorites = useSelector((state) => state.user.favorites);
 
-  
     //function to add the trip to the tripsLiked user database + adding it to the reducer
     const handleLike = () => {
-      fetch(`http://192.168.10.121:3000/users/addlike/`, {
+      console.log('trip liked');
+      fetch(`http://192.168.131.88:3000/users/addlike`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ token: TOKEN, tripID: '6358edc49ced89a7026c3015' }),
+			body: JSON.stringify({ token: TOKEN, tripID: '6358edc49ced89a7026c3019' }),
 		}).then(response => response.json())
 			.then(data => {
-				dispatch(addFavorites(data))
+        if (data.result) {
+          console.log(data.tripLiked);
+          console.log('reducer favorite', favorites)
+          dispatch(addFavorites(data.tripLiked))
+        }
+        else {
+          console.log('no data from fetch'); 
+          console.log(data.error);
+        }
 			});
     }
     
-    // console.log("props", props.included)
     return (
       <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Product')}>
         <ImageBackground imageStyle={{ borderRadius: 15}} source={{uri: props.background}} style = {styles.imgbackground}>
@@ -37,7 +42,7 @@ export default function Trip(props) {
         style={{height : '40%', width : '100%', padding: 15, borderRadius: 15}}>
         <View style = {styles.topInfos}>
             <Text style = {styles.title}>{props.name}</Text>
-            <AntDesign name='heart' size={18}  color={isFavorite ? "yellow" : "white"} onPress={() => handleLike()}/>
+            <AntDesign name='heart' size={18}  color={props.isFavorite ? "#F5612F" : "white"} onPress={() => handleLike()}/>
         </View>
         <Text style = {{fontFamily: 'txt', fontWeight: 'bold', color: 'white'}}>{props.country}</Text>
         </LinearGradient>

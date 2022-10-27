@@ -35,7 +35,7 @@ export default function Search({ navigation }) {
 
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN
   useEffect(() => {
-    fetch('http://192.168.1.96:3000/trips')
+    fetch('http://192.168.131.88:3000/trips')
       .then((response) => response.json())
       .then((data) => {
         setTripsData(data.trips);

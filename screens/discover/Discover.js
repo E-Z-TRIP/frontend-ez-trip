@@ -4,6 +4,7 @@ import { useTheme } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadFonts } from '../../assets/fonts/fonts';
 import { useState, useEffect } from 'react';
+import { selectUser } from '../../reducers/user';
 import Highlight from '../highlight/Highlight';
 import Trip from '../../components/trip/trip';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
@@ -11,7 +12,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { getMonthName } from '../../assets/helpers';
 import { addIP } from '../../reducers/IPAddress';
 import { addFavorites, setFavorites } from '../../reducers/user';
-
 import * as Network from 'expo-network';
 
 export default function Discover({ navigation }) {
@@ -20,38 +20,49 @@ export default function Discover({ navigation }) {
   //STATE TO STORE ALL THE TRIPS TO DISPLAY
   const [tripsData, setTripsData] = useState([]);
   const TOKEN = "R1jjTe76KxKzzYm3Hs2w5of88DyxZZoP"
- 
-  //GET ALL THE TRIPS WHEN LOADING THE SCREEN + IP ADDRESS + FAVORITES OF THE USER 
+  const favorites = useSelector((state) => state.user.favorites);
+
+  //GET ALL THE TRIPS WHEN LOADING THE SCREEN + FAVORITES OF THE USER TO SAVE IN THE REDUCER
   useEffect(() => {
-    //GET THE IP ADDRESS
-    const getIP = async () => {
-      const IP = await Network.getIpAddressAsync();
-      dispatch(addIP(IP.slice(0, 10)));
-      console.log(IP.slice(0, 10));
-    };
-    getIP();
-    console.log(API_ADDRESS);
 
     //GET ALL THE TRIPS
+<<<<<<< HEAD
     fetch(`http://172.20.10.3:3000/trips`)
+=======
+    fetch(`http://192.168.131.88:3000/trips`)
+>>>>>>> 68d6cb667f04c57c81f7b0aa7c88632b53e64a86
       .then(response => response.json())
       .then(data => {
         setTripsData(data.trips);
       });
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
+<<<<<<< HEAD
     fetch(`http://172.20.10.3:3000/users/like/token=${TOKEN}`)
+=======
+    fetch(`http://192.168.131.88:3000/users/like/${TOKEN}`)
+>>>>>>> 68d6cb667f04c57c81f7b0aa7c88632b53e64a86
     .then(response => response.json())
     .then(data => {
-      dispatch(setFavorites(data.tripsLiked))
+      if (data.result) {
+        console.log('reducer initialized successfully')
+        dispatch(setFavorites(data.tripsLiked))
+      }
+      else {
+        console.log('reducer failed on initialisation')
+      }
     });
   }, []);
-
   //MAKE SURE THE FONTS ARE LOADED
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
 
+  //HANDLE LIKES
+   
+
+
   //MAP TO DISPLAY ALL THE TRIPS
+<<<<<<< HEAD
   let trips;
   if (tripsData) {
     trips = tripsData.map((data, i) => {
@@ -74,7 +85,28 @@ export default function Discover({ navigation }) {
     });
   }
   
+=======
+  const trips = tripsData.map((data, i) => {
+    //convert number into month's names
+    let start = getMonthName(data.travelPeriod[0].start);
+    let end = getMonthName(data.travelPeriod[0].end);
+    return (
+      <Trip
+        key={i}
+        id={data._id}
+        background={data.background}
+        country={data.country}
+        name={data.name}
+        price={data.program[0].price}
+        start={start}
+        end={end}
+        isFavorite = {favorites.some(favorite => favorite === data._id)}
+      />
+    );
+  });
+>>>>>>> 68d6cb667f04c57c81f7b0aa7c88632b53e64a86
 
+  
   //FINAL RETURN
   return (
     <View style={{ flex: 1 }}>
@@ -94,7 +126,6 @@ export default function Discover({ navigation }) {
 
           <View style={styles.catalogue}>
             <Text style={styles.text}>Our recommendations</Text>
-            <View style={styles.tripContainer}>{trips}</View>
           </View>
         </View>
       </ScrollView>

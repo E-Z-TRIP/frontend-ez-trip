@@ -1,0 +1,30 @@
+.modalInnerContainer {
+  flex: 1;
+  width: 100%;
+  padding: 70px 30px;
+}
+.formContainer {
+  flex: 1;
+  width: 100%;
+  align-items: center;
+  padding-top: 70px;
+}
+.closeBtn {
+  align-self: flex-end;
+}
+.inputWrapper {
+  width: 100%;
+  margin-bottom: 30px;
+}
+.input {
+  width: 100%;
+}
+.submitBtn {
+  margin-top: 50px;
+  width: 80%;
+  height: 50px;
+  border-radius: 25px;
+}
+.submitBtnText {
+  font-size: 17;
+}

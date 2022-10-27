@@ -2,6 +2,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Discover from './screens/discover/Discover';
+import ProductScreen from './screens/product/ProductScreen';
 import Search from './screens/search/Search';
 import OnBoarding from './screens/on_boarding/OnBoarding';
 import { Provider, useDispatch, useSelector } from 'react-redux';
@@ -11,6 +12,8 @@ import { useEffect } from 'react';
 import { setTheme, selectTheme } from './reducers/theme';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
+import Quotation_Request from './screens/quotation_request/Quotation_Request';
+import Prout from './screens/quotation_request/Prout';
 
 const Stack = createNativeStackNavigator();
 

@@ -1,33 +1,45 @@
 import { ImageBackground, TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import styles from './styles.css';
 import { LinearGradient } from 'expo-linear-gradient';
-import perouImg from '../../assets/images/perou.jpeg';
-import DropShadow from "react-native-drop-shadow";
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavorites } from '../../reducers/user';
 
 
-const style = StyleSheet.create({
+export default function Trip(props) {
+  const dispatch = useDispatch();
+  const TOKEN = "R1jjTe76KxKzzYm3Hs2w5of88DyxZZoP"
+    const navigation = useNavigation();
+    const favorites = useSelector((state) => state.user.favorites);
+    const isFavorite = false;
+    //favorites.some(favorite => favorite.id === props.id);
 
-  shadowProp: {
-    shadowColor: '#17171',
-    shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.2,
-    shadowRadius: 1.5,
-  }
-})
-
-export default function Trip({}) {
+  
+    //function to add the trip to the tripsLiked user database + adding it to the reducer
+    const handleLike = () => {
+      fetch(`http://192.168.10.121:3000/users/addlike/`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ token: TOKEN, tripID: '6358edc49ced89a7026c3015' }),
+		}).then(response => response.json())
+			.then(data => {
+				dispatch(addFavorites(data))
+			});
+    }
+    
+    // console.log("props", props.included)
     return (
-      <View style={styles.container}>
-        <DropShadow style={style.shadowProp}>
-        <ImageBackground imageStyle={{ borderRadius: 15}} source={perouImg} style = {styles.imgbackground}>
+      <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Product')}>
+        <ImageBackground imageStyle={{ borderRadius: 15}} source={{uri: props.background}} style = {styles.imgbackground}>
         <LinearGradient 
         colors={['rgba(0,0,0,0.5)', 'transparent']}
-        style={{height : '33%', width : '100%', padding: 15, borderRadius: 15}}>
+        style={{height : '40%', width : '100%', padding: 15, borderRadius: 15}}>
         <View style = {styles.topInfos}>
-            <Text style = {styles.title}>Rainbow mountains</Text>
-            <Text style = {{fontFamily: 'txt', fontWeight: 'bold', color: 'white'}}>Peru</Text>
+            <Text style = {styles.title}>{props.name}</Text>
+            <AntDesign name='heart' size={18}  color={isFavorite ? "yellow" : "white"} onPress={() => handleLike()}/>
         </View>
-        
+        <Text style = {{fontFamily: 'txt', fontWeight: 'bold', color: 'white'}}>{props.country}</Text>
         </LinearGradient>
 
         <LinearGradient 
@@ -36,13 +48,12 @@ export default function Trip({}) {
         end={[1, 0]}
         style={{height : '33%', width : '100%', padding: 15, borderRadius: 15}}>
         <View style= {styles.bottomInfo}>
-            <Text style = {styles.text}>from May to August</Text>
-            <Text style = {styles.text}>From 1200€</Text>
+            <Text style = {styles.text}>from {props.start} to {props.end}</Text>
+            <Text style = {styles.text}>From {props.price}€</Text>
         </View>
         </LinearGradient>
 
         </ImageBackground>
-        </DropShadow>
-      </View>
+      </TouchableOpacity>
     );
   }

@@ -15,9 +15,9 @@ import DateRangePicker from "rnv-date-range-picker";
 
 
 export default function Quotation_Request({ navigation }) {
-    const loadedFonts = loadFonts();
+//     const loadedFonts = loadFonts();
 
-  if (!loadedFonts) return <></>;
+//   if (!loadedFonts) return <></>;
 
   const [selectedRange, setRange] = useState({});
  

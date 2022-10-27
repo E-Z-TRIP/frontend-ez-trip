@@ -32,13 +32,8 @@ export default function Trip(props) {
         end={[1, 0]}
         style={{height : '33%', width : '100%', padding: 15, borderRadius: 15}}>
         <View style= {styles.bottomInfo}>
-<<<<<<< HEAD
-            <Text style = {styles.text}>From May to August</Text>
-            <Text style = {styles.text}>From 1200€</Text>
-=======
             <Text style = {styles.text}>from {props.start} to {props.end}</Text>
             <Text style = {styles.text}>From {props.price}€</Text>
->>>>>>> a74052d09a6ff1abe9e58d2f58b82b13afeec794
         </View>
         </LinearGradient>
 

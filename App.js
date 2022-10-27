@@ -37,8 +37,8 @@ function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
         {/* <Stack.Screen name='FicheProduit' component={FicheProduit}/> */}
           {/* <Stack.Screen name='OnBoarding' component={OnBoarding} /> */}
+          <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
-          {/* <Stack.Screen name='Discover' component={Discover} /> */}
           <Stack.Screen name="Search" component={Search} />
         </Stack.Navigator>
       </PersistGate>

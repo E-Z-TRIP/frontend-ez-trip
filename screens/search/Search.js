@@ -8,6 +8,7 @@ import {
   Text,
   ImageBackground,
   TouchableOpacity,
+  KeyboardAvoidingView
 } from 'react-native';
 import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
@@ -20,7 +21,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { RangeSlider } from '@sharcoux/slider';
 import { getMonthName } from '../../assets/helpers';
 import moment from 'moment';
+import DatePicker from "react-datepicker";
 import DateRangePicker from 'rnv-date-range-picker';
+import Scroll from '../../components/icons/scrollDown';
 
 
 export default function Search({ navigation }) {
@@ -35,6 +38,7 @@ export default function Search({ navigation }) {
   const [minBudget, setMinBudget] = useState(0);
   const [maxBudget, setMaxBudget] = useState(15000);
   const [nbTravelers, setnbTravelers] = useState(1);
+  const [calendarVisible, setCalendarVisible] = useState(false);
   const [selectedRange, setRange] = useState({});
 
 
@@ -137,8 +141,8 @@ export default function Search({ navigation }) {
                   <Text style={{ fontFamily: 'txt', fontSize: 24 }}>Filters</Text>
                   <AntDesign name='close' size={30} color='black' onPress={() => setModalVisible(!modalVisible)} />
                 </View>
-
-                <View name='filters' style={{ marginTop: 40 }}>
+                <ScrollView style={{padding: 5, backgroundColor: 'pink'}}>
+                <View name='filters' style={{ marginLeft: 10, marginTop: 30, width: '80%'}}>
                   <View name='sectionBudget'>
                     <Text style={styles.filterText}>Budget</Text>
                     <View name='sectionContent' style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -181,7 +185,7 @@ export default function Search({ navigation }) {
                       />
                     </View>
                   </View>
-                </View>
+                
 
                 <View
                   name='travelersSection'
@@ -210,18 +214,22 @@ export default function Search({ navigation }) {
                   </View>
                 </View>
 
-                <View name='calendarSection' style={{ marginTop: 30, height: 50 }}>
+                <View name='calendarSection' style={{ marginTop: 30, height: 50, flex: 1, flexDirection: 'column'}}>
                   <Text style={styles.filterText}>Departure dates</Text>
-                  <View style={styles.calendar}>
-                      <DateRangePicker
-                    onSelectDateRange={(range) => {
-                      setRange(range);
-                    }}
-                    responseFormat='YYYY-MM-DD'
-                    maxDate={moment()}
-                    minDate={moment().subtract(100, 'days')}
-                      />
-              </View>
+                  
+                  <TouchableOpacity onPress={() => setCalendarVisible(!calendarVisible)} ><Text>Set Date</Text></TouchableOpacity>
+                  
+                  {calendarVisible ? (
+                  <View style={{backgroundColor: 'white', height: 500 }}>
+                    <DateRangePicker
+                onSelectDateRange={(range) => {
+                  setRange(range);
+                }}
+                backgroundColor="white"
+                responseFormat='YYYY-MM-DD'
+                maxDate={moment()}
+                minDate={moment().subtract(100, 'days')}
+              /></View>): null}
                 </View>
 
                 <View name='tagsSection' style={{ marginTop: 30 }}>
@@ -242,6 +250,8 @@ export default function Search({ navigation }) {
                   onPress={() => handleSearch(minBudget, maxBudget, nbTravelers)}>
                   <Text style={styles.text}>Search results</Text>
                 </TouchableOpacity>
+              </View>
+              </ScrollView>
               </View>
             </Modal>
           </View>

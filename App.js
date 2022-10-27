@@ -13,7 +13,6 @@ import { setTheme, selectTheme } from './reducers/theme';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Quotation_Request from './screens/quotation_request/Quotation_Request';
-import Prout from './screens/quotation_request/Prout';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,7 +34,7 @@ function App() {
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <PersistGate persistor={persistor}>
         <Stack.Navigator initialRouteName='OnBoarding' screenOptions={{ headerShown: false, gestureEnabled: false }}>
-          <Stack.Screen name='OnBoarding' component={OnBoarding} />
+          {/* <Stack.Screen name='OnBoarding' component={OnBoarding} /> */}
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='Product' component={ProductScreen} />

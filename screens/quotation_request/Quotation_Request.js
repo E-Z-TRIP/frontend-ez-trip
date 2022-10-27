@@ -21,19 +21,9 @@ import moment from 'moment';
 import DateRangePicker from 'rnv-date-range-picker';
 
 export default function Quotation_Request({ navigation }) {
-<<<<<<< HEAD
-const [selectedRange, setRange] = useState({});
-const [nbTravelers, setnbTravelers] = useState(1);
 
-const increment = () => setnbTravelers((c) => c + 1);
-const decrement = () => (nbTravelers > 1 ? setnbTravelers((c) => c - 1) : false);
-=======
-  //     const loadedFonts = loadFonts();
-
-  //   if (!loadedFonts) return <></>;
 
   const [selectedRange, setRange] = useState({});
->>>>>>> 68d6cb667f04c57c81f7b0aa7c88632b53e64a86
 
 const loadedFonts = loadFonts();
 if (!loadedFonts) return <></>;
@@ -47,74 +37,6 @@ if (!loadedFonts) return <></>;
           <View style={styles.header}>
             <View style={styles.text}>
               <Text style={styles.title}>Quotation request</Text>
-<<<<<<< HEAD
-              <Text style= {styles.texts}>Amazonie - EZ Trip</Text>
-              </View>
-            
-          
-
-
-
-<View
-                  name='travelersSection'
-                  style={{
-                    marginTop: 30,
-                    height: 50,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={styles.texts}>Number of travelers</Text>
-                  <View
-                    style={{
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      flexDirection: 'row',
-                      width: '20%',
-                    }}>
-                    <TouchableOpacity style={styles.button} title='Decrement' onPress={() => decrement()}>
-                      <Text style={{ textAlign: 'center', color: 'black' }}>-</Text>
-                    </TouchableOpacity>
-                    <Text>{nbTravelers}</Text>
-                    <TouchableOpacity style={styles.button} title='Increment' onPress={() => increment()}>
-                      <Text style={{ textAlign: 'center', color: 'black' }}>+</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-
-
-<Text style= {styles.texts}>Departure date</Text>
-
-<SafeAreaView>
-      <View style={styles.container}>
-        <DateRangePicker
-          onSelectDateRange={(range) => {
-            setRange(range);
-          }}
-          responseFormat="YYYY-MM-DD"
-          maxDate={moment()}
-          minDate={moment().subtract(100, "days")}
-        />
-        <View style={styles.container}>
-          
-        </View>
-      </View>
-      <Text>Departure: {selectedRange.firstDate}</Text>
-    <Text>Return: {selectedRange.secondDate}</Text>
-    </SafeAreaView>
-    </View>
-   
-
-  <Text style= {styles.text}>Need to give us more infos ?</Text>    
-
-     <TouchableOpacity style={styles.button}></TouchableOpacity>
-
-    </View>  
-    </ScrollView>
-    <BottomToolbar></BottomToolbar>
-    <View style={{height: 70}}></View> 
-    
-=======
               <Text style={styles.text}>Amazonie - EZ Trip</Text>
             </View>
             <View style={styles.border}></View>
@@ -147,7 +69,6 @@ if (!loadedFonts) return <></>;
       </ScrollView>
       <BottomToolbar></BottomToolbar>
       <View style={{ height: 70 }}></View>
->>>>>>> 68d6cb667f04c57c81f7b0aa7c88632b53e64a86
     </View>
   );
 }

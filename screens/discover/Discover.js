@@ -26,22 +26,14 @@ export default function Discover({ navigation }) {
   useEffect(() => {
 
     //GET ALL THE TRIPS
-<<<<<<< HEAD
     fetch(`http://172.20.10.3:3000/trips`)
-=======
-    fetch(`http://192.168.131.88:3000/trips`)
->>>>>>> 68d6cb667f04c57c81f7b0aa7c88632b53e64a86
       .then(response => response.json())
       .then(data => {
         setTripsData(data.trips);
       });
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
-<<<<<<< HEAD
-    fetch(`http://172.20.10.3:3000/users/like/token=${TOKEN}`)
-=======
-    fetch(`http://192.168.131.88:3000/users/like/${TOKEN}`)
->>>>>>> 68d6cb667f04c57c81f7b0aa7c88632b53e64a86
+    fetch(`http://172.20.10.3:3000/users/like/${TOKEN}`)
     .then(response => response.json())
     .then(data => {
       if (data.result) {
@@ -62,30 +54,6 @@ export default function Discover({ navigation }) {
 
 
   //MAP TO DISPLAY ALL THE TRIPS
-<<<<<<< HEAD
-  let trips;
-  if (tripsData) {
-    trips = tripsData.map((data, i) => {
-      console.log(data.travelPeriod)
-      //convert number into month's names
-      let start = getMonthName(data.travelPeriod[0].start);
-      let end = getMonthName(data.travelPeriod[0].end);
-      return (
-        <Trip
-          key={i}
-          id={data.id}
-          background={data.background}
-          country={data.country}
-          name={data.name}
-          price={data.program[0].price}
-          start={start}
-          end={end}
-        />
-      );
-    });
-  }
-  
-=======
   const trips = tripsData.map((data, i) => {
     //convert number into month's names
     let start = getMonthName(data.travelPeriod[0].start);
@@ -104,7 +72,6 @@ export default function Discover({ navigation }) {
       />
     );
   });
->>>>>>> 68d6cb667f04c57c81f7b0aa7c88632b53e64a86
 
   
   //FINAL RETURN

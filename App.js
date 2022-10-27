@@ -34,21 +34,10 @@ function App() {
   return (
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <PersistGate persistor={persistor}>
-<<<<<<< HEAD
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {/* <Stack.Screen name='OnBoarding' component={OnBoarding} /> */}
-          
-          <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
-          <Stack.Screen name='Discover' component={Discover} />
-          <Stack.Screen name="Search" component={Search} />        
-          <Stack.Screen name='Product' component={ProductScreen}/>
-
-=======
         <Stack.Navigator initialRouteName='OnBoardiing' screenOptions={{ headerShown: false, gestureEnabled: false }}>
           <Stack.Screen name='OnBoarding' component={OnBoarding} />
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
->>>>>>> 68d6cb667f04c57c81f7b0aa7c88632b53e64a86
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

@@ -1,4 +1,5 @@
 import 'react-native-gesture-handler';
+import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Discover from './screens/discover/Discover';
@@ -13,12 +14,21 @@ import { setTheme, selectTheme } from './reducers/theme';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Quotation_Request from './screens/quotation_request/Quotation_Request';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
   const dispatch = useDispatch();
   const theme = useSelector(selectTheme);
+  const [loadedStorage, setLoadedStorage] = useState();
+
+  useEffect(() => {
+    (async () => {
+      await AsyncStorage.getAllKeys();
+      setLoadedStorage(store.getState());
+    })();
+  }, []);
 
   // Un-comment this if using light and dark mode
 
@@ -33,8 +43,13 @@ function App() {
   return (
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <PersistGate persistor={persistor}>
+<<<<<<< HEAD
         <Stack.Navigator initialRouteName='OnBoarding' screenOptions={{ headerShown: false, gestureEnabled: false }}>
           {/* <Stack.Screen name='OnBoarding' component={OnBoarding} /> */}
+=======
+        <Stack.Navigator initialRouteName='OnBoardiing' screenOptions={{ headerShown: false, gestureEnabled: false }}>
+          {(store.getState()?.user?.value?.token && <></>) || <Stack.Screen name='OnBoarding' component={OnBoarding} />}
+>>>>>>> f78cb090674332dee236c0fd8e9d6b4eedb0ffb3
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='Product' component={ProductScreen} />

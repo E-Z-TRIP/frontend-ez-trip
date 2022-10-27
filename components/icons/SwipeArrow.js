@@ -1,7 +1,7 @@
 import Svg, { Path } from 'react-native-svg';
 
 export default function SwipeArrow({ color = 'white', scale = 1 }) {
-  scale = scale < 1 ? 1 : scale;
+  scale = scale < 0.1 ? 1 : scale;
   return (
     <Svg width={57 * scale} height={26 * scale} viewBox='0 0 57 26' fill='none'>
       <Path

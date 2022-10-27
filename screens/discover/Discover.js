@@ -4,6 +4,7 @@ import { useTheme } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadFonts } from '../../assets/fonts/fonts';
 import { useState, useEffect } from 'react';
+import { selectUser } from '../../reducers/user';
 import Highlight from '../highlight/Highlight';
 import Trip from '../../components/trip/trip';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
@@ -44,7 +45,6 @@ export default function Discover({ navigation }) {
       }
     });
   }, []);
-
   //MAKE SURE THE FONTS ARE LOADED
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
@@ -93,7 +93,6 @@ export default function Discover({ navigation }) {
 
           <View style={styles.catalogue}>
             <Text style={styles.text}>Our recommendations</Text>
-            <View style={styles.tripContainer}>{trips}</View>
           </View>
         </View>
       </ScrollView>

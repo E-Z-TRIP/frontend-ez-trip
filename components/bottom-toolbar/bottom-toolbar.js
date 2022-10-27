@@ -34,7 +34,7 @@ const navigation = useNavigation();
           <FontAwesome5 name='house-user' size={35} color='black' />
         </View>
         <View style= {styles.icons2}>
-          <Entypo name='heart-outlined' size={35} color='black' />
+          <Entypo name='heart-outlined' size={35} color='black' onPress={() => navigation.navigate('Product')}/>
           <FontAwesome5 name='user-circle' size={35} color='black' />
         </View> 
        

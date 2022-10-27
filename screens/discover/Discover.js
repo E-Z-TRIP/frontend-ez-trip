@@ -31,7 +31,7 @@ export default function Discover({ navigation }) {
     // }
     // getIP();
     // console.log(API_ADDRESS)
-    fetch(`http://192.168.1.96:3000/trips`)
+    fetch(`http://172.20.10.4:3000/trips`)
       .then(response => response.json())
       .then(data => {
         setTripsData(data.trips);

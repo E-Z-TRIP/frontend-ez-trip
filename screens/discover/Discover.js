@@ -13,45 +13,42 @@ import { getMonthName } from '../../assets/helpers';
 import { addIP } from '../../reducers/IPAddress';
 import { addFavorites, setFavorites } from '../../reducers/user';
 import * as Network from 'expo-network';
+import { dismountUser } from '../../reducers/user';
 
 export default function Discover({ navigation }) {
   const dispatch = useDispatch();
   const API_ADDRESS = useSelector((state) => state.IPAdress.value);
   //STATE TO STORE ALL THE TRIPS TO DISPLAY
   const [tripsData, setTripsData] = useState([]);
-  const TOKEN = "R1jjTe76KxKzzYm3Hs2w5of88DyxZZoP"
+  const TOKEN = 'R1jjTe76KxKzzYm3Hs2w5of88DyxZZoP';
   const favorites = useSelector((state) => state.user.favorites);
 
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN + FAVORITES OF THE USER TO SAVE IN THE REDUCER
   useEffect(() => {
-
     //GET ALL THE TRIPS
     fetch(`http://192.168.131.88:3000/trips`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         setTripsData(data.trips);
       });
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
     fetch(`http://192.168.131.88:3000/users/like/${TOKEN}`)
-    .then(response => response.json())
-    .then(data => {
-      if (data.result) {
-        console.log('reducer initialized successfully')
-        dispatch(setFavorites(data.tripsLiked))
-      }
-      else {
-        console.log('reducer failed on initialisation')
-      }
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          console.log('reducer initialized successfully');
+          dispatch(setFavorites(data.tripsLiked));
+        } else {
+          console.log('reducer failed on initialisation');
+        }
+      });
   }, []);
   //MAKE SURE THE FONTS ARE LOADED
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
 
   //HANDLE LIKES
-   
-
 
   //MAP TO DISPLAY ALL THE TRIPS
   const trips = tripsData.map((data, i) => {
@@ -68,12 +65,11 @@ export default function Discover({ navigation }) {
         price={data.program[0].price}
         start={start}
         end={end}
-        isFavorite = {favorites.some(favorite => favorite === data._id)}
+        isFavorite={favorites.some((favorite) => favorite === data._id)}
       />
     );
   });
 
-  
   //FINAL RETURN
   return (
     <View style={{ flex: 1 }}>
@@ -86,11 +82,9 @@ export default function Discover({ navigation }) {
             </View>
             <View style={styles.border}></View>
           </View>
-
           <View style={styles.highlight}>
             <Highlight />
           </View>
-
           <View style={styles.catalogue}>
             <Text style={styles.text}>Our recommendations</Text>
           </View>

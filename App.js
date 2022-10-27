@@ -31,6 +31,8 @@ function App() {
     })();
   }, []);
 
+  console.log(loadedStorage);
+
   // Un-comment this if using light and dark mode
 
   // Sets the theme to the operating systems theme

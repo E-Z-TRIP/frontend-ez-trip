@@ -1,12 +1,6 @@
 .container {
   flex: 1;
 }
-.bgImage {
-  flex: 1;
-  justify-content: flex-start;
-  align-items: center;
-  aspect-ratio: 0.51;
-}
 .swipeContainer {
   flex: 1;
   align-items: center;

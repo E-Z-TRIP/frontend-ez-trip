@@ -85,7 +85,6 @@ export default function LoginForm({ onClosePress, navigation }) {
               const { firstName, lastName, email, token } = res;
               dispatch(mountUser({ firstName, lastName, email, token }));
               setNotFoundError(false);
-              navigation.navigate('Discover');
             })
           }
           activeOpacity={0.8}

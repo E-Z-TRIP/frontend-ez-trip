@@ -20,12 +20,20 @@ export default function OnBoarding({ navigation }) {
   const [progress, setProgress] = useState(1);
   const [direction, setDirection] = useState({ direction: false });
   const slides = [TitleSlide, SecondSlide, ThirdSlide, FourthSlide, SignupLoginSlide];
+  const [animating, setAnimating] = useState(false);
 
   useEffect(() => {
+    if (animating) return;
     if (!direction.direction) return;
     if (direction.direction === 'left') return setProgress(progress < slides.length ? progress + 1 : progress);
     if (direction.direction === 'right') return setProgress(progress > 1 ? progress - 1 : progress);
   }, [direction]);
+
+  useEffect(() => {
+    if (!animating) return;
+    const timeout = setTimeout(() => setAnimating(false), animationSpeed);
+    return () => clearTimeout(timeout);
+  }, [animating]);
 
   if (!loadedFonts) return <></>;
 
@@ -43,7 +51,9 @@ export default function OnBoarding({ navigation }) {
               speed={animationSpeed}
               direction={direction}
               currentSlide={progress}
-              slideLength={slides.length}>
+              slideLength={slides.length}
+              disableAnimation={animating ? true : false}
+              onAnimation={() => setAnimating(true)}>
               {slides.map((Slide, i) => {
                 return (
                   <View key={i} style={{ width: '100%' }}>

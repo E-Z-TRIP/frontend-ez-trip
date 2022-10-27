@@ -1,23 +1,10 @@
 import { View } from 'react-native';
 import { Video } from 'expo-av';
-import { useRef, useState } from 'react';
 
 export default function VideoBackground({ source, layerOpacity, children }) {
-  const videoRef = useRef(null);
-  const [status, setStatus] = useState({});
-
   return (
     <View style={{ flex: 1, width: '100%' }}>
-      <Video
-        source={source}
-        style={{ flex: 1 }}
-        useNativeControls={false}
-        resizeMode='cover'
-        isLooping
-        shouldPlay
-        onLoad={(status) => console.log(status)}
-        onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-      />
+      <Video source={source} style={{ flex: 1 }} useNativeControls={false} resizeMode='cover' isLooping shouldPlay />
       <View
         style={{
           position: 'absolute',

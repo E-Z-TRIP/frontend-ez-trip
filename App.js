@@ -12,6 +12,8 @@ import { useEffect } from 'react';
 import { setTheme, selectTheme } from './reducers/theme';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
+import Quotation_Request from './screens/quotation_request/Quotation_Request';
+import Prout from './screens/quotation_request/Prout';
 
 const Stack = createNativeStackNavigator();
 

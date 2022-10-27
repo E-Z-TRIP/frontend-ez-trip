@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Discover from './screens/discover/Discover';
-// import FicheProduit from './screens/product/FicheProduit';
+import ProductScreen from './screens/product/ProductScreen';
 import Search from './screens/search/Search';
 import OnBoarding from './screens/on_boarding/OnBoarding';
 import { Provider, useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,8 @@ import { useEffect } from 'react';
 import { setTheme, selectTheme } from './reducers/theme';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
+import Quotation_Request from './screens/quotation_request/Quotation_Request';
+import Prout from './screens/quotation_request/Prout';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,10 +35,11 @@ function App() {
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <PersistGate persistor={persistor}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {/* <Stack.Screen name='FicheProduit' component={FicheProduit}/> */}
           {/* <Stack.Screen name='OnBoarding' component={OnBoarding} /> */}
           <Stack.Screen name='Discover' component={Discover} />
-          <Stack.Screen name="Search" component={Search} />
+          <Stack.Screen name="Search" component={Search} />        
+          {/* <Stack.Screen name='Product' component={ProductScreen}/> */}
+
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

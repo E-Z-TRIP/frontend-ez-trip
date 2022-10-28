@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFavorites } from '../../reducers/user';
+import { addFavorites, deleteFavorite } from '../../reducers/user';
 
 
 export default function Trip(props) {
@@ -15,18 +15,32 @@ export default function Trip(props) {
 
     //function to add the trip to the tripsLiked user database + adding it to the reducer
     const handleLike = () => {
-
+      //si le like se trouve déjà dans le reducer (et donc en BDD), on le supprime
       if (favorites.some(favorite => favorite === props.id)) {
         console.log('déjà liké!')
+        //supprime en BDD
         fetch(`http://192.168.131.88:3000/users/like`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: TOKEN, tripID: props.id }),
       })
+      .then(data => {
+        if (data.result) {
+          //supprime dans le reducer 
+          dispatch(deleteFavorite(props.id))
+          console.log('fetch successful + supprimé du reducer')
+        }
+        else {
+          console.log('no data from fetch'); 
+          console.log(data.error);
+        }
+      });
       }
 
+      //si le trip.id n'est pas trouvé, on le rajoute en BDD + dans le reducer favorite
       else {
         console.log('trip liked');
+        //rajout dans la BDD
         fetch(`http://192.168.131.88:3000/users/addlike`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -34,7 +48,7 @@ export default function Trip(props) {
       }).then(response => response.json())
         .then(data => {
           if (data.result) {
-            console.log('reducer favorite', favorites)
+            //rajout dans le reducer
             dispatch(addFavorites(data.tripLiked))
           }
           else {

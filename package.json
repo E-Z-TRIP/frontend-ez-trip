@@ -16,6 +16,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@expo/ngrok": "^4.1.0",
     "@expo/webpack-config": "^0.17.0",
     "@hookform/resolvers": "^2.9.10",
     "@mui/lab": "^5.0.0-alpha.105",

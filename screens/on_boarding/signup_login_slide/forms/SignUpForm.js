@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -14,6 +14,7 @@ import { rnPaperTextInputTheme } from './sharedProps';
 import { postData } from '../../../../api/backend_request';
 import { HelperText } from 'react-native-paper';
 import styles from './style.css';
+import KeyboardAvoidingView from '../../../../components/keyboard_avoiding_view/KeyboardAvoidingView';
 
 const validationSchema = yup
   .object({
@@ -38,7 +39,9 @@ export default function SignUpForm({ onClosePress, openForm }) {
   });
 
   return (
-    <View style={{ ...styles.modalInnerContainer, backgroundColor: onBoarding.formModalBackground }}>
+    <KeyboardAvoidingView
+      style={{ ...styles.modalInnerContainer, backgroundColor: onBoarding.formModalBackground }}
+      bottomPositionOnKeyboardOpen={200}>
       <CloseBtn
         style={styles.closeBtn}
         iconColor={onBoarding.closeBtnIcon}
@@ -135,6 +138,6 @@ export default function SignUpForm({ onClosePress, openForm }) {
           />
         </View>
       </TouchableWithoutFeedback>
-    </View>
+    </KeyboardAvoidingView>
   );
 }

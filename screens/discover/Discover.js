@@ -26,14 +26,14 @@ export default function Discover({ navigation }) {
   useEffect(() => {
 
     //GET ALL THE TRIPS
-    fetch(`http://192.168.131.88:3000/trips`)
+    fetch(`http:/192.168.10.137:3000/trips`)
       .then(response => response.json())
       .then(data => {
         setTripsData(data.trips);
       });
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
-    fetch(`http://192.168.131.88:3000/users/like/${TOKEN}`)
+    fetch(`http://192.168.10.137:3000/users/like/${TOKEN}`)
     .then(response => response.json())
     .then(data => {
       if (data.result) {
@@ -68,7 +68,7 @@ export default function Discover({ navigation }) {
         price={data.program[0].price}
         start={start}
         end={end}
-        isFavorite = {favorites.some(favorite => favorite === data._id)}
+        isFavorite = {favorites ? favorites.some(favorite => favorite === data._id) : false}
       />
     );
   });

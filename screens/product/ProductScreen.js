@@ -82,9 +82,9 @@ const goodProgram = program.find(program => program.nbday === detailedProgram)
 console.log(goodProgram)
 const programDisplay = goodProgram.detailedProgram.map((day, i) => {
   return(
-    <View>
-      <Text>Day {day.day}</Text>
-      <Text>Activities: {day.activities}</Text>
+    <View style={styles.program}>
+      <Text style={styles.programKey}>Day : <Text style={styles.programValue}>{day.day}</Text></Text>
+      <Text style={styles.programKey}>Activities : <Text style={styles.programValue}>{day.activities}</Text></Text>
     </View>
   )
  })

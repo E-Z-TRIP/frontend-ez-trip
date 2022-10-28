@@ -13,7 +13,7 @@ import { getMonthName } from '../../assets/helpers';
 import { addIP } from '../../reducers/IPAddress';
 import { addFavorites, setFavorites } from '../../reducers/user';
 import * as Network from 'expo-network';
-import { serverURL } from '../../../../api/backend_request';
+import { serverURL } from '../../api/backend_request';
 import { dismountUser } from '../../reducers/user';
 
 export default function Discover({ navigation }) {
@@ -34,7 +34,7 @@ export default function Discover({ navigation }) {
       });
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
-    fetch(`http://${serverURL}/users/like/${TOKEN}`)
+    fetch(`${serverURL}/users/like/${TOKEN}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { loadFonts } from '../../assets/fonts/fonts';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
-import { serverURL } from '../../../../api/backend_request';
+import { serverURL } from '../../api/backend_request';
 import { ScrollView } from 'react-native-gesture-handler';
 import MapView, { Marker } from 'react-native-maps';
 import Coeur from '../../components/icons/coeur';
@@ -34,7 +34,7 @@ export default function ProductScreen({ navigation, route: { params: id } }) {
    /* ---------------- IMPORT DES PROPS A L'INITIALISATION DU COMPOSANT ----------------  */
 
    useEffect(() => {
-  fetch(`http:/${serverURL}/trips/tripById/${id}`)
+  fetch(`${serverURL}/trips/tripById/${id}`)
   .then(response => response.json())
   .then(data => {
     if (data.result) {

@@ -11,7 +11,7 @@ export default function Input({
   rules,
   inputStyle,
   wrapperStyle,
-  defaultStyleOverides = {},
+  defaultStyleOverides = { theme: { colors: { error: 'red' } } },
 }) {
   return (
     <Controller
@@ -29,7 +29,7 @@ export default function Input({
             error={error}
             {...defaultStyleOverides}
           />
-          <HelperText type='error' visible={error}>
+          <HelperText type='error' style={{ color: defaultStyleOverides.theme.colors.error }} visible={error}>
             {helperText}
           </HelperText>
         </View>

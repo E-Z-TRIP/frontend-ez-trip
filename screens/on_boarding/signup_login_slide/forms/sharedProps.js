@@ -11,6 +11,7 @@ export function rnPaperTextInputTheme() {
         placeholder: onBoarding.textInputPlaceholder,
         text: onBoarding.textInputTxt,
         background: 'transparent',
+        error: onBoarding.error,
       },
     },
     underlineColor: onBoarding.textInputUnderline,

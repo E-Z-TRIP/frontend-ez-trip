@@ -113,6 +113,7 @@
     flex-direction: row;
     justify-content: space-between;
     padding-top: 5;
+    margin-left: 10;
 }
 
 .heartBoxModal {
@@ -131,14 +132,14 @@
     font-family: "txt";
     font-size: 14px;
     padding-top: 5;
-    margin-left: 8;
+    margin-left: 15;
 }
 .offeredByModal {
     font-family: "txt";
     font-size: 14;
     padding-top: 5;
-    margin-right: 8;
-    margin-left: 2;
+    margin-right: 15;
+    margin-left: 15;
 }
 .smallTitle {
     font-family: "txtBold";
@@ -146,13 +147,13 @@
     padding-top: 12;
     margin-top: 12;
     margin-bottom: 5;
-    margin-left: 8;
+    margin-left: 15;
 }
 .inclusModal {
     font-family: "txt";
     font-size: 12;
     padding-top: 5;
-    margin-left: 8;
+    margin-left: 15;
     margin-right: 8;
     text-align: justify;
 }
@@ -160,11 +161,11 @@
     flex:1;
     position:relative;
     top: 10;
-    left: 10;
+    left: 15;
     bottom: 10;
-    right: 10;
+    right: 15;
     height: 300;
-    width:300;
+    width:380;
 }
 .nbDaysContainer {
     flex-direction: row;
@@ -220,6 +221,27 @@
     padding-left: 8;
 
 }
+.program{
+    margin-top: 5;
+    margin-bottom: 5;
+}
+
+.programKey {
+    font-family: "txtBold";
+    font-size: 14;
+    margin-left: 12;
+    margin-right: 12;
+
+
+}
+.programValue {
+    font-family: "txtLight";
+    font-size: 14;
+    margin-left: 12;
+    margin-right: 12;
+
+}
+
 .buttonText {
     font-family: "txt";
     font-size: 16;   

@@ -1,9 +1,8 @@
-import { View, Text, ImageBackground, SafeAreaView } from 'react-native';
+import { View, Text, ImageBackground, SafeAreaView, TouchableOpacity } from 'react-native';
 import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
-import bgImage from '../../assets/images/hero_background.png';
 import { loadFonts } from '../../assets/fonts/fonts';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ProgressBar from '../../components/progressBar/progressBar';
 import SwipeContainer from '../../components/swipe_container/SwipeContainer';
 import SwipeArrow from '../../components/icons/SwipeArrow';
@@ -11,6 +10,8 @@ import FadeContainer from '../../components/fade_container/FadeContainer';
 import HorizontalSlideContainer from '../../components/horizontal_slide_container/HorizontalSlideContainer';
 import SignupLoginSlide from './signup_login_slide/SignupLoginSlide';
 import Logo from '../../components/logo/Logo';
+import VideoBackground from '../../components/video_background/VideoBackground';
+import canyonVideo from '../../assets/videos/Canyon.mp4';
 
 export default function OnBoarding({ navigation }) {
   const loadedFonts = loadFonts();
@@ -19,56 +20,72 @@ export default function OnBoarding({ navigation }) {
   const [progress, setProgress] = useState(1);
   const [direction, setDirection] = useState({ direction: false });
   const slides = [TitleSlide, SecondSlide, ThirdSlide, FourthSlide, SignupLoginSlide];
+  const [animating, setAnimating] = useState(false);
 
   useEffect(() => {
+    if (animating) return;
     if (!direction.direction) return;
     if (direction.direction === 'left') return setProgress(progress < slides.length ? progress + 1 : progress);
     if (direction.direction === 'right') return setProgress(progress > 1 ? progress - 1 : progress);
   }, [direction]);
 
+  useEffect(() => {
+    if (!animating) return;
+    const timeout = setTimeout(() => setAnimating(false), animationSpeed);
+    return () => clearTimeout(timeout);
+  }, [animating]);
+
   if (!loadedFonts) return <></>;
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ImageBackground style={styles.bgImage} source={bgImage} resizeMode='cover'>
-        <SwipeContainer style={styles.swipeContainer} onSwipe={({ direction }) => setDirection(direction)}>
-          <FadeContainer isVisible={progress === slides.length ? false : true} speed={animationSpeed}>
-            <ProgressBar slideQty={slides.length} currentSlide={progress} animationSpeed={animationSpeed} />
-          </FadeContainer>
-          <HorizontalSlideContainer
-            speed={animationSpeed}
-            direction={direction}
-            currentSlide={progress}
-            slideLength={slides.length}>
-            {slides.map((Slide, i) => {
-              return (
-                <View key={i} style={{ width: '100%' }}>
-                  <Slide
-                    isVisible={progress === i + 1 ? true : false}
-                    direction={direction}
-                    progressPos={progress}
-                    slideLength={slides.length}
-                    navigation={navigation}
-                  />
-                </View>
-              );
-            })}
-          </HorizontalSlideContainer>
-          <View style={styles.bottomContainer}>
-            <View style={styles.paddingBox}></View>
-            <FadeContainer isVisible={progress > 1 ? false : true} speed={animationSpeed}>
-              <Text style={{ ...styles.welcomeTxt, color: onBoarding.welcomeTxt }}>Welcome</Text>
+    <View style={styles.container}>
+      <VideoBackground source={canyonVideo} layerOpacity={0.5}>
+        {(absoluteStyle) => (
+          <SwipeContainer
+            style={{ ...absoluteStyle, ...styles.swipeContainer }}
+            onSwipe={({ direction }) => setDirection(direction)}>
+            <FadeContainer isVisible={progress === slides.length ? false : true} speed={animationSpeed}>
+              <ProgressBar slideQty={slides.length} currentSlide={progress} animationSpeed={animationSpeed} />
             </FadeContainer>
-            <FadeContainer
-              style={styles.paddingBox}
-              isVisible={progress < slides.length ? true : false}
-              speed={animationSpeed}>
-              <SwipeArrow />
-            </FadeContainer>
-          </View>
-        </SwipeContainer>
-      </ImageBackground>
-    </SafeAreaView>
+            <HorizontalSlideContainer
+              speed={animationSpeed}
+              direction={direction}
+              currentSlide={progress}
+              slideLength={slides.length}
+              disableAnimation={animating ? true : false}
+              onAnimation={() => setAnimating(true)}>
+              {slides.map((Slide, i) => {
+                return (
+                  <View key={i} style={{ width: '100%' }}>
+                    <Slide
+                      isVisible={progress === i + 1 ? true : false}
+                      direction={direction}
+                      progressPos={progress}
+                      slideLength={slides.length}
+                      navigation={navigation}
+                    />
+                  </View>
+                );
+              })}
+            </HorizontalSlideContainer>
+            <View style={styles.bottomContainer}>
+              <View style={styles.paddingBox}></View>
+              <FadeContainer isVisible={progress > 1 ? false : true} speed={animationSpeed}>
+                <Text style={{ ...styles.welcomeTxt, color: onBoarding.welcomeTxt }}>Welcome</Text>
+              </FadeContainer>
+              <FadeContainer
+                style={styles.paddingBox}
+                isVisible={progress < slides.length ? true : false}
+                speed={animationSpeed}>
+                <TouchableOpacity onPress={() => setDirection({ direction: 'left' })}>
+                  <SwipeArrow />
+                </TouchableOpacity>
+              </FadeContainer>
+            </View>
+          </SwipeContainer>
+        )}
+      </VideoBackground>
+    </View>
   );
 }
 

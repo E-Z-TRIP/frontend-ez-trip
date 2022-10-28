@@ -13,6 +13,7 @@ export default function PasswordInput({
   inputStyle,
   wrapperStyle,
   iconColor,
+  onFocus,
   defaultStyleOverides = { theme: { colors: { error: 'red' } } },
 }) {
   const [hidePassword, setHidePassword] = useState(true);
@@ -29,6 +30,7 @@ export default function PasswordInput({
             style={inputStyle}
             onBlur={onBlur}
             onChangeText={onChange}
+            onFocus={onFocus}
             value={value}
             right={
               hidePassword ? (

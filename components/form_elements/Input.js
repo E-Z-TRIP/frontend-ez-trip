@@ -9,6 +9,7 @@ export default function Input({
   error,
   helperText,
   rules,
+  onFocus,
   inputStyle,
   wrapperStyle,
   defaultStyleOverides = { theme: { colors: { error: 'red' } } },
@@ -27,6 +28,7 @@ export default function Input({
             onChangeText={onChange}
             value={value}
             error={error}
+            onFocus={onFocus}
             {...defaultStyleOverides}
           />
           <HelperText type='error' style={{ color: defaultStyleOverides.theme.colors.error }} visible={error}>

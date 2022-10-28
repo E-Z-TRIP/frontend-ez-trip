@@ -78,7 +78,7 @@ export default function OnBoarding({ navigation }) {
                 style={styles.paddingBox}
                 isVisible={progress < slides.length ? true : false}
                 speed={animationSpeed}>
-                <TouchableOpacity onPress={() => setDirection({ direction: 'left' })}>
+                <TouchableOpacity onPress={() => setDirection({ direction: 'left' })} activeOpacity={1}>
                   <SwipeArrow />
                 </TouchableOpacity>
               </PulsingContainer>

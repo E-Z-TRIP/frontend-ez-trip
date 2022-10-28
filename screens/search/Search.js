@@ -39,10 +39,8 @@ export default function Search({ navigation }) {
   const [maxBudget, setMaxBudget] = useState(15000);
   const [nbTravelers, setnbTravelers] = useState(1);
   const [calendarVisible, setCalendarVisible] = useState(false);
-  const [selectedRange, setRange] = useState({});
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-
 
 
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN
@@ -53,13 +51,14 @@ export default function Search({ navigation }) {
         setTripsData(data.trips);
       });
   }, []);
+  const dispatch = useDispatch();
 
   //S'assure que la police est bien chargée
-  const dispatch = useDispatch();
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
 
   ////////////////////////////////////////////////////////////////SEARCH RESULTS - FUNCTIONS////////////////////////////////////////////////////////////
+  //variable déclarée, mais assignée que si tripsData est bien récupéré du back pour éviter les bugs
   let trips;
   //MAP TO DISPLAY ALL THE TRIPS
   if (tripsData) {

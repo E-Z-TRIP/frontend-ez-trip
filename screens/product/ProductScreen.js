@@ -12,8 +12,11 @@ import Coeur from '../../components/icons/coeur';
 import Cross from '../../components/icons/cross';
 // import * as Network from 'expo-network';
 import Scroll from '../../components/icons/scrollDown';
+import { touchRippleClasses } from '@mui/material';
+import { useIsFocused } from "@react-navigation/native";
 
-export default function ProductScreen() {
+
+export default function ProductScreen({ navigation, route: { params: id } }) {
   //collapsible header 
   // const scrollY = new Animated.Value(0);
   // const diffClamp = Animated.diffClamp(scrollY, 0,405)
@@ -21,12 +24,38 @@ export default function ProductScreen() {
   //   inputRange:[0,300],
   //   outputRange:[0,-300]
   // })
-
+  const isFocused = useIsFocused();
   const loadedFonts = loadFonts();
   //fait apparaître / disparaître la Modal
   const [modalVisible, setModalVisible] = useState(false);
   const [detailedProgram, setDetailedProgram] = useState(3);
+  const [trip, setTrip] = useState(null);
+
+   /* ---------------- IMPORT DES PROPS A L'INITIALISATION DU COMPOSANT ----------------  */
+
+   useEffect(() => {
+  fetch(`http://192.168.131.88:3000/trips/tripById/${id}`)
+  .then(response => response.json())
+  .then(data => {
+    if (data.result) {
+      setTrip(data.trip)
+    }
+    else {
+      console.log('reducer failed on initialisation')
+    }
+  });
+}, []);
+
+  
+    console.log(trip);
+
   if (!loadedFonts) return <></>;
+
+  if (!trip) return <></>;
+
+  if (!isFocused) {
+    setTrip(null);
+  }
 /* ---------------- A REMPLACER PAR UN FETCH  DEBUT ----------------  */
   //image background url
   const image = { uri: 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666688082/balibackground_zhvjoa.jpg' };
@@ -72,6 +101,10 @@ export default function ProductScreen() {
  /* ---------------- A REMPLACER PAR UN FETCH  FIN ----------------  */
 
 
+
+ /* ---------------- FIN ESPACE TRAVAIL ----------------  */
+
+
 // to display buttons for programs
 const programSetter = (data) => {
 //selon le jour cliqué, afficher le detailed program correspondant
@@ -79,7 +112,6 @@ const programSetter = (data) => {
 }
 
 const goodProgram = program.find(program => program.nbday === detailedProgram)
-console.log(goodProgram)
 const programDisplay = goodProgram.detailedProgram.map((day, i) => {
   return(
     <View style={styles.program}>
@@ -117,7 +149,7 @@ const programDisplay = goodProgram.detailedProgram.map((day, i) => {
   return (
     <View style={styles.scrollView}> 
 {/* ---------------- LANDING PAGE PHOTO BACKGROUND + INFOS PRINCIPALES ---------------- */}
-      <ImageBackground style={styles.landing} source={image} resizeMode='cover'>
+      <ImageBackground style={styles.landing} source={{uri: trip.background}} resizeMode='cover'>
 
 {/* ---------------- HEADER BOUTONS LIKE ET RETOUR PAGE RECHERCHE ---------------- */}
         <View style={styles.header}>
@@ -131,10 +163,10 @@ const programDisplay = goodProgram.detailedProgram.map((day, i) => {
 
 {/* ---------------- RECAP TRIP  ---------------- */}
         <View style={styles.recapTrip}>
-          <Text style={styles.title}>Beaches and farniente</Text>
-          <Text style={styles.text}>Bali </Text>
+          <Text style={styles.title}>{trip.name}</Text>
+          <Text style={styles.text}>{trip.country}</Text>
           <Text style={styles.text}>Min 12 jours - Max 27 jours</Text>
-          <Text style={styles.text}>A partir de 1500€ </Text>
+          <Text style={styles.text}>A partir de {trip.program[0].price}€ </Text>
         </View>
         <TouchableOpacity style={styles.details} onPress={() => setModalVisible(!modalVisible)}>
           <Text style={styles.textDetail}>More details</Text>

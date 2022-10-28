@@ -23,7 +23,6 @@ export default function Trip(props) {
 		}).then(response => response.json())
 			.then(data => {
         if (data.result) {
-          console.log(data.tripLiked);
           console.log('reducer favorite', favorites)
           dispatch(addFavorites(data.tripLiked))
         }
@@ -35,7 +34,7 @@ export default function Trip(props) {
     }
     
     return (
-      <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Product')}>
+      <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Product', {id: props.id})}>
         <ImageBackground imageStyle={{ borderRadius: 15}} source={{uri: props.background}} style = {styles.imgbackground}>
         <LinearGradient 
         colors={['rgba(0,0,0,0.5)', 'transparent']}

@@ -20,7 +20,8 @@ export default function Discover({ navigation }) {
   const API_ADDRESS = useSelector((state) => state.IPAdress.value);
   //STATE TO STORE ALL THE TRIPS TO DISPLAY
   const [tripsData, setTripsData] = useState([]);
-  const TOKEN = 'R1jjTe76KxKzzYm3Hs2w5of88DyxZZoP';
+  //USESELECTORS POUR LIRE LE USER CONNECTED ET SES LIKES
+  const TOKEN = useSelector((state) => state.user.value);
   const favorites = useSelector((state) => state.user.favorites);
 
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN + FAVORITES OF THE USER TO SAVE IN THE REDUCER
@@ -31,6 +32,9 @@ export default function Discover({ navigation }) {
       .then((data) => {
         setTripsData(data.trips);
       });
+
+
+     
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
     fetch(`http://192.168.131.88:3000/users/like/${TOKEN}`)

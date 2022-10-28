@@ -93,7 +93,7 @@
 /* MODAL */
 .modal {
     border-width: 2px;
-    
+    border-color: blue;
 }
 .scrollViewModal {
     padding-bottom: 70;
@@ -109,10 +109,10 @@
 }
 
 .headerModal {
-    /* margin-top: 90; */
     flex-direction: row;
     justify-content: space-between;
     padding-top: 5;
+    margin-left: 10;
 }
 
 .heartBoxModal {
@@ -128,31 +128,31 @@
 
 }
 .flatListModal {
-    font-family: "txt";
+    font-family: 'txt';
     font-size: 14px;
     padding-top: 5;
-    margin-left: 8;
+    margin-left: 15;
 }
 .offeredByModal {
-    font-family: "txt";
+    font-family: 'txt';
     font-size: 14;
     padding-top: 5;
-    margin-right: 8;
-    margin-left: 2;
+    margin-right: 15;
+    margin-left: 15;
 }
 .smallTitle {
-    font-family: "txtBold";
+    font-family: 'txtBold';
     font-size: 14;
     padding-top: 12;
     margin-top: 12;
     margin-bottom: 5;
-    margin-left: 8;
+    margin-left: 15;
 }
 .inclusModal {
-    font-family: "txt";
+    font-family: 'txt';
     font-size: 12;
     padding-top: 5;
-    margin-left: 8;
+    margin-left: 15;
     margin-right: 8;
     text-align: justify;
 }
@@ -160,67 +160,23 @@
     flex:1;
     position:relative;
     top: 10;
-    left: 10;
+    left: 15;
     bottom: 10;
-    right: 10;
+    right: 15;
     height: 300;
-    width:300;
+    width:380;
 }
 .nbDaysContainer {
     flex-direction: row;
 }
 
 .nbDaysModal{
+background-color: aqua;
  padding-top: 5;
- padding-right: 8;
+ padding-right: 5;
  padding-bottom: 5;
- padding-left: 8;
+ padding-left: 5;
  margin-left: 12;
  margin-right: 12;
  border-radius: 15px;
- border: 1px solid black;
-
-}
-.tagsContainer{
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-.tagsModal {
-    padding-top: 5;
-    padding-right: 8;
-    padding-bottom: 5;
-    padding-left: 8;
-    margin-left: 12;
-    margin-top: 5;
-    border-radius: 15px;
-    border: 1px solid black;
-
-}
-.buttonsContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15;
-}
-.quotationButton {
-    background-color: #C46B4D;
-    padding-top: 10;
-    padding-right: 20;
-    padding-bottom: 10;
-    padding-left: 20;
-    margin-bottom: 12;
-    border-radius: 3px;
-}
-
-.programButton {
-    
-    padding-top: 5;
-    padding-right: 8;
-    padding-bottom: 5;
-    padding-left: 8;
-
-}
-.buttonText {
-    font-family: "txt";
-    font-size: 16;   
 }

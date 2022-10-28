@@ -13,6 +13,7 @@ import { getMonthName } from '../../assets/helpers';
 import { addIP } from '../../reducers/IPAddress';
 import { addFavorites, setFavorites } from '../../reducers/user';
 import * as Network from 'expo-network';
+import { serverURL } from '../../api/backend_request';
 import { dismountUser } from '../../reducers/user';
 
 export default function Discover({ navigation }) {
@@ -27,7 +28,7 @@ export default function Discover({ navigation }) {
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN + FAVORITES OF THE USER TO SAVE IN THE REDUCER
   useEffect(() => {
     //GET ALL THE TRIPS
-    fetch(`http://192.168.131.88:3000/trips`)
+    fetch(`${serverURL}/trips`)
       .then((response) => response.json())
       .then((data) => {
         setTripsData(data.trips);
@@ -37,7 +38,7 @@ export default function Discover({ navigation }) {
      
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
-    fetch(`http://192.168.131.88:3000/users/like/${TOKEN}`)
+    fetch(`${serverURL}/users/like/${TOKEN}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {

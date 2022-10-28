@@ -41,12 +41,10 @@
     align-self: center;
 }
 
-<<<<<<< HEAD
-=======
 .tripContainer {
+  flex: 1;
    
 }
->>>>>>> 7e326a897be4173437ef3d72fc170913630d2e1b
 
 .catalogue {
     flex: 1;

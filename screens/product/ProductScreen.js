@@ -10,7 +10,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import MapView, { Marker } from 'react-native-maps';
 import Coeur from '../../components/icons/coeur';
 import Cross from '../../components/icons/cross';
-// import * as Network from 'expo-network';
+import * as Network from 'expo-network';
 import Scroll from '../../components/icons/scrollDown';
 import { touchRippleClasses } from '@mui/material';
 import { useIsFocused } from "@react-navigation/native";
@@ -24,18 +24,11 @@ export default function ProductScreen({ navigation, route: { params: id } }) {
   //   inputRange:[0,300],
   //   outputRange:[0,-300]
   // })
-<<<<<<< HEAD
-
-=======
   const isFocused = useIsFocused();
->>>>>>> e634d702af96092d41a6cd1d4a7a55cd24dd1ba6
   const loadedFonts = loadFonts();
   //fait apparaître / disparaître la Modal
   const [modalVisible, setModalVisible] = useState(false);
   const [detailedProgram, setDetailedProgram] = useState(3);
-<<<<<<< HEAD
-  if (!loadedFonts) return <></>;
-=======
   const [trip, setTrip] = useState(null);
 
    /* ---------------- IMPORT DES PROPS A L'INITIALISATION DU COMPOSANT ----------------  */
@@ -63,7 +56,6 @@ export default function ProductScreen({ navigation, route: { params: id } }) {
   if (!isFocused) {
     setTrip(null);
   }
->>>>>>> e634d702af96092d41a6cd1d4a7a55cd24dd1ba6
 /* ---------------- A REMPLACER PAR UN FETCH  DEBUT ----------------  */
   //image background url
   const image = { uri: 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666688082/balibackground_zhvjoa.jpg' };
@@ -109,13 +101,10 @@ export default function ProductScreen({ navigation, route: { params: id } }) {
  /* ---------------- A REMPLACER PAR UN FETCH  FIN ----------------  */
 
 
-<<<<<<< HEAD
-=======
 
  /* ---------------- FIN ESPACE TRAVAIL ----------------  */
 
 
->>>>>>> e634d702af96092d41a6cd1d4a7a55cd24dd1ba6
 // to display buttons for programs
 const programSetter = (data) => {
 //selon le jour cliqué, afficher le detailed program correspondant
@@ -123,20 +112,11 @@ const programSetter = (data) => {
 }
 
 const goodProgram = program.find(program => program.nbday === detailedProgram)
-<<<<<<< HEAD
-console.log(goodProgram)
-const programDisplay = goodProgram.detailedProgram.map((day, i) => {
-  return(
-    <View>
-      <Text>Day {day.day}</Text>
-      <Text>Activities: {day.activities}</Text>
-=======
 const programDisplay = goodProgram.detailedProgram.map((day, i) => {
   return(
     <View style={styles.program}>
       <Text style={styles.programKey}>Day : <Text style={styles.programValue}>{day.day}</Text></Text>
       <Text style={styles.programKey}>Activities : <Text style={styles.programValue}>{day.activities}</Text></Text>
->>>>>>> e634d702af96092d41a6cd1d4a7a55cd24dd1ba6
     </View>
   )
  })
@@ -169,11 +149,7 @@ const programDisplay = goodProgram.detailedProgram.map((day, i) => {
   return (
     <View style={styles.scrollView}> 
 {/* ---------------- LANDING PAGE PHOTO BACKGROUND + INFOS PRINCIPALES ---------------- */}
-<<<<<<< HEAD
-      <ImageBackground style={styles.landing} source={image} resizeMode='cover'>
-=======
       <ImageBackground style={styles.landing} source={{uri: trip.background}} resizeMode='cover'>
->>>>>>> e634d702af96092d41a6cd1d4a7a55cd24dd1ba6
 
 {/* ---------------- HEADER BOUTONS LIKE ET RETOUR PAGE RECHERCHE ---------------- */}
         <View style={styles.header}>

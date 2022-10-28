@@ -8,7 +8,6 @@ import { addFavorites } from '../../reducers/user';
 
 
 export default function Trip(props) {
-  console.log(props.isFavorite, props.id)
   const dispatch = useDispatch();
   const TOKEN = "R1jjTe76KxKzzYm3Hs2w5of88DyxZZoP"
   const navigation = useNavigation();

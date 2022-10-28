@@ -75,7 +75,7 @@ export default function Search({ navigation }) {
     let research = { minBudget, maxBudget };
     console.log(research);
     //construit l'URL avec les query correspondants aux filtres
-    var url = new URL('http://192.168.1.96:3000/trips/filter');
+    var url = new URL('http://172.20.10.3:3000/trips/filter');
     Object.keys(research).forEach((key) => url.searchParams.append(key, research[key]));
     console.log(url);
     //fetch avec l'URL personnalisé à la recherche

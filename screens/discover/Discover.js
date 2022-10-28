@@ -26,14 +26,14 @@ export default function Discover({ navigation }) {
   useEffect(() => {
 
     //GET ALL THE TRIPS
-    fetch(`http://172.20.10.3:3000/trips`)
+    fetch(`http://192.168.10.135:3000/trips`)
       .then(response => response.json())
       .then(data => {
         setTripsData(data.trips);
       });
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
-    fetch(`http://172.20.10.3:3000/users/like/${TOKEN}`)
+    fetch(`http://192.168.10.135:3000/users/like/${TOKEN}`)
     .then(response => response.json())
     .then(data => {
       if (data.result) {

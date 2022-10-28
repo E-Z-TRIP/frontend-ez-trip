@@ -16,12 +16,8 @@ export default function Trip(props) {
 
     //function to add the trip to the tripsLiked user database + adding it to the reducer
     const handleLike = () => {
-<<<<<<< HEAD
-      fetch(`http://172.20.10.3:3000/users/addlike/`, {
-=======
       console.log('trip liked');
-      fetch(`http://192.168.131.88:3000/users/addlike`, {
->>>>>>> 68d6cb667f04c57c81f7b0aa7c88632b53e64a86
+      fetch(`http://192.168.10.135:3000/users/addlike`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ token: TOKEN, tripID: '6358edc49ced89a7026c3019' }),

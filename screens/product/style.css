@@ -18,7 +18,9 @@
 }
 
 .header {
-    padding-top: 40;
+    z-index: 1;
+    height: 15%;
+    margin-top: 40;
     flex-direction: row;
     justify-content: flex-end;
 }
@@ -34,18 +36,17 @@
 
 }
 .crossBox{
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: rgba(255,255,255,0.8);
+    height: 30;
+    display: flex;
+    justify-content: center;
+    align-content: center;
     margin-left: 8;
     margin-right: 8;
     margin-bottom: 0;
     border-radius: 50px;
     padding-left: 12; 
     padding-right: 12;
-   
-
 }
 
 .recapTrip {
@@ -53,7 +54,7 @@
     margin-right: 10;
     margin-left: 10;
     border-radius: 15px;
-    margin-top: 550;
+    margin-top: 100%;
     margin-bottom: 50;
     padding-top: 10;
     padding-bottom: 10;
@@ -65,6 +66,14 @@
 .title {
     font-family: "heading";
     font-size: 30px;
+}
+
+.country {
+    font-family: 'txt';
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10;
+    color: grey;
 }
 
 .text {
@@ -101,7 +110,7 @@
 
 .caroussel {
     background-color: bisque;
-    padding-top: 40;
+    padding-top: 15;
     height: 300;
     width: 100%;
     flex-direction: row;
@@ -109,45 +118,38 @@
 }
 
 .headerModal {
-    /* margin-top: 90; */
-    flex-direction: row;
-    justify-content: space-between;
-    padding-top: 5;
-    margin-left: 10;
+    flex-direction: column;
+    margin-top: 15;
+    margin-bottom: 20;
 }
 
 .heartBoxModal {
     margin-right: 12;
     
 }
-.crossBoxModal {
-    margin-right: 12;
-    padding-top: 12;
-}
+
 .infoContainerModal {
     flex-direction: row;
-
+    justify-items: space-between;
+    width: 100%;
 }
-.flatListModal {
+
+/* .flatListModal {
     font-family: "txt";
     font-size: 14px;
     padding-top: 5;
     margin-left: 15;
-}
+} */
+
 .offeredByModal {
     font-family: "txt";
-    font-size: 14;
-    padding-top: 5;
-    margin-right: 15;
-    margin-left: 15;
 }
 .smallTitle {
     font-family: "txtBold";
     font-size: 14;
     padding-top: 12;
     margin-top: 12;
-    margin-bottom: 5;
-    margin-left: 15;
+    margin-bottom: 10;
 }
 .inclusModal {
     font-family: "txt";
@@ -161,11 +163,8 @@
     flex:1;
     position:relative;
     top: 10;
-    left: 15;
-    bottom: 10;
-    right: 15;
     height: 300;
-    width:380;
+    width:100%;
 }
 .nbDaysContainer {
     flex-direction: row;
@@ -210,12 +209,12 @@
     padding-bottom: 10;
     padding-left: 20;
     margin-bottom: 12;
-    border-radius: 3px;
+    margin-top: 20;
+    border-radius: 15px;
 }
 
 .programButton {
     
-    padding-top: 5;
     padding-right: 8;
     padding-bottom: 5;
     padding-left: 8;
@@ -242,7 +241,15 @@
 
 }
 
-.buttonText {
+.buttonTextQuotation {
     font-family: "txt";
-    font-size: 16;   
+    font-size: 16;  
+    color: white; 
+}
+
+.buttonTextProgram {
+    text-decoration: underline;
+    font-family: "txt";
+    font-size: 16;
+    margin-top: 15;   
 }

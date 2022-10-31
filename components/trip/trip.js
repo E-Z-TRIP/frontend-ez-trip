@@ -5,11 +5,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavorites, deleteFavorite } from '../../reducers/user';
-
+import { serverURL } from '../../api/backend_request';
 
 export default function Trip(props) {
   const dispatch = useDispatch();
-  const TOKEN = useSelector((state) => state.user.value);
+  const TOKEN = useSelector((state) => state.user.value.token);
   const navigation = useNavigation();
   const favorites = useSelector((state) => state.user.favorites);
 
@@ -19,20 +19,21 @@ export default function Trip(props) {
       if (favorites.some(favorite => favorite === props.id)) {
         console.log('déjà liké!')
         //supprime en BDD
-        fetch(`http://192.168.131.88:3000/users/like`, {
+        fetch(`${serverURL}/users/like`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: TOKEN, tripID: props.id }),
       })
+      .then(response => response.json())
       .then(data => {
+        console.log(data)
         if (data.result) {
-          //supprime dans le reducer 
+          //une fois supprimé en BDD, supprime dans le reducer 
           dispatch(deleteFavorite(props.id))
           console.log('fetch successful + supprimé du reducer')
         }
         else {
           console.log('no data from fetch'); 
-          console.log(data.error);
         }
       });
       }
@@ -53,14 +54,13 @@ export default function Trip(props) {
           }
           else {
             console.log('no data from fetch'); 
-            console.log(data.error);
           }
         });
       }
     }
     
     return (
-      <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Product', {id: props.id})}>
+      <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Product', {id: props.id, isFavorite: props.isFavorite})}>
         <ImageBackground imageStyle={{ borderRadius: 15}} source={{uri: props.background}} style = {styles.imgbackground}>
         <LinearGradient 
         colors={['rgba(0,0,0,0.5)', 'transparent']}

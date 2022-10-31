@@ -11,6 +11,8 @@
 }
 
 .footer {
+    border-top-width: 1px;
+    border-color: black;
     background-color: white;
     height: 100%;
     width: 100%;

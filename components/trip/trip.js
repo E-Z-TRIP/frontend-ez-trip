@@ -12,7 +12,6 @@ export default function Trip(props) {
   const TOKEN = useSelector((state) => state.user.value.token);
   const navigation = useNavigation();
   const favorites = useSelector((state) => state.user.favorites);
-  console.log(props.propsKey)
   // console.log('token trip.js', TOKEN)
     //function to add the trip to the tripsLiked user database + adding it to the reducer
     const handleLike = () => {

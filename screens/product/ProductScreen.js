@@ -43,8 +43,6 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
   //Token utilisateur
   const TOKEN = useSelector((state) => state.user.value.token);
 
-  console.log(props)
-
    /* ---------------- IMPORT DES PROPS A L'INITIALISATION DU COMPOSANT ----------------  */
 
    useEffect(() => {
@@ -55,7 +53,6 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
   .then(response => response.json())
   .then(data => {
     if (data.result) {
-      console.log(data)
       setTrip(data.trip)
     }
     else {
@@ -199,7 +196,6 @@ if (goodProgram) {
   }
     /* ---------------- PHOTOS CARROUSSEL ----------------  */
 
-console.log(props.propsKey);
 let urls = []
 let photoDisplayed = trip.photos.map((e, i) => {
   urls.push({url: e})

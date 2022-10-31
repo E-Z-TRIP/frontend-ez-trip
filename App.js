@@ -53,8 +53,8 @@ function App() {
         <Stack.Navigator initialRouteName='OnBoardiing' 
         screenOptions={{ headerShown: false, gestureEnabled: false }}>
           {(store.getState()?.user?.value?.token && <></>) ||
-           <Stack.Screen name='OnBoarding' component={OnBoarding} />}
-             <Stack.Screen name='MyTrips' component={MyTrips} />
+          <Stack.Screen name='OnBoarding' component={OnBoarding} />}
+          <Stack.Screen name='MyTrips' component={MyTrips} />
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='Product' component={ProductScreen} />

@@ -5,15 +5,15 @@ import { loadFonts } from '../../assets/fonts/fonts';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { serverURL } from '../../api/backend_request';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Directions, ScrollView } from 'react-native-gesture-handler';
 import MapView, { Marker } from 'react-native-maps';
 import Cross from '../../components/icons/cross';
 import * as Network from 'expo-network';
 import Scroll from '../../components/icons/scrollDown';
-import { touchRippleClasses } from '@mui/material';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { addFavorites, deleteFavorite } from '../../reducers/user';
 import { getMonthName } from '../../assets/helpers';
+import Slideshow from 'react-native-image-slider-show';
 
 
 
@@ -196,8 +196,17 @@ if (goodProgram) {
       });
     }
   }
+    /* ---------------- PHOTOS CARROUSSEL ----------------  */
 
 console.log(props.propsKey);
+let urls = []
+let photoDisplayed = trip.photos.map((e, i) => {
+  urls.push({url: e})
+})
+
+
+/////////FINAL RETURN//////////
+
   return (
     <View style={styles.scrollView} key={props.propsKey}> 
 {/* ---------------- LANDING PAGE PHOTO BACKGROUND + INFOS PRINCIPALES ---------------- */}
@@ -217,8 +226,8 @@ console.log(props.propsKey);
         <View style={styles.recapTrip}>
           <Text style={styles.title}>{name}</Text>
           <Text style={styles.country}>{trip.country}</Text>
-          <Text style={styles.text}>Min {minDay} days - Max {maxDay} days</Text>
-          <Text style={styles.text}>A partir de {price}€ </Text>
+          {(minDay == maxDay) ? <Text style={styles.text}>{minDay} days</Text> : <Text style={styles.text}>From {minDay} days to {maxDay} days</Text>}
+          <Text style={styles.text}>Starting from {price}€ </Text>
         </View>
         <TouchableOpacity style={styles.details} onPress={() => setModalVisible(!modalVisible)}>
           <Text style={styles.textDetail}>More details</Text>
@@ -245,18 +254,17 @@ console.log(props.propsKey);
         }}> */}
 {/* ---------------- CAROUSSEL PHOTOS ---------------- */}
         
-          <View style={styles.caroussel}>
-          <View name="iconContainer" style={{backgroundColor: 'none', position: 'relative',width: '15%', height: '10%', flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', marginRight: 15}}>
+
+          <Slideshow scrollEnabled={false} height={250} style={styles.caroussel}
+          dataSource={urls}></Slideshow>
+            <View name="iconContainer" style={{position: 'absolute', width: '100%', height: '5%', flexDirection:'row', justifyContent:'flex-end', padding: 25, alignItems: 'center', marginRight: 15}}>
               {heart}
-              <TouchableOpacity
-                name='close'
-                size={30}
-                color='black'
+              <TouchableOpacity style={{marginLeft: 20}} name='close' size={30}
                 onPress={() => setModalVisible(!modalVisible)}>
                 <Cross />
               </TouchableOpacity>
-              </View>
-          </View>
+            </View>
+
         {/* </Animated.View> */}
         {/* body modal */}
               {/* // scrollEventThrottle={16}
@@ -266,45 +274,36 @@ console.log(props.propsKey);
 
 {/* ---------------- HEADER INFOS PRINCIPALES ---------------- */}
             <View name="infosModal" style={{padding: 15}}>
+              {/* ---------------- HEADER TITRE + PAYS ---------------- */}
             <View style={styles.headerModal}>
               <Text style={styles.title}>{trip.name}</Text>
               <Text style={styles.country}>{trip.country}</Text>
+              <View style={styles.border}></View>
             </View>
+             {/* ---------------- CARTE INFOS ORANGE + PARTENAIRE ---------------- */}
             <View style={styles.infoContainerModal}>
-              <View style={{width: '60%', backgroundColor: '#C46B4D', width: '50%', padding: 10}}>
-                <Text style={{color: 'white'}}>From {minDay} days to {minDay} days</Text>
-                <Text style={{color: 'white'}}>Travel period: {startMonth}<Text>to {endMonth}</Text></Text>
+              <View style={{width: '60%', backgroundColor: '#C46B4D', width: '60%', padding: 10}}>
+                {minDay == maxDay ?<Text style={{color: 'white'}}>{minDay} days</Text> : <Text style={{color: 'white'}}>From {minDay} days to {maxDay} days</Text>}
+                <Text style={{color: 'white'}}>Travel period: {startMonth}<Text> to {endMonth}</Text></Text>
                 <Text style={{color: 'white'}}>Starting from {price}€</Text>
               </View>
               <View style={{flex: 1, flexDirection: 'row', justifyContent:'flex-end'}}>
-              <Text style={styles.offeredByModal}>Offered by <Text>EZTRIP</Text></Text>
+              <Text style={styles.offeredByModal}>Offered by <Text style={{textDecoration: 'underline'}}>EZTRIP</Text></Text>
               </View>
             </View>
 {/* ---------------- INCLUDED/NOT INCLUDED ---------------- */}
-            <Text style={styles.smallTitle}>Included :</Text>
-            <View>{included}</View>
-            {/* <Animated.FlatList
-              columnWrapperStyle={{ flexWrap: 'wrap', flex: 1 }}
-              numColumns={3}
-              data={[
-                { key: 'Vol Paris/Bali' },
-                { key: 'Les réservations' },
-                { key: 'Les transferts ' },
-                { key: 'Le guide local' },
-                { key: 'La demi-pension' },
-                { key: 'Les hébergements' },
-              ]}
-              renderItem={({ item }) => <Text style={styles.inclusModal}>{item.key}</Text>}
-            /> */}
-
-            <Text style={styles.smallTitle}>Not included :</Text>
-            <View>{nonIncluded}</View>
-            {/* <Animated.FlatList
-              columnWrapperStyle={{ flexWrap: 'wrap', flex: 1 }}
-              numColumns={3}
-              data={[{ key: 'Les pourboires' }, { key: 'Les boissons' }]}
-              renderItem={({ item }) => <Text style={styles.inclusModal}>{item.key}</Text>}
-            /> */}
+            <View style={{flex:1, flexDirection: 'row', justifyContent:'space-between'}}>
+              <View name="included" style={{width: '50%'}}>
+                <Text style={styles.smallTitle}>Included :</Text>
+                <View style={{width: '100%'}}>{included}</View>
+              </View>
+            
+              <View name="nonIncluded" style={{marginRight: 5, width: '50%'}}>
+                <Text style={styles.smallTitle}>Not included :</Text>
+                <View style={{width: '100%'}}>{nonIncluded}</View>
+              </View>
+            </View>
+           
 {/* ---------------- MAP LOCALISATION ---------------- */}
             <View name = "localisation" style={{justifyContent:'center'}}>
             <Text style={styles.smallTitle}>Localisation :</Text>

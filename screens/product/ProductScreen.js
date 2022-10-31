@@ -27,61 +27,57 @@ import Slideshow from 'react-native-image-slider-show';
 const iso = require('iso-3166-1');
 
 export default function ProductScreen({ navigation, route: { params: props } }) {
-
-
   /* ---------------- INITIALISATION DES CONSTANTES ----------------  */
   const dispatch = useDispatch();
   //store toutes les données du trip fetché au chargement du composant
   const [trip, setTrip] = useState(null);
-  const [lat, setLat] = useState(null)
-  const [lon, setLon] = useState(null)
+  const [lat, setLat] = useState(null);
+  const [lon, setLon] = useState(null);
   const loadedFonts = loadFonts();
   //fait apparaître / disparaître la Modal
   const [modalVisible, setModalVisible] = useState(false);
   //détermine le programme à display
   const [detailedProgram, setDetailedProgram] = useState(null);
   //gère les likes
-  const [favorite, setFavorite] = useState(false)
+  const [favorite, setFavorite] = useState(false);
   //Token utilisateur
   const TOKEN = useSelector((state) => state.user.value.token);
 
-   /* ---------------- IMPORT DES PROPS A L'INITIALISATION DU COMPOSANT ----------------  */
+  /* ---------------- IMPORT DES PROPS A L'INITIALISATION DU COMPOSANT ----------------  */
 
-   useEffect(() => {
-  //importe l'état favorite du trip
-  setFavorite(props.isFavorite);
-  //fetch le trip grâce à l'id reçu en props
-  fetch(`${serverURL}/trips/tripById/${props.id}`)
-  .then(response => response.json())
-  .then(data => {
-    if (data.result) {
-      setTrip(data.trip)
-    }
-    else {
-      console.log('no trip received')
-    }
-  })
+  useEffect(() => {
+    //importe l'état favorite du trip
+    setFavorite(props.isFavorite);
+    //fetch le trip grâce à l'id reçu en props
+    fetch(`${serverURL}/trips/tripById/${props.id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          setTrip(data.trip);
+        } else {
+          console.log('no trip received');
+        }
+      });
   }, []);
-
 
   // fetch les coordonnées géographiques de la ville de départ du trip une fois le trip chargé dans le hook React
   useEffect(() => {
-    if(trip) {
+    if (trip) {
       //L'API OpenWeatherApp a besoin du Country Code pour faire sa recherche
       let countryCode = iso.whereCountry(trip.country).alpha2;
-       //fetch avec le country code correspondant + la ville de départ
-       fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${trip.addressDeparture},${countryCode}&appid=7cecadeb80528d114d059361830568c1`)
-       .then(response => response.json())
-       .then(data => {
-        //stock la latitude et la longitude
-         setLat(Number(data[0].lat))
-         setLon(Number(data[0].lon))
-       })
+      //fetch avec le country code correspondant + la ville de départ
+      fetch(
+        `http://api.openweathermap.org/geo/1.0/direct?q=${trip.addressDeparture},${countryCode}&appid=7cecadeb80528d114d059361830568c1`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          //stock la latitude et la longitude
+          setLat(Number(data[0].lat));
+          setLon(Number(data[0].lon));
+        });
     }
-    }, [trip]);
+  }, [trip]);
 
-
-  
   if (!loadedFonts) return <></>;
 
   if (!trip) return <></>;
@@ -95,13 +91,15 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
   const maxDay = trip.program[trip.program.length - 1].nbday;
   const startMonth = getMonthName(trip.travelPeriod[0].start);
   const endMonth = getMonthName(trip.travelPeriod[0].end);
-  const heart = <AntDesign
-  name='heart'
-  size={25}
-  borderOuterOutlined='black'
-  color={favorite ? 'red' : 'white'}
-  // onPress={onHeartPress}
-/>
+  const heart = (
+    <AntDesign
+      name='heart'
+      size={25}
+      borderOuterOutlined='black'
+      color={favorite ? 'red' : 'white'}
+      // onPress={onHeartPress}
+    />
+  );
   /* ---------------- DISPLAY PROGRAM DYNAMICALLY ----------------  */
 
   // to display buttons for programs
@@ -217,22 +215,28 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
     <View style={styles.scrollView} key={props.propsKey}>
       {/* ---------------- LANDING PAGE PHOTO BACKGROUND + INFOS PRINCIPALES ---------------- */}
       <ImageBackground style={styles.landing} source={{ uri: trip.background }} resizeMode='cover'>
-
+        <HeaderButtons
+          favorite={favorite}
+          onHeartPress={() => handleLike()}
+          onCrossPress={() => setTimeout(navigation.goBack(null), 0)}
+          heartActiveColor='#F5612F'
+          iconsColor='white'
+        />
         {/* ---------------- RECAP TRIP  ---------------- */}
-        <View style={styles.recapTrip}>
-          <Text style={styles.title}>{name}</Text>
-          <Text style={styles.country}>{trip.country}</Text>
+        <View style={styles.recapTripCard}>
+          <Text style={styles.recapTriptitle}>{name}</Text>
+          <Text style={styles.recapTripcountry}>{trip.country}</Text>
           {minDay == maxDay ? (
-            <Text style={styles.text}>{minDay} days</Text>
+            <Text style={styles.recapTripDays}>{minDay} days</Text>
           ) : (
-            <Text style={styles.text}>
+            <Text style={styles.recapTripDays}>
               From {minDay} days to {maxDay} days
             </Text>
           )}
-          <Text style={styles.text}>Starting from {price}€ </Text>
+          <Text style={styles.recapTripPrice}>Starting from {price}€ </Text>
         </View>
-        <TouchableOpacity style={styles.details} onPress={() => setModalVisible(!modalVisible)}>
-          <Text style={styles.textDetail}>More details</Text>
+        <TouchableOpacity style={styles.moreDetailsBtn} onPress={() => setModalVisible(!modalVisible)}>
+          <Text style={styles.moreDetailsBtnTxt}>More details</Text>
           <Scroll />
         </TouchableOpacity>
       </ImageBackground>
@@ -245,6 +249,14 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
           setModalVisible(!modalVisible);
         }}>
         <View style={styles.modal}>
+          <HeaderButtons
+            containerStyle={styles.carousselHeaderBtns}
+            favorite={favorite}
+            onHeartPress={() => handleLike()}
+            onCrossPress={() => setModalVisible(!modalVisible)}
+            heartActiveColor='#F5612F'
+            iconsColor='white'
+          />
           <ScrollView style={styles.scrollViewModal}>
             {/* header modal */}
 
@@ -253,22 +265,6 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
             <Slideshow scrollEnabled={false} height={250} style={styles.caroussel} dataSource={urls}></Slideshow>
 
             {/* ---------------- ICONS TOP RIGHT ---------------- */}
-            <View
-              name='iconContainer'
-              style={{
-                position: 'absolute',
-                width: '30%',
-                left: '70%',
-                height: '7%',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                padding: 25,
-                alignItems: 'center',
-                marginRight: 15,
-              }}>
-              {heart}
-              <Cross style={{ marginLeft: 15 }} onPress={() => console.log('hello')} />
-            </View>
 
             {/* ---------------- HEADER INFOS PRINCIPALES ---------------- */}
             <View name='infosModal' style={{ padding: 15 }}>
@@ -295,60 +291,63 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
                   <Text style={{ color: 'white' }}>Starting from {price}€</Text>
                 </View>
                 <View style={styles.infoContainerModal}>
-                  <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+                  <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
                     <Text style={styles.offeredByModal}>
-                      Offered by <Text style={{ color:'black', textDecoration: 'underline' }}>EZTRIP</Text>
+                      Offered by <Text style={{ color: 'black', textDecoration: 'underline' }}>EZTRIP</Text>
                     </Text>
                   </View>
                 </View>
               </View>
             </View>
-{/* ---------------- INCLUDED/NOT INCLUDED ---------------- */}
-            <View style={{flex:1, flexDirection: 'row', justifyContent:'space-between'}}>
-              <View name="included" style={{width: '50%', marginRight: 5}}>
+            {/* ---------------- INCLUDED/NOT INCLUDED ---------------- */}
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+              <View name='included' style={{ width: '50%', marginRight: 5 }}>
                 <Text style={styles.smallTitle}>Included :</Text>
-                <View style={{width: '100%'}}>{included}</View>
+                <View style={{ width: '100%' }}>{included}</View>
               </View>
-            
-              <View name="nonIncluded" style={{marginRight: 5, width: '50%'}}>
+
+              <View name='nonIncluded' style={{ marginRight: 5, width: '50%' }}>
                 <Text style={styles.smallTitle}>Not included :</Text>
-                <View style={{width: '100%'}}>{nonIncluded}</View>
+                <View style={{ width: '100%' }}>{nonIncluded}</View>
               </View>
             </View>
-           
-{/* ---------------- MAP LOCALISATION : Ne s'affiche que si lat et lon sont définies---------------- */}
-            <View name = "localisation" style={{justifyContent:'center'}}>
-            <Text style={styles.smallTitle}>Localisation :</Text>
-            {lat && lon ? <MapView
-              loadingBackgroundColor='#C46B4D'
-              tintColor='#C46B4D'
-              style={styles.map}
-              mapType='mutedStandard'
-              initialRegion={{
-                latitude: lat,
-                longitude: lon,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              }}></MapView> : <View></View>}
-              </View>
 
-{/* ---------------- DESCRIPTION TRIP ---------------- */}
-{/* si on a le temps voir pour un "showmore"/"showless" pour pas avoir des descriptions a rallonge */}
+            {/* ---------------- MAP LOCALISATION : Ne s'affiche que si lat et lon sont définies---------------- */}
+            <View name='localisation' style={{ justifyContent: 'center' }}>
+              <Text style={styles.smallTitle}>Localisation :</Text>
+              {lat && lon ? (
+                <MapView
+                  loadingBackgroundColor='#C46B4D'
+                  tintColor='#C46B4D'
+                  style={styles.map}
+                  mapType='mutedStandard'
+                  initialRegion={{
+                    latitude: lat,
+                    longitude: lon,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                  }}></MapView>
+              ) : (
+                <View></View>
+              )}
+            </View>
 
+            {/* ---------------- DESCRIPTION TRIP ---------------- */}
+            {/* si on a le temps voir pour un "showmore"/"showless" pour pas avoir des descriptions a rallonge */}
 
             <Text style={styles.smallTitle}>Description :</Text>
             <Text numberOfLines={5} ellipsizeMode='tail' style={styles.inclusModal}>
               {trip.description}{' '}
             </Text>
 
-                {/* ---------------- BOUTONS QUOTATION ET DOWNLOAD ---------------- */}
+            {/* ---------------- BOUTONS QUOTATION ET DOWNLOAD ---------------- */}
 
-                <TouchableOpacity style={styles.quotationButton}>
-                  <Text style={styles.buttonTextQuotation}>Quotation request</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.programButton}>
-                  <Text style={styles.buttonTextProgram}>Download program (PDF)</Text>
-                </TouchableOpacity>
+            <TouchableOpacity style={styles.quotationButton}>
+              <Text style={styles.buttonTextQuotation}>Quotation request</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.programButton}>
+              <Text style={styles.buttonTextProgram}>Download program (PDF)</Text>
+            </TouchableOpacity>
 
             {/* ---------------- ALL THE CODE HAS TO GO OVER THIS LINE ---------------- */}
             {/* ---------------- FOOTER BOTTOM BAR ---------------- */}
@@ -362,21 +361,21 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
   );
 }
 
-// function HeaderButtons({ heartActiveColor, onHeartPress, onCrossPress, iconsColor, favorite }) {
-//   return (
-//     <View style={styles.headerButtons}>
-//       <TouchableOpacity style={styles.heartBtn}>
-//         <AntDesign
-//           name='heart'
-//           size={25}
-//           borderOuterOutlined='black'
-//           color={favorite ? heartActiveColor : iconsColor}
-//           onPress={onHeartPress}
-//         />
-//       </TouchableOpacity>
-//       <TouchableOpacity style={styles.crossBtn} onPress={onCrossPress}>
-//         <Cross scale={1.2} color={iconsColor} style={styles.cross} />
-//       </TouchableOpacity>
-//     </View>
-//   );
-// }
+function HeaderButtons({ containerStyle, heartActiveColor, onHeartPress, onCrossPress, iconsColor, favorite }) {
+  return (
+    <View style={{ ...styles.headerButtons, ...containerStyle }}>
+      <TouchableOpacity style={styles.heartBtn}>
+        <AntDesign
+          name='heart'
+          size={25}
+          borderOuterOutlined='black'
+          color={favorite ? heartActiveColor : iconsColor}
+          onPress={onHeartPress}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.crossBtn} onPress={onCrossPress}>
+        <Cross scale={1.2} color={iconsColor} style={styles.cross} />
+      </TouchableOpacity>
+    </View>
+  );
+}

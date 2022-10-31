@@ -1,6 +1,6 @@
 import Svg, { Path } from 'react-native-svg';
 
-export default function Scroll() {
+export default function Scroll({ direction = 'down' }) {
   return (
     <Svg xmlns='http://www.w3.org/2000/svg' width='18' height='9' viewBox='0 0 18 9' fill='none'>
       <Path

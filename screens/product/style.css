@@ -4,11 +4,18 @@
 }
 .landing {
   flex: 1;
-  padding: 40px 25px;
+  padding: 40px 25px 0px 25px;
 }
 .headerButtons {
   flex-direction: row;
   align-self: flex-end;
+}
+.carousselHeaderBtns {
+  position: absolute;
+  z-index: 9999;
+  width: 100%;
+  padding: 10px 25px;
+  justify-content: flex-end;
 }
 .crossBtn {
   justify-content: center;
@@ -31,71 +38,40 @@
   justify-content: flex-end;
 }
 
-.coeurBox {
-  background-color: rgba(255, 255, 255, 0.8);
-  margin-left: 8;
-  margin-right: 8;
-  border-radius: 50px;
-  padding-left: 5;
-  padding-top: 5;
-  padding-right: 5;
-  padding-bottom: 5;
-}
-.crossBox {
-  background-color: rgba(255, 255, 255, 0.8);
-  height: 30;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  margin-left: 8;
-  margin-right: 8;
-  margin-bottom: 0;
-  border-radius: 50px;
-  padding-left: 12;
-  padding-right: 12;
-}
-
-.recapTrip {
-  background-color: rgba(255, 255, 255, 0.8);
-  margin-right: 10;
-  margin-left: 10;
-  border-radius: 15px;
-  margin-top: 90%;
-  margin-bottom: 50;
-  padding-top: 10;
-  padding-bottom: 10;
-  padding-left: 20;
-  padding-right: 10;
-  height: 20%;
+.recapTripCard {
   flex-direction: column;
   justify-content: center;
+  background-color: #ffffffcc;
+  border-radius: 15px;
+  padding: 15px;
+  margin-top: auto;
 }
-
-.title {
+.recapTriptitle {
   font-family: 'heading';
   font-size: 30px;
 }
-
-.country {
-  font-family: 'txt';
+.recapTripcountry {
+  font-family: 'txtMedium';
   font-size: 16px;
-  font-weight: bold;
-  padding: 10px 0;
+  padding: 10px 0 5px 0;
   color: #8d8d8d;
 }
-
-.text {
+.recapTripDays {
   font-family: 'txt';
   font-size: 16px;
 }
-
-.details {
+.recapTripPrice {
+  font-family: 'txt';
+  font-size: 16px;
+}
+.moreDetailsBtn {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  padding: 20px 10px;
 }
-.textDetail {
+.moreDetailsBtnTxt {
   font-family: 'txt';
   font-size: 20;
   padding-right: 10;

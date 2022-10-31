@@ -19,6 +19,7 @@ import MyDocuments from './screens/mydocuments/MyDocuments';
 import MyTrips from './screens/mytrips/MyTrips';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { dismountUser } from './reducers/user';
+import Profile from './screens/User/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -53,7 +54,7 @@ function App() {
         <Stack.Navigator initialRouteName='OnBoardiing' 
         screenOptions={{ headerShown: false, gestureEnabled: false }}>
           {(store.getState()?.user?.value?.token && <></>) ||
-          <Stack.Screen name='OnBoarding' component={OnBoarding} />}
+          <Stack.Screen name='OnBoarding' component={Profile} />}
           <Stack.Screen name='MyTrips' component={MyTrips} />
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />

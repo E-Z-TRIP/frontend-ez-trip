@@ -143,6 +143,8 @@
 
 .offeredByModal {
     font-family: "txt";
+    display: flex;
+    align-items: flex-end;
 }
 .smallTitle {
     font-family: "txtBold";
@@ -153,7 +155,7 @@
 }
 .inclusModal {
     font-family: "txt";
-    font-size: 12;
+    font-size: 14;
     padding-top: 5;
     margin-left: 15;
     margin-right: 8;

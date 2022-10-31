@@ -1,7 +1,7 @@
 import { View, Keyboard, Dimensions } from 'react-native';
 import { useEffect, useState } from 'react';
 
-export default function KeyboardAvoidingView({
+export default function KeyboardAwareView({
   style,
   bottomPositionOnKeyboardOpen,
   active,

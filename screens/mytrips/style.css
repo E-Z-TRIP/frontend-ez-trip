@@ -9,9 +9,19 @@
         font-family: "heading";
         font-size: 50px; 
     }
+    .titleCard {
+        font-family: "heading";
+        font-size: 1.5rem;
+        color: white;
+    }
     .sousHeader{
         flex-direction: row;
         margin-left: 12;
+    }
+    .bottomInfo {
+        flex: 1;
+        flex-direction: column;
+        justify-content: flex-end;
     }
     .smallTitle {
         font-family: "txt";
@@ -23,6 +33,7 @@
      align-items: center;
      justify-content: center;
      border-radius: 35px;
+     margin-left: 12px;
     }
     .swipeLeft {
         position:absolute;
@@ -31,13 +42,20 @@
         z-index: 100;
         margin-top: -40;
     }
+    .topInfos{
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
     .imgBackground {
         margin-right: 15px;
         height: 250px;
         width: 300;
         flex: 1;
         flex-direction: column;
-        justify-content: flex-end;
+        justify-content: space-between;
         background-color: blue;
         border-radius: 35px;
     }

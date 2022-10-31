@@ -11,6 +11,7 @@ import {
   import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
   import Contact from '../../components/icons/contact';
   import styles from './style.css';
+  import Highlight from '../highlight/Highlight';
 
 
 
@@ -30,7 +31,7 @@ return (
   <ScrollView>
 {/* ---------------- TRAVEL CARD  ---------------- */}
     <View style={styles.cardTravel}>
-      <Text> ADD THE TRAVEL CARD </Text>
+      <Highlight/>
     </View>
 {/* ---------------- OFFERED BY TRAVEL AGENCY ---------------- */}
     <View style={styles.offeredByContainer}>
@@ -40,15 +41,11 @@ return (
 {/* ---------------- SUMMARY ---------------- */}
   <View style={styles.summaryContainer}>
     <Text style={styles.smallTitle}> Summary :</Text>
-    <Animated.FlatList
-              data={[
-                { key: `10 days - 9 nights stay` },
-                { key: `4 travelers` },
-                { key: `From 15th to 25th of August 2023` },
-                { key: `Special requests : Vegeterian` },
-              ]}
-              renderItem={({ item }) => <Text style={styles.recapTravel}>{item.key}</Text>}
-              />
+    <Text style={styles.recapTravel}>10 days 9 nights stay</Text>
+    <Text style={styles.recapTravel}>4 travelers</Text>
+    <Text style={styles.recapTravel}>From 15th to 25th of August 2023</Text>
+    <Text style={styles.recapTravel}>Special requests : Vegeterian</Text>
+
   </View>
 
 {/* ---------------- TOTAL COST ---------------- */}
@@ -78,9 +75,9 @@ return (
   </View>
 
 {/* ---------------- FOOTER BOTTOM BAR ---------------- */}
+  <View style={{ height: 170 }}></View>
     </ScrollView>
     </View>
-  <View style={{ height: 90 }}></View>
   <BottomToolbar></BottomToolbar>
 </View>
 

@@ -14,7 +14,6 @@ import { useDispatch } from 'react-redux';
 import { unmountUser } from '../../reducers/user';
 
 export default function MyTrips() {
-  // const dispatch = useDispatch(unmountUser());
   // A REMPLACER PAR UN FETCH
   const data = [
     {
@@ -139,6 +138,20 @@ export default function MyTrips() {
             start={{ x: 0.75, y: 0.75 }}
             end={{ x: 0, y: 0.75 }}
             colors={['rgba(255,255,255,0.7)', 'transparent']}
+            style={{ position: 'absolute', width: 75, height: 210, top: 25, left: '82%' }}></LinearGradient>
+        </View>
+        <View style={styles.border}></View>
+        <View>
+          <ScrollView horizontal={true} style={styles.galleryContainer}>
+            {likedTrips}
+          </ScrollView>
+          <View style={{ marginTop: -16, zIndex: 1, top: -150, left: 340 }}>
+            <SwipeLeft />
+          </View>
+          <LinearGradient
+            start={{ x: 0.75, y: 0.75 }}
+            end={{ x: 0, y: 0.75 }}
+            colors={['rgba(255,255,255,0.7)', 'transparent']}
             style={{ position: 'absolute', width: 75, height: 210, top: 25, left: '80%' }}></LinearGradient>
         </View>
       </View>
@@ -162,7 +175,7 @@ export default function MyTrips() {
           start={{ x: 0.75, y: 0.75 }}
           end={{ x: 0, y: 0.75 }}
           colors={['rgba(255,255,255,0.7)', 'transparent']}
-          style={{ position: 'absolute', width: 75, height: 210, top: '20.5%', left: '80%' }}></LinearGradient>
+          style={{ position: 'absolute', width: 75, height: 212, top: '19.5%', left: '82%' }}></LinearGradient>
 
         {/* ---------------- FOOTER BOTTOM BAR ---------------- */}
       </View>

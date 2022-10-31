@@ -34,7 +34,7 @@ function App() {
     })();
   }, []);
 
-  console.log(loadedStorage);
+  // console.log('dans app.js');
 
   // Un-comment this if using light and dark mode
 

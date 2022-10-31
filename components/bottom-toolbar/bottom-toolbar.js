@@ -15,7 +15,7 @@ export default function BottomToolbar() {
       <TouchableOpacity style={styles.searchBtn} onPress={() => navigation.navigate('Search')}>
         <AntDesign name='search1' size={35} color='black' />
       </TouchableOpacity>
-      <Entypo name='heart-outlined' size={35} color='black' />
+      <Entypo name='heart-outlined' size={35} color='black' onPress={() => navigation.navigate('MyTrips')} />
       <FontAwesome5 name='user-circle' size={35} color='black' />
     </View>
   );

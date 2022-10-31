@@ -27,13 +27,7 @@ import Slideshow from 'react-native-image-slider-show';
 const iso = require('iso-3166-1');
 
 export default function ProductScreen({ navigation, route: { params: props } }) {
-  //collapsible header
-  // const scrollY = new Animated.Value(0);
-  // const diffClamp = Animated.diffClamp(scrollY, 0,405)
-  // const translateY = diffClamp.interpolate({
-  //   inputRange:[0,300],
-  //   outputRange:[0,-300]
-  // })
+
 
   /* ---------------- INITIALISATION DES CONSTANTES ----------------  */
   const dispatch = useDispatch();
@@ -101,7 +95,13 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
   const maxDay = trip.program[trip.program.length - 1].nbday;
   const startMonth = getMonthName(trip.travelPeriod[0].start);
   const endMonth = getMonthName(trip.travelPeriod[0].end);
-
+  const heart = <AntDesign
+  name='heart'
+  size={25}
+  borderOuterOutlined='black'
+  color={favorite ? 'red' : 'white'}
+  // onPress={onHeartPress}
+/>
   /* ---------------- DISPLAY PROGRAM DYNAMICALLY ----------------  */
 
   // to display buttons for programs
@@ -259,7 +259,7 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
                 position: 'absolute',
                 width: '30%',
                 left: '70%',
-                height: '5%',
+                height: '7%',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 padding: 25,
@@ -295,18 +295,9 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
                   <Text style={{ color: 'white' }}>Starting from {price}€</Text>
                 </View>
                 <View style={styles.infoContainerModal}>
-                  <View style={{ width: '60%', backgroundColor: 'pink', width: '50%', padding: 10 }}>
-                    <Text>
-                      From {minDay} days to {minDay} days
-                    </Text>
-                    <Text>
-                      Travel period: {startMonth} to {endMonth}
-                    </Text>
-                    <Text>Starting from {price}€</Text>
-                  </View>
-                  <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+                  <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
                     <Text style={styles.offeredByModal}>
-                      Offered by <Text style={{ textDecoration: 'underline' }}>EZTRIP</Text>
+                      Offered by <Text style={{ color:'black', textDecoration: 'underline' }}>EZTRIP</Text>
                     </Text>
                   </View>
                 </View>
@@ -371,21 +362,21 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
   );
 }
 
-function HeaderButtons({ heartActiveColor, onHeartPress, onCrossPress, iconsColor, favorite }) {
-  return (
-    <View style={styles.headerButtons}>
-      <TouchableOpacity style={styles.heartBtn}>
-        <AntDesign
-          name='heart'
-          size={25}
-          borderOuterOutlined='black'
-          color={favorite ? heartActiveColor : iconsColor}
-          onPress={onHeartPress}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.crossBtn} onPress={onCrossPress}>
-        <Cross scale={1.2} color={iconsColor} style={styles.cross} />
-      </TouchableOpacity>
-    </View>
-  );
-}
+// function HeaderButtons({ heartActiveColor, onHeartPress, onCrossPress, iconsColor, favorite }) {
+//   return (
+//     <View style={styles.headerButtons}>
+//       <TouchableOpacity style={styles.heartBtn}>
+//         <AntDesign
+//           name='heart'
+//           size={25}
+//           borderOuterOutlined='black'
+//           color={favorite ? heartActiveColor : iconsColor}
+//           onPress={onHeartPress}
+//         />
+//       </TouchableOpacity>
+//       <TouchableOpacity style={styles.crossBtn} onPress={onCrossPress}>
+//         <Cross scale={1.2} color={iconsColor} style={styles.cross} />
+//       </TouchableOpacity>
+//     </View>
+//   );
+// }

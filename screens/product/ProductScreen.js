@@ -16,7 +16,6 @@ import { getMonthName } from '../../assets/helpers';
 import Slideshow from 'react-native-image-slider-show';
 
 
-
 export default function ProductScreen({ navigation, route: { params: props } }) {
   //collapsible header 
   // const scrollY = new Animated.Value(0);

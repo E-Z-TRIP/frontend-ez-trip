@@ -31,7 +31,7 @@ export default function BottomToolbar() {
         </View>
         <View style={styles.icons2}>
         
-          <Entypo name='heart-outlined' size={35} color='black' />
+          <Entypo name='heart-outlined' size={35} color='black' onPress={() => navigation.navigate('MyTrips')} />
           <FontAwesome5 name='user-circle' size={35} color='black' />
         </View>
       </View>

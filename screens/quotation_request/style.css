@@ -1,15 +1,26 @@
 
+.containerDate {
+    padding: 1px;
+    flex: 1;
+    height: 100%;
+    
+    justify-content: center;
+
+}
+
+
 .container {
     padding: 25px;
     flex: 1;
     height: 100%;
     flex-direction: column; 
     justify-content: space-around;
+
 }
 
 .header {
     margin-top: 35px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     width: 100%;
     height: 30%;
     flex: 1;
@@ -17,19 +28,53 @@
 }
 
 .title {
-    font-family: 'heading';
+    font-family: heading;
     font-size: 3rem;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
+    line-height: 50px;
+    padding-top: 10px;
+    
     
 }
 
-.highlight {
-    flex: 1;
+.button {
+    height: 20px;
+    width: 20px;
+    border-radius: 3px;
+    border-color: black;
+    border-width: 1px;
 }
 
-.text {
-    font-family: 'txt';
+.input {
+    justify-content: flex-start;
+    height: 100px;
+    width: auto;
+    border-radius: 3px;
+    border-color: black;
+    border-width: 1px;
+    font-size: 16px;
+    padding: 10px;
 }
+
+.buttText{
+font-size: 16px;
+}
+
+.texts {
+    font-size: 16px;
+    font-weight: 500;
+    
+    border-bottom-width: 16px;
+}
+
+.textNum {
+    font-size:16px;
+    flex-direction : row;
+    align-items: center;
+    margin-top: 16px;
+}
+
+
 
 .border {
     border-bottom-color: black;
@@ -37,15 +82,39 @@
     width: 100%;
     background-color: pink;
     height: 1px;
-    margin-top: 15px;
+    margin-top: 16px;
     align-self: center;
 }
 
-.tripContainer {
-   
-}
+
 
 .catalogue {
     flex: 1;
     margin-top: 30px;
+}
+
+.flex{
+    display: flex;
+
+
+}
+
+.buttonConfirm{
+
+margin-top: 16px;
+align-items: center;
+justify-content: center;
+border-radius: 4px;
+background-color: #C46B4D;
+height: 50px;
+font-size: 20px;
+
+    /* .buttonConfirm {
+        align-items: 'center';
+        justify-content: 'center';
+        padding-left: 12;
+        padding-inline-start: 32;
+        border-radius: 4;
+        background-color: 'black';
+    } */
 }

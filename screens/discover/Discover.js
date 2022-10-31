@@ -21,12 +21,12 @@ export default function Discover({ navigation }) {
   const API_ADDRESS = useSelector((state) => state.IPAdress.value);
   //STATE TO STORE ALL THE TRIPS TO DISPLAY
   const [tripsData, setTripsData] = useState([]);
-  //USESELECTORS POUR LIRE LE USER CONNECTED ET SES LIKES
-  const TOKEN = useSelector((state) => state.user.value.token);
+  const TOKEN = "R1jjTe76KxKzzYm3Hs2w5of88DyxZZoP"
   const favorites = useSelector((state) => state.user.favorites);
 
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN + FAVORITES OF THE USER TO SAVE IN THE REDUCER
   useEffect(() => {
+
     //GET ALL THE TRIPS
     fetch(`${serverURL}/trips`)
       .then((response) => response.json())
@@ -72,11 +72,12 @@ export default function Discover({ navigation }) {
         price={data.program[0].price}
         start={start}
         end={end}
-        isFavorite = {favorites ? favorites.some(favorite => favorite === data._id) : false}
+        isFavorite = {favorites.some(favorite => favorite === data._id)}
       />
     );
   });
 
+  
   //FINAL RETURN
   return (
     <View style={{ flex: 1 }}>
@@ -89,12 +90,13 @@ export default function Discover({ navigation }) {
             </View>
             <View style={styles.border}></View>
           </View>
+
           <View style={styles.highlight}>
             <Highlight />
           </View>
+
           <View style={styles.catalogue}>
             <Text style={styles.text}>Our recommendations</Text>
-            {trips}
           </View>
         </View>
       </ScrollView>

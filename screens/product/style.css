@@ -102,7 +102,7 @@
 /* MODAL */
 .modal {
     border-width: 2px;
-    
+    border-color: blue;
 }
 .scrollViewModal {
     padding-bottom: 70;
@@ -147,7 +147,7 @@
     align-items: flex-end;
 }
 .smallTitle {
-    font-family: "txtBold";
+    font-family: 'txtBold';
     font-size: 14;
     padding-top: 12;
     margin-top: 12;
@@ -173,10 +173,11 @@
 }
 
 .nbDaysModal{
+background-color: aqua;
  padding-top: 5;
- padding-right: 8;
+ padding-right: 5;
  padding-bottom: 5;
- padding-left: 8;
+ padding-left: 5;
  margin-left: 12;
  margin-right: 12;
  border-radius: 15px;

@@ -5,6 +5,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 
+
 export default function BottomToolbar() {
   // const style = StyleSheet.create({
   //   shadowProp: {
@@ -29,6 +30,7 @@ export default function BottomToolbar() {
           <FontAwesome5 name='house-user' size={35} color='black' />
         </View>
         <View style={styles.icons2}>
+        
           <Entypo name='heart-outlined' size={35} color='black' />
           <FontAwesome5 name='user-circle' size={35} color='black' />
         </View>

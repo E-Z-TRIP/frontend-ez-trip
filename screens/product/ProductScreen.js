@@ -10,7 +10,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import MapView, { Marker } from 'react-native-maps';
 import Coeur from '../../components/icons/coeur';
 import Cross from '../../components/icons/cross';
-// import * as Network from 'expo-network';
+import * as Network from 'expo-network';
 import Scroll from '../../components/icons/scrollDown';
 import { touchRippleClasses } from '@mui/material';
 import { useIsFocused } from "@react-navigation/native";

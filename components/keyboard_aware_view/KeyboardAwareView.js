@@ -1,12 +1,12 @@
 import { View, Keyboard, Dimensions } from 'react-native';
 import { useEffect, useState } from 'react';
 
-export default function KeyboardAvoidingView({
+export default function KeyboardAwareView({
   style,
   bottomPositionOnKeyboardOpen,
   active,
   onKeyboardOpen,
-  onKeyboardClose,
+  onKeyboardClose = () => {},
   children,
 }) {
   const [bottomPosition, setBottomPosition] = useState(0);
@@ -36,7 +36,6 @@ export default function KeyboardAvoidingView({
 
   return (
     <View
-      onLayout={({ nativeEvent }) => setViewHeight(Dimensions.get('window').height - nativeEvent.layout.height)}
       style={{ width: '100%', ...style, bottom: bottomPosition }}>
       {children}
     </View>

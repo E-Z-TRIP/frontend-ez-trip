@@ -20,11 +20,6 @@ import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { RangeSlider } from '@sharcoux/slider';
 import { getMonthName } from '../../assets/helpers';
-import moment from 'moment';
-import DatePicker from "react-datepicker";
-import DateRangePicker from 'rnv-date-range-picker';
-import Scroll from '../../components/icons/scrollDown';
-
 
 export default function Search({ navigation }) {
   ///////////////////////////////////////////////////////////REACT STATES////////////////////////////////////////////////////////////
@@ -38,10 +33,6 @@ export default function Search({ navigation }) {
   const [minBudget, setMinBudget] = useState(0);
   const [maxBudget, setMaxBudget] = useState(15000);
   const [nbTravelers, setnbTravelers] = useState(1);
-  const [calendarVisible, setCalendarVisible] = useState(false);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-
 
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN
   useEffect(() => {
@@ -86,7 +77,7 @@ export default function Search({ navigation }) {
     let research = { minBudget, maxBudget };
     console.log(research);
     //construit l'URL avec les query correspondants aux filtres
-    var url = new URL('http://192.168.1.96:3000/trips/filter');
+    var url = new URL('http://172.20.10.3:3000/trips/filter');
     Object.keys(research).forEach((key) => url.searchParams.append(key, research[key]));
     console.log(url);
     //fetch avec l'URL personnalisé à la recherche
@@ -143,9 +134,8 @@ export default function Search({ navigation }) {
                   <Text style={{ fontFamily: 'txt', fontSize: 24 }}>Filters</Text>
                   <AntDesign name='close' size={30} color='black' onPress={() => setModalVisible(!modalVisible)} />
                 </View>
-                <ScrollView>
-                <View name='filters' style={{paddingRight: 15, marginTop: 30, width: '80%'}}>
 
+                <View name='filters' style={{ marginTop: 40 }}>
                   <View name='sectionBudget'>
                     <Text style={styles.filterText}>Budget</Text>
                     <View name='sectionContent' style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -158,8 +148,8 @@ export default function Search({ navigation }) {
                         <TextInput placeholder='15 000'>{maxBudget}</TextInput>
                       </View>
                     </View>
-              
-                    <View style={{padding: 10}}>
+
+                    <View>
                       <RangeSlider
                         range={[0, 15000]} // set the current slider's value
                         minimumValue={0} // Minimum value
@@ -188,11 +178,17 @@ export default function Search({ navigation }) {
                       />
                     </View>
                   </View>
-                
+                </View>
 
                 <View
                   name='travelersSection'
-                  style={styles.filterSection}>
+                  style={{
+                    marginTop: 30,
+                    height: 50,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}>
                   <Text style={styles.filterText}>Number of travelers</Text>
                   <View
                     style={{
@@ -211,28 +207,9 @@ export default function Search({ navigation }) {
                   </View>
                 </View>
 
-                <View name='calendarSection' style={calendarVisible ? styles.bigCalendar : styles.smallCalendar}>
+                <View name='calendarSection' style={{ marginTop: 30, height: 50 }}>
                   <Text style={styles.filterText}>Departure dates</Text>
-                  <View name="dateContainer" style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, width: '100%'}}>
-                  <TouchableOpacity onPress={() => setCalendarVisible(!calendarVisible)} ><Text style={{fontFamily: 'txt'}}>Start: {startDate}</Text></TouchableOpacity>
-                  <TouchableOpacity onPress={() => setCalendarVisible(!calendarVisible)} ><Text style={{fontFamily: 'txt'}}>End: {endDate}</Text></TouchableOpacity>
-                  </View>
-                  
-                  {calendarVisible ? (
-                  <View style={{backgroundColor: 'white', height: 500, marginTop: 15 }}>
-                    <DateRangePicker
-                onSelectDateRange={(range) => {
-                  setStartDate(range.firstDate)
-                  setEndDate(range.secondDate)
-                }}
-                backgroundColor="white"
-                responseFormat='DD-MM-YYYY'
-                maxDate={moment()}
-                minDate={moment().subtract(100, 'days')}
-              /></View>): null}
-
                 </View>
-                
 
                 <View name='tagsSection' style={{ marginTop: 30 }}>
                   <Text style={styles.filterText}>What are you looking for?</Text>
@@ -247,14 +224,11 @@ export default function Search({ navigation }) {
                     }}></TextInput>
                 </View>
 
-                
-              </View>
-              <TouchableOpacity
+                <TouchableOpacity
                   style={styles.btnSearch}
                   onPress={() => handleSearch(minBudget, maxBudget, nbTravelers)}>
                   <Text style={styles.text}>Search results</Text>
                 </TouchableOpacity>
-              </ScrollView>
               </View>
             </Modal>
           </View>

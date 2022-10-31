@@ -1,0 +1,81 @@
+.container {
+    padding-top: 25;
+    
+    }
+    .header {
+        margin-left: 12;
+    }
+    .title{
+        font-family: "heading";
+        font-size: 50px; 
+    }
+    .sousHeader{
+        flex-direction: row;
+        margin-left: 12;
+    }
+    .smallTitle {
+        font-family: "txt";
+        font-size: 20;
+        margin-bottom: 5;
+        margin-left: 12;
+    }
+    .pdfContainer {
+     align-items: center;
+     justify-content: center;
+     border-radius: 35px;
+    }
+    .swipeLeft {
+        position:absolute;
+        top: 10;
+        left: 10;
+        z-index: 100;
+        margin-top: -40;
+    }
+    .imgBackground {
+        margin-right: 15px;
+        height: 250px;
+        width: 300;
+        flex: 1;
+        flex-direction: column;
+        justify-content: flex-end;
+        background-color: blue;
+        border-radius: 35px;
+    }
+    .cardInfos {
+        font-family: "txtLight";
+        font-size: 15;
+        color: white;
+    }
+    .cont {
+    
+        padding-bottom: 12;
+        padding-top: 12;
+    }
+    .galleryContainer {
+        margin-top: 25;
+        margin-bottom: 25;
+        height: 250;
+        flex-direction: row;
+    }
+    
+    .addContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        padding-right: 20;
+        margin-top: 5;
+    }
+    .addText {
+        font-family: "txtLight";
+        font-size: 15;
+    }
+    .addButtonText {
+        background-color: #C46B4D;
+        font-family: "txt";
+        font-size: 17;
+        padding-right: 5;
+        padding-left: 5;
+        border-radius: 5px;
+        margin-left: 5;
+        color: white;
+    }

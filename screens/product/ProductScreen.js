@@ -164,7 +164,6 @@ if (goodProgram) {
     .then(response => response.json())
     .then(data => {
 
-      console.log(data)
       if (data.result) {
         //une fois supprimé en BDD, supprime dans le reducer 
         dispatch(deleteFavorite(props.id));

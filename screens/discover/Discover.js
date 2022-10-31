@@ -25,7 +25,7 @@ export default function Discover({ navigation }) {
   const TOKEN = useSelector((state) => state.user.value.token);
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN + FAVORITES OF THE USER TO SAVE IN THE REDUCER
   useEffect(() => {
-
+    
     //GET ALL THE TRIPS
     fetch(`${serverURL}/trips`)
       .then((response) => response.json())
@@ -46,10 +46,10 @@ export default function Discover({ navigation }) {
           console.log('reducer initialized successfully');
           dispatch(setFavorites(data.tripsLiked));
         } else {
-          console.log(data);
           console.log('reducer failed on initialisation');
         }
-      });
+      })
+      dismountUser();
   }, []);
 
   

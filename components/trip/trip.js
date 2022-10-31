@@ -13,6 +13,7 @@ export default function Trip(props) {
   const navigation = useNavigation();
   const favorites = useSelector((state) => state.user.favorites);
 
+  // console.log('token trip.js', TOKEN)
     //function to add the trip to the tripsLiked user database + adding it to the reducer
     const handleLike = () => {
       //si le like se trouve déjà dans le reducer (et donc en BDD), on le supprime

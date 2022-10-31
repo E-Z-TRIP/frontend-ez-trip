@@ -8,7 +8,7 @@ import {
   Text,
   ImageBackground,
   TouchableOpacity,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from 'react-native';
 import styles from './style.css';
 import { serverURL } from '../../api/backend_request';
@@ -235,7 +235,7 @@ export default function Search({ navigation }) {
           </View>
         </View>
       </ScrollView>
-      <BottomToolbar></BottomToolbar>
+      <BottomToolbar />
       <View style={{ height: 70 }}></View>
     </View>
   );

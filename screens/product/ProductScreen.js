@@ -209,8 +209,6 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
     urls.push({ url: e });
   });
 
-  /////////FINAL RETURN//////////
-
   return (
     <View style={styles.scrollView} key={props.propsKey}>
       {/* ---------------- LANDING PAGE PHOTO BACKGROUND + INFOS PRINCIPALES ---------------- */}
@@ -245,34 +243,33 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
       <Modal
         animationType='slide'
         visible={modalVisible}
+        presentationStyle='fullScreen'
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
         <View style={styles.modal}>
-          <HeaderButtons
-            containerStyle={styles.carousselHeaderBtns}
-            favorite={favorite}
-            onHeartPress={() => handleLike()}
-            onCrossPress={() => setModalVisible(!modalVisible)}
-            heartActiveColor='#F5612F'
-            iconsColor='white'
-          />
           <ScrollView style={styles.scrollViewModal}>
-            {/* header modal */}
+            {/* ---------------- ICONS TOP RIGHT ---------------- */}
+            <HeaderButtons
+              containerStyle={styles.carousselHeaderBtns}
+              favorite={favorite}
+              onHeartPress={() => handleLike()}
+              onCrossPress={() => setModalVisible(!modalVisible)}
+              heartActiveColor='#F5612F'
+              iconsColor='white'
+            />
 
             {/* ---------------- CAROUSSEL PHOTOS ---------------- */}
 
-            <Slideshow scrollEnabled={false} height={250} style={styles.caroussel} dataSource={urls}></Slideshow>
-
-            {/* ---------------- ICONS TOP RIGHT ---------------- */}
+            <Slideshow scrollEnabled={false} height={250} style={styles.caroussel} dataSource={urls} />
 
             {/* ---------------- HEADER INFOS PRINCIPALES ---------------- */}
-            <View name='infosModal' style={{ padding: 15 }}>
+            <View name='infosModal' style={styles.modalInfoContainer}>
               {/* ---------------- HEADER TITRE + PAYS ---------------- */}
-              <View style={styles.headerModal}>
-                <Text style={styles.title}>{trip.name}</Text>
-                <Text style={styles.country}>{trip.country}</Text>
-                <View style={styles.border}></View>
+              <View style={styles.modalInfoHeaderWrapper}>
+                <Text style={styles.modalInfoHeaderTitle}>{trip.name}</Text>
+                <Text style={styles.modalInfoHeaderCountry}>{trip.country}</Text>
+                <View style={styles.divider}></View>
               </View>
               {/* ---------------- CARTE INFOS ORANGE + PARTENAIRE ---------------- */}
               <View style={styles.infoContainerModal}>
@@ -298,62 +295,61 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
                   </View>
                 </View>
               </View>
-            </View>
-            {/* ---------------- INCLUDED/NOT INCLUDED ---------------- */}
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-              <View name='included' style={{ width: '50%', marginRight: 5 }}>
-                <Text style={styles.smallTitle}>Included :</Text>
-                <View style={{ width: '100%' }}>{included}</View>
+              {/* ---------------- INCLUDED/NOT INCLUDED ---------------- */}
+              <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View name='included' style={{ width: '50%', marginRight: 5 }}>
+                  <Text style={styles.smallTitle}>Included :</Text>
+                  <View style={{ width: '100%' }}>{included}</View>
+                </View>
+
+                <View name='nonIncluded' style={{ marginRight: 5, width: '50%' }}>
+                  <Text style={styles.smallTitle}>Not included :</Text>
+                  <View style={{ width: '100%' }}>{nonIncluded}</View>
+                </View>
               </View>
 
-              <View name='nonIncluded' style={{ marginRight: 5, width: '50%' }}>
-                <Text style={styles.smallTitle}>Not included :</Text>
-                <View style={{ width: '100%' }}>{nonIncluded}</View>
+              {/* ---------------- MAP LOCALISATION : Ne s'affiche que si lat et lon sont définies---------------- */}
+              <View name='localisation' style={{ justifyContent: 'center' }}>
+                <Text style={styles.smallTitle}>Localisation :</Text>
+                {lat && lon ? (
+                  <MapView
+                    loadingBackgroundColor='#C46B4D'
+                    tintColor='#C46B4D'
+                    style={styles.map}
+                    mapType='mutedStandard'
+                    initialRegion={{
+                      latitude: lat,
+                      longitude: lon,
+                      latitudeDelta: 0.0922,
+                      longitudeDelta: 0.0421,
+                    }}></MapView>
+                ) : (
+                  <View></View>
+                )}
               </View>
+
+              {/* ---------------- DESCRIPTION TRIP ---------------- */}
+              {/* si on a le temps voir pour un "showmore"/"showless" pour pas avoir des descriptions a rallonge */}
+
+              <Text style={styles.smallTitle}>Description :</Text>
+              <Text numberOfLines={5} ellipsizeMode='tail' style={styles.inclusModal}>
+                {trip.description}{' '}
+              </Text>
+
+              {/* ---------------- BOUTONS QUOTATION ET DOWNLOAD ---------------- */}
+
+              <TouchableOpacity style={styles.quotationButton}>
+                <Text style={styles.buttonTextQuotation}>Quotation request</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.programButton}>
+                <Text style={styles.buttonTextProgram}>Download program (PDF)</Text>
+              </TouchableOpacity>
+
+              {/* ---------------- ALL THE CODE HAS TO GO OVER THIS LINE ---------------- */}
+              {/* ---------------- FOOTER BOTTOM BAR ---------------- */}
+              <View style={{ height: 90 }}></View>
             </View>
-
-            {/* ---------------- MAP LOCALISATION : Ne s'affiche que si lat et lon sont définies---------------- */}
-            <View name='localisation' style={{ justifyContent: 'center' }}>
-              <Text style={styles.smallTitle}>Localisation :</Text>
-              {lat && lon ? (
-                <MapView
-                  loadingBackgroundColor='#C46B4D'
-                  tintColor='#C46B4D'
-                  style={styles.map}
-                  mapType='mutedStandard'
-                  initialRegion={{
-                    latitude: lat,
-                    longitude: lon,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                  }}></MapView>
-              ) : (
-                <View></View>
-              )}
-            </View>
-
-            {/* ---------------- DESCRIPTION TRIP ---------------- */}
-            {/* si on a le temps voir pour un "showmore"/"showless" pour pas avoir des descriptions a rallonge */}
-
-            <Text style={styles.smallTitle}>Description :</Text>
-            <Text numberOfLines={5} ellipsizeMode='tail' style={styles.inclusModal}>
-              {trip.description}{' '}
-            </Text>
-
-            {/* ---------------- BOUTONS QUOTATION ET DOWNLOAD ---------------- */}
-
-            <TouchableOpacity style={styles.quotationButton}>
-              <Text style={styles.buttonTextQuotation}>Quotation request</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.programButton}>
-              <Text style={styles.buttonTextProgram}>Download program (PDF)</Text>
-            </TouchableOpacity>
-
-            {/* ---------------- ALL THE CODE HAS TO GO OVER THIS LINE ---------------- */}
-            {/* ---------------- FOOTER BOTTOM BAR ---------------- */}
-            <View style={{ height: 90 }}></View>
           </ScrollView>
-          {/* </ScrollView> */}
         </View>
         <BottomToolbar></BottomToolbar>
       </Modal>

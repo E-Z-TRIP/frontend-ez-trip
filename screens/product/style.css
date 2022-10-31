@@ -85,24 +85,32 @@
 .scrollViewModal {
   padding-bottom: 70;
 }
-
 .caroussel {
   background-color: bisque;
-  padding-top: 15;
   height: 350;
   width: 100%;
   flex-direction: row;
   justify-content: flex-end;
 }
 
-.headerModal {
-  flex-direction: column;
-  margin-top: 15;
-  margin-bottom: 20;
+.modalInfoContainer {
+  padding: 20px;
 }
-
-.heartBoxModal {
-  margin-right: 12;
+.modalInfoHeaderWrapper {
+  margin-bottom: 20px;
+}
+.modalInfoHeaderTitle {
+  font-family: 'txtMedium';
+  font-size: 16px;
+}
+.modalInfoHeaderCountry {
+  margin-bottom: 20px;
+  font-family: 'txtLight';
+}
+.divider {
+  border-bottom-color: black;
+  border-bottom-width: 2px;
+  width: 100%;
 }
 
 .infoContainerModal {
@@ -149,14 +157,6 @@
 }
 .nbDaysContainer {
   flex-direction: row;
-}
-
-.border {
-  border-bottom-color: black;
-  border-bottom-width: 2px;
-  width: 90%;
-  height: 1px;
-  margin-left: 5;
 }
 
 .nbDaysModal {

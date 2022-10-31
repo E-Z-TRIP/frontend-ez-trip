@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+
 // This reducer is just a template, it can be modified
 const user = createSlice({
   name: 'user',
@@ -11,7 +12,7 @@ const user = createSlice({
     mountUser: (state, action) => {
       state.value = action.payload;
     },
-    dismountUser: () => {
+    dismountUser: (state) => {
       state.value = false;
       state.favorites = [];
     },

@@ -17,6 +17,7 @@ import { serverURL } from '../../api/backend_request';
 import { dismountUser } from '../../reducers/user';
 
 export default function Discover({ navigation }) {
+  
   const dispatch = useDispatch();
   const API_ADDRESS = useSelector((state) => state.IPAdress.value);
   //STATE TO STORE ALL THE TRIPS TO DISPLAY
@@ -25,7 +26,6 @@ export default function Discover({ navigation }) {
   const TOKEN = useSelector((state) => state.user.value.token);
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN + FAVORITES OF THE USER TO SAVE IN THE REDUCER
   useEffect(() => {
-    
     //GET ALL THE TRIPS
     fetch(`${serverURL}/trips`)
       .then((response) => response.json())
@@ -49,7 +49,6 @@ export default function Discover({ navigation }) {
           console.log('reducer failed on initialisation');
         }
       })
-      dismountUser();
   }, []);
 
   

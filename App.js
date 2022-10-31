@@ -34,7 +34,7 @@ function App() {
     })();
   }, []);
 
-  console.log('dans app.js', loadedStorage.user.value.token);
+  console.log('dans app.js', loadedStorage);
 
   // Un-comment this if using light and dark mode
 

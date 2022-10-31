@@ -1,10 +1,23 @@
 .container {
+    padding-left: 20;
     padding-top: 25;
-    
+    display: flex;
+    justify-content: center;
     }
+
     .header {
-        margin-left: 12;
+        margin-top: 30;
+        margin-bottom: 40;
+        width: 100%;
     }
+
+    .border {
+        border-bottom-color: black;
+        border-bottom-width: 2px;
+        width: 85%;
+        height: 1px;
+        margin-left: 5;
+      }
     .title{
         font-family: "heading";
         font-size: 50px; 
@@ -33,7 +46,8 @@
      align-items: center;
      justify-content: center;
      border-radius: 35px;
-     margin-left: 12px;
+     margin-left: 12;
+     height: 100%;
     }
     .swipeLeft {
         position:absolute;
@@ -51,12 +65,11 @@
     }
     .imgBackground {
         margin-right: 15px;
-        height: 250px;
-        width: 300;
+        height: 100%;
+        width: 270;
         flex: 1;
         flex-direction: column;
         justify-content: space-between;
-        background-color: blue;
         border-radius: 35px;
     }
     .cardInfos {
@@ -64,15 +77,11 @@
         font-size: 15;
         color: white;
     }
-    .cont {
-    
-        padding-bottom: 12;
-        padding-top: 12;
-    }
+
     .galleryContainer {
         margin-top: 25;
         margin-bottom: 25;
-        height: 250;
+        height: 210;
         flex-direction: row;
     }
     

@@ -17,7 +17,6 @@ import { dismountUser } from '../../reducers/user';
 export default function Discover({ navigation }) {
   
   const dispatch = useDispatch();
-  const API_ADDRESS = useSelector((state) => state.IPAdress.value);
   //STATE TO STORE ALL THE TRIPS TO DISPLAY
   const [tripsData, setTripsData] = useState([]);
   const favorites = useSelector((state) => state.user.favorites);
@@ -61,18 +60,14 @@ export default function Discover({ navigation }) {
     let start = getMonthName(data.travelPeriod[0].start);
     let end = getMonthName(data.travelPeriod[0].end);
     return (
+      <View key={i} style={{height: 180}}>
       <Trip
-        key={i}
         propsKey = {i}
         id={data._id}
-        background={data.background}
-        country={data.country}
-        name={data.name}
-        price={data.program[0].price}
-        start={start}
-        end={end}
+        {...data}
         isFavorite = {favorites.some(favorite => favorite === data._id)}
       />
+      </View>
     );
   });
 

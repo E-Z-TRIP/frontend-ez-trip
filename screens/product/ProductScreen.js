@@ -14,6 +14,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { addFavorites, deleteFavorite } from '../../reducers/user';
 import { getMonthName } from '../../assets/helpers';
 import Slideshow from 'react-native-image-slider-show';
+const iso = require('iso-3166-1');
 
 
 export default function ProductScreen({ navigation, route: { params: props } }) {
@@ -29,8 +30,8 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
   const dispatch = useDispatch();
     //store toutes les données du trip fetché au chargement du composant
   const [trip, setTrip] = useState(null);
-  const [lat, setLat] = useState(48.866667)
-  const [lon, setLon] = useState(2.333333)
+  const [lat, setLat] = useState(null)
+  const [lon, setLon] = useState(null)
   const loadedFonts = loadFonts();
   //fait apparaître / disparaître la Modal
   const [modalVisible, setModalVisible] = useState(false);
@@ -38,7 +39,6 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
   const [detailedProgram, setDetailedProgram] = useState(null);
   //gère les likes
   const [favorite, setFavorite] = useState(false)
-  const favorites = useSelector((state) => state.user.favorites);
   //Token utilisateur
   const TOKEN = useSelector((state) => state.user.value.token);
 
@@ -58,24 +58,31 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
       console.log('no trip received')
     }
   })
-    //fetch les coordonnées géographiques de la ville de départ du trip
-  // .then(data => {
-  //   if (trip) {
-  //     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${trip.addressDeparture}&appid=7cecadeb80528d114d059361830568c1`)
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       console.log(data[0].lat, data[0].lon )
-  //       setLat(Number(data[0].lat))
-  //       setLon(Number(data[0].lon))
-  //       console.log(lat, lon);
-  //     })
-  //     }
-  //   })
   }, []);
+
+
+  // fetch les coordonnées géographiques de la ville de départ du trip une fois le trip chargé dans le hook React
+  useEffect(() => {
+    if(trip) {
+      //L'API OpenWeatherApp a besoin du Country Code pour faire sa recherche
+      let countryCode = iso.whereCountry(trip.country).alpha2;
+       //fetch avec le country code correspondant + la ville de départ
+       fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${trip.addressDeparture},${countryCode}&appid=7cecadeb80528d114d059361830568c1`)
+       .then(response => response.json())
+       .then(data => {
+        //stock la latitude et la longitude
+         setLat(Number(data[0].lat))
+         setLon(Number(data[0].lon))
+       })
+    }
+    }, [trip]);
+
+
   
   if (!loadedFonts) return <></>;
 
   if (!trip) return <></>;
+  console.log(lat, lon);
 
 
   /* ---------------- DECLARATION DES VARIABLES DYNAMIQUES ----------------  */
@@ -298,10 +305,10 @@ let photoDisplayed = trip.photos.map((e, i) => {
               </View>
             </View>
            
-{/* ---------------- MAP LOCALISATION ---------------- */}
+{/* ---------------- MAP LOCALISATION : Ne s'affiche que si lat et lon sont définies---------------- */}
             <View name = "localisation" style={{justifyContent:'center'}}>
             <Text style={styles.smallTitle}>Localisation :</Text>
-            <MapView
+            {lat && lon ? <MapView
               loadingBackgroundColor='#C46B4D'
               tintColor='#C46B4D'
               style={styles.map}
@@ -311,8 +318,9 @@ let photoDisplayed = trip.photos.map((e, i) => {
                 longitude: lon,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
-              }}></MapView>
+              }}></MapView> : <View></View>}
               </View>
+
 {/* ---------------- DESCRIPTION TRIP ---------------- */}
 {/* si on a le temps voir pour un "showmore"/"showless" pour pas avoir des descriptions a rallonge */}
 

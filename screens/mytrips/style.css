@@ -63,10 +63,10 @@
         justify-content: space-between;
         align-items: center;
     }
-    .imgBackground {
+    .tripContainer {
         margin-right: 15px;
         height: 100%;
-        width: 270;
+        width: 250;
         flex: 1;
         flex-direction: column;
         justify-content: space-between;

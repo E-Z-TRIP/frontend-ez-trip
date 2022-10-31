@@ -1,11 +1,12 @@
 .container {
     flex: 1;
     margin-top: 5;
+    height: 100%;
 }
 
 .imgbackground {
     margin-top: 15;
-    height: 150;
+    height: 100%;
     flex: 1;
     flex-direction: column;
     justify-content: space-between;

@@ -6,13 +6,19 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavorites, deleteFavorite } from '../../reducers/user';
 import { serverURL } from '../../api/backend_request';
+import { getMonthName } from '../../assets/helpers';
 
 export default function Trip(props) {
+  //constantes générales
   const dispatch = useDispatch();
   const TOKEN = useSelector((state) => state.user.value.token);
   const navigation = useNavigation();
   const favorites = useSelector((state) => state.user.favorites);
-  // console.log('token trip.js', TOKEN)
+
+  //constantes pour faciliter l'intégration des props
+  let start = getMonthName(props.travelPeriod[0].start);
+  let end = getMonthName(props.travelPeriod[0].end);
+  let price = props.program[0].price
     //function to add the trip to the tripsLiked user database + adding it to the reducer
     const handleLike = () => {
       //si le like se trouve déjà dans le reducer (et donc en BDD), on le supprime
@@ -37,12 +43,11 @@ export default function Trip(props) {
         }
       });
       }
-
       //si le trip.id n'est pas trouvé, on le rajoute en BDD + dans le reducer favorite
       else {
         console.log('trip liked');
         //rajout dans la BDD
-        fetch(`http://192.168.131.88:3000/users/addlike`, {
+        fetch(`http://192.168.131.88:3000/users/like`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: TOKEN, tripID: props.id }),
@@ -53,7 +58,7 @@ export default function Trip(props) {
             dispatch(addFavorites(data.tripLiked))
           }
           else {
-            console.log('no data from fetch'); 
+            console.log(data.error); 
           }
         });
       }
@@ -82,8 +87,8 @@ export default function Trip(props) {
         end={[1, 0]}
         style={{height : '33%', width : '100%', padding: 15, borderRadius: 15}}>
         <View style= {styles.bottomInfo}>
-            <Text style = {styles.text}>from {props.start} to {props.end}</Text>
-            <Text style = {styles.text}>From {props.price}€</Text>
+            <Text style = {styles.text}>from {start} to {end}</Text>
+            <Text style = {styles.text}>From {price}€</Text>
         </View>
         </LinearGradient>
 

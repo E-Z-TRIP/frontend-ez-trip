@@ -6,6 +6,7 @@ import Discover from './screens/discover/Discover';
 import ProductScreen from './screens/product/ProductScreen';
 import Search from './screens/search/Search';
 import OnBoarding from './screens/on_boarding/OnBoarding';
+import NexStep from './screens/next_step/NextStep';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { lightTheme, darkTheme } from './theme/theme';
 import { useColorScheme } from 'react-native';
@@ -35,7 +36,6 @@ function App() {
   }, []);
 
   console.log(loadedStorage);
-  
 
   // Un-comment this if using light and dark mode
 
@@ -50,17 +50,15 @@ function App() {
   return (
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <PersistGate persistor={persistor}>
-        <Stack.Navigator initialRouteName='OnBoardiing' 
-        screenOptions={{ headerShown: false, gestureEnabled: false }}>
-          {(store.getState()?.user?.value?.token && <></>) ||
-           <Stack.Screen name='OnBoarding' component={OnBoarding} />}
-             <Stack.Screen name='MyTrips' component={MyTrips} />
+        <Stack.Navigator initialRouteName='NextStep' screenOptions={{ headerShown: false, gestureEnabled: false }}>
+          <Stack.Screen name='NextStep' component={NexStep} />
+          {/* {(store.getState()?.user?.value?.token && <></>) || <Stack.Screen name='OnBoarding' component={OnBoarding} />}
+          <Stack.Screen name='MyTrips' component={MyTrips} />
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='Product' component={ProductScreen} />
           <Stack.Screen name='MyDocuments' component={MyDocuments} />
-          <Stack.Screen name='Quotation_Received' component={Quotation_Received} />
-
+          <Stack.Screen name='Quotation_Received' component={Quotation_Received} /> */}
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

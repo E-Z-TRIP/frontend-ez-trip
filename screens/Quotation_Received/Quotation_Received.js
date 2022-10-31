@@ -5,6 +5,7 @@ import {
     Text,
     Animated,
     TouchableOpacity,
+    Linking,
   } from 'react-native';
   import { loadFonts } from '../../assets/fonts/fonts';
   import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
@@ -60,7 +61,7 @@ return (
   <View style={styles.buttonsContainer}>
 
 {/* ------ Program button ------ */}
-  <TouchableOpacity style={styles.programButton}>
+  <TouchableOpacity style={styles.programButton} onPress={() => Linking.openURL('https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685046/grande-traversee-de-laltiplano-bolivien-2022_zfix4l.pdf')}>
       <Text style={styles.textButtons}> Download program (PDF)</Text>
   </TouchableOpacity>
 

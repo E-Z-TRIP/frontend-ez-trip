@@ -1,5 +1,4 @@
 import {
-
     ScrollView,
     View,
     Text,
@@ -55,18 +54,29 @@ const data = [{
 ]
     // FIN 
 
-//---------------- map documents  ----------------
+//---------------- MAP LIKED TRIPS  ----------------
  const likedTrips = data.map((data, i) => {
     return (
         <View style={styles.pdfContainer}>
             <TouchableOpacity  >
                 <ImageBackground  imageStyle={{ borderRadius: 15}} style={styles.imgBackground} source={{uri: data.photo, width:500, height:300}} alt={data.titre}>
                 <LinearGradient 
-        colors={['rgba(0,0,0,0.5)', 'transparent']}
+        colors={['rgba(0,0,0,0.8)', 'transparent']}
         style={{height : '40%', width : '100%', padding: 15, borderRadius: 15}}>
-            <Text style={styles.cardInfos} >{data.titre}</Text>
-            <Text style={styles.cardInfos} >{data.prix}</Text>
+            <View style = {styles.topInfos}>
+            <Text style={styles.titleCard} >{data.titre}</Text>
+            </View>
  </LinearGradient>
+ <LinearGradient 
+        colors={['rgba(0,0,0,0.8)', 'transparent']}
+        start={[1, 1]}
+        end={[1, 0]}
+        style={{height : '33%', width : '100%', padding: 15, borderRadius: 15}}>
+        <View style= {styles.bottomInfo}>
+            <Text style = {styles.cardInfos}>from December to July</Text>
+            <Text style = {styles.cardInfos}>From {data.prix}</Text>
+        </View>
+        </LinearGradient>
                 </ImageBackground>
             </TouchableOpacity>
         </View>
@@ -86,16 +96,33 @@ const data = [{
  
 
  // ---------------- map TravelAgencyDocuments ----------------
-//  const travelAgencyDocuments = data.map((data, i) => {
-//     return (
-//         <View style={styles.pdfContainer}>
-//             <TouchableOpacity onPress={() => Linking.openURL(data.document)} >
-//                 <Image source={{uri:"https://blog.idrsolutions.com/wp-content/uploads/2020/10/pdf-1.png", width:150, height:150}} alt={data.titre} />
-//             </TouchableOpacity>
-//             <Text>{data.titre}</Text>
-//         </View>
-//     )
-//  })
+ const planedTrips = data.map((data, i) => {
+    return (
+        <View style={styles.pdfContainer}>
+            <TouchableOpacity  >
+                <ImageBackground  imageStyle={{ borderRadius: 15}} style={styles.imgBackground} source={{uri: data.photo, width:500, height:300}} alt={data.titre}>
+                <LinearGradient 
+        colors={['rgba(0,0,0,0.8)', 'transparent']}
+        style={{height : '40%', width : '100%', padding: 15, borderRadius: 15}}>
+            <View style = {styles.topInfos}>
+            <Text style={styles.titleCard} >{data.titre}</Text>
+            </View>
+ </LinearGradient>
+ <LinearGradient 
+        colors={['rgba(0,0,0,0.8)', 'transparent']}
+        start={[1, 1]}
+        end={[1, 0]}
+        style={{height : '33%', width : '100%', padding: 15, borderRadius: 15}}>
+        <View style= {styles.bottomInfo}>
+            <Text style = {styles.cardInfos}>from December to July</Text>
+            <Text style = {styles.cardInfos}>From {data.prix}</Text>
+        </View>
+        </LinearGradient>
+                </ImageBackground>
+            </TouchableOpacity>
+        </View>
+    )
+ })
 
 
 //*FONT CODE
@@ -136,7 +163,7 @@ return (
         <View>
         <ScrollView horizontal={true} style={styles.galleryContainer}>
 
-                {/* {travelAgencyDocuments} */}
+                {planedTrips}
             </ScrollView>
             <View style={{marginTop: -16, zIndex: 1,top: -150, left: 380, }} >
             <SwipeLeft />

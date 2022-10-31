@@ -74,17 +74,14 @@ import {
     )
  })
 
+  //*FONT CODE
+  const loadedFonts = loadFonts();
+  if (!loadedFonts) return <></>;
 
-//*FONT CODE
-    const loadedFonts = loadFonts();
-    if (!loadedFonts) return <></>;
-
-return (
-
-  <View style={styles.container}>
-     
-{/* ---------------- HEADER ---------------- */}
-    <View style={styles.header}>
+  return (
+    <View style={styles.container}>
+      {/* ---------------- HEADER ---------------- */}
+      <View style={styles.header}>
         <Text style={styles.title}>My trips</Text>
     </View>
 {/* ---------------- LIKED TRIPS ---------------- */}
@@ -107,14 +104,13 @@ return (
         style={{position: 'absolute', width: 75, height: 210, top: 25, left: '82%'}}></LinearGradient>
     </View>
 
-{/* ---------------- PLANED TRIPS ---------------- */}
-<View style={{marginTop: 10}}>
-    <View style={styles.sousHeader} >
-        <TripPlaned/>
-        <Text style={styles.smallTitle}>Planed trips</Text>
-    </View>
-    <View style={styles.border}>
-    </View>
+      {/* ---------------- PLANED TRIPS ---------------- */}
+      <View style={{ marginTop: 10 }}>
+        <View style={styles.sousHeader}>
+          <TripPlaned />
+          <Text style={styles.smallTitle}>Planed trips</Text>
+        </View>
+        <View style={styles.border}></View>
 
         <ScrollView horizontal={true} style={styles.galleryContainer}>
         {tripsBooked.length > 0 ? {planedTrips} : <Text style={{fontFamily:'txt'}}>You have no reservations yet.</Text>}
@@ -124,16 +120,16 @@ return (
          {tripsBooked.length > 1 ? <SwipeLeft /> : false}   
         </View>
         {/* ---------------- WHITE GRADIENT ON THE RIGHT OF THE SCROLL LEFT ---------------- */}
-        <LinearGradient 
-        start={{x: 0.75, y: 0.75}} end={{x: 0, y: 0.75}}
-        colors={['rgba(255,255,255,0.7)', 'transparent']}
-        style={{position: 'absolute', width: 75, height: 212, top: '19.5%', left: '82%'}}></LinearGradient>
-  
+        <LinearGradient
+          start={{ x: 0.75, y: 0.75 }}
+          end={{ x: 0, y: 0.75 }}
+          colors={['rgba(255,255,255,0.7)', 'transparent']}
+          style={{ position: 'absolute', width: 75, height: 212, top: '19.5%', left: '82%' }}></LinearGradient>
 
-{/* ---------------- FOOTER BOTTOM BAR ---------------- */}
+        {/* ---------------- FOOTER BOTTOM BAR ---------------- */}
+      </View>
+      <BottomToolbar style={{ width: '100%' }}></BottomToolbar>
+      <View style={{ height: 70 }}></View>
     </View>
-    <BottomToolbar style={{width: '100%'}}></BottomToolbar>
-    <View style={{ height: 70 }}></View>
-</View>
-
-  )}
+  );
+}

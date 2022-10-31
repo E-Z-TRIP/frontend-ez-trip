@@ -28,10 +28,9 @@ export default function Discover({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          setTripsData(data.trips)
-        }
-        else {
-          console.log('Fetch of trips failed.')
+          setTripsData(data.trips);
+        } else {
+          console.log('Fetch of trips failed.');
         }
       });
 
@@ -48,11 +47,9 @@ export default function Discover({ navigation }) {
       })
   }, []);
 
-  
   //MAKE SURE THE FONTS ARE LOADED
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
-
 
   //MAP TO DISPLAY ALL THE TRIPS
   const trips = tripsData.map((data, i) => {
@@ -71,7 +68,6 @@ export default function Discover({ navigation }) {
     );
   });
 
-  
   //FINAL RETURN
   return (
     <View style={{ flex: 1 }}>

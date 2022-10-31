@@ -154,7 +154,7 @@ return (
             <LinearGradient 
         start={{x: 0.75, y: 0.75}} end={{x: 0, y: 0.75}}
         colors={['rgba(255,255,255,0.7)', 'transparent']}
-        style={{position: 'absolute', width: 75, height: 210, top: 25, left: 300}}></LinearGradient>
+        style={{position: 'absolute', width: 75, height: 210, top: 25, left: '80%'}}></LinearGradient>
         </View>
     </View>
 
@@ -178,7 +178,7 @@ return (
         <LinearGradient 
         start={{x: 0.75, y: 0.75}} end={{x: 0, y: 0.75}}
         colors={['rgba(255,255,255,0.7)', 'transparent']}
-        style={{position: 'absolute', width: 75, height: 210, top: 63, left: 300}}></LinearGradient>
+        style={{position: 'absolute', width: 75, height: 210, top: '20.5%', left: '80%'}}></LinearGradient>
   
 
 {/* ---------------- FOOTER BOTTOM BAR ---------------- */}

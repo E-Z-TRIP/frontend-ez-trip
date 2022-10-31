@@ -21,7 +21,8 @@ export default function Discover({ navigation }) {
   const API_ADDRESS = useSelector((state) => state.IPAdress.value);
   //STATE TO STORE ALL THE TRIPS TO DISPLAY
   const [tripsData, setTripsData] = useState([]);
-  const TOKEN = 'R1jjTe76KxKzzYm3Hs2w5of88DyxZZoP';
+  //USESELECTORS POUR LIRE LE USER CONNECTED ET SES LIKES
+  const TOKEN = useSelector((state) => state.user.value.token);
   const favorites = useSelector((state) => state.user.favorites);
 
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN + FAVORITES OF THE USER TO SAVE IN THE REDUCER
@@ -33,6 +34,9 @@ export default function Discover({ navigation }) {
         setTripsData(data.trips);
       });
 
+
+     
+
     //SAVE ALL THE FAVORITES IN THE REDUCER
     fetch(`${serverURL}/users/like/${TOKEN}`)
       .then((response) => response.json())
@@ -41,15 +45,17 @@ export default function Discover({ navigation }) {
           console.log('reducer initialized successfully');
           dispatch(setFavorites(data.tripsLiked));
         } else {
+          console.log(data);
           console.log('reducer failed on initialisation');
         }
       });
   }, []);
+
+  
   //MAKE SURE THE FONTS ARE LOADED
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
 
-  //HANDLE LIKES
 
   //MAP TO DISPLAY ALL THE TRIPS
   const trips = tripsData.map((data, i) => {

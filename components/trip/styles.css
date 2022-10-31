@@ -3,25 +3,26 @@
 }
 
 .imgbackground {
-    margin-top: 15px;
-    height: 150px;
+    margin-top: 15;
+    height: 150;
     flex: 1;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .topInfos{
+    position: relative;
     display: flex;
     flex-direction: row;
-    height: 100%;
     justify-content: space-between;
     align-items: center;
 }
 
 .title {
     font-family: 'heading';
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: white;
+    width: 85%;
 }
 
 .text {

@@ -13,6 +13,7 @@ import { getMonthName } from '../../assets/helpers';
 import { addIP } from '../../reducers/IPAddress';
 import { addFavorites, setFavorites } from '../../reducers/user';
 import * as Network from 'expo-network';
+import { serverURL } from '../../api/backend_request';
 import { dismountUser } from '../../reducers/user';
 
 export default function Discover({ navigation }) {
@@ -27,24 +28,23 @@ export default function Discover({ navigation }) {
   useEffect(() => {
 
     //GET ALL THE TRIPS
-    fetch(`http://192.168.131.88:3000/trips`)
-      .then(response => response.json())
-      .then(data => {
+    fetch(`${serverURL}/trips`)
+      .then((response) => response.json())
+      .then((data) => {
         setTripsData(data.trips);
       });
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
-    fetch(`http://192.168.131.88:3000/users/like/${TOKEN}`)
-    .then(response => response.json())
-    .then(data => {
-      if (data.result) {
-        console.log('reducer initialized successfully')
-        dispatch(setFavorites(data.tripsLiked))
-      }
-      else {
-        console.log('reducer failed on initialisation')
-      }
-    });
+    fetch(`${serverURL}/users/like/${TOKEN}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          console.log('reducer initialized successfully');
+          dispatch(setFavorites(data.tripsLiked));
+        } else {
+          console.log('reducer failed on initialisation');
+        }
+      });
   }, []);
   //MAKE SURE THE FONTS ARE LOADED
   const loadedFonts = loadFonts();

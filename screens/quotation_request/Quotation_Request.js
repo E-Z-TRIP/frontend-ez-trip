@@ -21,11 +21,13 @@ import { ScrollView } from 'react-native-gesture-handler';
 import moment from 'moment';
 import DateRangePicker from 'rnv-date-range-picker';
 
+
 export default function Quotation_Request({ navigation }) {
 
-///////////////////////// Input
+  ///////////////////////// Input
   const [text, setText] = useState("")
 
+  // ///// BUTTON TRAVELERS && DATEPICKER
   const [nbTravelers, setnbTravelers] = useState(1);
   const [selectedRange, setRange] = useState({});
 
@@ -35,38 +37,44 @@ export default function Quotation_Request({ navigation }) {
   const increment = () => setnbTravelers((c) => c + 1);
   const decrement = () => (nbTravelers > 1 ? setnbTravelers((c) => c - 1) : false);
 
-  
-    
+// //////
 
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
 
+
+  // /////
+
+  
+
   return (
+
+// ///////////
+
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
-        <View style={styles.container}></View>
       </View>
+
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
+
           <View style={styles.header}>
-            <View style={styles.text}>
+
               <Text style={styles.title}>Quotation request</Text>
-              <Text style={styles.text}>Amazonie - EZ Trip</Text>
+              </View>
+              
+
+
+{/* //////Card du voyage selectionné avec le nom a l'intérieur : supprimer Amazonie-EZ Trip*/}
+          {/* <Text style={styles.texts}>Amazonie - EZ Trip</Text> */}
+          <Trip></Trip>
+
+          
+          
+            <View>
+            
             </View>
-
-          </View>
-
-
-          <View
-            name='travelersSection'
-            style={{
-              marginTop: 30,
-              height: 50,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-            <Text style={styles.texts}>Number of travelers</Text>
+            <Text style={styles.textNum} >Number of travelers</Text>
             <View
               style={{
                 alignItems: 'center',
@@ -74,6 +82,7 @@ export default function Quotation_Request({ navigation }) {
                 flexDirection: 'row',
                 width: '20%',
               }}>
+                
               <TouchableOpacity style={styles.button} title='Decrement' onPress={() => decrement()}>
                 <Text style={{ textAlign: 'center', color: 'black' }}>-</Text>
               </TouchableOpacity>
@@ -81,46 +90,43 @@ export default function Quotation_Request({ navigation }) {
               <TouchableOpacity style={styles.button} title='Increment' onPress={() => increment()}>
                 <Text style={{ textAlign: 'center', color: 'black' }}>+</Text>
               </TouchableOpacity>
-            </View>
+            
           </View>
-
-
-          <Text style={styles.texts}>Departure date</Text>
-
-          <SafeAreaView>
-            <View style={styles.containerDate}>
-              <DateRangePicker
-                onSelectDateRange={(range) => {
-                  setRange(range);
-                }}
-                responseFormat='YYYY-MM-DD'
-                maxDate={moment()}
-                minDate={moment().subtract(100, 'days')}
-              />
-              <View style={styles.container}>
-         
-              </View>
-            </View>
-          </SafeAreaView>
-
-                 <Text style={styles.texts}>Departure: {selectedRange.firstDate}</Text>
-                <Text style={styles.texts}>Return: {selectedRange.secondDate}</Text>
-
-
           
-                <TextInput
-                style={styles.buttons}
-      label="Email"
-      value={text}
-      onChangeText={text => setText(text)}
-    />
-          <TouchableOpacity style={styles.buttons}>
-            <Text styles={styles.texts}>Confirm the quotation request</Text>
-          </TouchableOpacity>
+           
+            <Text style={styles.texts}>Departure date</Text>
+            <SafeAreaView>
+            <DateRangePicker
+              onSelectDateRange={(range) => {
+                setRange(range);
+              }}
+              responseFormat='YYYY-MM-DD'
+              maxDate={moment()}
+              minDate={moment().subtract(100, 'days')}
+            />
+            <View style={styles.container}>
+            </View>
+            </SafeAreaView>
+
+
+          <TextInput
+            style={styles.input}
+            label="Email"
+            value={text}
+            onChangeText={text => setText(text)}
+            multiline
+            numberOfLines={4}
+          />
+              <TouchableOpacity style={styles.buttonConfirm}>
+      <Text style={styles.text}>Confirm the quotation request</Text>
+    </TouchableOpacity>
         </View>
       </ScrollView>
+
+
       <BottomToolbar></BottomToolbar>
       <View style={{ height: 70 }}></View>
+
     </View>
   );
 }

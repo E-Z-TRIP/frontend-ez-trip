@@ -50,6 +50,8 @@ export default function Discover({ navigation }) {
         }
       });
   }, []);
+
+  
   //MAKE SURE THE FONTS ARE LOADED
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;

@@ -1,6 +1,5 @@
 import {Animated, createAnimatedComponent,SafeAreaView, View, FlatList, Text, ImageBackground, TouchableOpacity, Modal} from 'react-native';
 import styles from './style.css';
-import { useTheme } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadFonts } from '../../assets/fonts/fonts';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
@@ -8,12 +7,10 @@ import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { serverURL } from '../../api/backend_request';
 import { ScrollView } from 'react-native-gesture-handler';
 import MapView, { Marker } from 'react-native-maps';
-import Coeur from '../../components/icons/coeur';
 import Cross from '../../components/icons/cross';
 import * as Network from 'expo-network';
 import Scroll from '../../components/icons/scrollDown';
 import { touchRippleClasses } from '@mui/material';
-import { useIsFocused } from "@react-navigation/native";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { addFavorites, deleteFavorite } from '../../reducers/user';
 import { getMonthName } from '../../assets/helpers';
@@ -28,6 +25,7 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
   //   inputRange:[0,300],
   //   outputRange:[0,-300]
   // })
+  
      /* ---------------- INITIALISATION DES CONSTANTES ----------------  */
   const dispatch = useDispatch();
     //store toutes les données du trip fetché au chargement du composant
@@ -199,7 +197,7 @@ if (goodProgram) {
 
 
   return (
-    <View style={styles.scrollView}> 
+    <View key={props.id} style={styles.scrollView}> 
 {/* ---------------- LANDING PAGE PHOTO BACKGROUND + INFOS PRINCIPALES ---------------- */}
       <ImageBackground style={styles.landing} source={{uri: trip.background}} resizeMode='cover'>
 
@@ -277,7 +275,7 @@ if (goodProgram) {
                 <Text style={{color: 'white'}}>Starting from {price}€</Text>
               </View>
               <View style={{flex: 1, flexDirection: 'row', justifyContent:'flex-end'}}>
-              <Text style={styles.offeredByModal}>Offered by <Text style={{textDecoration: 'underline'}}>EZTRIP</Text></Text>
+              <Text style={styles.offeredByModal}>Offered by <Text>EZTRIP</Text></Text>
               </View>
             </View>
 {/* ---------------- INCLUDED/NOT INCLUDED ---------------- */}

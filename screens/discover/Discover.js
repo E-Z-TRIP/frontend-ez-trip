@@ -10,9 +10,7 @@ import Trip from '../../components/trip/trip';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { getMonthName } from '../../assets/helpers';
-import { addIP } from '../../reducers/IPAddress';
 import { addFavorites, setFavorites } from '../../reducers/user';
-import * as Network from 'expo-network';
 import { serverURL } from '../../api/backend_request';
 import { dismountUser } from '../../reducers/user';
 

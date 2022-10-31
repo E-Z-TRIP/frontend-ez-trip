@@ -28,12 +28,12 @@
 .cardTravel {
     /* background-color: brown; */
     /* border: #C46B4D 2px solid; */
-    height: 210;
-min-height: 190;    
-    width: 300;
+    height: 250;
+max-height: 300;    
+    width: 500;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .summaryContainer {

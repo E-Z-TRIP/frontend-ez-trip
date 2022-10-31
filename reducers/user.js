@@ -11,7 +11,7 @@ const user = createSlice({
     mountUser: (state, action) => {
       state.value = action.payload;
     },
-    dismountUser: () => {
+    dismountUser: (state) => {
       state.value = false;
       state.favorites = [];
     },
@@ -22,7 +22,7 @@ const user = createSlice({
       state.favorites = action.payload;
     },
     deleteFavorite: (state, action) => {
-			state.favorites = state.favorites.filter(trip => trip !== action.payload);
+      state.favorites = state.favorites.filter((trip) => trip !== action.payload);
     },
   },
 });

@@ -35,7 +35,6 @@ function App() {
   }, []);
 
   console.log(loadedStorage);
-  
 
   // Un-comment this if using light and dark mode
 
@@ -50,16 +49,15 @@ function App() {
   return (
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <PersistGate persistor={persistor}>
-        <Stack.Navigator initialRouteName='OnBoarding'
-        screenOptions={{ headerShown: false, gestureEnabled: false }}>
-          {(store.getState()?.user?.value?.token && <></>) ||
-          <Stack.Screen name='OnBoarding' component={OnBoarding} />}
+        <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false }}>
+          {(store.getState()?.user?.value?.token && <></>) || <Stack.Screen name='OnBoarding' component={OnBoarding} />}
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='MyTrips' component={MyTrips} />
           <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='Product' component={ProductScreen} />
           <Stack.Screen name='MyDocuments' component={MyDocuments} />
           <Stack.Screen name='Quotation_Received' component={Quotation_Received} />
+          <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

@@ -1,55 +1,25 @@
-.container {
-    align-self: center;
-    flex:1;
-    align-items: center;
-    width: 105%;
-    height: 8%;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    background-color: white;
+.toolBar {
+  position: absolute;
+  bottom: 0;
+  background-color: white;
+  height: 70;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 9999;
+  justify-self: flex-end;
+  width: 100%;
+  padding: 0 10px;
+  border-top-width: 1px;
 }
 
-.footer {
-    border-top-width: 1px;
-    border-color: black;
-    background-color: white;
-    height: 100%;
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin-right: 10;
-    margin-left: 10;
-}
-
-.icons1, .icons2 {
-    flex: 1;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.icons1 {
-    margin-right: 40;
-}
-
-.icons2 {
-    margin-left: 40;
-}
-
-.searchBtn{
-    position: absolute;
-    background-color: white;
-    z-index: 1;
-    left: 50%;
-    top: -50%;
-    width: 70;
-    height: 70;
-    margin-left: -35;
-    border-radius: 50px;
-    border-width: 1px;
-    justify-content: center;
-    align-items: center;
-    
+.searchBtn {
+  justify-content: center;
+  align-items: center;
+  width: 70;
+  height: 70;
+  bottom: 20;
+  border-radius: 35px;
+  border-width: 1px;
+  background-color: white;
 }

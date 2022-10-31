@@ -25,16 +25,14 @@ export default function Discover({ navigation }) {
   const TOKEN = useSelector((state) => state.user.value.token);
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN + FAVORITES OF THE USER TO SAVE IN THE REDUCER
   useEffect(() => {
-
     //GET ALL THE TRIPS
     fetch(`${serverURL}/trips`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          setTripsData(data.trips)
-        }
-        else {
-          console.log('Fetch of trips failed.')
+          setTripsData(data.trips);
+        } else {
+          console.log('Fetch of trips failed.');
         }
       });
 
@@ -52,11 +50,9 @@ export default function Discover({ navigation }) {
       });
   }, []);
 
-  
   //MAKE SURE THE FONTS ARE LOADED
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
-
 
   //MAP TO DISPLAY ALL THE TRIPS
   const trips = tripsData.map((data, i) => {
@@ -73,12 +69,11 @@ export default function Discover({ navigation }) {
         price={data.program[0].price}
         start={start}
         end={end}
-        isFavorite = {favorites.some(favorite => favorite === data._id)}
+        isFavorite={favorites.some((favorite) => favorite === data._id)}
       />
     );
   });
 
-  
   //FINAL RETURN
   return (
     <View style={{ flex: 1 }}>

@@ -2,11 +2,12 @@ import { View, Text, ImageBackground, SafeAreaView, TouchableOpacity } from 'rea
 import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
 import { loadFonts } from '../../assets/fonts/fonts';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import ProgressBar from '../../components/progressBar/progressBar';
 import SwipeContainer from '../../components/swipe_container/SwipeContainer';
 import SwipeArrow from '../../components/icons/SwipeArrow';
 import FadeContainer from '../../components/fade_container/FadeContainer';
+import PulsingContainer from '../../components/pulsing_container/PulsingContainer';
 import HorizontalSlideContainer from '../../components/horizontal_slide_container/HorizontalSlideContainer';
 import SignupLoginSlide from './signup_login_slide/SignupLoginSlide';
 import Logo from '../../components/logo/Logo';
@@ -73,14 +74,14 @@ export default function OnBoarding({ navigation }) {
               <FadeContainer isVisible={progress > 1 ? false : true} speed={animationSpeed}>
                 <Text style={{ ...styles.welcomeTxt, color: onBoarding.welcomeTxt }}>Welcome</Text>
               </FadeContainer>
-              <FadeContainer
+              <PulsingContainer
                 style={styles.paddingBox}
                 isVisible={progress < slides.length ? true : false}
                 speed={animationSpeed}>
-                <TouchableOpacity onPress={() => setDirection({ direction: 'left' })}>
+                <TouchableOpacity onPress={() => setDirection({ direction: 'left' })} activeOpacity={1}>
                   <SwipeArrow />
                 </TouchableOpacity>
-              </FadeContainer>
+              </PulsingContainer>
             </View>
           </SwipeContainer>
         )}

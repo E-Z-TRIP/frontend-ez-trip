@@ -1,8 +1,8 @@
-import { KeyboardAvoidingView, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import Input from '../../../../components/form_elements/Input';
@@ -14,6 +14,7 @@ import { rnPaperTextInputTheme } from './sharedProps';
 import { postData } from '../../../../api/backend_request';
 import { HelperText } from 'react-native-paper';
 import styles from './style.css';
+import KeyboardAwareView from '../../../../components/keyboard_aware_view/KeyboardAwareView';
 
 const validationSchema = yup
   .object({
@@ -28,6 +29,8 @@ export default function SignUpForm({ onClosePress, openForm }) {
   const { onBoarding } = useTheme();
   const dispatch = useDispatch();
   const [userExistsError, setUserExistsError] = useState(false);
+  const [passwordInputActive, setPasswordInputActive] = useState(false);
+  const [avoidKeyboard, setAvoidKeyboard] = useState(false);
 
   const {
     control,
@@ -38,7 +41,12 @@ export default function SignUpForm({ onClosePress, openForm }) {
   });
 
   return (
-    <View style={{ ...styles.modalInnerContainer, backgroundColor: onBoarding.formModalBackground }}>
+    <KeyboardAwareView
+      style={{ ...styles.modalInnerContainer, backgroundColor: onBoarding.formModalBackground }}
+      bottomPositionOnKeyboardOpen={200}
+      onKeyboardOpen={() => setAvoidKeyboard(true)}
+      onKeyboardClose={() => setAvoidKeyboard(false)}
+      active={passwordInputActive && avoidKeyboard ? true : false}>
       <CloseBtn
         style={styles.closeBtn}
         iconColor={onBoarding.closeBtnIcon}
@@ -46,7 +54,11 @@ export default function SignUpForm({ onClosePress, openForm }) {
         iconScale={0.6}
         onPress={onClosePress}
       />
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          Keyboard.dismiss();
+          setPasswordInputActive(false);
+        }}>
         <View style={styles.signUpFormContainer}>
           <Input
             name='firstName'
@@ -63,6 +75,7 @@ export default function SignUpForm({ onClosePress, openForm }) {
             wrapperStyle={styles.inputWrapper}
             inputStyle={styles.input}
             defaultStyleOverides={rnPaperTextInputTheme()}
+            onFocus={() => setPasswordInputActive(false)}
           />
           <Input
             name='lastName'
@@ -79,6 +92,7 @@ export default function SignUpForm({ onClosePress, openForm }) {
             wrapperStyle={styles.inputWrapper}
             inputStyle={styles.input}
             defaultStyleOverides={rnPaperTextInputTheme()}
+            onFocus={() => setPasswordInputActive(false)}
           />
           <Input
             name='email'
@@ -96,6 +110,7 @@ export default function SignUpForm({ onClosePress, openForm }) {
             wrapperStyle={styles.inputWrapper}
             inputStyle={styles.input}
             defaultStyleOverides={rnPaperTextInputTheme()}
+            onFocus={() => setPasswordInputActive(false)}
           />
           <PasswordInput
             name='password'
@@ -115,6 +130,7 @@ export default function SignUpForm({ onClosePress, openForm }) {
             inputStyle={styles.input}
             iconColor={onBoarding.inputIcon}
             defaultStyleOverides={rnPaperTextInputTheme()}
+            onFocus={() => setPasswordInputActive(true)}
           />
           <HelperText type='error' visible={true}>
             {userExistsError && 'User already exists'}
@@ -135,6 +151,6 @@ export default function SignUpForm({ onClosePress, openForm }) {
           />
         </View>
       </TouchableWithoutFeedback>
-    </View>
+    </KeyboardAwareView>
   );
 }

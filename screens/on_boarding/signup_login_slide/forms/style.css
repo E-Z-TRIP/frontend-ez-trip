@@ -17,6 +17,7 @@
 }
 .closeBtn {
   align-self: flex-end;
+  margin-right: 8px;
 }
 .inputWrapper {
   width: 100%;
@@ -27,9 +28,10 @@
 }
 .submitBtn {
   width: 80%;
-  height: 50px;
+  height: 45px;
   border-radius: 25px;
 }
 .submitBtnText {
-  font-size: 17;
+  font-size: 15;
+  font-family: 'txt';
 }

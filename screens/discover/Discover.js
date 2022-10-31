@@ -87,7 +87,7 @@ export default function Discover({ navigation }) {
           <View style={styles.header}>
             <View style={styles.text}>
               <Text style={styles.title}>Discover</Text>
-              <Text style={styles.text}>Where are you heading?</Text>
+              <Text style={styles.text}>Choose your next adventure.</Text>
             </View>
             <View style={styles.border}></View>
           </View>

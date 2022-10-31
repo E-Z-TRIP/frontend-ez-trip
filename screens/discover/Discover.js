@@ -63,6 +63,7 @@ export default function Discover({ navigation }) {
     return (
       <Trip
         key={i}
+        propsKey = {i}
         id={data._id}
         background={data.background}
         country={data.country}

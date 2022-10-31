@@ -43,6 +43,7 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
   //Token utilisateur
   const TOKEN = useSelector((state) => state.user.value.token);
 
+  console.log(props)
 
    /* ---------------- IMPORT DES PROPS A L'INITIALISATION DU COMPOSANT ----------------  */
 
@@ -54,6 +55,7 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
   .then(response => response.json())
   .then(data => {
     if (data.result) {
+      console.log(data)
       setTrip(data.trip)
     }
     else {
@@ -141,12 +143,12 @@ if (goodProgram) {
   });
 
       /* ---------------- DISPLAY INCLUDED / NON-INCLUDED DYNAMICALLY ----------------  */
-  const included = trip.included.map(e => {
-    return(<Text>{e}</Text>)
+  const included = trip.included.map((e,i) => {
+    return(<Text key={i}>{e}</Text>)
   })
 
-  const nonIncluded = trip.nonIncluded.map(e => {
-    return(<Text>{e}</Text>)
+  const nonIncluded = trip.nonIncluded.map((e,i) => {
+    return(<Text key={i}>{e}</Text>)
   })
     /* ---------------- HANDLE LIKE/UNLIKE DYNAMICALLY ----------------  */
 
@@ -197,6 +199,7 @@ if (goodProgram) {
   }
     /* ---------------- PHOTOS CARROUSSEL ----------------  */
 
+console.log(props.propsKey);
 let urls = []
 let photoDisplayed = trip.photos.map((e, i) => {
   urls.push({url: e})
@@ -206,7 +209,7 @@ let photoDisplayed = trip.photos.map((e, i) => {
 /////////FINAL RETURN//////////
 
   return (
-    <View key={props.id} style={styles.scrollView}> 
+    <View style={styles.scrollView} key={props.propsKey}> 
 {/* ---------------- LANDING PAGE PHOTO BACKGROUND + INFOS PRINCIPALES ---------------- */}
       <ImageBackground style={styles.landing} source={{uri: trip.background}} resizeMode='cover'>
 

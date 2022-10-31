@@ -12,7 +12,7 @@ export default function Trip(props) {
   const TOKEN = useSelector((state) => state.user.value.token);
   const navigation = useNavigation();
   const favorites = useSelector((state) => state.user.favorites);
-
+  console.log(props.propsKey)
   // console.log('token trip.js', TOKEN)
     //function to add the trip to the tripsLiked user database + adding it to the reducer
     const handleLike = () => {
@@ -61,7 +61,7 @@ export default function Trip(props) {
     }
     
     return (
-      <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Product', {id: props.id, isFavorite: props.isFavorite})}>
+      <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Product', {propsKey: props.propsKey, key:props.propsKey, id:props.id,  isFavorite: props.isFavorite})}>
         
         <ImageBackground imageStyle={{borderRadius: 15}} source={{uri: props.background}} style = {styles.imgbackground}>
           <LinearGradient 

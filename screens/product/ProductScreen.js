@@ -183,6 +183,7 @@ if (goodProgram) {
       body: JSON.stringify({ token: TOKEN, tripID: props.id }),
     }).then(response => response.json())
       .then(data => {
+        console.log(data)
         if (data.result) {
           //rajout dans le reducer
           dispatch(addFavorites(data.tripLiked))
@@ -250,16 +251,14 @@ let photoDisplayed = trip.photos.map((e, i) => {
           zIndex:-1,
         }}> */}
 {/* ---------------- CAROUSSEL PHOTOS ---------------- */}
-        
 
           <Slideshow scrollEnabled={false} height={250} style={styles.caroussel}
           dataSource={urls}></Slideshow>
-            <View name="iconContainer" style={{position: 'absolute', width: '100%', height: '5%', flexDirection:'row', justifyContent:'flex-end', padding: 25, alignItems: 'center', marginRight: 15}}>
+
+{/* ---------------- ICONS TOP RIGHT ---------------- */}
+            <View name="iconContainer" style={{ position: 'absolute', width: '30%', left:'70%', height: '5%', flexDirection:'row', justifyContent:'space-between', padding: 25, alignItems: 'center', marginRight: 15}}>
               {heart}
-              <TouchableOpacity style={{marginLeft: 20}} name='close' size={30}
-                onPress={() => setModalVisible(!modalVisible)}>
-                <Cross />
-              </TouchableOpacity>
+              <Cross style={{marginLeft: 15}} onPress={() => console.log('hello')} />
             </View>
 
         {/* </Animated.View> */}
@@ -290,7 +289,7 @@ let photoDisplayed = trip.photos.map((e, i) => {
             </View>
 {/* ---------------- INCLUDED/NOT INCLUDED ---------------- */}
             <View style={{flex:1, flexDirection: 'row', justifyContent:'space-between'}}>
-              <View name="included" style={{width: '50%'}}>
+              <View name="included" style={{width: '50%', marginRight: 5}}>
                 <Text style={styles.smallTitle}>Included :</Text>
                 <View style={{width: '100%'}}>{included}</View>
               </View>

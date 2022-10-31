@@ -343,7 +343,7 @@ if (goodProgram) {
 
 {/* ---------------- BOUTONS QUOTATION ET DOWNLOAD ---------------- */}
 
-              <TouchableOpacity style={styles.quotationButton}>
+              <TouchableOpacity style={styles.quotationButton} >
                 <Text style={styles.buttonTextQuotation}>Quotation request</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.programButton}>

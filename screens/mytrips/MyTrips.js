@@ -18,123 +18,70 @@ import {
   import Trip from '../../components/trip/trip';
   import styles from './style.css'
   import { serverURL } from '../../api/backend_request';
+  import { useDispatch, useSelector } from 'react-redux';
 
 
 
   export default function MyTrips() {
 
-    const TOKEN = 'OG7sCHy8L3Ht6CF6h-IXd3twF9QGkVRR';
+    //constantes générales
+    const tripLiked = useSelector((state) => state.user.favorites);
+    const TOKEN = useSelector((state) => state.user.value.token);
+    const favorites = useSelector((state) => state.user.favorites);
 
-    // A REMPLACER PAR UN FETCH 
-const data = [{
-        photo : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666688082/Bali1_bat19s.jpg',
-        titre : 'Bali the pretty',
-        prix: 'from 2500€'
-    },
-    {
-        photo : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685797/QuetenaChico_rf9h4j.jpg',
-        titre : 'Quetena Chico',
-        prix: 'from 2500€'
-    },
-    {
-        photo : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685797/flamants_laguna_colorada_dkspjf.jpg',
-        titre : 'Laguna Colorada',
-        prix: 'from 2500€'
-    },
-    {
-        photo : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685797/incahuasi_wx6a2w.jpg',
-        titre : 'Incahuasi',
-        prix: 'from 2500€'
-    },
-    {
-        photo : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666626183/machu-picchu_fc90cz.jpg',
-        titre : 'Machu Picchu',
-        prix: 'from 2500€'
-    },
-]
-    // FIN 
+    //store les trips à display (liked + booked)
+    const [tripsLikedData, setTripsLikedData] = useState([]);
+    const [tripsBooked, setTripsBooked] = useState([]);
+
+    useEffect(() => {
+    //GET THE TRIPS LIKED BY THE USER
+    fetch(`${serverURL}/trips`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+            setTripsLikedData(data.trips)
+        }
+        else {
+          console.log('Fetch of trips failed.')
+        }
+      })
+
+    //GET THE TRIPS BOOKED BY THE USER
+
+    
+    }, []);
+
 
 //---------------- MAP LIKED TRIPS  ----------------
- const likedTrips = data.map((data, i) => {
+ const likedTrips = tripsLikedData.map((data, i) => {
+    const isFavorite = favorites.some(favorite => favorite.id === data.id)
     return (
-        <View style={styles.pdfContainer}>
-            <TouchableOpacity  >
-                <ImageBackground  imageStyle={{ borderRadius: 15}} style={styles.imgBackground} source={{uri: data.photo, width:500, height:300}} alt={data.titre}>
-                <LinearGradient 
-        colors={['rgba(0,0,0,0.8)', 'transparent']}
-        style={{height : '40%', width : '100%', padding: 15, borderRadius: 15}}>
-            <View style = {styles.topInfos}>
-            <Text style={styles.titleCard} >{data.titre}</Text>
-            </View>
- </LinearGradient>
- <LinearGradient 
-        colors={['rgba(0,0,0,0.8)', 'transparent']}
-        start={[1, 1]}
-        end={[1, 0]}
-        style={{height : '33%', width : '100%', padding: 15, borderRadius: 15}}>
-        <View style= {styles.bottomInfo}>
-            <Text style = {styles.cardInfos}>from December to July</Text>
-            <Text style = {styles.cardInfos}>From {data.prix}</Text>
-        </View>
-        </LinearGradient>
-                </ImageBackground>
+            <TouchableOpacity key={i} style={styles.tripContainer} >
+                <Trip {...data} isFavorite={isFavorite}></Trip>
             </TouchableOpacity>
-        </View>
     )
  })
-//  useEffect(() => {
-//  fetch(`${serverURL}/users/like/${TOKEN}`)
-//  .then((response) => response.json())
-//  .then((data) => {
-//    if (data.result) {
-//      console.log(data)
-//    } else {
-//      console.log('reducer failed on initialisation');
-//    }
-//  });
-// }, []);
+
  
 
- // ---------------- map TravelAgencyDocuments ----------------
- const planedTrips = data.map((data, i) => {
+ // ---------------- MAP PLANED TRIPS ----------------
+ const planedTrips = tripsLikedData.map((data, i) => {
+    const isFavorite = favorites.some(favorite => favorite.id === data.id)
     return (
-        <View style={styles.pdfContainer}>
-            <TouchableOpacity  >
-                <ImageBackground  imageStyle={{ borderRadius: 15}} style={styles.imgBackground} source={{uri: data.photo, width:500, height:300}} alt={data.titre}>
-                <LinearGradient 
-        colors={['rgba(0,0,0,0.8)', 'transparent']}
-        style={{height : '40%', width : '100%', padding: 15, borderRadius: 15}}>
-            <View style = {styles.topInfos}>
-            <Text style={styles.titleCard} >{data.titre}</Text>
-            </View>
- </LinearGradient>
- <LinearGradient 
-        colors={['rgba(0,0,0,0.8)', 'transparent']}
-        start={[1, 1]}
-        end={[1, 0]}
-        style={{height : '33%', width : '100%', padding: 15, borderRadius: 15}}>
-        <View style= {styles.bottomInfo}>
-            <Text style = {styles.cardInfos}>from December to July</Text>
-            <Text style = {styles.cardInfos}>From {data.prix}</Text>
-        </View>
-        </LinearGradient>
-                </ImageBackground>
+        <TouchableOpacity key={i} style={styles.tripContainer} >
+                <Trip {...data} isFavorite={isFavorite}></Trip>
             </TouchableOpacity>
-        </View>
     )
  })
 
+  //*FONT CODE
+  const loadedFonts = loadFonts();
+  if (!loadedFonts) return <></>;
 
-//*FONT CODE
-    const loadedFonts = loadFonts();
-    if (!loadedFonts) return <></>;
-
-return (
-
-<View style={{ flex: 1 }}>
-  <View style={styles.container}>
-{/* ---------------- HEADER ---------------- */}
-    <View style={styles.header}>
+  return (
+    <View style={styles.container}>
+      {/* ---------------- HEADER ---------------- */}
+      <View style={styles.header}>
         <Text style={styles.title}>My trips</Text>
     </View>
 {/* ---------------- LIKED TRIPS ---------------- */}
@@ -143,38 +90,46 @@ return (
     <AntDesign name='heart' size={23}  color={"black"}/>
         <Text style={styles.smallTitle}>Liked trips</Text>
     </View>
-        <View>
+    <View style={styles.border}></View>
             <ScrollView horizontal={true} style={styles.galleryContainer}>
-                {likedTrips}
+            {tripsLikedData.length > 0 ? likedTrips : <Text style={{fontFamily:'txt'}}>You have no favorites yet.</Text>}
             </ScrollView>
-            <View style={{marginTop: -16, zIndex: 1,top: -150, left: 380, }} >
-            <SwipeLeft />
+            <View style={{marginTop: -16, zIndex: 1,top: -150, left: 340, }} >
+            {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}
+            {tripsLikedData.length > 1 ? <SwipeLeft /> : false}   
             </View>
-           
-        </View>
+            <LinearGradient 
+        start={{x: 0.75, y: 0.75}} end={{x: 0, y: 0.75}}
+        colors={['rgba(255,255,255,0.7)', 'transparent']}
+        style={{position: 'absolute', width: 75, height: 210, top: 25, left: '82%'}}></LinearGradient>
     </View>
 
-{/* ---------------- PLANED TRIPS ---------------- */}
-<View style={styles.cont}>
-    <View style={styles.sousHeader} >
-        <TripPlaned/>
-        <Text style={styles.smallTitle}>Planed trips</Text>
-    </View>
-        <View>
+      {/* ---------------- PLANED TRIPS ---------------- */}
+      <View style={{ marginTop: 10 }}>
+        <View style={styles.sousHeader}>
+          <TripPlaned />
+          <Text style={styles.smallTitle}>Planed trips</Text>
+        </View>
+        <View style={styles.border}></View>
+
         <ScrollView horizontal={true} style={styles.galleryContainer}>
-
-                {planedTrips}
-            </ScrollView>
-            <View style={{marginTop: -16, zIndex: 1,top: -150, left: 380, }} >
-            <SwipeLeft />
-            </View>
+        {tripsBooked.length > 0 ? {planedTrips} : <Text style={{fontFamily:'txt'}}>You have no reservations yet.</Text>}
+        </ScrollView>
+        <View style={{marginTop: -16, zIndex: 1,top: -150, left: 350, }} >
+        {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}
+         {tripsBooked.length > 1 ? <SwipeLeft /> : false}   
         </View>
-    </View>
+        {/* ---------------- WHITE GRADIENT ON THE RIGHT OF THE SCROLL LEFT ---------------- */}
+        <LinearGradient
+          start={{ x: 0.75, y: 0.75 }}
+          end={{ x: 0, y: 0.75 }}
+          colors={['rgba(255,255,255,0.7)', 'transparent']}
+          style={{ position: 'absolute', width: 75, height: 212, top: '19.5%', left: '82%' }}></LinearGradient>
 
-{/* ---------------- FOOTER BOTTOM BAR ---------------- */}
+        {/* ---------------- FOOTER BOTTOM BAR ---------------- */}
+      </View>
+      <BottomToolbar style={{ width: '100%' }}></BottomToolbar>
+      <View style={{ height: 70 }}></View>
     </View>
-  <View style={{ height: 90 }}></View>
-  <BottomToolbar></BottomToolbar>
-</View>
-
-  )}
+  );
+}

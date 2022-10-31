@@ -6,7 +6,7 @@ export default function KeyboardAwareView({
   bottomPositionOnKeyboardOpen,
   active,
   onKeyboardOpen,
-  onKeyboardClose,
+  onKeyboardClose = () => {},
   children,
 }) {
   const [bottomPosition, setBottomPosition] = useState(0);
@@ -36,7 +36,6 @@ export default function KeyboardAwareView({
 
   return (
     <View
-      onLayout={({ nativeEvent }) => setViewHeight(Dimensions.get('window').height - nativeEvent.layout.height)}
       style={{ width: '100%', ...style, bottom: bottomPosition }}>
       {children}
     </View>

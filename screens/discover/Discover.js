@@ -10,32 +10,29 @@ import Trip from '../../components/trip/trip';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { getMonthName } from '../../assets/helpers';
-import { addIP } from '../../reducers/IPAddress';
 import { addFavorites, setFavorites } from '../../reducers/user';
-import * as Network from 'expo-network';
 import { serverURL } from '../../api/backend_request';
 import { dismountUser } from '../../reducers/user';
 
 export default function Discover({ navigation }) {
+  
   const dispatch = useDispatch();
-  const API_ADDRESS = useSelector((state) => state.IPAdress.value);
   //STATE TO STORE ALL THE TRIPS TO DISPLAY
   const [tripsData, setTripsData] = useState([]);
-  //USESELECTORS POUR LIRE LE USER CONNECTED ET SES LIKES
-  const TOKEN = useSelector((state) => state.user.value.token);
   const favorites = useSelector((state) => state.user.favorites);
-
+  const TOKEN = useSelector((state) => state.user.value.token);
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN + FAVORITES OF THE USER TO SAVE IN THE REDUCER
   useEffect(() => {
     //GET ALL THE TRIPS
     fetch(`${serverURL}/trips`)
       .then((response) => response.json())
       .then((data) => {
-        setTripsData(data.trips);
+        if (data.result) {
+          setTripsData(data.trips);
+        } else {
+          console.log('Fetch of trips failed.');
+        }
       });
-
-
-     
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
     fetch(`${serverURL}/users/like/${TOKEN}`)
@@ -45,17 +42,14 @@ export default function Discover({ navigation }) {
           console.log('reducer initialized successfully');
           dispatch(setFavorites(data.tripsLiked));
         } else {
-          console.log(data);
           console.log('reducer failed on initialisation');
         }
-      });
+      })
   }, []);
 
-  
   //MAKE SURE THE FONTS ARE LOADED
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
-
 
   //MAP TO DISPLAY ALL THE TRIPS
   const trips = tripsData.map((data, i) => {
@@ -63,17 +57,14 @@ export default function Discover({ navigation }) {
     let start = getMonthName(data.travelPeriod[0].start);
     let end = getMonthName(data.travelPeriod[0].end);
     return (
+      <View key={i} style={{height: 180}}>
       <Trip
-        key={i}
+        propsKey = {i}
         id={data._id}
-        background={data.background}
-        country={data.country}
-        name={data.name}
-        price={data.program[0].price}
-        start={start}
-        end={end}
-        isFavorite = {favorites ? favorites.some(favorite => favorite === data._id) : false}
+        {...data}
+        isFavorite = {favorites.some(favorite => favorite === data._id)}
       />
+      </View>
     );
   });
 
@@ -85,13 +76,15 @@ export default function Discover({ navigation }) {
           <View style={styles.header}>
             <View style={styles.text}>
               <Text style={styles.title}>Discover</Text>
-              <Text style={styles.text}>Where are you heading?</Text>
+              <Text style={styles.text}>Choose your next adventure.</Text>
             </View>
             <View style={styles.border}></View>
           </View>
+
           <View style={styles.highlight}>
             <Highlight />
           </View>
+
           <View style={styles.catalogue}>
             <Text style={styles.text}>Our recommendations</Text>
             {trips}

@@ -21,9 +21,8 @@ export default function Discover({ navigation }) {
   const API_ADDRESS = useSelector((state) => state.IPAdress.value);
   //STATE TO STORE ALL THE TRIPS TO DISPLAY
   const [tripsData, setTripsData] = useState([]);
-  const TOKEN = "R1jjTe76KxKzzYm3Hs2w5of88DyxZZoP"
   const favorites = useSelector((state) => state.user.favorites);
-
+  const TOKEN = useSelector((state) => state.user.value.token);
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN + FAVORITES OF THE USER TO SAVE IN THE REDUCER
   useEffect(() => {
 
@@ -31,11 +30,13 @@ export default function Discover({ navigation }) {
     fetch(`${serverURL}/trips`)
       .then((response) => response.json())
       .then((data) => {
-        setTripsData(data.trips);
+        if (data.result) {
+          setTripsData(data.trips)
+        }
+        else {
+          console.log('Fetch of trips failed.')
+        }
       });
-
-
-     
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
     fetch(`${serverURL}/users/like/${TOKEN}`)
@@ -97,6 +98,7 @@ export default function Discover({ navigation }) {
 
           <View style={styles.catalogue}>
             <Text style={styles.text}>Our recommendations</Text>
+            {trips}
           </View>
         </View>
       </ScrollView>

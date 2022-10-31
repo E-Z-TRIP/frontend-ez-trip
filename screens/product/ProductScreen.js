@@ -1,7 +1,7 @@
 import {Animated, createAnimatedComponent,SafeAreaView, View, FlatList, Text, ImageBackground, TouchableOpacity, Modal} from 'react-native';
 import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadFonts } from '../../assets/fonts/fonts';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
@@ -14,9 +14,13 @@ import * as Network from 'expo-network';
 import Scroll from '../../components/icons/scrollDown';
 import { touchRippleClasses } from '@mui/material';
 import { useIsFocused } from "@react-navigation/native";
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import { addFavorites, deleteFavorite } from '../../reducers/user';
+import { getMonthName } from '../../assets/helpers';
 
 
-export default function ProductScreen({ navigation, route: { params: id } }) {
+
+export default function ProductScreen({ navigation, route: { params: props } }) {
   //collapsible header 
   // const scrollY = new Animated.Value(0);
   // const diffClamp = Animated.diffClamp(scrollY, 0,405)
@@ -24,106 +28,99 @@ export default function ProductScreen({ navigation, route: { params: id } }) {
   //   inputRange:[0,300],
   //   outputRange:[0,-300]
   // })
-  const isFocused = useIsFocused();
+     /* ---------------- INITIALISATION DES CONSTANTES ----------------  */
+  const dispatch = useDispatch();
+    //store toutes les données du trip fetché au chargement du composant
+  const [trip, setTrip] = useState(null);
+  const [lat, setLat] = useState(48.866667)
+  const [lon, setLon] = useState(2.333333)
   const loadedFonts = loadFonts();
   //fait apparaître / disparaître la Modal
   const [modalVisible, setModalVisible] = useState(false);
-  const [detailedProgram, setDetailedProgram] = useState(3);
-  const [trip, setTrip] = useState(null);
+  //détermine le programme à display
+  const [detailedProgram, setDetailedProgram] = useState(null);
+  //gère les likes
+  const [favorite, setFavorite] = useState(false)
+  const favorites = useSelector((state) => state.user.favorites);
+  //Token utilisateur
+  const TOKEN = useSelector((state) => state.user.value.token);
+
 
    /* ---------------- IMPORT DES PROPS A L'INITIALISATION DU COMPOSANT ----------------  */
 
    useEffect(() => {
-  fetch(`${serverURL}/trips/tripById/${id}`)
+  //importe l'état favorite du trip
+  setFavorite(props.isFavorite);
+  //fetch le trip grâce à l'id reçu en props
+  fetch(`${serverURL}/trips/tripById/${props.id}`)
   .then(response => response.json())
   .then(data => {
     if (data.result) {
       setTrip(data.trip)
     }
     else {
-      console.log('reducer failed on initialisation')
+      console.log('no trip received')
     }
-  });
-}, []);
-
+  })
+    //fetch les coordonnées géographiques de la ville de départ du trip
+  // .then(data => {
+  //   if (trip) {
+  //     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${trip.addressDeparture}&appid=7cecadeb80528d114d059361830568c1`)
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       console.log(data[0].lat, data[0].lon )
+  //       setLat(Number(data[0].lat))
+  //       setLon(Number(data[0].lon))
+  //       console.log(lat, lon);
+  //     })
+  //     }
+  //   })
+  }, []);
   
-    console.log(trip);
-
   if (!loadedFonts) return <></>;
 
   if (!trip) return <></>;
 
-  if (!isFocused) {
-    setTrip(null);
-  }
-/* ---------------- A REMPLACER PAR UN FETCH  DEBUT ----------------  */
-  //image background url
-  const image = { uri: 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666688082/balibackground_zhvjoa.jpg' };
-  //images caroussel
-  const photos = ['https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666688082/bali3_t80vuq.jpg', 
-  'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666688082/Bali1_bat19s.jpg', 
-  'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666688082/bali2_x92gur.jpg']
 
-  const program = [
-    {
-      nbday: 3,
-      detailedProgram: [
-        {
-          day: 1,
-          activities: `Accueil à Lima. Transfert vers notre famille d'accueil. Dîner et nuit à Lima.`,
-        },
-        {
-          day: 2,
-          activities: `Bus vers Paracas (village pêcheur). Accueillis par Lourdes et Juan (ancien pêcheur) pour visiter la région, la réserve de Paracas et ses plages. Diner et nuit chez eux. `,
-        },
-        {
-          day: 3,
-          activities: `Visite en bateau des îles Ballestas, réserve de la faune maritime. Transfert à Huacachina, oasis aux milieux des dunes au coeur d'un des déserts péruviens. Bus de nuit pour Arequipa.`,
-        },
-      ],
-    },
-    {
-      nbday: 2,
-      detailedProgram: [
-        {
-          day: 1,
-          activities: `Accueil à Lima. Transfert vers notre famille d'accueil. Dîner et nuit à Lima.`,
-        },
-        {
-          day: 2,
-          activities: `Bus vers Paracas (village pêcheur). Accueillis par Lourdes et Juan (ancien pêcheur) pour visiter la région, la réserve de Paracas et ses plages. Diner et nuit chez eux. `,
-        },
-      ],
-    },
-  ];
- const taags = ['Culture', 'Desert', 'Flight included', 'Trek', 'Hotel', 'Latin America']
-
- /* ---------------- A REMPLACER PAR UN FETCH  FIN ----------------  */
-
-
-
- /* ---------------- FIN ESPACE TRAVAIL ----------------  */
-
+  /* ---------------- DECLARATION DES VARIABLES DYNAMIQUES ----------------  */
+  const name = trip.name;
+  const price = trip.program[0].price;
+  const photos = trip.photos;
+  const minDay = trip.program[0].nbday
+  const maxDay = trip.program[trip.program.length - 1].nbday
+  const startMonth = getMonthName(trip.travelPeriod[0].start);
+  const endMonth = getMonthName(trip.travelPeriod[0].end);
+  const heart = <AntDesign name='heart' size={25}  borderOuterOutlined='black' color={favorite? "#F5612F" : "white"} onPress={() => handleLike()}/>
+  
+    /* ---------------- DISPLAY PROGRAM DYNAMICALLY ----------------  */
 
 // to display buttons for programs
 const programSetter = (data) => {
+  detailedProgram ? setDetailedProgram(data.nbday) : setDetailedProgram(null)
 //selon le jour cliqué, afficher le detailed program correspondant
-  setDetailedProgram(data.nbday)
 }
 
-const goodProgram = program.find(program => program.nbday === detailedProgram)
-const programDisplay = goodProgram.detailedProgram.map((day, i) => {
+//displaying the right program dynamically. 
+///!\ goodProgram est asynchrone, s'il ne s'affiche pas encore programDisplay est une View vide (évite les bugs)
+const goodProgram = trip.program.find(e => e.nbday === detailedProgram);
+let programDisplay = () => {
+  return (<View></View>)
+}
+if (goodProgram) {
+  programDisplay =  
+  goodProgram.detailedProgram.map((day, i) => {
   return(
-    <View style={styles.program}>
+    <View key={i} style={styles.program}>
       <Text style={styles.programKey}>Day : <Text style={styles.programValue}>{day.day}</Text></Text>
       <Text style={styles.programKey}>Activities : <Text style={styles.programValue}>{day.activities}</Text></Text>
     </View>
   )
  })
-
+}
 
 // DISPLAY NBDAYS PROGRAM FORMAT BOUTON 
-  const nbDaysButtons = program.map((data, i) => {
+  const nbDaysButtons = trip.program.map((data, i) => {
+
     return (
       <TouchableOpacity 
       onPress={() => programSetter(data)} 
@@ -133,9 +130,9 @@ const programDisplay = goodProgram.detailedProgram.map((day, i) => {
     );
   });
 
-// DISPLAY TAGS FORMAT BOUTON //? EST CE QU'ON FAIT QUE LES TAGS SOIENT CLIQUABLES ET RENVOIE A SEARCH PAR CE TAG LA?
+    /* ---------------- DISPLAY TAGS DYNAMICALLY ----------------  */
 
-  const tags = taags.map((data, i) => {
+  const tags = trip.tags.map((data, i) => {
     return (
       <TouchableOpacity
       //  onPress={() => programDisplay(data)} 
@@ -145,7 +142,63 @@ const programDisplay = goodProgram.detailedProgram.map((day, i) => {
     );
   });
 
-/* ---------------- CE QUI EST COMMENTE DANS LE RETURN CEST POUR LE COLLAPSIBLE HEADER ---------------- */
+      /* ---------------- DISPLAY INCLUDED / NON-INCLUDED DYNAMICALLY ----------------  */
+  const included = trip.included.map(e => {
+    return(<Text>{e}</Text>)
+  })
+
+  const nonIncluded = trip.nonIncluded.map(e => {
+    return(<Text>{e}</Text>)
+  })
+    /* ---------------- HANDLE LIKE/UNLIKE DYNAMICALLY ----------------  */
+
+  const handleLike = () => {
+    if (favorite)  {
+      console.log('déjà liké!')
+      //supprime en BDD
+      fetch(`${serverURL}/users/like`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: TOKEN, tripID: props.id }),
+    })
+    .then(response => response.json())
+    .then(data => {
+
+      console.log(data)
+      if (data.result) {
+        //une fois supprimé en BDD, supprime dans le reducer 
+        dispatch(deleteFavorite(props.id));
+        console.log('fetch successful + supprimé du reducer');
+        setFavorite(false);
+      }
+
+      else {
+        console.log('no data from fetch'); 
+      }
+    });
+    }
+    else {
+      console.log('trip liked');
+      //rajout dans la BDD
+      fetch(`http://192.168.131.88:3000/users/addlike`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: TOKEN, tripID: props.id }),
+    }).then(response => response.json())
+      .then(data => {
+        if (data.result) {
+          //rajout dans le reducer
+          dispatch(addFavorites(data.tripLiked))
+          setFavorite(true)
+        }
+        else {
+          console.log('no data from fetch'); 
+        }
+      });
+    }
+  }
+
+
   return (
     <View style={styles.scrollView}> 
 {/* ---------------- LANDING PAGE PHOTO BACKGROUND + INFOS PRINCIPALES ---------------- */}
@@ -153,20 +206,20 @@ const programDisplay = goodProgram.detailedProgram.map((day, i) => {
 
 {/* ---------------- HEADER BOUTONS LIKE ET RETOUR PAGE RECHERCHE ---------------- */}
         <View style={styles.header}>
-          <TouchableOpacity style={styles.coeurBox}>
-            <Coeur />
+          <TouchableOpacity style={{marginRight: 20}} >
+            {heart}
           </TouchableOpacity>
           <TouchableOpacity style={styles.crossBox}>
-            <Cross />
+            <Cross onPress={() => setTimeout(navigation.goBack(null), 0)} />
           </TouchableOpacity>
         </View>
 
 {/* ---------------- RECAP TRIP  ---------------- */}
         <View style={styles.recapTrip}>
-          <Text style={styles.title}>{trip.name}</Text>
-          <Text style={styles.text}>{trip.country}</Text>
-          <Text style={styles.text}>Min 12 jours - Max 27 jours</Text>
-          <Text style={styles.text}>A partir de {trip.program[0].price}€ </Text>
+          <Text style={styles.title}>{name}</Text>
+          <Text style={styles.country}>{trip.country}</Text>
+          <Text style={styles.text}>Min {minDay} days - Max {maxDay} days</Text>
+          <Text style={styles.text}>A partir de {price}€ </Text>
         </View>
         <TouchableOpacity style={styles.details} onPress={() => setModalVisible(!modalVisible)}>
           <Text style={styles.textDetail}>More details</Text>
@@ -192,15 +245,18 @@ const programDisplay = goodProgram.detailedProgram.map((day, i) => {
           zIndex:-1,
         }}> */}
 {/* ---------------- CAROUSSEL PHOTOS ---------------- */}
+        
           <View style={styles.caroussel}>
+          <View name="iconContainer" style={{backgroundColor: 'none', position: 'relative',width: '15%', height: '10%', flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', marginRight: 15}}>
+              {heart}
               <TouchableOpacity
                 name='close'
-                style={styles.crossBoxModal}
                 size={30}
                 color='black'
                 onPress={() => setModalVisible(!modalVisible)}>
                 <Cross />
               </TouchableOpacity>
+              </View>
           </View>
         {/* </Animated.View> */}
         {/* body modal */}
@@ -210,28 +266,25 @@ const programDisplay = goodProgram.detailedProgram.map((day, i) => {
               //     scrollY.setValue(e.nativeEvent.contentOffset.y)}} */}
 
 {/* ---------------- HEADER INFOS PRINCIPALES ---------------- */}
-
+            <View name="infosModal" style={{padding: 15}}>
             <View style={styles.headerModal}>
-              <Text style={styles.title}>Beaches and farniente</Text>
-              <TouchableOpacity style={styles.heartBoxModal}>
-                <Coeur />
-              </TouchableOpacity>
+              <Text style={styles.title}>{trip.name}</Text>
+              <Text style={styles.country}>{trip.country}</Text>
             </View>
             <View style={styles.infoContainerModal}>
-              <Animated.FlatList
-                data={[
-                  { key: 'Bali' },
-                  { key: 'Séjour de 12 jours - Max 27 jours' },
-                  { key: 'Départ de Janvier à Juin ' },
-                  { key: 'A partir de 1500€' },
-                ]}
-                renderItem={({ item }) => <Text style={styles.flatListModal}>{item.key}</Text>}
-              />
-              <Text style={styles.offeredByModal}>Offered by EZTRIP</Text>
+              <View style={{width: '60%', backgroundColor: 'pink', width: '50%', padding: 10}}>
+                <Text>From {minDay} days to {minDay} days</Text>
+                <Text>Travel period: {startMonth} to {endMonth}</Text>
+                <Text>Starting from {price}€</Text>
+              </View>
+              <View style={{flex: 1, flexDirection: 'row', justifyContent:'flex-end'}}>
+              <Text style={styles.offeredByModal}>Offered by <Text style={{textDecoration: 'underline'}}>EZTRIP</Text></Text>
+              </View>
             </View>
 {/* ---------------- INCLUDED/NOT INCLUDED ---------------- */}
             <Text style={styles.smallTitle}>Included :</Text>
-            <Animated.FlatList
+            <View>{included}</View>
+            {/* <Animated.FlatList
               columnWrapperStyle={{ flexWrap: 'wrap', flex: 1 }}
               numColumns={3}
               data={[
@@ -243,44 +296,44 @@ const programDisplay = goodProgram.detailedProgram.map((day, i) => {
                 { key: 'Les hébergements' },
               ]}
               renderItem={({ item }) => <Text style={styles.inclusModal}>{item.key}</Text>}
-            />
+            /> */}
 
             <Text style={styles.smallTitle}>Not included :</Text>
-            <Animated.FlatList
+            <View>{nonIncluded}</View>
+            {/* <Animated.FlatList
               columnWrapperStyle={{ flexWrap: 'wrap', flex: 1 }}
               numColumns={3}
               data={[{ key: 'Les pourboires' }, { key: 'Les boissons' }]}
               renderItem={({ item }) => <Text style={styles.inclusModal}>{item.key}</Text>}
-            />
+            /> */}
 {/* ---------------- MAP LOCALISATION ---------------- */}
-
+            <View name = "localisation" style={{justifyContent:'center'}}>
             <Text style={styles.smallTitle}>Localisation :</Text>
             <MapView
+              loadingBackgroundColor='#C46B4D'
+              tintColor='#C46B4D'
               style={styles.map}
-              mapType='hybrid'
+              mapType='mutedStandard'
               initialRegion={{
-                latitude: 37.78825,
-                longitude: -122.4324,
+                latitude: lat,
+                longitude: lon,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
               }}></MapView>
+              </View>
 {/* ---------------- DESCRIPTION TRIP ---------------- */}
 {/* si on a le temps voir pour un "showmore"/"showless" pour pas avoir des descriptions a rallonge */}
 
 
             <Text style={styles.smallTitle}>Description :</Text>
             <Text numberOfLines={5} ellipsizeMode='tail' style={styles.inclusModal}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi
-              repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius sed odit fugiat iusto
-              fuga praesentium optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis obcaecati
-              tenetur iure eius earum ut molestias architecto voluptate aliquam nihil, eveniet aliquid culpa officia
-              aut!{' '}
+              {trip.description}{' '}
             </Text>
 
 {/* ---------------- PROGRAMME ---------------- */}
             <Text style={styles.smallTitle}>Program :</Text>
             <View style={styles.nbDaysContainer}>{nbDaysButtons}</View>
-            {programDisplay}
+            {detailedProgram ? programDisplay : false}
 
 {/* ---------------- TAGS ---------------- */}
 
@@ -290,12 +343,13 @@ const programDisplay = goodProgram.detailedProgram.map((day, i) => {
 
 {/* ---------------- BOUTONS QUOTATION ET DOWNLOAD ---------------- */}
 
-              <TouchableOpacity style={styles.quotationButton}>
-                <Text style={styles.buttonText}>Quotation request</Text>
+              <TouchableOpacity style={styles.quotationButton} >
+                <Text style={styles.buttonTextQuotation}>Quotation request</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.programButton}>
-                <Text style={styles.buttonText}>Download program (PDF)</Text>
+                <Text style={styles.buttonTextProgram}>Download program (PDF)</Text>
               </TouchableOpacity>
+              </View>
             </View>
 
 {/* ---------------- ALL THE CODE HAS TO GO OVER THIS LINE ---------------- */}

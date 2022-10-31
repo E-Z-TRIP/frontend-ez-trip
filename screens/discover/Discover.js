@@ -34,6 +34,9 @@ export default function Discover({ navigation }) {
         setTripsData(data.trips);
       });
 
+
+     
+
     //SAVE ALL THE FAVORITES IN THE REDUCER
     fetch(`${serverURL}/users/like/${TOKEN}`)
       .then((response) => response.json())
@@ -42,16 +45,16 @@ export default function Discover({ navigation }) {
           console.log('reducer initialized successfully');
           dispatch(setFavorites(data.tripsLiked));
         } else {
+          console.log(data);
           console.log('reducer failed on initialisation');
         }
       });
   }, []);
+
+  
   //MAKE SURE THE FONTS ARE LOADED
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
-
-  //HANDLE LIKES
-   
 
 
   //MAP TO DISPLAY ALL THE TRIPS

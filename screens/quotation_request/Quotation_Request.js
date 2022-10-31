@@ -24,12 +24,17 @@ import DateRangePicker from 'rnv-date-range-picker';
 
 export default function Quotation_Request({ navigation }) {
 
+
+  const loadedFonts = loadFonts();
+  if (!loadedFonts) return <></>;
+
   ///////////////////////// Input
   const [text, setText] = useState("")
 
   // ///// BUTTON TRAVELERS && DATEPICKER
   const [nbTravelers, setnbTravelers] = useState(1);
   const [selectedRange, setRange] = useState({});
+  const [value, onChangeText] = useState('Useless Multiline Placeholder');
 
 
   ////////////////////////////////////////////////////////////MODAL FILTER - FUNCTIONS////////////////////////////////////////////////////////////
@@ -39,13 +44,6 @@ export default function Quotation_Request({ navigation }) {
 
 // //////
 
-  const loadedFonts = loadFonts();
-  if (!loadedFonts) return <></>;
-
-
-  // /////
-
-  
 
   return (
 
@@ -113,7 +111,7 @@ export default function Quotation_Request({ navigation }) {
             style={styles.input}
             label="Email"
             value={text}
-            onChangeText={text => setText(text)}
+            onChangeText={text => onChangeText(text)}
             multiline
             numberOfLines={4}
           />
@@ -129,4 +127,4 @@ export default function Quotation_Request({ navigation }) {
 
     </View>
   );
-}
+            }

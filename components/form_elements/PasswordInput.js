@@ -13,7 +13,8 @@ export default function PasswordInput({
   inputStyle,
   wrapperStyle,
   iconColor,
-  defaultStyleOverides = {},
+  onFocus,
+  defaultStyleOverides = { theme: { colors: { error: 'red' } } },
 }) {
   const [hidePassword, setHidePassword] = useState(true);
 
@@ -29,19 +30,28 @@ export default function PasswordInput({
             style={inputStyle}
             onBlur={onBlur}
             onChangeText={onChange}
+            onFocus={onFocus}
             value={value}
             right={
               hidePassword ? (
-                <TextInput.Icon onPress={() => setHidePassword(false)} name='eye' color={iconColor} />
+                <TextInput.Icon
+                  onPress={() => setHidePassword(false)}
+                  name='eye'
+                  color={(error && defaultStyleOverides.theme.colors.error) || iconColor}
+                />
               ) : (
-                <TextInput.Icon onPress={() => setHidePassword(true)} name='eye-off' color={iconColor} />
+                <TextInput.Icon
+                  onPress={() => setHidePassword(true)}
+                  name='eye-off'
+                  color={(error && defaultStyleOverides.theme.colors.error) || iconColor}
+                />
               )
             }
             error={error}
             secureTextEntry={hidePassword}
             {...defaultStyleOverides}
           />
-          <HelperText type='error' visible={error}>
+          <HelperText type='error' style={{ color: defaultStyleOverides.theme.colors.error }} visible={error}>
             {helperText}
           </HelperText>
         </View>

@@ -271,10 +271,10 @@ if (goodProgram) {
               <Text style={styles.country}>{trip.country}</Text>
             </View>
             <View style={styles.infoContainerModal}>
-              <View style={{width: '60%', backgroundColor: 'pink', width: '50%', padding: 10}}>
-                <Text>From {minDay} days to {minDay} days</Text>
-                <Text>Travel period: {startMonth} to {endMonth}</Text>
-                <Text>Starting from {price}€</Text>
+              <View style={{width: '60%', backgroundColor: '#C46B4D', width: '50%', padding: 10}}>
+                <Text style={{color: 'white'}}>From {minDay} days to {minDay} days</Text>
+                <Text style={{color: 'white'}}>Travel period: {startMonth}<Text>to {endMonth}</Text></Text>
+                <Text style={{color: 'white'}}>Starting from {price}€</Text>
               </View>
               <View style={{flex: 1, flexDirection: 'row', justifyContent:'flex-end'}}>
               <Text style={styles.offeredByModal}>Offered by <Text style={{textDecoration: 'underline'}}>EZTRIP</Text></Text>

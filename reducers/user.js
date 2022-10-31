@@ -21,10 +21,13 @@ const user = createSlice({
     setFavorites: (state, action) => {
       state.favorites = action.payload;
     },
+    deleteFavorite: (state, action) => {
+			state.favorites = state.favorites.filter(trip => trip !== action.payload);
+    },
   },
 });
 
-export const { mountUser, dismountUser, addFavorites, setFavorites } = user.actions;
+export const { mountUser, dismountUser, addFavorites, setFavorites, deleteFavorite } = user.actions;
 export const selectUser = (state) => {
   return { user: state.user.value, favorites: state.user.favorites };
 };

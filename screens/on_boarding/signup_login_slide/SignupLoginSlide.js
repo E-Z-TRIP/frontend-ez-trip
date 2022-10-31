@@ -39,7 +39,10 @@ export default function SignupLogoinSlide({ direction, progressPos, slideLength,
 
   return (
     <>
-      <FadeContainer style={styles.slideContainer} isVisible={isVisible} speed={600}>
+      <FadeContainer
+        style={styles.slideContainer}
+        isVisible={Object.values(forms).every((form) => form === false)}
+        speed={600}>
         <Logo containerStyle={styles.logoContainer} color={onBoarding.header} size={100} />
         <View style={styles.formBtnsContainer}>
           <View style={styles.btnsWrapper}>

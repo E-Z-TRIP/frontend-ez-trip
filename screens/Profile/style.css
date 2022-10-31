@@ -1,0 +1,26 @@
+.container {
+    padding: 25px;
+    flex: 1;
+    height: 100%;
+    flex-direction: column; 
+    justify-content: space-around;
+}
+
+.header {
+    margin-top: 35;
+    margin-bottom: 10;
+    width: 100%;
+    height: 30%;
+    flex: 1;
+    flex-direction: column;
+}
+
+.title {
+    font-family: 'heading';
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.text {
+    font-family: 'txt';
+}

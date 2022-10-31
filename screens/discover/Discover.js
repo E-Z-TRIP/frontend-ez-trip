@@ -15,7 +15,6 @@ import { serverURL } from '../../api/backend_request';
 import { dismountUser } from '../../reducers/user';
 
 export default function Discover({ navigation }) {
-  
   const dispatch = useDispatch();
   //STATE TO STORE ALL THE TRIPS TO DISPLAY
   const [tripsData, setTripsData] = useState([]);
@@ -44,7 +43,7 @@ export default function Discover({ navigation }) {
         } else {
           console.log('reducer failed on initialisation');
         }
-      })
+      });
   }, []);
 
   //MAKE SURE THE FONTS ARE LOADED
@@ -57,13 +56,8 @@ export default function Discover({ navigation }) {
     let start = getMonthName(data.travelPeriod[0].start);
     let end = getMonthName(data.travelPeriod[0].end);
     return (
-      <View key={i} style={{height: 180}}>
-      <Trip
-        propsKey = {i}
-        id={data._id}
-        {...data}
-        isFavorite = {favorites.some(favorite => favorite === data._id)}
-      />
+      <View key={i} style={{ height: 180 }}>
+        <Trip propsKey={i} id={data._id} {...data} isFavorite={favorites.some((favorite) => favorite === data._id)} />
       </View>
     );
   });
@@ -91,7 +85,7 @@ export default function Discover({ navigation }) {
           </View>
         </View>
       </ScrollView>
-      <BottomToolbar></BottomToolbar>
+      <BottomToolbar />
       <View style={{ height: 70 }}></View>
     </View>
   );

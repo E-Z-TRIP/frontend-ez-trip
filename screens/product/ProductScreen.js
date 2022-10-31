@@ -175,7 +175,7 @@ if (goodProgram) {
     else {
       console.log('trip liked');
       //rajout dans la BDD
-      fetch(`http://192.168.131.88:3000/users/addlike`, {
+      fetch(`${serverURL}/users/like`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token: TOKEN, tripID: props.id }),

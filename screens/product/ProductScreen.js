@@ -49,7 +49,8 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
    /* ---------------- IMPORT DES PROPS A L'INITIALISATION DU COMPOSANT ----------------  */
 
    useEffect(() => {
-
+  //importe l'état favorite du trip
+  setFavorite(props.isFavorite);
   //fetch le trip grâce à l'id reçu en props
   fetch(`${serverURL}/trips/tripById/${props.id}`)
   .then(response => response.json())
@@ -62,18 +63,18 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
     }
   })
     //fetch les coordonnées géographiques de la ville de départ du trip
-  .then(data => {
-    if (trip) {
-      fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${trip.addressDeparture}&appid=7cecadeb80528d114d059361830568c1`)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data[0].lat, data[0].lon )
-        setLat(Number(data[0].lat))
-        setLon(Number(data[0].lon))
-        console.log(lat, lon);
-      })
-      }
-    })
+  // .then(data => {
+  //   if (trip) {
+  //     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${trip.addressDeparture}&appid=7cecadeb80528d114d059361830568c1`)
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       console.log(data[0].lat, data[0].lon )
+  //       setLat(Number(data[0].lat))
+  //       setLon(Number(data[0].lon))
+  //       console.log(lat, lon);
+  //     })
+  //     }
+  //   })
   }, []);
   
   if (!loadedFonts) return <></>;
@@ -89,7 +90,8 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
   const maxDay = trip.program[trip.program.length - 1].nbday
   const startMonth = getMonthName(trip.travelPeriod[0].start);
   const endMonth = getMonthName(trip.travelPeriod[0].end);
-
+  const heart = <AntDesign name='heart' size={25}  borderOuterOutlined='black' color={favorite? "#F5612F" : "white"} onPress={() => handleLike()}/>
+  
     /* ---------------- DISPLAY PROGRAM DYNAMICALLY ----------------  */
 
 // to display buttons for programs
@@ -167,7 +169,7 @@ if (goodProgram) {
         //une fois supprimé en BDD, supprime dans le reducer 
         dispatch(deleteFavorite(props.id));
         console.log('fetch successful + supprimé du reducer');
-        setFavorite(favorites.some(favorite => favorite === props.id))
+        setFavorite(false);
       }
 
       else {
@@ -187,7 +189,7 @@ if (goodProgram) {
         if (data.result) {
           //rajout dans le reducer
           dispatch(addFavorites(data.tripLiked))
-          setFavorite(favorites.some(favorite => favorite === props.id))
+          setFavorite(true)
         }
         else {
           console.log('no data from fetch'); 
@@ -205,7 +207,7 @@ if (goodProgram) {
 {/* ---------------- HEADER BOUTONS LIKE ET RETOUR PAGE RECHERCHE ---------------- */}
         <View style={styles.header}>
           <TouchableOpacity style={{marginRight: 20}} >
-          <AntDesign name='heart' size={25}  borderOuterOutlined='black' color={favorite? "#F5612F" : "white"} onPress={() => handleLike()}/>
+            {heart}
           </TouchableOpacity>
           <TouchableOpacity style={styles.crossBox}>
             <Cross onPress={() => setTimeout(navigation.goBack(null), 0)} />
@@ -246,7 +248,7 @@ if (goodProgram) {
         
           <View style={styles.caroussel}>
           <View name="iconContainer" style={{backgroundColor: 'none', position: 'relative',width: '15%', height: '10%', flexDirection:'row', alignItems: 'center', justifyContent: 'space-between', marginRight: 15}}>
-          <AntDesign name='heart' size={25}  borderOuterOutlined='black' color={favorite? "#F5612F" : "red"} onPress={() => handleLike()}/>
+              {heart}
               <TouchableOpacity
                 name='close'
                 size={30}
@@ -270,12 +272,14 @@ if (goodProgram) {
               <Text style={styles.country}>{trip.country}</Text>
             </View>
             <View style={styles.infoContainerModal}>
-              <View style={{width: '60%'}}>
+              <View style={{width: '60%', backgroundColor: 'pink', width: '50%', padding: 10}}>
                 <Text>From {minDay} days to {minDay} days</Text>
                 <Text>Travel period: {startMonth} to {endMonth}</Text>
-                <Text>Starting from {price}</Text>
+                <Text>Starting from {price}€</Text>
               </View>
+              <View style={{flex: 1, flexDirection: 'row', justifyContent:'flex-end'}}>
               <Text style={styles.offeredByModal}>Offered by <Text style={{textDecoration: 'underline'}}>EZTRIP</Text></Text>
+              </View>
             </View>
 {/* ---------------- INCLUDED/NOT INCLUDED ---------------- */}
             <Text style={styles.smallTitle}>Included :</Text>

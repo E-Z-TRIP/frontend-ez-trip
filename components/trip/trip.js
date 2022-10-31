@@ -61,17 +61,21 @@ export default function Trip(props) {
     
     return (
       <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Product', {id: props.id, isFavorite: props.isFavorite})}>
-        <ImageBackground imageStyle={{ borderRadius: 15}} source={{uri: props.background}} style = {styles.imgbackground}>
-        <LinearGradient 
-        colors={['rgba(0,0,0,0.5)', 'transparent']}
-        style={{height : '40%', width : '100%', padding: 15, borderRadius: 15}}>
-        <View style = {styles.topInfos}>
-            <Text style = {styles.title}>{props.name}</Text>
-            <AntDesign name='heart' size={18}  color={props.isFavorite ? "#F5612F" : "white"} onPress={() => handleLike()}/>
-        </View>
-        <Text style = {{fontFamily: 'txt', fontWeight: 'bold', color: 'white'}}>{props.country}</Text>
-        </LinearGradient>
+        
+        <ImageBackground imageStyle={{borderRadius: 15}} source={{uri: props.background}} style = {styles.imgbackground}>
+          <LinearGradient 
+          colors={['rgba(0,0,0,0.6)', 'transparent']}
+          style={{height : '40%', width : '100%', padding: 15, borderRadius: 15, position: 'absolute'}}>
+          </LinearGradient>
 
+          <View name="topBlock" style={{flex: 1, padding: 5, height: '10%', margin: 10, marginTop: 15}}>
+            <View style = {styles.topInfos}>
+                <Text style = {styles.title}>{props.name}</Text>
+                <AntDesign name='heart' size={18}  color={props.isFavorite ? "#F5612F" : "white"} onPress={() => handleLike()}/>
+            </View>
+            <Text style = {{fontFamily: 'txt', fontWeight: 'bold', color: 'white', marginTop: 5}}>{props.country}</Text>
+          </View>
+         
         <LinearGradient 
         colors={['rgba(0,0,0,0.5)', 'transparent']}
         start={[1, 1]}

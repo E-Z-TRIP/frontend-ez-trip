@@ -23,8 +23,6 @@ import {
 
   export default function MyTrips() {
 
-    const TOKEN = 'OG7sCHy8L3Ht6CF6h-IXd3twF9QGkVRR';
-
     // A REMPLACER PAR UN FETCH 
 const data = [{
         photo : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666688082/Bali1_bat19s.jpg',
@@ -154,7 +152,7 @@ return (
             <LinearGradient 
         start={{x: 0.75, y: 0.75}} end={{x: 0, y: 0.75}}
         colors={['rgba(255,255,255,0.7)', 'transparent']}
-        style={{position: 'absolute', width: 75, height: 210, top: 25, left: '80%'}}></LinearGradient>
+        style={{position: 'absolute', width: 75, height: 210, top: 25, left: '82%'}}></LinearGradient>
         </View>
     </View>
 
@@ -178,7 +176,7 @@ return (
         <LinearGradient 
         start={{x: 0.75, y: 0.75}} end={{x: 0, y: 0.75}}
         colors={['rgba(255,255,255,0.7)', 'transparent']}
-        style={{position: 'absolute', width: 75, height: 210, top: '20.5%', left: '80%'}}></LinearGradient>
+        style={{position: 'absolute', width: 75, height: 212, top: '19.5%', left: '82%'}}></LinearGradient>
   
 
 {/* ---------------- FOOTER BOTTOM BAR ---------------- */}

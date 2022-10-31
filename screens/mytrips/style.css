@@ -1,11 +1,14 @@
 .container {
     padding-left: 20;
     padding-top: 25;
+    display: flex;
+    justify-content: center;
+    background-color: pink;
     }
 
     .header {
         margin-top: 30;
-        margin-bottom: 20;
+        margin-bottom: 40;
         width: 100%;
     }
 
@@ -76,10 +79,7 @@
         font-size: 15;
         color: white;
     }
-    .cont {
-        padding-bottom: 12;
-        padding-top: 12;
-    }
+
     .galleryContainer {
         margin-top: 25;
         margin-bottom: 25;

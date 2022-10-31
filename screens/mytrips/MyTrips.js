@@ -101,23 +101,23 @@ const data = [{
         <View style={styles.pdfContainer}>
             <TouchableOpacity  >
                 <ImageBackground  imageStyle={{ borderRadius: 15}} style={styles.imgBackground} source={{uri: data.photo, width:500, height:300}} alt={data.titre}>
-                <LinearGradient 
-        colors={['rgba(0,0,0,0.8)', 'transparent']}
-        style={{height : '40%', width : '100%', padding: 15, borderRadius: 15}}>
-            <View style = {styles.topInfos}>
-            <Text style={styles.titleCard} >{data.titre}</Text>
-            </View>
- </LinearGradient>
- <LinearGradient 
-        colors={['rgba(0,0,0,0.8)', 'transparent']}
-        start={[1, 1]}
-        end={[1, 0]}
-        style={{height : '33%', width : '100%', padding: 15, borderRadius: 15}}>
-        <View style= {styles.bottomInfo}>
-            <Text style = {styles.cardInfos}>from December to July</Text>
-            <Text style = {styles.cardInfos}>From {data.prix}</Text>
-        </View>
-        </LinearGradient>
+                    <LinearGradient 
+                        colors={['rgba(0,0,0,0.8)', 'transparent']}
+                        style={{height : '40%', width : '100%', padding: 15, borderRadius: 15}}>
+                            <View style = {styles.topInfos}>
+                            <Text style={styles.titleCard} >{data.titre}</Text>
+                            </View>
+                    </LinearGradient>
+                    <LinearGradient 
+                    colors={['rgba(0,0,0,0.8)', 'transparent']}
+                    start={[1, 1]}
+                    end={[1, 0]}
+                    style={{height : '33%', width : '100%', padding: 15, borderRadius: 15}}>
+                        <View style= {styles.bottomInfo}>
+                            <Text style = {styles.cardInfos}>from December to July</Text>
+                            <Text style = {styles.cardInfos}>From {data.prix}</Text>
+                        </View>
+                    </LinearGradient>
                 </ImageBackground>
             </TouchableOpacity>
         </View>
@@ -159,7 +159,7 @@ return (
     </View>
 
 {/* ---------------- PLANED TRIPS ---------------- */}
-<View style={styles.cont}>
+<View style={{marginTop: 10}}>
     <View style={styles.sousHeader} >
         <TripPlaned/>
         <Text style={styles.smallTitle}>Planed trips</Text>
@@ -174,16 +174,17 @@ return (
         <View style={{marginTop: -16, zIndex: 1,top: -150, left: 350, }} >
             <SwipeLeft />
         </View>
+        {/* ---------------- WHITE GRADIENT ON THE RIGHT OF THE SCROLL LEFT ---------------- */}
         <LinearGradient 
         start={{x: 0.75, y: 0.75}} end={{x: 0, y: 0.75}}
         colors={['rgba(255,255,255,0.7)', 'transparent']}
-        style={{position: 'absolute', width: 75, height: 210, top: 75, left: 300}}></LinearGradient>
+        style={{position: 'absolute', width: 75, height: 210, top: 63, left: 300}}></LinearGradient>
   
 
 {/* ---------------- FOOTER BOTTOM BAR ---------------- */}
     </View>
-  <View style={{ height: 90 }}></View>
-  <BottomToolbar></BottomToolbar>
+    <BottomToolbar style={{width: '100%'}}></BottomToolbar>
+    <View style={{ height: 70 }}></View>
 </View>
 
   )}

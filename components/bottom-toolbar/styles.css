@@ -1,19 +1,19 @@
 .container {
+    align-self: center;
     flex:1;
-    z-index: 2;
-    width: 100%;
+    align-items: center;
+    width: 105%;
     height: 8%;
     position: absolute;
     left: 0;
     bottom: 0;
-    align-items: flex-end;
     background-color: white;
-    
 }
 
 .footer {
     background-color: white;
     height: 100%;
+    width: 100%;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -41,10 +41,10 @@
     background-color: white;
     z-index: 1;
     left: 50%;
-    top: -25%;
-    width: 60;
-    height: 60;
-    margin-left:-30;
+    top: -50%;
+    width: 70;
+    height: 70;
+    margin-left: -35;
     border-radius: 50px;
     border-width: 1px;
     justify-content: center;

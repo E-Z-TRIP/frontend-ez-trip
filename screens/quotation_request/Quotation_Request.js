@@ -24,23 +24,24 @@ export default function Quotation_Request({ navigation, route: { params: props }
   const [value, setValue] = useState('');
 
   //fetch trip by ID 
+console.log('coucou')
 
-  useEffect(() => {
-    console.log('ciyciy id',props._id)
-    //fetch le trip grâce à l'id reçu en props
-    fetch(`${serverURL}/trips/tripById/${props._id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          console.log('data result ok')
-          setTrip(data.trip);
-        } else {
-          console.log('no trip received');
-        }
-      });
-  }, []);
+  // useEffect(() => {
+  //   console.log('ciyciy id',props)
+  //   //fetch le trip grâce à l'id reçu en props
+  //   fetch(`${serverURL}/trips/tripById/${props.id}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       if (data.result) {
+  //         console.log('data result ok')
+  //         setTrip(data.trip);
+  //       } else {
+  //         console.log('no trip received');
+  //       }
+  //     });
+  // }, []);
 
-  // if (!loadedFonts) return <></>;
+  if (!loadedFonts) return <></>;
 
 
   ////////////////////////////////////////////////////////////MODAL FILTER - FUNCTIONS////////////////////////////////////////////////////////////

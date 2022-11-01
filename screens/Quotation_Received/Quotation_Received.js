@@ -9,7 +9,7 @@ import {
     ImageBackground,
   } from 'react-native';
   import React, { useState, useRef, useEffect, useCallback } from 'react';
-
+import { convertibleEndDate, convertibleStartDate, getnbDays, getNbNights } from '../../assets/helpers';
   import { loadFonts } from '../../assets/fonts/fonts';
   import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
   import Contact from '../../components/icons/contact';
@@ -21,33 +21,31 @@ import {
 
   export default function Quotation_Received({ navigation, route: { params: props } }) {
     const [order, setOrder]= useState(null)
+    const [startDate, setStartDate] = useState(null)
+    const [endDate, setEndDate] = useState(null)
+    const [nbDays, setNbDays] = useState(null)
+    const [nbNights, setNbNights] = useState(null)
 
     //*fetch
     useEffect(() => {
-    fetch(`${serverURL}/orders/offer/635f99ced7c30bcd5c761b2f`)
+    fetch(`${serverURL}/orders/offer/6360e414ea1a41d73f22a830`)
     .then(response => response.json())
     .then(data => {
       if (data.result) {
-        console.log('coucou',data.data)
         setOrder(data.data)
+        setStartDate(convertibleStartDate(data.data.start))
+        setEndDate(convertibleStartDate(data.data.end))
+        setNbDays(getnbDays(data.data.start, data.data.end))
+        setNbNights(getNbNights(nbDays))
       } else {
         console.log('oupsi')
       }
     })
     }, [])
-    // console.log('coucu', getDate(order.start))
-
-  /* ---------------- DECLARATION DES VARIABLES DYNAMIQUES ----------------  */
-//  const nameTrip = order.trip[0].name
-//  const countryTrip = order.trip[0].countryTrip
- const nbTravelers = order.nbTravelers
-//  const startDay = getDate(order.start)
-
 
 //*FONT CODE
     const loadedFonts = loadFonts();
     if (!loadedFonts) return <></>;
-
 
 
 return (
@@ -60,7 +58,7 @@ return (
   <ScrollView>
 {/* ---------------- TRAVEL CARD  ---------------- */}
     <View style={styles.cardTravel}>
-      <Trip/>
+      { order ? <Trip {...order.trip}/>  : false}
     </View>
 {/* ---------------- OFFERED BY TRAVEL AGENCY ---------------- */}
     <View style={styles.offeredByContainer}>
@@ -68,28 +66,41 @@ return (
     </View>
 
 {/* ---------------- SUMMARY ---------------- */}
+ { order ? (
   <View style={styles.summaryContainer}>
     <Text style={styles.smallTitle}> Summary :</Text>
-    <Text style={styles.recapTravel}>10 days 9 nights stay</Text>
-    <Text style={styles.recapTravel}>{nbTravelers} travelers</Text>
-    <Text style={styles.recapTravel}>From 15th to 25th of August 2023</Text>
-    <Text style={styles.recapTravel}>Special requests : Vegeterian</Text>
+    <Text style={styles.recapTravel}>{nbDays} days {nbNights} nights stay</Text>
+    <Text style={styles.recapTravel}>{order.nbTravelers} travelers</Text>
+    <Text style={styles.recapTravel}>From {startDate} to {endDate}</Text>
+    <Text style={styles.recapTravel}>Special requests :</Text>
+    <Text style={styles.recapTravel}>        {order.comments}</Text>
 
   </View>
+ ) : <View></View>
+
+ }
 
 {/* ---------------- TOTAL COST ---------------- */}
+{ order ? (
   <View style={styles.totalCostContainer}>
     <Text style={styles.totalCostTitle}> Total cost : </Text>
-    <Text style={styles.cost}> 12 500 € including taxes </Text>
+    <Text style={styles.cost}> {order.totalPrice} € including taxes </Text>
   </View>
+  ) : <View></View>
+
+}
 
 {/* ---------------- BUTTONS ---------------- */}
   <View style={styles.buttonsContainer}>
 
 {/* ------ Program button ------ */}
-  <TouchableOpacity style={styles.programButton} onPress={() => Linking.openURL('https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685046/grande-traversee-de-laltiplano-bolivien-2022_zfix4l.pdf')}>
+{ order ? (
+  <TouchableOpacity style={styles.programButton} onPress={() => Linking.openURL(`${order.trip.program[0].programPDF}`)}>
       <Text style={styles.textButtons}> Download program (PDF)</Text>
   </TouchableOpacity>
+  ) : <View></View>
+
+}
 
   {/* ------ Validation button ------ */}
   <TouchableOpacity style={styles.validationButton}>

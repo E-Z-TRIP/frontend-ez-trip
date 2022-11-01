@@ -51,6 +51,7 @@ function App() {
       <PersistGate persistor={persistor}>
         <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false }}>
           {(store.getState()?.user?.value?.token && <></>) || <Stack.Screen name='OnBoarding' component={OnBoarding} />}
+          <Stack.Screen name='Quotation_Received' component={Quotation_Received} />
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='Product' component={ProductScreen} />

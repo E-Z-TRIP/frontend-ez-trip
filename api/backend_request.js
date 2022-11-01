@@ -1,7 +1,7 @@
 // Change this to your own IP address if running the server on your
 // local machine else change to the URL of the deployed server
 
-export const serverURL = `http://192.168.10.157:3000`;
+export const serverURL = `http://192.168.0.22:3000`;
 
 function constructURL(endpoint) {
   return `${serverURL}${endpoint}`;

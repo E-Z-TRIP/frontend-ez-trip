@@ -1,8 +1,9 @@
 import Svg, { Path } from 'react-native-svg';
 
-export default function Cross() {
+export default function Cross({ style, color = 'white', scale = 1 }) {
+  scale = scale < 0.1 ? 1 : scale;
   return (
-    <Svg xmlns='http://www.w3.org/2000/svg' width='17' height='17' viewBox='0 0 111 111' fill='none'>
+    <Svg style={style} xmlns='http://www.w3.org/2000/svg' width={17 * scale} height={17 * scale} viewBox='0 0 111 111'>
       <Path
         d='M68.519 55.7903L107.929 16.472C109.655 14.7462 110.624 12.4055 110.624 9.96481C110.624 7.52413 
 109.655 5.18341 107.929 3.45759C106.203 1.73176 103.862 0.762207 101.422 0.762207C98.981 0.762207 96.6403
@@ -16,7 +17,7 @@ export default function Cross() {
       110.834 101.422 110.834C102.632 110.834 103.83 110.594 104.946 110.129C106.063 109.664 107.077 108.982 107.929
        108.123C108.788 107.271 109.47 106.257 109.935 105.14C110.4 104.024 110.64 102.826 110.64 101.616C110.64 100.406
         110.4 99.208 109.935 98.0911C109.47 96.9743 108.788 95.9606 107.929 95.1086L68.519 55.7903Z'
-        fill='#231F20'
+        fill={color}
       />
     </Svg>
   );

@@ -6,20 +6,49 @@ import {
     Animated,
     TouchableOpacity,
     Linking,
+    ImageBackground,
   } from 'react-native';
+  import React, { useState, useRef, useEffect, useCallback } from 'react';
+
   import { loadFonts } from '../../assets/fonts/fonts';
   import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
   import Contact from '../../components/icons/contact';
   import styles from './style.css';
-  import Highlight from '../highlight/Highlight';
+  import Trip from '../../components/trip/trip';
+  import { serverURL } from '../../api/backend_request';
 
 
 
-  export default function Quotation_Received() {
+  export default function Quotation_Received({ navigation, route: { params: props } }) {
+    const [order, setOrder]= useState(null)
+
+    //*fetch
+    useEffect(() => {
+    fetch(`${serverURL}/orders/offer/635f99ced7c30bcd5c761b2f`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.result) {
+        console.log('coucou',data.data)
+        setOrder(data.data)
+      } else {
+        console.log('oupsi')
+      }
+    })
+    }, [])
+    // console.log('coucu', getDate(order.start))
+
+  /* ---------------- DECLARATION DES VARIABLES DYNAMIQUES ----------------  */
+//  const nameTrip = order.trip[0].name
+//  const countryTrip = order.trip[0].countryTrip
+ const nbTravelers = order.nbTravelers
+//  const startDay = getDate(order.start)
+
 
 //*FONT CODE
     const loadedFonts = loadFonts();
     if (!loadedFonts) return <></>;
+
+
 
 return (
 
@@ -31,7 +60,7 @@ return (
   <ScrollView>
 {/* ---------------- TRAVEL CARD  ---------------- */}
     <View style={styles.cardTravel}>
-      <Highlight/>
+      <Trip/>
     </View>
 {/* ---------------- OFFERED BY TRAVEL AGENCY ---------------- */}
     <View style={styles.offeredByContainer}>
@@ -42,7 +71,7 @@ return (
   <View style={styles.summaryContainer}>
     <Text style={styles.smallTitle}> Summary :</Text>
     <Text style={styles.recapTravel}>10 days 9 nights stay</Text>
-    <Text style={styles.recapTravel}>4 travelers</Text>
+    <Text style={styles.recapTravel}>{nbTravelers} travelers</Text>
     <Text style={styles.recapTravel}>From 15th to 25th of August 2023</Text>
     <Text style={styles.recapTravel}>Special requests : Vegeterian</Text>
 

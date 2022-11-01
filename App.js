@@ -55,10 +55,10 @@ function App() {
           <Stack.Screen name='OnBoarding' component={OnBoarding} />}
           <Stack.Screen name='Quotation_Received' component={Quotation_Received} />
           <Stack.Screen name='Discover' component={Discover} />
-          <Stack.Screen name='MyTrips' component={MyTrips} />
           <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='Product' component={ProductScreen} />
           <Stack.Screen name='MyDocuments' component={MyDocuments} />
+          <Stack.Screen name='MyTrips' component={MyTrips} />
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

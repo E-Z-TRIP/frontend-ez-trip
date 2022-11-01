@@ -26,14 +26,11 @@
     font-size: 14;
 }
 .cardTravel {
-    /* background-color: brown; */
-    /* border: #C46B4D 2px solid; */
-    height: 250;
-max-height: 300;    
-    width: 500;
+    height: 210;
+    width: 400;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .summaryContainer {

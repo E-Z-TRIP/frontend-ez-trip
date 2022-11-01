@@ -92,17 +92,19 @@
     width: 100%;
     height: 100%;
     flex: 1;
-    margin: 10px;
-    background-color: red;
+    margin: 30px;
+    align-self: center;
 }
 
 .smallCalendar {
     flex: 1;
-    
+    height: 400;
 }
 
 .bigCalendar {
-    height: 400;
+    height: 430;
+    flex: 1;
+    flex-direction: column;
     font-family: 'txt';
     font-size: 18px;
 }

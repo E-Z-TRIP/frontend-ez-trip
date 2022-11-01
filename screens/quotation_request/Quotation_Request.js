@@ -12,16 +12,48 @@ import moment from 'moment';
 import { serverURL } from '../../api/backend_request';
 
 import DateRangePicker from 'rnv-date-range-picker';
+import { serverURL } from '../../api/backend_request';
 
-export default function Quotation_Request({ navigation, route: { params: props } }) {
+export default function Quotation_Request({ navigation, route }) {
+  console.log(route.params);
   const loadedFonts = loadFonts();
   const { theme } = useTheme();
 
   // ///// BUTTON TRAVELERS && DATEPICKER
-  const [trip, setTrip] = useState(null);
   const [nbTravelers, setnbTravelers] = useState(1);
   const [selectedRange, setRange] = useState({});
   const [value, setValue] = useState('');
+  const [trip, setTrip] = useState(null);
+
+  useEffect(() => {
+    console.log('ciyciy id',route.params.id)
+    //fetch le trip grâce à l'id reçu en props
+    fetch(`${serverURL}/trips/tripById/${route.params.id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          console.log('data result ok')
+          setTrip(data.trip);
+        } else {
+          console.log('no trip received');
+        }
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log('ciyciy id',route.params.id)
+    //fetch le trip grâce à l'id reçu en props
+    fetch(`${serverURL}/trips/tripById/${route.params.id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          console.log('data result ok')
+          setTrip(data.trip);
+        } else {
+          console.log('no trip received');
+        }
+      });
+  }, []);
 
   //fetch trip by ID 
 console.log('coucou')
@@ -58,7 +90,7 @@ console.log('coucou')
               <Text style={styles.title}>Quotation request</Text>
             </View>
             {/* //////Card du voyage selectionné avec le nom a l'intérieur : supprimer Amazonie-EZ Trip*/}
-            {/* { trip ? <Trip {...trip.trip}/>  : false} */}
+            {trip ? <Trip {...trip} /> : false}
             <View style={styles.numberTripsBtnsContainer}>
               <Text style={styles.numberTripsBtnsLabel}>Number of travelers</Text>
               <View style={styles.numberTripsBtnsWrapper}>

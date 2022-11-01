@@ -46,10 +46,11 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
   /* ---------------- IMPORT DES PROPS A L'INITIALISATION DU COMPOSANT ----------------  */
 
   useEffect(() => {
+    console.log(props._id)
     //importe l'état favorite du trip
     setFavorite(props.isFavorite);
     //fetch le trip grâce à l'id reçu en props
-    fetch(`${serverURL}/trips/tripById/${props.id}`)
+    fetch(`${serverURL}/trips/tripById/${props._id}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
@@ -338,7 +339,7 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
 
               {/* ---------------- BOUTONS QUOTATION ET DOWNLOAD ---------------- */}
 
-              <TouchableOpacity style={styles.quotationButton}>
+              <TouchableOpacity style={styles.quotationButton} onPress={() => navigation.navigate({name:'Quotation_Request', params: { id: props.id }, merge: true})}>
                 <Text style={styles.buttonTextQuotation}>Quotation request</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.programButton}>

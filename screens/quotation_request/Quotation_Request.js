@@ -10,8 +10,10 @@ import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { ScrollView } from 'react-native-gesture-handler';
 import moment from 'moment';
 import DateRangePicker from 'rnv-date-range-picker';
+import { serverURL } from '../../api/backend_request';
 
-export default function Quotation_Request({ navigation }) {
+export default function Quotation_Request({ navigation, route }) {
+  console.log(route.params);
   const loadedFonts = loadFonts();
   const { theme } = useTheme();
 
@@ -19,6 +21,22 @@ export default function Quotation_Request({ navigation }) {
   const [nbTravelers, setnbTravelers] = useState(1);
   const [selectedRange, setRange] = useState({});
   const [value, setValue] = useState('');
+  const [trip, setTrip] = useState(null);
+
+  useEffect(() => {
+    console.log('ciyciy id',route.params.id)
+    //fetch le trip grâce à l'id reçu en props
+    fetch(`${serverURL}/trips/tripById/${route.params.id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          console.log('data result ok')
+          setTrip(data.trip);
+        } else {
+          console.log('no trip received');
+        }
+      });
+  }, []);
 
   if (!loadedFonts) return <></>;
 
@@ -36,7 +54,7 @@ export default function Quotation_Request({ navigation }) {
               <Text style={styles.title}>Quotation request</Text>
             </View>
             {/* //////Card du voyage selectionné avec le nom a l'intérieur : supprimer Amazonie-EZ Trip*/}
-            <Trip />
+            {trip ? <Trip {...trip} /> : false}
             <View style={styles.numberTripsBtnsContainer}>
               <Text style={styles.numberTripsBtnsLabel}>Number of travelers</Text>
               <View style={styles.numberTripsBtnsWrapper}>

@@ -3,12 +3,14 @@
   bottom: 0;
   background-color: white;
   height: 70;
+  margin: auto;
+  align-self: center;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
   z-index: 9999;
   justify-self: flex-end;
-  width: 100%;
+  width: 105%;
   padding: 0 10px;
   border-top-width: 1px;
 }
@@ -18,7 +20,7 @@
   align-items: center;
   width: 70;
   height: 70;
-  bottom: 20;
+  bottom: 10%;
   border-radius: 35px;
   border-width: 1px;
   background-color: white;

@@ -20,9 +20,7 @@ import {
   import { serverURL } from '../../api/backend_request';
   import { useDispatch, useSelector } from 'react-redux';
 
-
-
-  export default function MyTrips() {
+  export default function MyQuotations() {
 
     //constantes générales
     const tripLiked = useSelector((state) => state.user.favorites);
@@ -82,15 +80,15 @@ import {
     <View style={styles.container}>
       {/* ---------------- HEADER ---------------- */}
       <View style={styles.header}>
-        <Text style={styles.title}>My trips</Text>
-      </View>
+        <Text style={styles.title}>My Quotations</Text>
+    </View>
 {/* ---------------- LIKED TRIPS ---------------- */}
     <View style={styles.cont}>
-      <View style={styles.sousHeader} >
-      <AntDesign name='heart' size={23}  color={"black"}/>
-          <Text style={styles.smallTitle}>Liked trips</Text>
-      </View>
-      <View style={styles.border}></View>
+    <View style={styles.sousHeader} >
+    <AntDesign name='heart' size={23}  color={"black"}/>
+        <Text style={styles.smallTitle}>Liked trips</Text>
+    </View>
+    <View style={styles.border}></View>
             <ScrollView horizontal={true} style={styles.galleryContainer}>
             {tripsLikedData.length > 0 ? likedTrips : <Text style={{fontFamily:'txt'}}>You have no favorites yet.</Text>}
             </ScrollView>
@@ -104,32 +102,10 @@ import {
         style={{position: 'absolute', width: 75, height: 210, top: 25, left: '82%'}}></LinearGradient>
     </View>
 
-      {/* ---------------- PLANED TRIPS ---------------- */}
-      <View style={{ marginTop: 10 }}>
-        <View style={styles.sousHeader}>
-          <TripPlaned />
-          <Text style={styles.smallTitle}>Planed trips</Text>
-        </View>
-        <View style={styles.border}></View>
-
-        <ScrollView horizontal={true} style={styles.galleryContainer}>
-        {tripsBooked.length > 0 ? {planedTrips} : <Text style={{fontFamily:'txt'}}>You have no reservations yet.</Text>}
-        </ScrollView>
-        <View style={{marginTop: -16, zIndex: 1,top: -150, left: 350, }} >
-        {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}
-         {tripsBooked.length > 1 ? <SwipeLeft /> : false}   
-        </View>
-        {/* ---------------- WHITE GRADIENT ON THE RIGHT OF THE SCROLL LEFT ---------------- */}
-        <LinearGradient
-          start={{ x: 0.75, y: 0.75 }}
-          end={{ x: 0, y: 0.75 }}
-          colors={['rgba(255,255,255,0.7)', 'transparent']}
-          style={{ position: 'absolute', width: 75, height: 212, top: '19.5%', left: '82%' }}></LinearGradient>
-
         {/* ---------------- FOOTER BOTTOM BAR ---------------- */}
-      </View>
+      
+      <BottomToolbar style={{ width: '100%' }}></BottomToolbar>
       <View style={{ height: 70 }}></View>
-      <BottomToolbar/>
     </View>
   );
 }

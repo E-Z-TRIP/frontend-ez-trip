@@ -48,6 +48,7 @@
     "react-lorem-ipsum": "^1.4.10",
     "react-native": "0.69.6",
     "react-native-animated-pagination-dot": "^0.4.0",
+    "react-native-autocomplete-dropdown": "^2.0.7",
     "react-native-gesture-handler": "~2.5.0",
     "react-native-image-slider-show": "^1.0.3",
     "react-native-maps": "0.31.1",

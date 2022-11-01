@@ -36,7 +36,7 @@ export default function Quotation_Request({ navigation }) {
               <Text style={styles.title}>Quotation request</Text>
             </View>
             {/* //////Card du voyage selectionné avec le nom a l'intérieur : supprimer Amazonie-EZ Trip*/}
-            <Trip />
+            {/* <Trip /> */}
             <View style={styles.numberTripsBtnsContainer}>
               <Text style={styles.numberTripsBtnsLabel}>Number of travelers</Text>
               <View style={styles.numberTripsBtnsWrapper}>

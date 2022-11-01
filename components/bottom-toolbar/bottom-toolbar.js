@@ -19,7 +19,7 @@ export default function BottomToolbar() {
         <AntDesign color={route.name==='Search' ? '#C46B4D':'black'} name='search1' size={35} />
       </TouchableOpacity>
 
-      <Entypo color={route.name==='MyDocuments' ? '#C46B4D':'black'} name='text-document' size={35}  onPress={() => navigation.navigate('MyTrips')} />
+      <Entypo color={route.name==='MyQuotations' ? '#C46B4D':'black'} name='text-document' size={35}  onPress={() => navigation.navigate('MyQuotations')} />
       <FontAwesome5 color={route.name==='User' ? '#C46B4D':'black'} name='user-circle' size={35}/>
     </View>
   );

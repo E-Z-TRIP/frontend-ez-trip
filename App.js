@@ -48,23 +48,24 @@ function App() {
 
   // Application is setup with Redux persist
   return (
-    <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
-      <PersistGate persistor={persistor}>
-        <Stack.Navigator initialRouteName='OnBoarding'
-        screenOptions={{ headerShown: false, gestureEnabled: false }}>
-          {(store.getState()?.user?.value?.token && <></>) ||
-          <Stack.Screen name='OnBoarding' component={OnBoarding} />}
-          <Stack.Screen name='Quotation_Received' component={Quotation_Received} />
-          <Stack.Screen name='Discover' component={Discover} />
-          <Stack.Screen name='MyTrips' component={MyTrips} />
-          <Stack.Screen name='Search' component={Search} />
-          <Stack.Screen name='Product' component={ProductScreen} />
-          <Stack.Screen name='MyDocuments' component={MyDocuments} />
-        </Stack.Navigator>
+    // <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
+    //   <PersistGate persistor={persistor}>
+    //     <Stack.Navigator initialRouteName='OnBoarding'
+    //     screenOptions={{ headerShown: false, gestureEnabled: false }}>
+    //       {(store.getState()?.user?.value?.token && <></>) ||
+    //       <Stack.Screen name='OnBoarding' component={OnBoarding} />}
+    //       <Stack.Screen name='Quotation_Received' component={Quotation_Received} />
+    //       <Stack.Screen name='Discover' component={Discover} />
+    //       <Stack.Screen name='MyTrips' component={MyTrips} />
+    //       <Stack.Screen name='Search' component={Search} />
+    //       <Stack.Screen name='Product' component={ProductScreen} />
+    //       <Stack.Screen name='MyDocuments' component={MyDocuments} />
+          <Stack.Screen name='Profile' component={Profile} />
+        {/* </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>
   );
-}
+} */}
 
 // Wraps the application with the Redux store Provider
 // !!DONT TOUCH

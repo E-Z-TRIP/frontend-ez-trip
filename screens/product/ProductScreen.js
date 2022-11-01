@@ -338,7 +338,7 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
 
               {/* ---------------- BOUTONS QUOTATION ET DOWNLOAD ---------------- */}
 
-              <TouchableOpacity style={styles.quotationButton}>
+              <TouchableOpacity style={styles.quotationButton} onPress={() => navigation.navigate('Quotation_Request')}>
                 <Text style={styles.buttonTextQuotation}>Quotation request</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.programButton}>

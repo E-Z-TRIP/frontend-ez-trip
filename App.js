@@ -57,6 +57,7 @@ function App() {
           <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
           <Stack.Screen name='Quotation_Received' component={Quotation_Received} />
           <Stack.Screen name='MyDocuments' component={MyDocuments} />
+          <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
           <Stack.Screen name='MyTrips' component={MyTrips} />
         </Stack.Navigator>
       </PersistGate>

@@ -54,8 +54,6 @@ export default function Discover({ navigation }) {
   //MAP TO DISPLAY ALL THE TRIPS
   const trips = tripsData.map((data, i) => {
     //convert number into month's names
-    let start = getMonthName(data.travelPeriod[0].start);
-    let end = getMonthName(data.travelPeriod[0].end);
     return (
       <View key={i} style={{ height: 180 }}>
         <Trip propsKey={i} id={data._id} {...data} isFavorite={favorites.some((favorite) => favorite === data._id)} />

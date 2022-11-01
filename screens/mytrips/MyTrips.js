@@ -125,9 +125,9 @@ import {
           end={{ x: 0, y: 0.75 }}
           colors={['rgba(255,255,255,0.7)', 'transparent']}
           style={{ position: 'absolute', width: 75, height: 212, top: '19.5%', left: '82%' }}></LinearGradient>
+      </View>
 
         {/* ---------------- FOOTER BOTTOM BAR ---------------- */}
-      </View>
       <View style={{ height: 70 }}></View>
       <BottomToolbar/>
     </View>

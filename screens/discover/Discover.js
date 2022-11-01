@@ -66,10 +66,8 @@ export default function Discover({ navigation }) {
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
           <View style={styles.header}>
-            <View style={styles.text}>
               <Text style={styles.title}>Discover</Text>
               <Text style={styles.text}>Choose your next adventure.</Text>
-            </View>
             <View style={styles.border}></View>
           </View>
 

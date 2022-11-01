@@ -13,7 +13,7 @@ import DateRangePicker from 'rnv-date-range-picker';
 import { serverURL } from '../../api/backend_request';
 
 export default function Quotation_Request({ navigation, route }) {
-  console.log(route.params);
+  // console.log(route.params);
   const loadedFonts = loadFonts();
   const { theme } = useTheme();
 
@@ -24,7 +24,6 @@ export default function Quotation_Request({ navigation, route }) {
   const [trip, setTrip] = useState(null);
 
   useEffect(() => {
-    console.log('ciyciy id',route.params.id)
     //fetch le trip grâce à l'id reçu en props
     fetch(`${serverURL}/trips/tripById/${route.params.id}`)
       .then((response) => response.json())

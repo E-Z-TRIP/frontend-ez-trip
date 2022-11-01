@@ -6,6 +6,7 @@ import Discover from './screens/discover/Discover';
 import ProductScreen from './screens/product/ProductScreen';
 import Search from './screens/search/Search';
 import OnBoarding from './screens/on_boarding/OnBoarding';
+import MyQuotations from './screens/myquotations/MyQuotations';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { lightTheme, darkTheme } from './theme/theme';
 import { useColorScheme } from 'react-native';
@@ -57,6 +58,7 @@ function App() {
           <Stack.Screen name='MyDocuments' component={MyDocuments} />
           <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
           <Stack.Screen name='Quotation_Received' component={Quotation_Received} />
+          <Stack.Screen name='MyQuotations' component={MyQuotations} />
           <Stack.Screen name='MyTrips' component={MyTrips} />
         </Stack.Navigator>
       </PersistGate>

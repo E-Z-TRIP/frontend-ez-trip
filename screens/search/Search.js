@@ -9,6 +9,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Dimensions,
 } from 'react-native';
 import styles from './style.css';
 import { serverURL } from '../../api/backend_request';
@@ -21,7 +22,7 @@ import DateRangePicker from 'rnv-date-range-picker';
 import moment from 'moment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { RangeSlider } from '@sharcoux/slider';
-import { getMonthName } from '../../assets/helpers';
+import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Search({ navigation }) {
@@ -29,6 +30,7 @@ export default function Search({ navigation }) {
   ///////////////////////////////////////////////////////////REACT STATES////////////////////////////////////////////////////////////
   //tous les trips récupérés par la route GET au chargement
   const [tripsData, setTripsData] = useState([]);
+  const [allTags, setAllTags] = useState([]);
   //fait apparaître / disparaître la Modal Filtres
   const [modalVisible, setModalVisible] = useState(false);
   //input Text haut de page
@@ -41,6 +43,8 @@ export default function Search({ navigation }) {
   const [selectedRange, setRange] = useState({});
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [dropdownTagVisible, setDropdownTagVisible] = useState(false);
+  const [selectedTags, setSelectedTags] = useState([]);
   //redux store pour récupérer les favoris et gérer la couleur du coeur
   const favorites = useSelector((state) => state.user.favorites);
 
@@ -50,9 +54,19 @@ export default function Search({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         setTripsData(data.trips);
-      });
+        const tripData = [];
+        //add the tags to the hook allTags
+        data.trips.map (trip => {
+          trip.tags.map(tag => {
+            if (!tripData.find(e => e===tag)){
+              tripData.push(tag)
+            }
+          })
+        })
+        setAllTags(tripData);
+      })
+      ;
   }, []);
-  const dispatch = useDispatch();
 
   //S'assure que la police est bien chargée
   const loadedFonts = loadFonts();
@@ -97,11 +111,36 @@ export default function Search({ navigation }) {
   const increment = () => setnbTravelers((c) => c + 1);
   const decrement = () => (nbTravelers > 1 ? setnbTravelers((c) => c - 1) : false);
 
-  //fonction qui s'exécute quand le slider Budget est bougé
+  //fonction qui s'exécute quand le slider Budget est bougé et change les inputs min et max budget
   const budgetChange = (value) => {
     setMinBudget(value[0]);
     setMaxBudget(value[1]);
   };
+
+  //fonction pour ajouter le tag sélectionné au tableau SelectedTags
+  const addTag = (tag) => {
+    if (!selectedTags.some(e => e==tag)) {
+      setSelectedTags([...selectedTags, tag])
+    }
+  }
+
+  //dataset displayed dans le tag dropdown menu 
+  let dataset = []
+  if (allTags.length != 0) {
+    allTags.map((tag,i) => dataset.push({id:i+1, title: tag }))
+  }
+  //affichage des tags populaires suggérés en-dessous du dropdown menu
+  const populartags = allTags.slice(10, 15).map((e,i )=> {
+    return (
+      <TouchableOpacity
+        onPress={() => addTag(e)}
+        style={styles.tags}
+        key={i}>
+        <Text>{e}</Text>
+      </TouchableOpacity>
+    );
+  })
+
 
   return (
     <View style={{ flex: 1 }}>
@@ -111,7 +150,7 @@ export default function Search({ navigation }) {
             <View style={styles.text}>
               <Text style={styles.title}>Search</Text>
               <View style={styles.searchContainer}>
-                <TextInput style={styles.input} 
+                <TextInput
                 value={searchInput} 
                 placeholder='Where are you heading?' 
                 onChange={(e) => setSearchInput(e.target.value)}></TextInput>
@@ -240,18 +279,30 @@ export default function Search({ navigation }) {
                 </View>): false}
                 </View>
 
-                <View name='tagsSection' style={{ flex: 1, marginTop: 30, borderColor: 'yellow', height: 100, weight: '100%'}}>
+                <View name='tagsSection' style= {dropdownTagVisible ? styles.bigTagSection : styles.smallTagSection}>
                   <Text style={styles.filterText}>What are you looking for?</Text>
-                  <TextInput
-                    placeholder='search tags'
-                    style={{
-                      marginTop: 5,
-                      width: '70%',
-                      borderBottomColor: 'darkgrey',
-                      borderBottomWidth: 1,
-                      height: 25,
-                    }}></TextInput>
-                    <Text>popular tags:</Text>
+                  <AutocompleteDropdown
+                      clearOnFocus={true}
+                      closeOnBlur={true}
+                      onBlur={() => {setDropdownTagVisible(false)}}
+                      onChevronPress={() => {setDropdownTagVisible(!dropdownTagVisible)}}
+                      closeOnSubmit={true}
+                      initialValue={''}
+                      onSelectItem={addTag}
+                      dataSet={dataset}
+                      direction={Platform.select({ ios: 'down', android: 'down' })}
+                      textInputProps={{
+                        placeholder: 'Search tags',
+                        autoCorrect: false,
+                        autoCapitalize: 'none',
+                        style: {
+                          color: 'grey',
+                          paddingLeft: 18,
+                        },
+                      }}
+                    />
+                    <Text style={{fontFamily:'txt', fontSize: 12, marginTop: 10}}>popular tags:</Text>
+                    <View style={styles.tagsContainer}>{populartags}</View>
                 </View>
 
                 <TouchableOpacity
@@ -259,6 +310,7 @@ export default function Search({ navigation }) {
                   onPress={() => handleSearch(minBudget, maxBudget, nbTravelers)}>
                   <Text style={styles.text}>Search results</Text>
                 </TouchableOpacity>
+                <View style={{ height: 400 }}></View>
               </ScrollView>
               </View>
             </Modal>

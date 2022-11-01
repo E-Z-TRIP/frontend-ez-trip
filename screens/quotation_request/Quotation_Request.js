@@ -9,18 +9,39 @@ import Trip from '../../components/trip/trip';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { ScrollView } from 'react-native-gesture-handler';
 import moment from 'moment';
+import { serverURL } from '../../api/backend_request';
+
 import DateRangePicker from 'rnv-date-range-picker';
 
-export default function Quotation_Request({ navigation }) {
+export default function Quotation_Request({ navigation, route: { params: props } }) {
   const loadedFonts = loadFonts();
   const { theme } = useTheme();
 
   // ///// BUTTON TRAVELERS && DATEPICKER
+  const [trip, setTrip] = useState(null);
   const [nbTravelers, setnbTravelers] = useState(1);
   const [selectedRange, setRange] = useState({});
   const [value, setValue] = useState('');
 
-  if (!loadedFonts) return <></>;
+  //fetch trip by ID 
+
+  useEffect(() => {
+    console.log('ciyciy id',props._id)
+    //fetch le trip grâce à l'id reçu en props
+    fetch(`${serverURL}/trips/tripById/${props._id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          console.log('data result ok')
+          setTrip(data.trip);
+        } else {
+          console.log('no trip received');
+        }
+      });
+  }, []);
+
+  // if (!loadedFonts) return <></>;
+
 
   ////////////////////////////////////////////////////////////MODAL FILTER - FUNCTIONS////////////////////////////////////////////////////////////
   //gère l'incrémentation du filter Nb Travelers
@@ -36,7 +57,7 @@ export default function Quotation_Request({ navigation }) {
               <Text style={styles.title}>Quotation request</Text>
             </View>
             {/* //////Card du voyage selectionné avec le nom a l'intérieur : supprimer Amazonie-EZ Trip*/}
-            <Trip />
+            {/* { trip ? <Trip {...trip.trip}/>  : false} */}
             <View style={styles.numberTripsBtnsContainer}>
               <Text style={styles.numberTripsBtnsLabel}>Number of travelers</Text>
               <View style={styles.numberTripsBtnsWrapper}>

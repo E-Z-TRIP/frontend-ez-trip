@@ -3,13 +3,11 @@ import {
     ScrollView,
     View,
     Text,
-    Animated,
     TouchableOpacity,
     Linking,
-    ImageBackground,
   } from 'react-native';
-  import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { convertibleEndDate, convertibleStartDate, getnbDays, getNbNights } from '../../assets/helpers';
+  import React, { useState, useEffect, } from 'react';
+import { convertibleStartDate, getnbDays, getNbNights } from '../../assets/helpers';
   import { loadFonts } from '../../assets/fonts/fonts';
   import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
   import Contact from '../../components/icons/contact';
@@ -36,7 +34,7 @@ import { convertibleEndDate, convertibleStartDate, getnbDays, getNbNights } from
         setStartDate(convertibleStartDate(data.data.start))
         setEndDate(convertibleStartDate(data.data.end))
         setNbDays(getnbDays(data.data.start, data.data.end))
-        setNbNights(getNbNights(nbDays))
+        setNbNights(getNbNights(data.data.start, data.data.end))
       } else {
         console.log('oupsi')
       }
@@ -69,7 +67,7 @@ return (
  { order ? (
   <View style={styles.summaryContainer}>
     <Text style={styles.smallTitle}> Summary :</Text>
-    <Text style={styles.recapTravel}>{nbDays} days {nbNights} nights stay</Text>
+    <Text style={styles.recapTravel}>{nbDays} days {nbNights} nights</Text>
     <Text style={styles.recapTravel}>{order.nbTravelers} travelers</Text>
     <Text style={styles.recapTravel}>From {startDate} to {endDate}</Text>
     <Text style={styles.recapTravel}>Special requests :</Text>

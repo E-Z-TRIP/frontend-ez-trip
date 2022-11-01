@@ -50,6 +50,7 @@ export default function Discover({ navigation }) {
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
 
+
   //MAP TO DISPLAY ALL THE TRIPS
   const trips = tripsData.map((data, i) => {
     //convert number into month's names

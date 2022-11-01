@@ -28,14 +28,18 @@ export function getMonthName(month){
   }
 
   export function getnbDays(date1, date2) {
-    let datest = new Date(date1)
-    let dateen = new Date(date2)
-    const Diff_temps  = dateen.getTime() - datest.getTime(); 
+    let dateStart = new Date(date1)
+    let dateEnd = new Date(date2)
+    const Diff_temps  = dateEnd.getTime() - dateStart.getTime(); 
     var Diff_jours = Diff_temps / (1000 * 3600 * 24);
-    console.log('dif', Diff_jours)
     return Math.round(Diff_jours)
   }
 
-  export function getNbNights(number) {
+  export function getNbNights(date1, date2) {
+    let dateStart = new Date(date1)
+    let dateEnd = new Date(date2)
+    const Diff_temps  = dateEnd.getTime() - dateStart.getTime(); 
+    var Diff_jours = Diff_temps / (1000 * 3600 * 24);
+    let number = Math.round(Diff_jours)
     return number-1
   }

@@ -98,7 +98,8 @@
 
 .smallCalendar {
     flex: 1;
-    height: 400;
+    height: 50;
+    margin-bottom: 30;
 }
 
 .bigCalendar {

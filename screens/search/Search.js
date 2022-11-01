@@ -35,7 +35,7 @@ export default function Search({ navigation }) {
   const [searchInput, setSearchInput] = useState('');
   //Tous les inputs de la Modal filtres
   const [minBudget, setMinBudget] = useState(0);
-  const [maxBudget, setMaxBudget] = useState(15000);
+  const [maxBudget, setMaxBudget] = useState(8000);
   const [nbTravelers, setnbTravelers] = useState(1);
   const [calendarVisible, setCalendarVisible] = useState(false);
   const [selectedRange, setRange] = useState({});
@@ -97,7 +97,7 @@ export default function Search({ navigation }) {
   const increment = () => setnbTravelers((c) => c + 1);
   const decrement = () => (nbTravelers > 1 ? setnbTravelers((c) => c - 1) : false);
 
-  //petite fonction qui s'exécute quand le slider Budget est bougé
+  //fonction qui s'exécute quand le slider Budget est bougé
   const budgetChange = (value) => {
     setMinBudget(value[0]);
     setMaxBudget(value[1]);
@@ -141,7 +141,7 @@ export default function Search({ navigation }) {
                   <AntDesign name='close' size={30} color='black' onPress={() => setModalVisible(!modalVisible)} />
                 </View>
 
-                <ScrollView id="Scrollview filtres" style={{padding: 5, backgroundColor: '#F2F3F5', padding: 25}}>
+                <ScrollView id="ScrollviewFilters" style={{padding: 5, backgroundColor: '#F2F3F5', marginTop: 10, padding: 25, height: '100%'}}>
                   
                   <View name='sectionBudget'>
                     <Text style={styles.filterText}>Budget</Text>
@@ -230,6 +230,7 @@ export default function Search({ navigation }) {
                     setRange(range);
                     setStartDate(range.firstDate)
                     setEndDate(range.secondDate)
+                    setCalendarVisible(false)
                   }}
                     backgroundColor="white"
                     responseFormat='DD-MM-YYYY'
@@ -237,10 +238,9 @@ export default function Search({ navigation }) {
                     minDate={moment()}
                 />
                 </View>): false}
-
                 </View>
 
-                <View name='tagsSection' style={{ marginTop: 30 }}>
+                <View name='tagsSection' style={{ flex: 1, marginTop: 30, borderColor: 'yellow', height: 100, weight: '100%'}}>
                   <Text style={styles.filterText}>What are you looking for?</Text>
                   <TextInput
                     placeholder='search tags'
@@ -251,6 +251,7 @@ export default function Search({ navigation }) {
                       borderBottomWidth: 1,
                       height: 25,
                     }}></TextInput>
+                    <Text>popular tags:</Text>
                 </View>
 
                 <TouchableOpacity
@@ -258,7 +259,6 @@ export default function Search({ navigation }) {
                   onPress={() => handleSearch(minBudget, maxBudget, nbTravelers)}>
                   <Text style={styles.text}>Search results</Text>
                 </TouchableOpacity>
-              {/* </View> */}
               </ScrollView>
               </View>
             </Modal>

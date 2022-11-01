@@ -10,13 +10,12 @@ import Trip from '../../components/trip/trip';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { getMonthName } from '../../assets/helpers';
-import { addIP } from '../../reducers/IPAddress';
 import { addFavorites, setFavorites } from '../../reducers/user';
-import * as Network from 'expo-network';
 import { serverURL } from '../../api/backend_request';
 import { dismountUser } from '../../reducers/user';
 
 export default function Discover({ navigation }) {
+  
   const dispatch = useDispatch();
   const API_ADDRESS = useSelector((state) => state.IPAdress.value);
   //STATE TO STORE ALL THE TRIPS TO DISPLAY
@@ -25,7 +24,6 @@ export default function Discover({ navigation }) {
   const TOKEN = useSelector((state) => state.user.value.token);
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN + FAVORITES OF THE USER TO SAVE IN THE REDUCER
   useEffect(() => {
-
     //GET ALL THE TRIPS
     fetch(`${serverURL}/trips`)
       .then((response) => response.json())
@@ -46,10 +44,9 @@ export default function Discover({ navigation }) {
           console.log('reducer initialized successfully');
           dispatch(setFavorites(data.tripsLiked));
         } else {
-          console.log(data);
           console.log('reducer failed on initialisation');
         }
-      });
+      })
   }, []);
 
   
@@ -66,6 +63,7 @@ export default function Discover({ navigation }) {
     return (
       <Trip
         key={i}
+        propsKey = {i}
         id={data._id}
         background={data.background}
         country={data.country}
@@ -87,7 +85,7 @@ export default function Discover({ navigation }) {
           <View style={styles.header}>
             <View style={styles.text}>
               <Text style={styles.title}>Discover</Text>
-              <Text style={styles.text}>Where are you heading?</Text>
+              <Text style={styles.text}>Choose your next adventure.</Text>
             </View>
             <View style={styles.border}></View>
           </View>

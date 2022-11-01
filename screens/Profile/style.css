@@ -19,8 +19,16 @@
     font-family: 'heading';
     font-size: 3rem;
     margin-bottom: 10px;
+    justify-content: center;
+    align-content: center;
 }
 
 .text {
     font-family: 'txt';
+    align-self: center;
+    justify-self: center;
+}
+
+.container {
+   justify-content: center;
 }

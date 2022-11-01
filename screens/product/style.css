@@ -21,9 +21,11 @@
     z-index: 1;
     height: 15%;
     margin-top: 40;
+    padding: 10px;
     flex-direction: row;
     justify-content: flex-end;
 }
+
 .coeurBox{
     background-color: rgba(255,255,255,0.8);
     margin-left: 8;
@@ -54,13 +56,15 @@
     margin-right: 10;
     margin-left: 10;
     border-radius: 15px;
-    margin-top: 100%;
+    margin-top: 90%;
     margin-bottom: 50;
     padding-top: 10;
     padding-bottom: 10;
     padding-left: 20;
     padding-right: 10;
-
+    height: 20%;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .title {
@@ -102,7 +106,6 @@
 /* MODAL */
 .modal {
     border-width: 2px;
-    border-color: blue;
 }
 .scrollViewModal {
     padding-bottom: 70;
@@ -111,7 +114,7 @@
 .caroussel {
     background-color: bisque;
     padding-top: 15;
-    height: 300;
+    height: 350;
     width: 100%;
     flex-direction: row;
     justify-content: flex-end;
@@ -145,7 +148,9 @@
     font-family: "txt";
     display: flex;
     align-items: flex-end;
+    margin-right: 5;
 }
+
 .smallTitle {
     font-family: 'txtBold';
     font-size: 14;
@@ -172,8 +177,15 @@
     flex-direction: row;
 }
 
+.border {
+    border-bottom-color: black;
+    border-bottom-width: 2px;
+    width: 90%;
+    height: 1px;
+    margin-left: 5;
+  }
+
 .nbDaysModal{
-background-color: aqua;
  padding-top: 5;
  padding-right: 5;
  padding-bottom: 5;

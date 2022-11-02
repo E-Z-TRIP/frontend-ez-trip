@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, KeyboardAvoidingView, TouchableOpacityBase } from "react-native";
+import { View, Text, ScrollView, KeyboardAvoidingView, TouchableOpacityBase, Image } from "react-native";
 import styles from './style.css';
 import { loadFonts } from '../../assets/fonts/fonts';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -13,9 +13,9 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 export default function Profile({navigation}) {
 
 const dispatch = useDispatch ()
-const [textEmail, setTextEmail] = useState("dribble@hotmail.com")
-const [textPhone, setTextPhone] = useState("")
-const [textPassword, setTextPassword] = useState("")
+const [textEmail, setTextEmail] = useState("jcvd@hotmail.fr")
+const [textPhone, setTextPhone] = useState("******4781")
+const [textPassword, setTextPassword] = useState("********")
 const hasErrors = () => {
   return !text.includes('@');
 };
@@ -33,13 +33,16 @@ const hasErrors = () => {
 
             <View style={styles.text}>
               {/* A remplacer par le nom et prénom de l'utilisateur */}
-              <Text style={styles.title}>Username</Text> 
+              <Text style={styles.title}>J.C. Van Damme</Text> 
+              <View style={styles.borderie}></View>
             </View>
           </View>
         </View>
 
 
-        <View style={styles.profilePhoto}></View>
+        <View style={styles.profilePhoto}>
+        <Image style={styles.photo} source={{uri:"https://eijwvqaycbm.exactdn.com/wp-content/uploads/2012/09/Van-Damme-chien-1200x1799.jpg", width:180,height:200 }}/>
+        </View>
         <FontAwesome name="pencil" size={20} style={styles.penIcon} />
 
         <View>
@@ -80,7 +83,6 @@ const hasErrors = () => {
           justifyContent: 'center',
           marginTop: 35,
           marginLeft: 35,
-          
         }}
       label="Password" // A remplacer par le numéro de l'utilisateur
       value={textPassword}
@@ -109,10 +111,12 @@ const hasErrors = () => {
             onFocus={() => setPasswordInputActive(false)}
           /></View>
  */}
-<TouchableOpacity onPress={()=>{
+<TouchableOpacity style={styles.myDocumentsButton} onPress={() => navigation.navigate('MyDocuments')}
+><Text style={styles.textButton}>Go to your documents</Text></TouchableOpacity>
+  <TouchableOpacity onPress={()=>{
   dispatch (dismountUser())
 
-  }} style={styles.logOut}><Text>Log-Out</Text></TouchableOpacity>
+  }} style={styles.logOut}><Text style={styles.textLogOut}>Log-Out</Text></TouchableOpacity>
 </KeyboardAvoidingView>
       </ScrollView>
       

@@ -39,6 +39,13 @@ import {
     },
 ]
     // FIN 
+// --------------------- Pour appeler un numéro au clic sur contact EZ-TRIP ---------------------
+    const dialCall = (number) => {
+        let phoneNumber = '';
+        if (Platform.OS === 'android') { phoneNumber = `tel:${number}`; }
+        else {phoneNumber = `telprompt:${number}`; }
+        Linking.openURL(phoneNumber);
+     };
 
 //---------------- map documents  ----------------
  const mydocuments = data.map((data, i) => {
@@ -80,6 +87,7 @@ return (
 {/* ---------------- MY DOCUMENTS ---------------- */}
     <View style={styles.cont}>
         <Text style={styles.smallTitle}>My documents</Text>
+        <View style={styles.borderie}></View>
         <View style={styles.sousContainer}>
           
             <ScrollView horizontal={true} style={styles.galleryContainer}>
@@ -101,6 +109,7 @@ return (
 {/* ---------------- DOCUMENTS FROM TRAVEL AGENCIES ---------------- */}
 <View style={styles.cont}>
         <Text style={styles.smallTitle}>Travel Agency documents</Text>
+        <View style={styles.borderie}></View>
         <View style={styles.sousContainer}>
         <ScrollView horizontal={true} style={styles.galleryContainer}>
                 {travelAgencyDocuments}
@@ -108,7 +117,7 @@ return (
             <View style={{marginTop: -16, zIndex: 1,top: -120, left: 380, }} >
             <SwipeLeft />
             </View>
-      <TouchableOpacity style={styles.addButton}>
+      <TouchableOpacity style={styles.addButton} onPress={() => dialCall('0650388510')}>
             <View style={styles.addContainer}>
             <Contact style={styles.addButton}/>
       <Text style={styles.addText}> Contact Travel Agency </Text>

@@ -34,10 +34,11 @@ export default function Discover({ navigation }) {
       });
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
-    fetch(`${serverURL}/users/like/${TOKEN}`)
+    fetch(`${serverURL}/users/idLike/${TOKEN}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
+          console.log(data.tripsLiked)
           console.log('reducer initialized successfully');
           dispatch(setFavorites(data.tripsLiked));
         } else {

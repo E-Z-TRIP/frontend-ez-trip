@@ -19,6 +19,7 @@ import { Directions, ScrollView } from 'react-native-gesture-handler';
 import MapView, { Marker } from 'react-native-maps';
 import Cross from '../../components/icons/cross';
 import * as Network from 'expo-network';
+import ShowMore from 'react-native-show-more-button';
 import Scroll from '../../components/icons/scrollDown';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { addFavorites, deleteFavorite } from '../../reducers/user';
@@ -54,6 +55,7 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
       .then((data) => {
         if (data.result) {
           setTrip(data.trip);
+          console.log('trip', data.trip.program)
         } else {
           console.log('no trip received');
         }
@@ -81,7 +83,7 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
   if (!loadedFonts) return <></>;
 
   if (!trip) return <></>;
-  console.log(lat, lon);
+ 
 
   /* ---------------- DECLARATION DES VARIABLES DYNAMIQUES ----------------  */
   const name = trip.name;
@@ -104,10 +106,9 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
 
   // to display buttons for programs
   const programSetter = (data) => {
-    detailedProgram ? setDetailedProgram(data.nbday) : setDetailedProgram(null);
+    detailedProgram ? setDetailedProgram(null) : setDetailedProgram(data.nbday) ;
     //selon le jour cliqué, afficher le detailed program correspondant
   };
-
   //displaying the right program dynamically.
   ///!\ goodProgram est asynchrone, s'il ne s'affiche pas encore programDisplay est une View vide (évite les bugs)
   const goodProgram = trip.program.find((e) => e.nbday === detailedProgram);
@@ -128,6 +129,7 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
       );
     });
   }
+  // console.log('goodprog', goodProgram.detailedProgram)
 
   // DISPLAY NBDAYS PROGRAM FORMAT BOUTON
   const nbDaysButtons = trip.program.map((data, i) => {
@@ -273,56 +275,56 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
               </View>
               {/* ---------------- CARTE INFOS ORANGE + PARTENAIRE ---------------- */}
               <View style={styles.infoContainerModal}>
-                <View style={{ width: '60%', backgroundColor: '#C46B4D', width: '60%', padding: 10 }}>
+                <View style={{ width: '100%', backgroundColor: 'rgba(196,107,77,0.65)', padding: 10, borderRadius: 15 }}>
                   {minDay == maxDay ? (
                     <Text style={{ color: 'white' }}>{minDay} days</Text>
                   ) : (
                     <Text style={{ color: 'white' }}>
-                      From {minDay} days to {maxDay} days
+                      From {minDay} to {maxDay} days
                     </Text>
                   )}
                   <Text style={{ color: 'white' }}>
                     Travel period: {startMonth}
                     <Text> to {endMonth}</Text>
                   </Text>
-                  <Text style={{ color: 'white' }}>Starting from {price}€</Text>
+                  <Text style={{ color: 'white' }}>Starting from {price} €</Text>
                 </View>
-                <View style={styles.infoContainerModal}>
+
                   <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
-                    <Text style={styles.offeredByModal}>
+                    <Text style={{ color: 'black' }}>
                       Offered by <Text style={{ color: 'black', textDecoration: 'underline' }}>EZTRIP</Text>
                     </Text>
                   </View>
-                </View>
+                
               </View>
               {/* ---------------- INCLUDED/NOT INCLUDED ---------------- */}
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                <View name='included' style={{ width: '50%', marginRight: 5 }}>
+                <View name='included' style={{ width: '50%', marginRight: 8 }}>
                   <Text style={styles.smallTitle}>Included :</Text>
                   <View style={{ width: '100%' }}>{included}</View>
                 </View>
 
-                <View name='nonIncluded' style={{ marginRight: 5, width: '50%' }}>
+                <View name='nonIncluded' style={{ marginRight: 12, width: '50%' }}>
                   <Text style={styles.smallTitle}>Not included :</Text>
                   <View style={{ width: '100%' }}>{nonIncluded}</View>
                 </View>
               </View>
 
               {/* ---------------- MAP LOCALISATION : Ne s'affiche que si lat et lon sont définies---------------- */}
-              <View name='localisation' style={{ justifyContent: 'center' }}>
+              <View name='localisation' style={{ justifyContent: 'center', minHeight: 380, maxHeight: 380 }}>
                 <Text style={styles.smallTitle}>Localisation :</Text>
                 {lat && lon ? (
                   <MapView
                     loadingBackgroundColor='#C46B4D'
                     tintColor='#C46B4D'
                     style={styles.map}
-                    mapType='mutedStandard'
+                    mapType='hybrid'
                     initialRegion={{
                       latitude: lat,
                       longitude: lon,
-                      latitudeDelta: 0.0922,
-                      longitudeDelta: 0.0421,
-                    }}></MapView>
+                      latitudeDelta: 1.5,
+                      longitudeDelta: 1.4,
+                    }}><Marker coordinate={{ latitude: lat, longitude: lon }} pinColor='#C46B4D' title={`${trip.addressDeparture}, ${trip.country}`} /></MapView>
                 ) : (
                   <View></View>
                 )}
@@ -332,9 +334,32 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
               {/* si on a le temps voir pour un "showmore"/"showless" pour pas avoir des descriptions a rallonge */}
 
               <Text style={styles.smallTitle}>Description :</Text>
-              <Text numberOfLines={5} ellipsizeMode='tail' style={styles.inclusModal}>
-                {trip.description}{' '}
-              </Text>
+              <ShowMore height={70} buttonColor={"#c46b4d"} showMoreText="Show more" showLessText="Show less">
+                <Text  ellipsizeMode='tail' style={styles.inclusModal}>
+                  {trip.description}
+                </Text>
+              </ShowMore>
+               {/* ---------------- PROGRAMS ---------------- */}
+               <Text style={styles.smallTitle}>Programs :</Text>
+              <View style={styles.nbDaysContainer}>
+                {nbDaysButtons}
+              </View>
+              <View>
+                { detailedProgram? 
+
+              <ShowMore height={150} buttonColor={"#c46b4d"} showMoreText="Show more" showLessText="Show less">
+                {programDisplay}
+                </ShowMore> : <View></View>
+                }
+                </View>
+              
+
+              {/* ---------------- TAGS ---------------- */}
+
+              <Text style={styles.smallTitle}>Tags :</Text>
+              <View style={styles.tagsContainer}>
+                {tags}
+              </View>
 
               {/* ---------------- BOUTONS QUOTATION ET DOWNLOAD ---------------- */}
 

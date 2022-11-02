@@ -100,8 +100,8 @@
   margin-bottom: 20px;
 }
 .modalInfoHeaderTitle {
-  font-family: 'txtMedium';
-  font-size: 16px;
+  font-family: 'heading';
+  font-size: 36px;
 }
 .modalInfoHeaderCountry {
   margin-bottom: 20px;
@@ -114,7 +114,7 @@
 }
 
 .infoContainerModal {
-  flex-direction: row;
+  flex-direction: column;
   justify-items: space-between;
   width: 100%;
 }
@@ -191,6 +191,8 @@
 }
 .quotationButton {
   background-color: #c46b4d;
+  justify-content: center;
+  align-items: center;
   padding-top: 10;
   padding-right: 20;
   padding-bottom: 10;
@@ -201,6 +203,8 @@
 }
 
 .programButton {
+  justify-content: center;
+  align-items: center;
   padding-right: 8;
   padding-bottom: 5;
   padding-left: 8;

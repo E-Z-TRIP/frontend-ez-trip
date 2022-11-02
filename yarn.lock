@@ -11582,6 +11582,11 @@ react-native-screens@~3.15.0:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
+react-native-show-more-button@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-show-more-button/-/react-native-show-more-button-1.0.2.tgz#2b8b6fd31f5298078cacd69ef226e3bd23204b97"
+  integrity sha512-qE13yJ+sVLF2CxMtMPu83p9MOn6MaMXuE4PQEjTbXDG9Jx0A6eRqEN94ck4NmU1azhw5+eDmO4EXsMvWoJvTig==
+
 "react-native-size-matters@^0.3.0 || ^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/react-native-size-matters/-/react-native-size-matters-0.4.0.tgz#01bfd0d59454318f4e0b13fe9c1eb0523d70f2e0"

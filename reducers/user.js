@@ -18,6 +18,8 @@ const user = createSlice({
     },
     addFavorites: (state, action) => {
       state.favorites.push(action.payload);
+      console.log(state.favorites)
+      
     },
     setFavorites: (state, action) => {
       state.favorites = action.payload;

@@ -13,7 +13,7 @@ export default function Trip(props) {
   const dispatch = useDispatch();
   const TOKEN = useSelector((state) => state.user.value.token);
   const navigation = useNavigation();
-  const favorites = useSelector((state) => state.user.favorites);
+  let favorites = useSelector((state) => state.user.favorites);
   
   //constantes pour faciliter l'intégration des props
   //prends en compte le scénario de l'ajout de la carte via My Quotations (qui n'envoie pas les mêmes infos)
@@ -50,15 +50,16 @@ export default function Trip(props) {
       else {
         console.log('trip liked');
         //rajout dans la BDD
-        fetch(`http://192.168.131.88:3000/users/like`, {
+        fetch(`${serverURL}/users/like`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: TOKEN, tripID: props.id }),
       }).then(response => response.json())
         .then(data => {
           if (data.result) {
+            console.log('data ID liked', props.id)
             //rajout dans le reducer
-            dispatch(addFavorites(data.tripLiked))
+            dispatch(addFavorites(props.id))
           }
           else {
             console.log(data.error); 

@@ -1,5 +1,5 @@
 import { View, Text, Dimensions } from 'react-native';
-import { useRef, useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './style.css';
 import BackgroundImageLayer from '../../components/background_image_layer/BackgroundImageLayer';
 import mountImg from '../../assets/images/Mountain.png';
@@ -12,8 +12,8 @@ import StepInfo from './step_info/StepInfo';
 export default function NexStep() {
   const loadedFonts = loadFonts();
   const { nextStep } = useTheme();
-  const currentStep = 4;
-  const stepInfoComponents = stepInfoCollection(currentStep);
+  const [currentStep, setCurrentStep] = useState(0);
+  const stepInfoComponents = stepInfoCollection();
 
   if (!loadedFonts) return <></>;
 
@@ -32,8 +32,8 @@ export default function NexStep() {
           pointerScale={1}
           step={currentStep}
         />
-        {stepInfoComponents.map((Component, i) => (
-          <Component key={i} />
+        {stepInfoComponents.map((InfoComponent, i) => (
+          <InfoComponent key={i} currentStep={currentStep} />
         ))}
       </View>
       <BottomToolbar />
@@ -41,11 +41,11 @@ export default function NexStep() {
   );
 }
 
-function stepInfoCollection(currentStep) {
+function stepInfoCollection() {
   const { nextStep } = useTheme();
 
   return [
-    (key) => (
+    ({ key, currentStep }) => (
       <StepInfo
         key={key}
         title='First step'
@@ -54,7 +54,7 @@ function stepInfoCollection(currentStep) {
         containerStyle={{ backgroundColor: nextStep.stepInfoBg, transform: [{ translateY: -70 }, { translateX: 20 }] }}
       />
     ),
-    (key) => (
+    ({ key, currentStep }) => (
       <StepInfo
         key={key}
         title='Second step'
@@ -67,7 +67,7 @@ function stepInfoCollection(currentStep) {
         }}
       />
     ),
-    (key) => (
+    ({ key, currentStep }) => (
       <StepInfo
         key={key}
         title='Third step'
@@ -80,7 +80,7 @@ function stepInfoCollection(currentStep) {
         }}
       />
     ),
-    (key) => (
+    ({ key, currentStep }) => (
       <StepInfo
         key={key}
         title='Forth step'
@@ -93,7 +93,7 @@ function stepInfoCollection(currentStep) {
         }}
       />
     ),
-    (key) => (
+    ({ key, currentStep }) => (
       <StepInfo
         key={key}
         title='See you when you get back'

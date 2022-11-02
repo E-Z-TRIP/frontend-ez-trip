@@ -34,10 +34,11 @@ export default function Discover({ navigation }) {
       });
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
-    fetch(`${serverURL}/users/like/${TOKEN}`)
+    fetch(`${serverURL}/users/idLike/${TOKEN}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
+          console.log(data.tripsLiked)
           console.log('reducer initialized successfully');
           dispatch(setFavorites(data.tripsLiked));
         } else {
@@ -49,7 +50,6 @@ export default function Discover({ navigation }) {
   //MAKE SURE THE FONTS ARE LOADED
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
-
 
   //MAP TO DISPLAY ALL THE TRIPS
   const trips = tripsData.map((data, i) => {
@@ -67,8 +67,8 @@ export default function Discover({ navigation }) {
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
           <View style={styles.header}>
-              <Text style={styles.title}>Discover</Text>
-              <Text style={styles.text}>Choose your next adventure.</Text>
+            <Text style={styles.title}>Discover</Text>
+            <Text style={styles.text}>Choose your next adventure.</Text>
             <View style={styles.border}></View>
           </View>
 

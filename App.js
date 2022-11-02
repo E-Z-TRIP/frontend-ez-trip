@@ -36,7 +36,6 @@ function App() {
     })();
   }, []);
 
-
   // Un-comment this if using light and dark mode
 
   // Sets the theme to the operating systems theme
@@ -50,26 +49,16 @@ function App() {
   return (
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <PersistGate persistor={persistor}>
-<<<<<<< HEAD
         <Stack.Navigator initialRouteName='NextStep' screenOptions={{ headerShown: false, gestureEnabled: false }}>
           {(store.getState()?.user?.value?.token && <></>) || <Stack.Screen name='OnBoarding' component={OnBoarding} />}
           <Stack.Screen name='MyTrips' component={MyTrips} />
-=======
-        <Stack.Navigator initialRouteName='Quotation_Request' screenOptions={{ headerShown: false, gestureEnabled: false }}>
-          <Stack.Screen name='NextStep' component={NexStep} />
-          {(store.getState()?.user?.value?.token && <></>) || <Stack.Screen name='OnBoarding' component={OnBoarding} />}
->>>>>>> d00a193d1d4b149878560b50f00ce44cc59e44ca
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='Product' component={ProductScreen} />
           <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
-<<<<<<< HEAD
-          <Stack.Screen name='NextStep' component={NexStep} />
-=======
           <Stack.Screen name='Quotation_Display' component={Quotation_Display} />
           <Stack.Screen name='MyQuotations' component={MyQuotations} />
           <Stack.Screen name='MyTrips' component={MyTrips} />
->>>>>>> d00a193d1d4b149878560b50f00ce44cc59e44ca
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

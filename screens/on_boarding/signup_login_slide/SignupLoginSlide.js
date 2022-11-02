@@ -3,7 +3,7 @@ import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
 import FadeContainer from '../../../components/fade_container/FadeContainer';
 import Logo from '../../../components/logo/Logo';
-import LoginForm from './forms/loginForm';
+import LoginForm from './forms/LoginForm';
 import SignUpForm from './forms/SignUpForm';
 import { useEffect, useState } from 'react';
 
@@ -19,6 +19,11 @@ export default function SignupLogoinSlide({ direction, progressPos, slideLength,
     }
     setIsVisible(false);
   }, [progressPos]);
+
+  useEffect(() => {
+    if (Object.values(forms).every((form) => form === false)) return setIsVisible(true);
+    setIsVisible(false);
+  }, [forms]);
 
   const openForm = (form) => {
     let updatedForms = forms;
@@ -39,10 +44,7 @@ export default function SignupLogoinSlide({ direction, progressPos, slideLength,
 
   return (
     <>
-      <FadeContainer
-        style={styles.slideContainer}
-        isVisible={Object.values(forms).every((form) => form === false)}
-        speed={600}>
+      <FadeContainer style={styles.slideContainer} isVisible={isVisible} speed={800}>
         <Logo containerStyle={styles.logoContainer} color={onBoarding.header} size={100} />
         <View style={styles.formBtnsContainer}>
           <View style={styles.btnsWrapper}>

@@ -50,7 +50,6 @@ export default function Discover({ navigation }) {
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
 
-
   //MAP TO DISPLAY ALL THE TRIPS
   const trips = tripsData.map((data, i) => {
     //convert number into month's names
@@ -67,8 +66,8 @@ export default function Discover({ navigation }) {
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
           <View style={styles.header}>
-              <Text style={styles.title}>Discover</Text>
-              <Text style={styles.text}>Choose your next adventure.</Text>
+            <Text style={styles.title}>Discover</Text>
+            <Text style={styles.text}>Choose your next adventure.</Text>
             <View style={styles.border}></View>
           </View>
 

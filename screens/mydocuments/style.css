@@ -9,6 +9,13 @@ padding-top: 25;
     font-family: "heading";
     font-size: 50px; 
 }
+.borderie {
+    border-bottom-color: black;
+    border-bottom-width: 2px;
+    width: 85%;
+    height: 1px;
+    margin-left: 5;
+  }
 .smallTitle {
     font-family: "txt";
     font-size: 20;

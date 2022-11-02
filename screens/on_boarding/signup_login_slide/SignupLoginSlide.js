@@ -20,6 +20,11 @@ export default function SignupLogoinSlide({ direction, progressPos, slideLength,
     setIsVisible(false);
   }, [progressPos]);
 
+  useEffect(() => {
+    if (Object.values(forms).every((form) => form === false)) return setIsVisible(true);
+    setIsVisible(false);
+  }, [forms]);
+
   const openForm = (form) => {
     let updatedForms = forms;
     Object.keys(updatedForms).forEach((key) => {
@@ -39,10 +44,7 @@ export default function SignupLogoinSlide({ direction, progressPos, slideLength,
 
   return (
     <>
-      <FadeContainer
-        style={styles.slideContainer}
-        isVisible={Object.values(forms).every((form) => form === false)}
-        speed={600}>
+      <FadeContainer style={styles.slideContainer} isVisible={isVisible} speed={800}>
         <Logo containerStyle={styles.logoContainer} color={onBoarding.header} size={100} />
         <View style={styles.formBtnsContainer}>
           <View style={styles.btnsWrapper}>

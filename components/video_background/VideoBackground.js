@@ -1,8 +1,13 @@
 import { View } from 'react-native';
 import { Video } from 'expo-av';
 import { Dimensions } from 'react-native';
+import { useEffect } from 'react';
 
 export default function VideoBackground({ source, layerOpacity, children }) {
+  useEffect(() => {
+    console.log('Hello');
+  }, []);
+
   return (
     <View style={{ flex: 1, width: '100%' }}>
       <Video

@@ -63,7 +63,6 @@ let sentDisplay = <Text style={{fontFamily:'txt'}}>No quotation asked yet.</Text
 
 if (requestSent.length > 0) {
   sentDisplay = requestSent.map((data, i) => {
-
     let start = data.start.slice(5, 10)
     let end = data.end.slice(5, 10)
 
@@ -71,7 +70,7 @@ if (requestSent.length > 0) {
                 <TouchableOpacity key={i} style={styles.tripContainer}>
                         <Text>Quotation asked on XXX for <Text style={{fontWeight: 'bold', color: 'orange'}}>{data.nbTravelers} persons</Text>.</Text>
                         <View name="bordereau status" style={{width: '45%', zIndex: 2, position:'absolute', top:'55%', backgroundColor: '#C46B4D', height: '20%', flex: 1, justifyContent:'center', paddingLeft: 5}}><Text style={{fontSize: 11, fontFamily:'txt', color:'white', borderBottomRightRadius:25}}>Waiting for the partner's response</Text></View>
-                        <Trip price={data.totalPrice} country= {data.trip.country} background={data.trip.background} name={data.trip.name} start={start} end={end} ></Trip>
+                        <Trip id={data._id} price={data.totalPrice} country= {data.trip.country} background={data.trip.background} name={data.trip.name} start={start} end={end} ></Trip>
                     </TouchableOpacity>
             )
      })
@@ -89,13 +88,13 @@ if (quotationReceived.length > 0) {
     let end = data.end.slice(5, 10)
 
             return (
-                <TouchableOpacity key={i} style={styles.tripContainer}>
+                <View key={i} style={styles.tripContainer}>
                         <Text>Quotation received on XXX for <Text style={{fontWeight: 'bold', color: 'orange'}}>{data.nbTravelers} persons</Text>.</Text>
                         <View name="bordereau status" style={{width: '45%', zIndex: 2, position:'absolute', top:'55%', backgroundColor: '#8BC4B7', height: '20%', flex: 1, justifyContent:'center', paddingLeft: 5}}>
                             <Text style={{fontSize: 11, fontFamily:'txt', color:'white', borderBottomRightRadius:25}}>Check it out now!</Text>
                         </View>
-                        <Trip price={data.totalPrice} country= {data.trip.country} background={data.trip.background} name={data.trip.name} start={start} end={end} ></Trip>
-                    </TouchableOpacity>
+                        <Trip id={data._id} price={data.totalPrice} country= {data.trip.country} background={data.trip.background} name={data.trip.name} start={start} end={end} ></Trip>
+                    </View>
             )
      })
 }

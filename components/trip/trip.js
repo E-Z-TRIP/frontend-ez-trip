@@ -66,9 +66,21 @@ export default function Trip(props) {
         });
       }
     }
+
+ // ---------------- HANDLE NAVIGATION : TO PRODUCT SCREEN OR QUOTATION DISPLAY ----------------
     
+ const handleNavigation = () => {
+  //props.price est un props directement passé quand la carte display un order, et pas un trip. Quand c'est un trip, le price est accessible à trip.program[0].price.
+    if (props.price) {
+      navigation.navigate({name:'Quotation_Display', params: { id: props.id }, merge: true})
+    }
+      else {
+        navigation.navigate('Product', {propsKey: props.propsKey, key:props.propsKey, id:props.id,  isFavorite: props.isFavorite})
+    }
+  } 
+
     return (
-      <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Product', {propsKey: props.propsKey, key:props.propsKey, id:props.id,  isFavorite: props.isFavorite})}>
+      <TouchableOpacity style={styles.container} onPress={() => handleNavigation()}>
         
         <ImageBackground imageStyle={{borderRadius: 15}} source={{uri: props.background}} style = {styles.imgbackground}>
           <LinearGradient 

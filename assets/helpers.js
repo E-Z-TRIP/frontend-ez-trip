@@ -19,12 +19,24 @@ export function getMonthName(month){
    }
  
    export function convertibleStartDate(iso) {
-    const date = iso.substr(0, 10);
-    return date
+    const date = new Date(iso)
+    let month = date.getMonth()+1 >= 10 ? date.getMonth()+1 : '0'+ (date.getMonth()+1)
+    const day = date.getDate()
+    const datey = `${day}/${month}`
+    return datey
+    
+    
+    // const date = iso.substr(0, 10);
+    return 
+    // date
   }
   export function convertibleEndDate(iso) {
-    const date = iso.substr(5, 5);
-    return date
+    const date = new Date(iso)
+    const year = date.getFullYear()
+    let month = date.getMonth()+1 >= 10 ? date.getMonth()+1 : '0'+ (date.getMonth()+1)
+    const day = date.getDate()
+    const datey = `${day}/${month}/${year}`
+    return datey
   }
 
   export function getnbDays(date1, date2) {

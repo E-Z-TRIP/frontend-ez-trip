@@ -9,8 +9,6 @@ import Trip from '../../components/trip/trip';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { ScrollView } from 'react-native-gesture-handler';
 import moment from 'moment';
-import { serverURL } from '../../api/backend_request';
-
 import DateRangePicker from 'rnv-date-range-picker';
 import { serverURL } from '../../api/backend_request';
 

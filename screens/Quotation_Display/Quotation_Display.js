@@ -7,7 +7,7 @@ import {
     Linking,
   } from 'react-native';
   import React, { useState, useEffect, } from 'react';
-import { convertibleStartDate, getnbDays, getNbNights } from '../../assets/helpers';
+import { convertibleStartDate, convertibleEndDate, getnbDays, getNbNights } from '../../assets/helpers';
   import { loadFonts } from '../../assets/fonts/fonts';
   import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
   import Contact from '../../components/icons/contact';
@@ -17,12 +17,13 @@ import { convertibleStartDate, getnbDays, getNbNights } from '../../assets/helpe
 
 
 
-  export default function Quotation_Received({ navigation, route: { params: props } }) {
+  export default function Quotation_Display({ navigation, route: { params: props } }) {
     const [order, setOrder]= useState(null)
     const [startDate, setStartDate] = useState(null)
     const [endDate, setEndDate] = useState(null)
     const [nbDays, setNbDays] = useState(null)
     const [nbNights, setNbNights] = useState(null)
+    const [status, setStatus] = useState(null)
 
     //*fetch
     useEffect(() => {
@@ -32,14 +33,30 @@ import { convertibleStartDate, getnbDays, getNbNights } from '../../assets/helpe
       if (data.result) {
         setOrder(data.data)
         setStartDate(convertibleStartDate(data.data.start))
-        setEndDate(convertibleStartDate(data.data.end))
+        setEndDate(convertibleEndDate(data.data.end))
         setNbDays(getnbDays(data.data.start, data.data.end))
         setNbNights(getNbNights(data.data.start, data.data.end))
+        setStatus(data.data.status)
       } else {
         console.log('oupsi')
       }
     })
     }, [])
+    
+    const handleButtonReceived = () => {
+      console.log('oui')
+      fetch(`${serverURL}/orders/updateStatus/6360e414ea1a41d73f22a830`, {
+        method: 'PUT',
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.result) {
+          setStatus(data.status)
+        }
+      })
+
+    }
+
 
 //*FONT CODE
     const loadedFonts = loadFonts();
@@ -51,7 +68,7 @@ return (
 <View style={{ flex: 1 }}>
   <View style={styles.container}>
 {/* ---------------- HEADER ---------------- */}
-    <Text style={styles.title}>Your future travel - Quotation offer </Text>
+    <Text style={styles.title}>Your future travel </Text>
 {/* ---------------- BODY ---------------- */}
   <ScrollView>
 {/* ---------------- TRAVEL CARD  ---------------- */}
@@ -59,8 +76,9 @@ return (
       { order ? <Trip {...order.trip}/>  : false}
     </View>
 {/* ---------------- OFFERED BY TRAVEL AGENCY ---------------- */}
-    <View style={styles.offeredByContainer}>
-      <Text style={styles.offeredBy}> Quotation offered by : EZ-TRIP</Text>
+    
+    <View style={styles.statusContainer}>
+      <Text style={[styles.status, status === 'Requested' ? styles.requested : status === 'Received' ? styles.received : styles.validated]}> Quotation status : {status} </Text>
     </View>
 
 {/* ---------------- SUMMARY ---------------- */}
@@ -101,9 +119,18 @@ return (
 }
 
   {/* ------ Validation button ------ */}
-  <TouchableOpacity style={styles.validationButton}>
+  {status === 'Requested' ? 
+  <View></View>
+  : status === 'Received' ? 
+  <TouchableOpacity style={styles.validationButton} onPress={handleButtonReceived}>
       <Text style={styles.textButtons}> Accept quotation</Text>
-  </TouchableOpacity>
+  </TouchableOpacity> 
+  :
+  <TouchableOpacity style={styles.validationButton} onPress={() => navigation.navigate({name: 'MyTrips'})} >
+  <Text style={styles.textButtons}> Go to My Trips</Text>
+</TouchableOpacity>
+
+  }
   
   {/* ------ Contact button ------ */}
   <TouchableOpacity style={styles.contact}>

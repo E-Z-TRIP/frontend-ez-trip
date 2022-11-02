@@ -12,7 +12,7 @@ import StepInfo from './step_info/StepInfo';
 export default function NexStep() {
   const loadedFonts = loadFonts();
   const { nextStep } = useTheme();
-  const currentStep = 5;
+  const currentStep = 4;
   const stepInfoComponents = stepInfoCollection(currentStep);
 
   if (!loadedFonts) return <></>;

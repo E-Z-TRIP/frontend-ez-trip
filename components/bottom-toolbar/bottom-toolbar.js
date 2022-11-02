@@ -35,7 +35,12 @@ export default function BottomToolbar() {
         size={35}
         onPress={() => navigation.navigate('MyQuotations')}
       />
-      <FontAwesome5 color={route.name === 'User' ? '#C46B4D' : 'black'} name='user-circle' size={35} />
+      <FontAwesome5
+        color={route.name === 'User' ? '#C46B4D' : 'black'}
+        name='user-circle'
+        size={35}
+        onPress={() => navigation.navigate('Profile')}
+      />
     </View>
   );
 }

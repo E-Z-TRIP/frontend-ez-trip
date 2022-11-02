@@ -64,6 +64,14 @@
 
 }
 
+.logOut{
+  margin: auto;
+  margin-top: 40px;
+  padding: 16px;
+  border-radius: 80%;
+  border: 2px solid black;
+}
+
 /* .containerKeyboard {
     flex: 1;
     align-items: center;
@@ -71,42 +79,3 @@
     
 } */
 
-
-.modalInnerContainer {
-    flex: 1;
-    width: 100%;
-    padding: 70px 30px;
-  }
-  .loginFormContainer {
-    flex: 1;
-    width: 100%;
-    align-items: center;
-    padding-top: 70px;
-  }
-  .signUpFormContainer {
-    flex: 1;
-    width: 100%;
-    align-items: center;
-    padding-top: 10px;
-  }
-  .closeBtn {
-    align-self: flex-end;
-    margin-right: 8px;
-  }
-  .inputWrapper {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  .input {
-    width: 100%;
-  }
-  .submitBtn {
-    width: 80%;
-    height: 45px;
-    border-radius: 25px;
-  }
-  .submitBtnText {
-    font-size: 15;
-    font-family: 'txt';
-  }
-  

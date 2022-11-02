@@ -1,14 +1,18 @@
-import { View, Text, ScrollView, KeyboardAvoidingView } from "react-native";
+import { View, Text, ScrollView, KeyboardAvoidingView, TouchableOpacityBase } from "react-native";
 import styles from './style.css';
 import { loadFonts } from '../../assets/fonts/fonts';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import BottomToolbar from "../../components/bottom-toolbar/bottom-toolbar";
-import { TextInput, HelperText } from 'react-native-paper';
+import { TextInput, HelperText, Button } from 'react-native-paper';
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { dismountUser } from "../../reducers/user";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
-export default function Profile() {
+export default function Profile({navigation}) {
 
+const dispatch = useDispatch ()
 const [textEmail, setTextEmail] = useState("dribble@hotmail.com")
 const [textPhone, setTextPhone] = useState("")
 const [textPassword, setTextPassword] = useState("")
@@ -83,6 +87,8 @@ const hasErrors = () => {
       onChangeText={textPassword => setTextPassword(textPassword)}
     />
 
+
+
         {/* <View style={{
           borderBottomWidth: '1px',
           width: '80%',
@@ -103,7 +109,10 @@ const hasErrors = () => {
             onFocus={() => setPasswordInputActive(false)}
           /></View>
  */}
+<TouchableOpacity onPress={()=>{
+  dispatch (dismountUser())
 
+  }} style={styles.logOut}><Text>Log-Out</Text></TouchableOpacity>
 </KeyboardAvoidingView>
       </ScrollView>
       

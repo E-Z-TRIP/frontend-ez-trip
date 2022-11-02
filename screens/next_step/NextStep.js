@@ -12,57 +12,8 @@ import StepInfo from './step_info/StepInfo';
 export default function NexStep() {
   const loadedFonts = loadFonts();
   const { nextStep } = useTheme();
-  const currentStep = 5;
-  const stepInfoComponents = [
-    <StepInfo
-      title='First step'
-      step={1}
-      currentStep={currentStep}
-      containerStyle={{ backgroundColor: nextStep.stepInfoBg, transform: [{ translateY: -96 }] }}
-    />,
-    <StepInfo
-      title='Second step'
-      step={2}
-      currentStep={currentStep}
-      containerStyle={{
-        backgroundColor: nextStep.stepInfoBg,
-        width: 155,
-        transform: [{ translateY: -170 }, { translateX: 190 }],
-      }}
-    />,
-    <StepInfo
-      title='Third step'
-      step={3}
-      currentStep={currentStep}
-      containerStyle={{
-        backgroundColor: nextStep.stepInfoBg,
-        width: 190,
-        transform: [{ translateY: -286 }],
-      }}
-    />,
-    <StepInfo
-      title='Forth step'
-      step={4}
-      currentStep={currentStep}
-      containerStyle={{
-        backgroundColor: nextStep.stepInfoBg,
-        width: 190,
-        transform: [{ translateY: -385 }, { translateX: 145 }],
-      }}
-    />,
-    <StepInfo
-      title='See you when you get back'
-      step={5}
-      currentStep={currentStep}
-      containerStyle={{
-        backgroundColor: nextStep.lastStepInfoBg,
-        width: '80%',
-        marginLeft: 0,
-        left: '10%',
-        transform: [{ translateY: -540 }],
-      }}
-    />,
-  ];
+  const currentStep = 4;
+  const stepInfoComponents = stepInfoCollection(currentStep);
 
   if (!loadedFonts) return <></>;
 
@@ -81,9 +32,81 @@ export default function NexStep() {
           pointerScale={1}
           step={currentStep}
         />
-        {stepInfoComponents}
+        {stepInfoComponents.map((Component, i) => (
+          <Component key={i} />
+        ))}
       </View>
       <BottomToolbar />
     </>
   );
+}
+
+function stepInfoCollection(currentStep) {
+  const { nextStep } = useTheme();
+
+  return [
+    (key) => (
+      <StepInfo
+        key={key}
+        title='First step'
+        step={1}
+        currentStep={currentStep}
+        containerStyle={{ backgroundColor: nextStep.stepInfoBg, transform: [{ translateY: -70 }, { translateX: 20 }] }}
+      />
+    ),
+    (key) => (
+      <StepInfo
+        key={key}
+        title='Second step'
+        step={2}
+        currentStep={currentStep}
+        containerStyle={{
+          backgroundColor: nextStep.stepInfoBg,
+          width: 155,
+          transform: [{ translateY: -142 }, { translateX: 190 }],
+        }}
+      />
+    ),
+    (key) => (
+      <StepInfo
+        key={key}
+        title='Third step'
+        step={3}
+        currentStep={currentStep}
+        containerStyle={{
+          backgroundColor: nextStep.stepInfoBg,
+          width: 190,
+          transform: [{ translateY: -260 }],
+        }}
+      />
+    ),
+    (key) => (
+      <StepInfo
+        key={key}
+        title='Forth step'
+        step={4}
+        currentStep={currentStep}
+        containerStyle={{
+          backgroundColor: nextStep.stepInfoBg,
+          width: 190,
+          transform: [{ translateY: -359 }, { translateX: 145 }],
+        }}
+      />
+    ),
+    (key) => (
+      <StepInfo
+        key={key}
+        title='See you when you get back'
+        step={5}
+        currentStep={currentStep}
+        containerStyle={{
+          backgroundColor: nextStep.lastStepInfoBg,
+          width: '80%',
+          marginLeft: 0,
+          left: '10%',
+          transform: [{ translateY: -525 }],
+        }}
+      />
+    ),
+  ];
 }

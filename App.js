@@ -6,7 +6,9 @@ import Discover from './screens/discover/Discover';
 import ProductScreen from './screens/product/ProductScreen';
 import Search from './screens/search/Search';
 import OnBoarding from './screens/on_boarding/OnBoarding';
-import NexStep from './screens/next_step/NextStep';
+import MyQuotations from './screens/myquotations/MyQuotations';
+import NextStep from './screens/next_step/NextStep';
+import SignupLogoinSlide from './screens/on_boarding/signup_login_slide/SignupLoginSlide';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { lightTheme, darkTheme } from './theme/theme';
 import { useColorScheme } from 'react-native';
@@ -36,7 +38,6 @@ function App() {
     })();
   }, []);
 
-  console.log(loadedStorage);
 
   // Un-comment this if using light and dark mode
 
@@ -51,16 +52,19 @@ function App() {
   return (
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <PersistGate persistor={persistor}>
-        <Stack.Navigator initialRouteName='NextStep' screenOptions={{ headerShown: false, gestureEnabled: false }}>
-          <Stack.Screen name='NextStep' component={Profile} />
-          {/* {(store.getState()?.user?.value?.token && <></>) || <Stack.Screen name='OnBoarding' component={OnBoarding} />}
+
+        <Stack.Navigator initialRouteName='OnBoarding' screenOptions={{ headerShown: false, gestureEnabled: false }}>
+        <Stack.Screen name='Profile' component={Profile} />
+          <Stack.Screen name='NextStep' component={NextStep} />
+          {(store.getState()?.user?.value?.token && <></>) || <Stack.Screen name='OnBoarding' component={OnBoarding} />}
           <Stack.Screen name='MyTrips' component={MyTrips} />
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='Product' component={ProductScreen} />
           <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
-          <Stack.Screen name='Quotation_Received' component={Quotation_Received} />
-  <Stack.Screen name='MyTrips' component={MyTrips} />*/}
+          <Stack.Screen name='Quotation_Display' component={Quotation_Display} />
+          <Stack.Screen name='MyQuotations' component={MyQuotations} />
+  
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

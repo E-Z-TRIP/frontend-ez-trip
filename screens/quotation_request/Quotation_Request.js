@@ -1,36 +1,43 @@
-import { Platform, View, Text, ImageBackground, TouchableOpacity, SliderBase, TextInput } from 'react-native';
+import { Platform, View, Text, ImageBackground, TouchableOpacity, SliderBase, TextInput, Modal } from 'react-native';
 import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadFonts } from '../../assets/fonts/fonts';
 import { useState, useEffect } from 'react';
-import Highlight from '../highlight/Highlight';
 import Trip from '../../components/trip/trip';
+import { getnbDays } from '../../assets/helpers';
+import user from '../../reducers/user';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { ScrollView } from 'react-native-gesture-handler';
 import moment from 'moment';
+import Cross from '../../components/icons/cross';
 import DateRangePicker from 'rnv-date-range-picker';
 import { serverURL } from '../../api/backend_request';
 
 export default function Quotation_Request({ navigation, route }) {
-  console.log(route.params);
+  // console.log(route.params);
   const loadedFonts = loadFonts();
   const { theme } = useTheme();
+  const TOKEN = useSelector((state) => state.user.value.token);
+
 
   // ///// BUTTON TRAVELERS && DATEPICKER
+   //fait apparaître / disparaître la Modal
+   const [modalVisible, setModalVisible] = useState(false);
+
   const [nbTravelers, setnbTravelers] = useState(1);
   const [selectedRange, setRange] = useState({});
   const [value, setValue] = useState('');
   const [trip, setTrip] = useState(null);
 
+
   useEffect(() => {
-    console.log('ciyciy id',route.params.id)
+    // console.log('ciyciy id',route.params.id)
     //fetch le trip grâce à l'id reçu en props
-    fetch(`${serverURL}/trips/tripById/${route.params.id}`)
+    fetch(`${serverURL}/trips/tripById/6358edc49ced89a7026c3017`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log('data result ok')
           setTrip(data.trip);
         } else {
           console.log('no trip received');
@@ -38,38 +45,37 @@ export default function Quotation_Request({ navigation, route }) {
       });
   }, []);
 
-  useEffect(() => {
-    console.log('ciyciy id',route.params.id)
-    //fetch le trip grâce à l'id reçu en props
-    fetch(`${serverURL}/trips/tripById/${route.params.id}`)
-      .then((response) => response.json())
-      .then((data) => {
+
+  const handleconfirmButton = () => {
+    if (trip) {
+      console.log('oui')
+      fetch(`${serverURL}/orders`, {
+        method: 'POST',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify({
+          user : TOKEN,
+          trip : '6358edc49ced89a7026c3017',
+          start : selectedRange.firstDate,
+          end : selectedRange.secondDate,
+          nbDays : getnbDays(selectedRange.firstDate, selectedRange.secondDate),
+          nbTravelers : nbTravelers,
+          comments : value,
+          totalPrice : trip.program[0].price * nbTravelers,
+
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
         if (data.result) {
-          console.log('data result ok')
-          setTrip(data.trip);
+          navigation.navigate({name: 'Quotation_Display'})
         } else {
-          console.log('no trip received');
+          console.log('no data result', data.error)
+          setModalVisible(true)
         }
-      });
-  }, []);
+      })
+    } else {console.log('no trip bg')}
 
-  //fetch trip by ID 
-console.log('coucou')
-
-  // useEffect(() => {
-  //   console.log('ciyciy id',props)
-  //   //fetch le trip grâce à l'id reçu en props
-  //   fetch(`${serverURL}/trips/tripById/${props.id}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (data.result) {
-  //         console.log('data result ok')
-  //         setTrip(data.trip);
-  //       } else {
-  //         console.log('no trip received');
-  //       }
-  //     });
-  // }, []);
+  }
 
   if (!loadedFonts) return <></>;
 
@@ -117,15 +123,26 @@ console.log('coucou')
             <View style={styles.inputContainer}>
               <TextInput
                 style={styles.textArea}
-                placeholder='Need to tell us more ?'
+                placeholder='Any restricted diet, or infos you want us to know ?'
                 name='email'
                 onChangeText={(text) => setValue(text)}
                 multiline={true}
                 numberOfLines={1}
               />
-              <TouchableOpacity style={{ ...styles.buttonConfirm, backgroundColor: theme.pa1 }}>
+              {modalVisible?
+              <View style={styles.modal}>
+                <Text style={styles.modalText}> There is a missing field, did you choose dates ? </Text>
+                <TouchableOpacity onPress={() => {setModalVisible(false)}}>
+                  <Cross color='red'/>
+                </TouchableOpacity>
+              </View>
+              : <View></View>
+            }
+              <TouchableOpacity style={{ ...styles.buttonConfirm, backgroundColor: theme.pa1 }} onPress={handleconfirmButton}>
                 <Text style={styles.confirmBtnTxt}>Confirm</Text>
               </TouchableOpacity>
+    
+              
             </View>
           </View>
         </ScrollView>

@@ -3,7 +3,7 @@ import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
 import FadeContainer from '../../../components/fade_container/FadeContainer';
 import Logo from '../../../components/logo/Logo';
-import LoginForm from './forms/loginForm';
+import LoginForm from './forms/LoginForm';
 import SignUpForm from './forms/SignUpForm';
 import { useEffect, useState } from 'react';
 

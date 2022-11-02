@@ -2,12 +2,12 @@ import { View, Text, ScrollView, KeyboardAvoidingView, TouchableOpacityBase, Ima
 import styles from './style.css';
 import { loadFonts } from '../../assets/fonts/fonts';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import BottomToolbar from "../../components/bottom-toolbar/bottom-toolbar";
+import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { TextInput, HelperText, Button } from 'react-native-paper';
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { dismountUser } from "../../reducers/user";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { dismountUser } from '../../reducers/user';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 export default function Profile({navigation}) {
@@ -37,8 +37,9 @@ const hasErrors = () => {
               <View style={styles.borderie}></View>
             </View>
           </View>
-        </View>
 
+          <View style={styles.profilePhoto}></View>
+          <FontAwesome name='pencil' size={20} style={styles.penIcon} />
 
         <View style={styles.profilePhoto}>
         <Image style={styles.photo} source={{uri:"https://eijwvqaycbm.exactdn.com/wp-content/uploads/2012/09/Van-Damme-chien-1200x1799.jpg", width:180,height:200 }}/>
@@ -119,10 +120,9 @@ const hasErrors = () => {
   }} style={styles.logOut}><Text style={styles.textLogOut}>Log-Out</Text></TouchableOpacity>
 </KeyboardAvoidingView>
       </ScrollView>
-      
+
       <BottomToolbar />
       <View style={{ height: 70 }}></View>
-
     </View>
-  )
+  );
 }

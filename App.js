@@ -17,17 +17,16 @@ import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Quotation_Request from './screens/quotation_request/Quotation_Request';
 import Quotation_Display from './screens/Quotation_Display/Quotation_Display';
+import Profile from './screens/Profile/Profile';
 import MyDocuments from './screens/mydocuments/MyDocuments';
 import MyTrips from './screens/mytrips/MyTrips';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { dismountUser } from './reducers/user';
-import Profile from './screens/Profile/Profile';
+import { useNavigation } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
-  const dispatch = useDispatch();
   const theme = useSelector(selectTheme);
   const [loadedStorage, setLoadedStorage] = useState();
 
@@ -37,6 +36,10 @@ function App() {
       setLoadedStorage(store.getState());
     })();
   }, []);
+
+  useEffect(() => {
+    console.log(loadedStorage);
+  }, [loadedStorage]);
 
   // Un-comment this if using light and dark mode
 
@@ -63,12 +66,11 @@ function App() {
           <Stack.Screen name='NextStep' component={NextStep} />
           <Stack.Screen name='Profile' component={Profile} />
           <Stack.Screen name='MyDocuments' component={MyDocuments} />
-
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>
   );
-} 
+}
 
 // Wraps the application with the Redux store Provider
 // !!DONT TOUCH

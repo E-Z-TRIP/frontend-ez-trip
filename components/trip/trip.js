@@ -23,6 +23,7 @@ export default function Trip(props) {
 
   //function to add the trip to the tripsLiked user database + adding it to the reducer
     const handleLike = () => {
+      console.log('props.id in trip.js', props.id)
       //si le like se trouve déjà dans le reducer (et donc en BDD), on le supprime
       if (favorites.some(favorite => favorite === props.id)) {
         console.log('déjà liké!')
@@ -34,7 +35,6 @@ export default function Trip(props) {
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data)
         if (data.result) {
           //une fois supprimé en BDD, supprime dans le reducer 
           dispatch(deleteFavorite(props.id))
@@ -57,7 +57,6 @@ export default function Trip(props) {
       }).then(response => response.json())
         .then(data => {
           if (data.result) {
-            console.log('data ID liked', props.id)
             //rajout dans le reducer
             dispatch(addFavorites(props.id))
           }

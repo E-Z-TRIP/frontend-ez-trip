@@ -25,7 +25,7 @@ const validationSchema = yup
   })
   .required();
 
-export default function SignUpForm({ onClosePress, openForm }) {
+export default function SignUpForm({ onClosePress, navigation }) {
   const { onBoarding } = useTheme();
   const dispatch = useDispatch();
   const [userExistsError, setUserExistsError] = useState(false);
@@ -141,8 +141,9 @@ export default function SignUpForm({ onClosePress, openForm }) {
               handleSubmit(async (formData) => {
                 const res = await postData('/users/signup', formData);
                 if (res.error) return setUserExistsError(true);
+                dispatch(mountUser({ firstName, lastName, email, token }));
                 setUserExistsError(false);
-                openForm('login');
+                navigation.navigate('Discover');
               })
             }
             activeOpacity={0.8}

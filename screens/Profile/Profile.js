@@ -7,7 +7,7 @@ import { TextInput, HelperText, Button } from 'react-native-paper';
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { dismountUser } from "../../reducers/user";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 
 
 export default function Profile({navigation}) {
@@ -19,6 +19,11 @@ const [textPassword, setTextPassword] = useState("********")
 const hasErrors = () => {
   return !text.includes('@');
 };
+
+const goToDocument = () => {
+  console.log('click')
+  navigation.navigate('MyDocuments')
+}
 
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
@@ -111,8 +116,7 @@ const hasErrors = () => {
             onFocus={() => setPasswordInputActive(false)}
           /></View>
  */}
-<TouchableOpacity style={styles.myDocumentsButton} onPress={() => navigation.navigate('MyDocuments')}
-><Text style={styles.textButton}>Go to your documents</Text></TouchableOpacity>
+<TouchableOpacity style={styles.myDocumentsButton} onPress={() => goToDocument()}><Text style={styles.textButton}>Go to your documents</Text></TouchableOpacity>
   <TouchableOpacity onPress={()=>{
   dispatch (dismountUser())
 

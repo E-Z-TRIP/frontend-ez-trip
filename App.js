@@ -20,7 +20,6 @@ import Quotation_Display from './screens/Quotation_Display/Quotation_Display';
 import MyDocuments from './screens/mydocuments/MyDocuments';
 import MyTrips from './screens/mytrips/MyTrips';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { dismountUser } from './reducers/user';
 import Profile from './screens/Profile/Profile';
 
@@ -62,6 +61,7 @@ function App() {
           <Stack.Screen name='NextStep' component={NextStep} />
           <Stack.Screen name='Profile' component={Profile} />
           <Stack.Screen name='MyDocuments' component={MyDocuments} />
+          <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
 
         </Stack.Navigator>
       </PersistGate>

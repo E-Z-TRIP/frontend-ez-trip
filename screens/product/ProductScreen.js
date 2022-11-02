@@ -108,14 +108,25 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
       // onPress={onHeartPress}
     />
   );
-  /* ---------------- DISPLAY PROGRAM DYNAMICALLY ----------------  */
+  /* --------------------------------- DISPLAY PROGRAM DYNAMICALLY ---------------------------------  */
 
   // to display buttons for programs
+    // DISPLAY NBDAYS PROGRAM FORMAT BOUTON
+    const nbDaysButtons = trip.program.map((data, i) => {
+      return (
+        <TouchableOpacity onPress={() => programSetter(data)} style={styles.nbDaysModal} key={i}>
+          <Text>{data.nbday} days</Text>
+        </TouchableOpacity>
+      );
+    });
+  
+  //selon le bouton cliqué, afficher le detailed program correspondant au nombre de jour du bouton
   const programSetter = (data) => {
     detailedProgram ? setDetailedProgram(null) : setDetailedProgram(data.nbday) ;
-    //selon le jour cliqué, afficher le detailed program correspondant
   };
+
   //displaying the right program dynamically.
+
   ///!\ goodProgram est asynchrone, s'il ne s'affiche pas encore programDisplay est une View vide (évite les bugs)
   const goodProgram = trip.program.find((e) => e.nbday === detailedProgram);
   let programDisplay = () => {
@@ -135,16 +146,8 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
       );
     });
   }
-  // console.log('goodprog', goodProgram.detailedProgram)
 
-  // DISPLAY NBDAYS PROGRAM FORMAT BOUTON
-  const nbDaysButtons = trip.program.map((data, i) => {
-    return (
-      <TouchableOpacity onPress={() => programSetter(data)} style={styles.nbDaysModal} key={i}>
-        <Text>{data.nbday} days</Text>
-      </TouchableOpacity>
-    );
-  });
+
 
   /* ---------------- DISPLAY TAGS DYNAMICALLY ----------------  */
 
@@ -224,7 +227,7 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
         <HeaderButtons
           favorite={favorite}
           onHeartPress={() => handleLike()}
-          onCrossPress={() => setTimeout(navigation.goBack(null), 0)}
+          onCrossPress={() => setTimeout(navigation.navigate('Discover'))}
           heartActiveColor='#F5612F'
           iconsColor='white'
         />

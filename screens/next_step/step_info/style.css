@@ -1,0 +1,25 @@
+.infoContainer {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 600px;
+  height: 45px;
+  width: 200px;
+  border-radius: 25px;
+  margin: 0 10px 0 10px;
+}
+.textContainer {
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+}
+.btnContainer {
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+}
+.infoTitle {
+  font-family: 'txt';
+}

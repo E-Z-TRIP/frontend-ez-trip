@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
 import { loadFonts } from '../../assets/fonts/fonts';
@@ -11,7 +11,7 @@ import PulsingContainer from '../../components/pulsing_container/PulsingContaine
 import HorizontalSlideContainer from '../../components/horizontal_slide_container/HorizontalSlideContainer';
 import SignupLoginSlide from './signup_login_slide/SignupLoginSlide';
 import Logo from '../../components/logo/Logo';
-import VideoBackground from '../../components/video_background/VideoBackground';
+import VideoBackground from '../../components/background_image_layer/BackgroundImageLayer';
 import canyonVideo from '../../assets/videos/Canyon.mp4';
 
 export default function OnBoarding({ navigation }) {

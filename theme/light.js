@@ -9,6 +9,7 @@ export default class LightTheme {
   theme = {
     pa1: '#C46B4D',
     pa2: '#177861',
+    pa3: '#8BC4B7',
     pa1C: '#ffffff',
     pa2C: '#ffffff',
 
@@ -23,6 +24,14 @@ export default class LightTheme {
     gs5: '#bfbfbf',
     gs6: '#fafafa',
     gs7: '#ffffff',
+  };
+
+  nextStep = {
+    animatedPath: this.theme.gs7,
+    animatedPointer: this.theme.pa1,
+    stepInfoBg: this.theme.pa3,
+    lastStepInfoBg: this.theme.pa1,
+    stepInfoText: this.theme.gs7,
   };
 
   onBoarding = {

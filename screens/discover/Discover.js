@@ -38,7 +38,7 @@ export default function Discover({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          console.log(data.tripsLiked)
+          console.log(data.tripsLiked);
           console.log('reducer initialized successfully');
           dispatch(setFavorites(data.tripsLiked));
         } else {

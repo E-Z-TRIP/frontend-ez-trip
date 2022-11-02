@@ -1,33 +1,33 @@
 .container {
-    padding: 25px;
-    flex: 1;
-    height: 100%;
-    flex-direction: column; 
-    justify-content: space-around;
+  padding: 25px;
+  flex: 1;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .header {
-    margin-top: 35px;
-    width: 100%;
-    height: 30%;
-    flex: 1;
-    flex-direction: column;
+  margin-top: 35px;
+  width: 100%;
+  height: 30%;
+  flex: 1;
+  flex-direction: column;
 }
 
 .title {
-    font-family: 'heading';
-    font-size: 3rem;
-    margin-bottom: 8px;
-    justify-content: center;
-    align-content: center;
+  font-family: 'heading';
+  font-size: 3rem;
+  margin-bottom: 8px;
+  justify-content: center;
+  align-content: center;
 }
 
 .texts {
-    font-family: 'txt';
-    flex-direction: row;
-    
-    align-content: center;
-    justify-content: center;
+  font-family: 'txt';
+  flex-direction: row;
+
+  align-content: center;
+  justify-content: center;
 }
 .textButton {
     font-family: "txt";
@@ -41,13 +41,13 @@
 }
 
 .border {
-    border-bottom-color: black;
-    border-bottom-width: 1px;
-    width: 80%;
-    background-color: pink;
-    height: 1px;
-    margin-top: 80px;
-    align-self: center;
+  border-bottom-color: black;
+  border-bottom-width: 1px;
+  width: 80%;
+  background-color: pink;
+  height: 1px;
+  margin-top: 80px;
+  align-self: center;
 }
 .borderie {
     border-bottom-color: black;
@@ -59,30 +59,27 @@
 
 .profilePhoto {
   margin-bottom: 16px;
-  background:white;
-  border-radius: 80px;
-  width:160px;
-  height:160px;
-  border: 2px solid black; 
+  background: white;
+  width: 160px;
+  height: 160px;
+  border: 2px solid black;
   margin: auto;
   overflow: hidden;
 }
 .photo {
+    border-radius: 50px;
     width: 100%;
     height: 100%;
 }
 
-.penIcon{
-    margin-left: 63%;
-   
+.penIcon {
+  margin-left: 63%;
 }
 
-.textOverBorder{
-    
-    font-size: 16px;
-    padding: 8px;
-    margin: -3px;
-
+.textOverBorder {
+  font-size: 16px;
+  padding: 8px;
+  margin: -3px;
 }
 
 .logOut{
@@ -115,4 +112,3 @@
     justify-content : center;
     
 } */
-

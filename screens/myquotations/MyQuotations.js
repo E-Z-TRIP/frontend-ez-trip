@@ -84,7 +84,7 @@ if (requestSent.length > 0) {
 
 if (quotationReceived.length > 0) {
   quotationDisplay = quotationReceived.map((data, i) => {
-
+    console.log(data._id)
     let start = data.start.slice(5, 10)
     let end = data.end.slice(5, 10)
 

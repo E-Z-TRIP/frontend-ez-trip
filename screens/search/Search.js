@@ -8,9 +8,10 @@ import {
   Text,
   ImageBackground,
   TouchableOpacity,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from 'react-native';
 import styles from './style.css';
+import { serverURL } from '../../api/backend_request';
 import { useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { loadFonts } from '../../assets/fonts/fonts';
@@ -77,7 +78,7 @@ export default function Search({ navigation }) {
     let research = { minBudget, maxBudget };
     console.log(research);
     //construit l'URL avec les query correspondants aux filtres
-    var url = new URL('http://172.20.10.3:3000/trips/filter');
+    var url = new URL(`${serverURL}/trips/filter`);
     Object.keys(research).forEach((key) => url.searchParams.append(key, research[key]));
     console.log(url);
     //fetch avec l'URL personnalisé à la recherche
@@ -234,7 +235,7 @@ export default function Search({ navigation }) {
           </View>
         </View>
       </ScrollView>
-      <BottomToolbar></BottomToolbar>
+      <BottomToolbar />
       <View style={{ height: 70 }}></View>
     </View>
   );

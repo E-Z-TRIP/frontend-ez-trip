@@ -15,9 +15,7 @@ import { serverURL } from '../../api/backend_request';
 import { dismountUser } from '../../reducers/user';
 
 export default function Discover({ navigation }) {
-  
   const dispatch = useDispatch();
-  const API_ADDRESS = useSelector((state) => state.IPAdress.value);
   //STATE TO STORE ALL THE TRIPS TO DISPLAY
   const [tripsData, setTripsData] = useState([]);
   const favorites = useSelector((state) => state.user.favorites);
@@ -29,10 +27,9 @@ export default function Discover({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          setTripsData(data.trips)
-        }
-        else {
-          console.log('Fetch of trips failed.')
+          setTripsData(data.trips);
+        } else {
+          console.log('Fetch of trips failed.');
         }
       });
 
@@ -46,14 +43,12 @@ export default function Discover({ navigation }) {
         } else {
           console.log('reducer failed on initialisation');
         }
-      })
+      });
   }, []);
 
-  
   //MAKE SURE THE FONTS ARE LOADED
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
-
 
   //MAP TO DISPLAY ALL THE TRIPS
   const trips = tripsData.map((data, i) => {
@@ -61,22 +56,12 @@ export default function Discover({ navigation }) {
     let start = getMonthName(data.travelPeriod[0].start);
     let end = getMonthName(data.travelPeriod[0].end);
     return (
-      <Trip
-        key={i}
-        propsKey = {i}
-        id={data._id}
-        background={data.background}
-        country={data.country}
-        name={data.name}
-        price={data.program[0].price}
-        start={start}
-        end={end}
-        isFavorite = {favorites.some(favorite => favorite === data._id)}
-      />
+      <View key={i} style={{ height: 180 }}>
+        <Trip propsKey={i} id={data._id} {...data} isFavorite={favorites.some((favorite) => favorite === data._id)} />
+      </View>
     );
   });
 
-  
   //FINAL RETURN
   return (
     <View style={{ flex: 1 }}>
@@ -100,7 +85,7 @@ export default function Discover({ navigation }) {
           </View>
         </View>
       </ScrollView>
-      <BottomToolbar></BottomToolbar>
+      <BottomToolbar />
       <View style={{ height: 70 }}></View>
     </View>
   );

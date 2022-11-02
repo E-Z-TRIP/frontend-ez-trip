@@ -6,6 +6,7 @@ import Discover from './screens/discover/Discover';
 import ProductScreen from './screens/product/ProductScreen';
 import Search from './screens/search/Search';
 import OnBoarding from './screens/on_boarding/OnBoarding';
+import MyQuotations from './screens/myquotations/MyQuotations';
 import NexStep from './screens/next_step/NextStep';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { lightTheme, darkTheme } from './theme/theme';
@@ -58,6 +59,9 @@ function App() {
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='Product' component={ProductScreen} />
+          <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
+          <Stack.Screen name='MyQuotations' component={MyQuotations} />
+          <Stack.Screen name='MyTrips' component={MyTrips} />
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

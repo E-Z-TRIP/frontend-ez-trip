@@ -1,8 +1,11 @@
 .container {
+    height: 100%;
+    width: 100%;
     padding-left: 20;
     padding-top: 25;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    flex-direction: column; 
     }
 
     .header {
@@ -68,6 +71,7 @@
         height: 100%;
         width: 250;
         flex: 1;
+        position: relative;
         flex-direction: column;
         justify-content: space-between;
         border-radius: 35px;

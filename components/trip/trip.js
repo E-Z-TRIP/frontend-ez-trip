@@ -14,12 +14,14 @@ export default function Trip(props) {
   const TOKEN = useSelector((state) => state.user.value.token);
   const navigation = useNavigation();
   const favorites = useSelector((state) => state.user.favorites);
-
+  
   //constantes pour faciliter l'intégration des props
-  let start = getMonthName(props.travelPeriod[0].start);
-  let end = getMonthName(props.travelPeriod[0].end);
-  let price = props.program[0].price
-    //function to add the trip to the tripsLiked user database + adding it to the reducer
+  //prends en compte le scénario de l'ajout de la carte via My Quotations (qui n'envoie pas les mêmes infos)
+  let start = props.travelPeriod ? getMonthName(props.travelPeriod[0].start) : props.start;
+  let end = props.travelPeriod ? getMonthName(props.travelPeriod[0].end) : props.end;
+  let price = props.price ? props.price : props.program[0].price;
+
+  //function to add the trip to the tripsLiked user database + adding it to the reducer
     const handleLike = () => {
       //si le like se trouve déjà dans le reducer (et donc en BDD), on le supprime
       if (favorites.some(favorite => favorite === props.id)) {
@@ -43,6 +45,7 @@ export default function Trip(props) {
         }
       });
       }
+
       //si le trip.id n'est pas trouvé, on le rajoute en BDD + dans le reducer favorite
       else {
         console.log('trip liked');
@@ -76,7 +79,7 @@ export default function Trip(props) {
           <View name="topBlock" style={{flex: 1, padding: 5, height: '10%', margin: 10, marginTop: 15}}>
             <View style = {styles.topInfos}>
                 <Text style = {styles.title}>{props.name}</Text>
-                <AntDesign name='heart' size={18}  color={props.isFavorite ? "#F5612F" : "white"} onPress={() => handleLike()}/>
+                <AntDesign name='heart' size={18}  color={props.isFavorite ? "#F5612F" : props.isFavorite === undefined ? 'transparent' : "white"} onPress={() => handleLike()}/>
             </View>
             <Text style = {{fontFamily: 'txt', fontWeight: 'bold', color: 'white', marginTop: 5}}>{props.country}</Text>
           </View>
@@ -85,10 +88,12 @@ export default function Trip(props) {
         colors={['rgba(0,0,0,0.5)', 'transparent']}
         start={[1, 1]}
         end={[1, 0]}
-        style={{height : '33%', width : '100%', padding: 15, borderRadius: 15}}>
+        style={{height : '38%', width : '100%', padding: 15, borderRadius: 15}}>
         <View style= {styles.bottomInfo}>
-            <Text style = {styles.text}>from {start} to {end}</Text>
-            <Text style = {styles.text}>From {price}€</Text>
+          <View style={{flex: 1, flexDirection:'column'}}>
+            <Text style = {styles.text}>From {start} to {end}</Text>
+          </View>
+            {props.price ?<Text style = {styles.text}>Total price: <Text style={{fontWeight: 'bold'}}>{price}</Text>€</Text>:<Text style = {styles.text}>From <Text style={{fontWeight: 'bold'}}>{price}</Text>€</Text>}
         </View>
         </LinearGradient>
 

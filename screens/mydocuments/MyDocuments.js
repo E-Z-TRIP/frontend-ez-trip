@@ -18,8 +18,8 @@ import {
 
     // A REMPLACER PAR UN FETCH 
     const data = [{
-        document : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685046/grande-traversee-de-laltiplano-bolivien-2022_zfix4l.pdf',
-        titre : 'Passeport'
+        document : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1667403204/JCVD_passeport_mz0zt0.pdf',
+        titre : 'Passeport JCVD'
     },
     {
         document : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685046/grande-traversee-de-laltiplano-bolivien-2022_zfix4l.pdf',
@@ -27,16 +27,29 @@ import {
     },
     {
         document : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685046/grande-traversee-de-laltiplano-bolivien-2022_zfix4l.pdf',
-        titre : 'HackLife'
+        titre : 'Baggage checklist'
     },
     {
         document : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685046/grande-traversee-de-laltiplano-bolivien-2022_zfix4l.pdf',
-        titre : 'Hubby Passeport'
+        titre : 'Raya passeport'
     },
-    {
-        document : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685046/grande-traversee-de-laltiplano-bolivien-2022_zfix4l.pdf',
-        titre : 'Mioumiou'
-    },
+]
+const dataTravelAgencies = [{
+    document : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1667403204/JCVD_passeport_mz0zt0.pdf',
+    titre : 'Itinéraire'
+},
+{
+    document : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685046/grande-traversee-de-laltiplano-bolivien-2022_zfix4l.pdf',
+    titre : 'Visa'
+},
+{
+    document : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685046/grande-traversee-de-laltiplano-bolivien-2022_zfix4l.pdf',
+    titre : 'Baggage checklist'
+},
+{
+    document : 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685046/grande-traversee-de-laltiplano-bolivien-2022_zfix4l.pdf',
+    titre : 'Raya passeport'
+},
 ]
     // FIN 
 // --------------------- Pour appeler un numéro au clic sur contact EZ-TRIP ---------------------
@@ -78,15 +91,14 @@ import {
 
 return (
 
-<View style={{ flex: 1 }}>
   <View style={styles.container}>
 {/* ---------------- HEADER ---------------- */}
     <View style={styles.header}>
-        <Text style={styles.title}>Documents</Text>
+        <Text style={styles.title}>My documents</Text>
     </View>
 {/* ---------------- MY DOCUMENTS ---------------- */}
     <View style={styles.cont}>
-        <Text style={styles.smallTitle}>My documents</Text>
+        <Text style={styles.smallTitle}>Personal documents</Text>
         <View style={styles.borderie}></View>
         <View style={styles.sousContainer}>
           
@@ -103,11 +115,11 @@ return (
                 <Text style={styles.addButtonText}> + </Text>
             </TouchableOpacity>
             </View>
-        </View>
     </View>
+ 
 
 {/* ---------------- DOCUMENTS FROM TRAVEL AGENCIES ---------------- */}
-<View style={styles.cont}>
+    <View style={styles.cont}>
         <Text style={styles.smallTitle}>Travel Agency documents</Text>
         <View style={styles.borderie}></View>
         <View style={styles.sousContainer}>

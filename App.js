@@ -64,11 +64,7 @@ function App() {
           <Stack.Screen name='MyTrips' component={MyTrips} />
           <Stack.Screen name='NextStep' component={NextStep} />
           <Stack.Screen name='Profile' component={Profile} />
-<<<<<<< HEAD
-=======
           <Stack.Screen name='MyDocuments' component={MyDocuments} />
-
->>>>>>> d433ac2798f6bc943bd0781f4d614fb214671f80
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

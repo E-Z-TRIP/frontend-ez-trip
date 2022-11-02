@@ -92,8 +92,6 @@ const goToDocument = () => {
       onChangeText={textPassword => setTextPassword(textPassword)}
     />
 
-
-
         {/* <View style={{
           borderBottomWidth: '1px',
           width: '80%',
@@ -119,6 +117,7 @@ const goToDocument = () => {
   dispatch (dismountUser())
 
   }} style={styles.logOut}><Text style={styles.textLogOut}>Log-Out</Text></TouchableOpacity>
+  </View>
 </KeyboardAvoidingView>
       </ScrollView>
 

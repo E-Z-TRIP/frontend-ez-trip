@@ -227,7 +227,7 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
         <HeaderButtons
           favorite={favorite}
           onHeartPress={() => handleLike()}
-          onCrossPress={() => setTimeout(navigation.navigate('Discover'))}
+          onCrossPress={() => navigation.navigate('Discover')}
           heartActiveColor='#F5612F'
           iconsColor='white'
         />

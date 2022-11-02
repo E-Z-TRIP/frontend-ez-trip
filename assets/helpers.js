@@ -7,15 +7,12 @@ export function getMonthName(month){
   }
 
   export function convertDate(utc) {
-    console.log(utc)
     let date = new Date(utc*1000);
     let dayLowerCase = date.toLocaleString("fr", {weekday:"long"})
     let day = dayLowerCase.charAt(0).toUpperCase() + dayLowerCase.slice(1);
     let nb = date.toLocaleString("en", {day: "numeric"})
      let month = date.toLocaleString("en", {month: "long"})
      return ({day, nb, month})
- 
- //    let day = days.find((e, i) => i===date.getDay())
    }
  
    export function convertibleStartDate(iso) {
@@ -30,6 +27,7 @@ export function getMonthName(month){
     return 
     // date
   }
+
   export function convertibleEndDate(iso) {
     const date = new Date(iso)
     const year = date.getFullYear()

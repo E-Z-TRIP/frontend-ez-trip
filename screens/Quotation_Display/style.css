@@ -13,7 +13,7 @@
     margin-top: 12;
     margin-bottom: 5;
 }
-.offeredByContainer {
+.statusContainer {
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -21,19 +21,25 @@
     margin-bottom: 5;
     margin-right: 12;
 }
-.offeredBy {
+.status {
     font-family: "txt";
-    font-size: 14;
+    font-size: 20;
+}
+.validated {
+    color : green; 
+}
+.received {
+    color : #8BC4B7;
+}
+.requested {
+    color: #C46B4D;
 }
 .cardTravel {
-    /* background-color: brown; */
-    /* border: #C46B4D 2px solid; */
-    height: 250;
-max-height: 300;    
-    width: 500;
+    height: 210;
+    width: 400;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .summaryContainer {

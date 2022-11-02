@@ -2,9 +2,8 @@
     padding: 25px;
     flex: 1;
     height: 100%;
-    flex-direction: column; 
     justify-content: space-around;
-    
+    flex-direction: column;
 }
 
 .header {

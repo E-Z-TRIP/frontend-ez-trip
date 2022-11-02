@@ -9,41 +9,64 @@ import {
   ImageBackground,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Dimensions,
 } from 'react-native';
 import styles from './style.css';
 import { serverURL } from '../../api/backend_request';
 import { useTheme } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
 import { loadFonts } from '../../assets/fonts/fonts';
 import React, { useState, useEffect, useCallback } from 'react';
 import Trip from '../../components/trip/trip';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
+import DateRangePicker from 'rnv-date-range-picker';
+import moment from 'moment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { RangeSlider } from '@sharcoux/slider';
-import { getMonthName } from '../../assets/helpers';
+import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Search({ navigation }) {
+
   ///////////////////////////////////////////////////////////REACT STATES////////////////////////////////////////////////////////////
   //tous les trips récupérés par la route GET au chargement
   const [tripsData, setTripsData] = useState([]);
+  const [allTags, setAllTags] = useState([]);
   //fait apparaître / disparaître la Modal Filtres
   const [modalVisible, setModalVisible] = useState(false);
   //input Text haut de page
   const [searchInput, setSearchInput] = useState('');
   //Tous les inputs de la Modal filtres
   const [minBudget, setMinBudget] = useState(0);
-  const [maxBudget, setMaxBudget] = useState(15000);
+  const [maxBudget, setMaxBudget] = useState(8000);
   const [nbTravelers, setnbTravelers] = useState(1);
+  const [calendarVisible, setCalendarVisible] = useState(false);
+  const [selectedRange, setRange] = useState({});
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [dropdownTagVisible, setDropdownTagVisible] = useState(false);
+  const [selectedTags, setSelectedTags] = useState([]);
+  //redux store pour récupérer les favoris et gérer la couleur du coeur
+  const favorites = useSelector((state) => state.user.favorites);
 
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN
   useEffect(() => {
-    fetch('http://192.168.131.88:3000/trips')
+    fetch(`${serverURL}/trips`)
       .then((response) => response.json())
       .then((data) => {
         setTripsData(data.trips);
-      });
+        const tripData = [];
+        //add the tags to the hook allTags
+        data.trips.map (trip => {
+          trip.tags.map(tag => {
+            if (!tripData.find(e => e===tag)){
+              tripData.push(tag)
+            }
+          })
+        })
+        setAllTags(tripData);
+      })
+      ;
   }, []);
-  const dispatch = useDispatch();
 
   //S'assure que la police est bien chargée
   const loadedFonts = loadFonts();
@@ -55,18 +78,11 @@ export default function Search({ navigation }) {
   //MAP TO DISPLAY ALL THE TRIPS
   if (tripsData) {
     trips = tripsData.map((data, i) => {
-      let start = getMonthName(data.travelPeriod[0].start);
-      let end = getMonthName(data.travelPeriod[0].end);
+     
       return (
-        <Trip
-          key={i}
-          background={data.background}
-          country={data.country}
-          name={data.name}
-          price={data.program[0].price}
-          start={start}
-          end={end}
-        />
+        <View key={i} style={{ height: 180 }}>
+        <Trip propsKey={i} {...data} isFavorite={favorites.some((favorite) => favorite === data._id)} />
+        </View>
       );
     });
   }
@@ -75,7 +91,7 @@ export default function Search({ navigation }) {
 
   const handleSearch = () => {
     //construit un objet regroupant tous les paramètres de filtres
-    let research = { minBudget, maxBudget };
+    let research = { minBudget, maxBudget, searchInput };
     console.log(research);
     //construit l'URL avec les query correspondants aux filtres
     var url = new URL(`${serverURL}/trips/filter`);
@@ -95,11 +111,36 @@ export default function Search({ navigation }) {
   const increment = () => setnbTravelers((c) => c + 1);
   const decrement = () => (nbTravelers > 1 ? setnbTravelers((c) => c - 1) : false);
 
-  //petite fonction qui s'exécute quand le slider Budget est bougé
+  //fonction qui s'exécute quand le slider Budget est bougé et change les inputs min et max budget
   const budgetChange = (value) => {
     setMinBudget(value[0]);
     setMaxBudget(value[1]);
   };
+
+  //fonction pour ajouter le tag sélectionné au tableau SelectedTags
+  const addTag = (tag) => {
+    if (!selectedTags.some(e => e==tag)) {
+      setSelectedTags([...selectedTags, tag])
+    }
+  }
+
+  //dataset displayed dans le tag dropdown menu 
+  let dataset = []
+  if (allTags.length != 0) {
+    allTags.map((tag,i) => dataset.push({id:i+1, title: tag }))
+  }
+  //affichage des tags populaires suggérés en-dessous du dropdown menu
+  const populartags = allTags.slice(10, 15).map((e,i )=> {
+    return (
+      <TouchableOpacity
+        onPress={() => addTag(e)}
+        style={styles.tags}
+        key={i}>
+        <Text>{e}</Text>
+      </TouchableOpacity>
+    );
+  })
+
 
   return (
     <View style={{ flex: 1 }}>
@@ -109,7 +150,10 @@ export default function Search({ navigation }) {
             <View style={styles.text}>
               <Text style={styles.title}>Search</Text>
               <View style={styles.searchContainer}>
-                <TextInput style={styles.input} placeholder='Where are you heading?'></TextInput>
+                <TextInput
+                value={searchInput} 
+                placeholder='Where are you heading?' 
+                onChange={(e) => setSearchInput(e.target.value)}></TextInput>
                 <AntDesign name='search1' size={20} color='black' />
               </View>
             </View>
@@ -130,32 +174,33 @@ export default function Search({ navigation }) {
               }}>
               <View style={styles.modal}>
                 <View
-                  name='headerFilter'
+                  id='headerFilter'
                   style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                   <Text style={{ fontFamily: 'txt', fontSize: 24 }}>Filters</Text>
                   <AntDesign name='close' size={30} color='black' onPress={() => setModalVisible(!modalVisible)} />
                 </View>
 
-                <View name='filters' style={{ marginTop: 40 }}>
+                <ScrollView id="ScrollviewFilters" style={{padding: 5, backgroundColor: '#F2F3F5', marginTop: 10, padding: 25, height: '100%'}}>
+                  
                   <View name='sectionBudget'>
                     <Text style={styles.filterText}>Budget</Text>
-                    <View name='sectionContent' style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <View name='sectionContent' style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5}}>
                       <View name='field'>
                         <Text>Min</Text>
                         <TextInput placeholder='0'>{minBudget}</TextInput>
                       </View>
                       <View name='field'>
                         <Text>Max</Text>
-                        <TextInput placeholder='15 000'>{maxBudget}</TextInput>
+                        <TextInput placeholder='8000'>{maxBudget}</TextInput>
                       </View>
                     </View>
 
-                    <View>
+                    <View name=""style={{padding: 9}}>
                       <RangeSlider
-                        range={[0, 15000]} // set the current slider's value
+                        range={[0, 8000]} // set the current slider's value
                         minimumValue={0} // Minimum value
-                        maximumValue={15000} // Maximum value
-                        step={50} // The step for the slider (0 means that the slider will handle any decimal value within the range [min, max])
+                        maximumValue={7000} // Maximum value
+                        step={100} // The step for the slider (0 means that the slider will handle any decimal value within the range [min, max])
                         minimumRange={50} // Minimum range between the two thumbs
                         crossingAllowed={false} // If true, the user can make one thumb cross over the second thumb
                         outboundColor='#FFEAE3' // The track color outside the current range value
@@ -179,12 +224,12 @@ export default function Search({ navigation }) {
                       />
                     </View>
                   </View>
-                </View>
 
                 <View
                   name='travelersSection'
                   style={{
                     marginTop: 30,
+                    marginBottom: 30,
                     height: 50,
                     flexDirection: 'row',
                     alignItems: 'center',
@@ -208,21 +253,56 @@ export default function Search({ navigation }) {
                   </View>
                 </View>
 
-                <View name='calendarSection' style={{ marginTop: 30, height: 50 }}>
+                <View name='calendarSection' style={calendarVisible ? styles.bigCalendar : styles.smallCalendar}>
                   <Text style={styles.filterText}>Departure dates</Text>
+
+                  <View name="dateInput" style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, width: '90%'}}>
+                    <Text style={{fontFamily: 'txt'}}>Start:</Text><TouchableOpacity style={{width: '30%', height: '100%', borderBottomColor: 'black', borderBottomWidth: 0.5}} onPress={() => setCalendarVisible(!calendarVisible)}><Text>{startDate}</Text></TouchableOpacity>
+                    <Text style={{fontFamily: 'txt'}}>End:</Text><TouchableOpacity style={{width: '30%', height: '100%', borderBottomColor: 'black', borderBottomWidth: 0.5}} onPress={() => setCalendarVisible(!calendarVisible)}><Text>{endDate}</Text></TouchableOpacity>
+                  </View>
+
+                 
+                    {calendarVisible ? (
+                    <View style={styles.calendar}>
+                      <DateRangePicker
+                    onSelectDateRange={(range) => {
+                    setRange(range);
+                    setStartDate(range.firstDate)
+                    setEndDate(range.secondDate)
+                    setCalendarVisible(false)
+                  }}
+                    backgroundColor="white"
+                    responseFormat='DD-MM-YYYY'
+                    maxDate={moment().add(3, 'years')}
+                    minDate={moment()}
+                />
+                </View>): false}
                 </View>
 
-                <View name='tagsSection' style={{ marginTop: 30 }}>
+                <View name='tagsSection' style= {dropdownTagVisible ? styles.bigTagSection : styles.smallTagSection}>
                   <Text style={styles.filterText}>What are you looking for?</Text>
-                  <TextInput
-                    placeholder='search tags'
-                    style={{
-                      marginTop: 5,
-                      width: '70%',
-                      borderBottomColor: 'darkgrey',
-                      borderBottomWidth: 1,
-                      height: 25,
-                    }}></TextInput>
+                  <AutocompleteDropdown
+                      clearOnFocus={true}
+                      closeOnBlur={true}
+                      onBlur={() => {setDropdownTagVisible(false)}}
+                      onChevronPress={() => {setDropdownTagVisible(!dropdownTagVisible)}}
+                      closeOnSubmit={true}
+                      initialValue={''}
+                      onSelectItem={addTag}
+                      dataSet={dataset}
+                      direction={Platform.select({ ios: 'down', android: 'down' })}
+                      textInputProps={{
+                        placeholder: 'Search tags',
+                        autoCorrect: false,
+                        autoCapitalize: 'none',
+                        style: {
+                          color: 'grey',
+                          paddingLeft: 18,
+                        },
+                      }}
+                    />
+                    <Text style={{fontFamily:'txt', fontSize: 12, marginTop: 10}}>popular tags:</Text>
+                    <View style={styles.tagsContainer}>{populartags}</View>
                 </View>
 
                 <TouchableOpacity
@@ -230,6 +310,8 @@ export default function Search({ navigation }) {
                   onPress={() => handleSearch(minBudget, maxBudget, nbTravelers)}>
                   <Text style={styles.text}>Search results</Text>
                 </TouchableOpacity>
+                <View style={{ height: 400 }}></View>
+              </ScrollView>
               </View>
             </Modal>
           </View>

@@ -16,7 +16,7 @@ import { setTheme, selectTheme } from './reducers/theme';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Quotation_Request from './screens/quotation_request/Quotation_Request';
-import Quotation_Display from './screens/Quotation_Received/Quotation_Display';
+import Quotation_Display from './screens/Quotation_Display/Quotation_Display';
 import MyDocuments from './screens/mydocuments/MyDocuments';
 import MyTrips from './screens/mytrips/MyTrips';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -54,12 +54,11 @@ function App() {
         <Stack.Navigator initialRouteName='NextStep' screenOptions={{ headerShown: false, gestureEnabled: false }}>
           <Stack.Screen name='NextStep' component={NexStep} />
           {(store.getState()?.user?.value?.token && <></>) || <Stack.Screen name='OnBoarding' component={OnBoarding} />}
-          <Stack.Screen name='MyTrips' component={MyTrips} />
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='Product' component={ProductScreen} />
           <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
-          <Stack.Screen name='Quotation_Received' component={Quotation_Received} />
+          <Stack.Screen name='Quotation_Display' component={Quotation_Display} />
           <Stack.Screen name='MyQuotations' component={MyQuotations} />
           <Stack.Screen name='MyTrips' component={MyTrips} />
         </Stack.Navigator>

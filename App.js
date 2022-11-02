@@ -20,6 +20,8 @@ import Quotation_Display from './screens/Quotation_Display/Quotation_Display';
 import MyDocuments from './screens/mydocuments/MyDocuments';
 import MyTrips from './screens/mytrips/MyTrips';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NotifierContainer } from 'react-native-modal-notifier';
+
 import { dismountUser } from './reducers/user';
 
 const Stack = createNativeStackNavigator();

@@ -8,7 +8,11 @@ import {
   ImageBackground,
   TouchableOpacity,
   Modal,
+  Linking,
 } from 'react-native';
+
+import Contact from '../../components/icons/contact';
+
 import styles from './style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadFonts } from '../../assets/fonts/fonts';
@@ -79,6 +83,8 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
         });
     }
   }, [trip]);
+
+ 
 
   if (!loadedFonts) return <></>;
 
@@ -363,7 +369,8 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
 
               {/* ---------------- BOUTONS QUOTATION ET DOWNLOAD ---------------- */}
 
-              <TouchableOpacity style={styles.quotationButton} onPress={() => navigation.navigate({name:'Quotation_Request', params: { id: props.id }, merge: true})}>
+              <TouchableOpacity style={styles.quotationButton} onPress={() => 
+                navigation.navigate({name:'Quotation_Request', params: { id: props.id }, merge: true})}>
                 <Text style={styles.buttonTextQuotation}>Quotation request</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.programButton}>

@@ -8,6 +8,7 @@ import Search from './screens/search/Search';
 import OnBoarding from './screens/on_boarding/OnBoarding';
 import MyQuotations from './screens/myquotations/MyQuotations';
 import NextStep from './screens/next_step/NextStep';
+import SignupLogoinSlide from './screens/on_boarding/signup_login_slide/SignupLoginSlide';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { lightTheme, darkTheme } from './theme/theme';
 import { useColorScheme } from 'react-native';
@@ -20,7 +21,9 @@ import Quotation_Display from './screens/Quotation_Display/Quotation_Display';
 import MyDocuments from './screens/mydocuments/MyDocuments';
 import MyTrips from './screens/mytrips/MyTrips';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { dismountUser } from './reducers/user';
+import Profile from './screens/Profile/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -62,7 +65,7 @@ function App() {
       </PersistGate>
     </NavigationContainer>
   );
-}
+} 
 
 // Wraps the application with the Redux store Provider
 // !!DONT TOUCH

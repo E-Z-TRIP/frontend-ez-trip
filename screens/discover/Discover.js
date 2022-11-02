@@ -29,15 +29,16 @@ export default function Discover({ navigation }) {
         if (data.result) {
           setTripsData(data.trips);
         } else {
-          console.log('Fetch of trips failed.');
+          console.log('Fetch of trips failed on Discover.');
         }
       });
 
     //SAVE ALL THE FAVORITES IN THE REDUCER
-    fetch(`${serverURL}/users/like/${TOKEN}`)
+    fetch(`${serverURL}/users/idLike/${TOKEN}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
+          console.log(data.tripsLiked)
           console.log('reducer initialized successfully');
           dispatch(setFavorites(data.tripsLiked));
         } else {

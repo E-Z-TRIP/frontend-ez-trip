@@ -56,6 +56,13 @@ import { convertibleStartDate, convertibleEndDate, getnbDays, getNbNights } from
       })
 
     }
+// --------------------- Pour appeler un numéro au clic sur contact EZ-TRIP ---------------------
+    const dialCall = (number) => {
+      let phoneNumber = '';
+      if (Platform.OS === 'android') { phoneNumber = `tel:${number}`; }
+      else {phoneNumber = `telprompt:${number}`; }
+      Linking.openURL(phoneNumber);
+   };
 
 
 //*FONT CODE
@@ -110,31 +117,31 @@ return (
   <View style={styles.buttonsContainer}>
 
 {/* ------ Program button ------ */}
-{ order ? (
-  <TouchableOpacity style={styles.programButton} onPress={() => Linking.openURL(`${order.trip.program[0].programPDF}`)}>
-      <Text style={styles.textButtons}> Download program (PDF)</Text>
-  </TouchableOpacity>
-  ) : <View></View>
+    { order ? (
+      <TouchableOpacity style={styles.programButton} onPress={() => Linking.openURL(`${order.trip.program[0].programPDF}`)}>
+          <Text style={styles.textButtons}> Download program (PDF)</Text>
+      </TouchableOpacity>
+      ) : <View></View>
 
-}
+    }
 
   {/* ------ Validation button ------ */}
-  { status === 'Received' ? 
-  <TouchableOpacity style={styles.validationButton} onPress={handleButtonReceived}>
-      <Text style={styles.textButtons}> Accept quotation</Text>
-  </TouchableOpacity> 
-  :
-  <TouchableOpacity style={styles.validationButton} onPress={() => navigation.navigate({name: 'MyTrips'})} >
-  <Text style={styles.textButtons}> Go to My Trips</Text>
-</TouchableOpacity>
+      { status === 'Received' ? 
+      <TouchableOpacity style={styles.validationButton} onPress={handleButtonReceived}>
+          <Text style={styles.textButtons}> Accept quotation</Text>
+      </TouchableOpacity> 
+      :
+      <TouchableOpacity style={styles.validationButton} onPress={() => navigation.navigate({name: 'MyQuotations'})} >
+      <Text style={styles.textButtons}> Go back to your quotations</Text>
+    </TouchableOpacity>
 
-  }
+      }
   
   {/* ------ Contact button ------ */}
-  <TouchableOpacity style={styles.contact}>
+  <TouchableOpacity style={styles.contact}  onPress={() => dialCall('0650388510')}>
     <Contact style={styles.contactIcon}/>
       <Text style={styles.textContact}> Contact EZ-TRIP </Text>
-  </TouchableOpacity>
+              </TouchableOpacity>
   </View>
 
 {/* ---------------- FOOTER BOTTOM BAR ---------------- */}

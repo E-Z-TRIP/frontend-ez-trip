@@ -30,6 +30,7 @@
 .text {
     font-family: 'txt';
     color: white;
+    text-align: center;
 }
 
 .bottomInfo {

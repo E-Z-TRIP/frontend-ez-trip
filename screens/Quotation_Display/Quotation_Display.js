@@ -89,7 +89,7 @@ return (
     <Text style={styles.recapTravel}>{order.nbTravelers} travelers</Text>
     <Text style={styles.recapTravel}>From {startDate} to {endDate}</Text>
     <Text style={styles.recapTravel}>Special requests :</Text>
-    <Text style={styles.recapTravel}>        {order.comments}</Text>
+    <Text style={styles.recapTravel}>{order.comments}</Text>
 
   </View>
  ) : <View></View>

@@ -102,10 +102,10 @@ export default function Trip(props) {
         end={[1, 0]}
         style={{height : '38%', width : '100%', padding: 15, borderRadius: 15}}>
         <View style= {styles.bottomInfo}>
-          <View style={{flex: 1, flexDirection:'column'}}>
+          <View style={{flex: 1, flexDirection:'column', paddingRight: 5}}>
             <Text style = {styles.text}>From {start} to {end}</Text>
           </View>
-            {props.price ?<Text style = {styles.text}>Total price: <Text style={{fontWeight: 'bold'}}>{price}</Text>€</Text>:<Text style = {styles.text}>From <Text style={{fontWeight: 'bold'}}>{price}</Text>€</Text>}
+            {props.price ? <Text style = {styles.text}>Total price: <Text style={{fontWeight: 'bold'}}>{price}</Text>€</Text>:<Text style = {styles.text}>From <Text style={{fontWeight: 'bold'}}>{price}</Text>€</Text>}
         </View>
         </LinearGradient>
 

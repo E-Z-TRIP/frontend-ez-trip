@@ -28,6 +28,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function Search({ navigation }) {
 
   ///////////////////////////////////////////////////////////REACT STATES////////////////////////////////////////////////////////////
+
   //tous les trips récupérés par la route GET au chargement
   const [tripsData, setTripsData] = useState([]);
   const [allTags, setAllTags] = useState([]);
@@ -40,7 +41,6 @@ export default function Search({ navigation }) {
   const [maxBudget, setMaxBudget] = useState(8000);
   const [nbTravelers, setnbTravelers] = useState(1);
   const [calendarVisible, setCalendarVisible] = useState(false);
-  const [selectedRange, setRange] = useState({});
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [dropdownTagVisible, setDropdownTagVisible] = useState(false);
@@ -78,10 +78,9 @@ export default function Search({ navigation }) {
   //MAP TO DISPLAY ALL THE TRIPS
   if (tripsData) {
     trips = tripsData.map((data, i) => {
-     
       return (
         <View key={i} style={{ height: 180 }}>
-        <Trip propsKey={i} {...data} isFavorite={favorites.some((favorite) => favorite === data._id)} />
+        <Trip id={data._id} propsKey={i} {...data} isFavorite={favorites.some((favorite) => favorite === data._id)} />
         </View>
       );
     });

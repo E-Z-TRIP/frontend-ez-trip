@@ -36,7 +36,6 @@ function App() {
     })();
   }, []);
 
-
   // Un-comment this if using light and dark mode
 
   // Sets the theme to the operating systems theme
@@ -53,6 +52,7 @@ function App() {
         <Stack.Navigator initialRouteName='OnBoarding' screenOptions={{ headerShown: false, gestureEnabled: false }}>
           <Stack.Screen name='NextStep' component={NexStep} />
           {(store.getState()?.user?.value?.token && <></>) || <Stack.Screen name='OnBoarding' component={OnBoarding} />}
+          <Stack.Screen name='MyTrips' component={MyTrips} />
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='Quotation_Display' component={Quotation_Display} />

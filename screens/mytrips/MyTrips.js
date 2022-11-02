@@ -30,19 +30,20 @@ import {
     const favorites = useSelector((state) => state.user.favorites);
 
     //store les trips à display (liked + booked)
-    const [tripsLikedData, setTripsLikedData] = useState([]);
+    const [tripsLiked, setTripsLiked] = useState([]);
     const [tripsBooked, setTripsBooked] = useState([]);
 
     useEffect(() => {
     //GET THE TRIPS LIKED BY THE USER
-    fetch(`${serverURL}/trips`)
+    fetch(`${serverURL}/users/like/${TOKEN}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-            setTripsLikedData(data.trips)
+          console.log('fetch of liked trips successful on MyTrips')
+          setTripsLiked(data.tripsLiked)
         }
         else {
-          console.log('Fetch of trips failed.')
+          console.log('Fetch of trips failed on MyTrips.')
         }
       })
 
@@ -51,7 +52,7 @@ import {
     .then((response) => response.json())
     .then((response) => {
       if (response.result) {
-        console.log('Fetch of booked trips successful on MyQuotations')
+        console.log('Fetch of booked trips successful on MyTrips')
           for (let order of response.data) {
               //Si les orders sont en statut Validated, on les ajoute à tripsBooked.
               if(order.status === 'Validated' && !tripsBooked.some(e => e._id === order._id)) {
@@ -61,7 +62,7 @@ import {
       }
       //si data.result = false, le fetch a failed
       else {
-        console.log('Fetch of booked trips failed on MyQuotations.')
+        console.log('Fetch of booked trips failed on MyTrips.')
       }
     })
     
@@ -69,7 +70,11 @@ import {
 
 
 //---------------- MAP LIKED TRIPS  ----------------
- const likedTrips = tripsLikedData.map((data, i) => {
+
+ //if tripsLiked is empty, just show a default Text div.
+ let likedTrips = <Text style={{fontFamily:'txt'}}>No planed trip yet. Book one now! </Text>
+if (tripsLiked) {
+  likedTrips = tripsLiked.map((data, i) => {
     const isFavorite = favorites.some(favorite => favorite.id === data.id)
     return (
             <View key={i} style={styles.tripContainer} >
@@ -77,12 +82,13 @@ import {
             </View>
     )
  })
-
- 
+}
 
  // ---------------- MAP PLANED TRIPS ----------------
+
+ //if tripsBooked is empty, just show a default Text div.
  let planedTrips = <Text style={{fontFamily:'txt'}}>No planed trip yet. Book one now! </Text>
- if (tripsBooked) {
+ if (tripsBooked && tripsBooked.length > 0) {
   planedTrips = tripsBooked.map((data, i) => {
     let start = data.start.slice(5, 10)
     let end = data.end.slice(5, 10)
@@ -113,11 +119,11 @@ import {
       </View>
       <View style={styles.border}></View>
             <ScrollView horizontal={true} style={styles.galleryContainer}>
-            {tripsLikedData.length > 0 ? likedTrips : <Text style={{fontFamily:'txt'}}>You have no favorites yet.</Text>}
+              {likedTrips}
             </ScrollView>
             <View style={{marginTop: -16, zIndex: 1,top: -150, left: 340, }} >
             {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}
-            {tripsLikedData.length > 1 ? <SwipeLeft /> : false}   
+            {/* {tripsLiked.length > 1 ? <SwipeLeft /> : false}    */}
             </View>
             <LinearGradient 
         start={{x: 0.75, y: 0.75}} end={{x: 0, y: 0.75}}

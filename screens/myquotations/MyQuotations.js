@@ -37,7 +37,7 @@ import {
       .then((response) => response.json())
       .then((response) => {
         if (response.result) {
-          console.log('Fetch successful')
+          console.log('Fetch of orders successful on MyQuotations')
             for (let order of response.data) {
                 //Si les orders sont en statut Requested ou Received, on les ajoute aux états React correspondant
                 if(order.status === 'Requested' && !requestSent.some(e => e._id === order._id)) {
@@ -50,7 +50,7 @@ import {
         }
         //si data.result = false, le fetch a failed
         else {
-          console.log('Fetch of orders failed.')
+          console.log('Fetch of orders failed on MyQuotations.')
         }
       })
     }, []);
@@ -68,8 +68,10 @@ if (requestSent.length > 0) {
 
             return (
                 <TouchableOpacity key={i} style={styles.tripContainer}>
-                        <Text>Quotation asked on XXX for <Text style={{fontWeight: 'bold', color: 'orange'}}>{data.nbTravelers} persons</Text>.</Text>
-                        <View name="bordereau status" style={{width: '45%', zIndex: 2, position:'absolute', top:'55%', backgroundColor: '#C46B4D', height: '20%', flex: 1, justifyContent:'center', paddingLeft: 5}}><Text style={{fontSize: 11, fontFamily:'txt', color:'white', borderBottomRightRadius:25}}>Waiting for the partner's response</Text></View>
+                        <Text style={{ marginTop: 10, marginBottom:-12}}>Quotation asked on XXX for <Text style={{fontWeight: 'bold', color: 'orange'}}>{data.nbTravelers} persons</Text>.</Text>
+                          <View name="bordereau status" style={{width: '45%', zIndex: 2, position:'absolute', top:'50%', backgroundColor: '#C46B4D', height: '20%', flex: 1, justifyContent:'center', paddingLeft: 5}}>
+                              <Text name="text bordereau" style={{fontSize: 12, fontFamily:'txt', color:'white', borderBottomRightRadius:25}}>Waiting for partner's response</Text>
+                          </View>
                         <Trip id={data._id} price={data.totalPrice} country= {data.trip.country} background={data.trip.background} name={data.trip.name} start={start} end={end} ></Trip>
                     </TouchableOpacity>
             )
@@ -83,15 +85,14 @@ if (requestSent.length > 0) {
 
 if (quotationReceived.length > 0) {
   quotationDisplay = quotationReceived.map((data, i) => {
-    console.log(data._id)
     let start = data.start.slice(5, 10)
     let end = data.end.slice(5, 10)
 
             return (
                 <View key={i} style={styles.tripContainer}>
-                        <Text>Quotation received on XXX for <Text style={{fontWeight: 'bold', color: 'orange'}}>{data.nbTravelers} persons</Text>.</Text>
-                        <View name="bordereau status" style={{width: '45%', zIndex: 2, position:'absolute', top:'55%', backgroundColor: '#8BC4B7', height: '20%', flex: 1, justifyContent:'center', paddingLeft: 5}}>
-                            <Text style={{fontSize: 11, fontFamily:'txt', color:'white', borderBottomRightRadius:25}}>Check it out now!</Text>
+                        <Text style={{ marginTop: 10, marginBottom:-12}}>Quotation received on XXX for <Text style={{fontWeight: 'bold', color: 'orange'}}>{data.nbTravelers} persons</Text>.</Text>
+                        <View name="bordereau status" style={{width: '45%', zIndex: 2, position:'absolute', top:'50%', backgroundColor: '#8BC4B7', height: '20%', flex: 1, justifyContent:'center', paddingLeft: 5}}>
+                            <Text style={{fontSize: 13, fontFamily:'txt', color:'white', borderBottomRightRadius:25}}>Check it out now!</Text>
                         </View>
                         <Trip id={data._id} price={data.totalPrice} country= {data.trip.country} background={data.trip.background} name={data.trip.name} start={start} end={end} ></Trip>
                     </View>
@@ -112,33 +113,32 @@ if (quotationReceived.length > 0) {
 {/* ---------------- DEVIS DEMANDES ---------------- */}
     <View style={styles.cont}>
       <View style={styles.sousHeader} >
-      <Ionicons name='send-outline' size={30}  color={"black"}/>
-
+          <Ionicons name='send-outline' size={30}  color={"black"}/>
           <Text style={styles.smallTitle}>Request sent</Text>
       </View>
       <View style={styles.border}></View>
-            <ScrollView horizontal={true} style={styles.galleryContainer}>
+            <ScrollView horizontal={true} style={styles.scrollView}>
             {sentDisplay}
             </ScrollView>
             <View style={{marginTop: -16, zIndex: 1,top: -150, left: 340, }} >
             {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}
             {requestSent.length > 1 ? <SwipeLeft /> : false}   
             </View>
-            <LinearGradient 
+            {/* <LinearGradient 
         start={{x: 0.75, y: 0.75}} end={{x: 0, y: 0.75}}
         colors={['rgba(255,255,255,0.7)', 'transparent']}
-        style={{position: 'absolute', width: 75, height: 210, top: 25, left: '82%'}}></LinearGradient>
+        style={{position: 'absolute', width: 75, height: 210, top: 25, left: '82%'}}></LinearGradient> */}
     </View>
 
       {/* ---------------- DEVIS RECUS ---------------- */}
-      <View style={{ marginTop: 10 }}>
+      <View style={styles.cont}>
         <View style={styles.sousHeader}>
         <Ionicons name='mail-unread-outline' size={30}  color={"black"}/>
           <Text style={styles.smallTitle}>Quotation received</Text>
         </View>
         <View style={styles.border}></View>
 
-        <ScrollView horizontal={true} style={styles.galleryContainer}>
+        <ScrollView horizontal={true} style={styles.scrollView}>
         {quotationDisplay}
         </ScrollView>
         <View style={{marginTop: -16, zIndex: 1,top: -150, left: 350, }} >
@@ -146,11 +146,11 @@ if (quotationReceived.length > 0) {
          {quotationReceived.length > 1 ? <SwipeLeft /> : false}   
         </View>
         {/* ---------------- WHITE GRADIENT ON THE RIGHT OF THE SCROLL LEFT ---------------- */}
-        <LinearGradient
+        {/* <LinearGradient
           start={{ x: 0.75, y: 0.75 }}
           end={{ x: 0, y: 0.75 }}
           colors={['rgba(255,255,255,0.7)', 'transparent']}
-          style={{ position: 'absolute', width: 75, height: 212, top: '19.5%', left: '82%' }}></LinearGradient>
+          style={{ position: 'absolute', width: 75, height: 212, top: '19.5%', left: '82%' }}></LinearGradient> */}
       </View>
 
         {/* ---------------- FOOTER BOTTOM BAR ---------------- */}

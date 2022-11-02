@@ -47,7 +47,23 @@ import {
       })
 
     //GET THE TRIPS BOOKED BY THE USER
-
+    fetch(`${serverURL}/orders/${TOKEN}`)
+    .then((response) => response.json())
+    .then((response) => {
+      if (response.result) {
+        console.log('Fetch of booked trips successful on MyQuotations')
+          for (let order of response.data) {
+              //Si les orders sont en statut Validated, on les ajoute à tripsBooked.
+              if(order.status === 'Validated' && !tripsBooked.some(e => e._id === order._id)) {
+                setTripsBooked([...tripsBooked, order])
+              }
+          }
+      }
+      //si data.result = false, le fetch a failed
+      else {
+        console.log('Fetch of booked trips failed on MyQuotations.')
+      }
+    })
     
     }, []);
 
@@ -56,23 +72,28 @@ import {
  const likedTrips = tripsLikedData.map((data, i) => {
     const isFavorite = favorites.some(favorite => favorite.id === data.id)
     return (
-            <TouchableOpacity key={i} style={styles.tripContainer} >
+            <View key={i} style={styles.tripContainer} >
                 <Trip {...data} isFavorite={isFavorite}></Trip>
-            </TouchableOpacity>
+            </View>
     )
  })
 
  
 
  // ---------------- MAP PLANED TRIPS ----------------
- const planedTrips = tripsLikedData.map((data, i) => {
-    const isFavorite = favorites.some(favorite => favorite.id === data.id)
+ let planedTrips = <Text style={{fontFamily:'txt'}}>No planed trip yet. Book one now! </Text>
+ if (tripsBooked) {
+  planedTrips = tripsBooked.map((data, i) => {
+    let start = data.start.slice(5, 10)
+    let end = data.end.slice(5, 10)
     return (
-        <TouchableOpacity key={i} style={styles.tripContainer} >
-                <Trip {...data} isFavorite={isFavorite}></Trip>
-            </TouchableOpacity>
+        <View key={i} style={styles.tripContainer}>
+              <Trip id={data._id} price={data.totalPrice} country= {data.trip.country} background={data.trip.background} name={data.trip.name} start={start} end={end} ></Trip>
+        </View>
     )
  })
+ }
+
 
   //*FONT CODE
   const loadedFonts = loadFonts();
@@ -113,7 +134,7 @@ import {
         <View style={styles.border}></View>
 
         <ScrollView horizontal={true} style={styles.galleryContainer}>
-        {tripsBooked.length > 0 ? {planedTrips} : <Text style={{fontFamily:'txt'}}>You have no reservations yet.</Text>}
+          {planedTrips}
         </ScrollView>
         <View style={{marginTop: -16, zIndex: 1,top: -150, left: 350, }} >
         {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}

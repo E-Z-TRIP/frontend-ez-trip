@@ -90,9 +90,11 @@ export default function Trip(props) {
 
           <View name="topBlock" style={{flex: 1, padding: 5, height: '10%', margin: 10, marginTop: 15}}>
             <View style = {styles.topInfos}>
-                <Text style = {styles.title}>{props.name}</Text>
+                <View style={{width: '85%', flexDirection:'row', flexwrap:'wrap'}}>
+                  <Text style = {styles.title}>{props.name}</Text>
+                </View>
                 <AntDesign name='heart' size={18}  color={props.isFavorite ? "#F5612F" : props.isFavorite === undefined ? 'transparent' : "white"} onPress={() => handleLike()}/>
-            </View>
+              </View>
             <Text style = {{fontFamily: 'txt', fontWeight: 'bold', color: 'white', marginTop: 5}}>{props.country}</Text>
           </View>
          
@@ -102,9 +104,7 @@ export default function Trip(props) {
         end={[1, 0]}
         style={{height : '38%', width : '100%', padding: 15, borderRadius: 15}}>
         <View style= {styles.bottomInfo}>
-          <View style={{flex: 1, flexDirection:'column', paddingRight: 5}}>
-            <Text style = {styles.text}>From {start} to {end}</Text>
-          </View>
+            <Text style ={{color:'white', width: '70%'}}>From {start} to {end}</Text>
             {props.price ? <Text style = {styles.text}>Total price: <Text style={{fontWeight: 'bold'}}>{price}</Text>€</Text>:<Text style = {styles.text}>From <Text style={{fontWeight: 'bold'}}>{price}</Text>€</Text>}
         </View>
         </LinearGradient>

@@ -16,9 +16,6 @@ const dispatch = useDispatch ()
 const [textEmail, setTextEmail] = useState("jcvd@hotmail.fr")
 const [textPhone, setTextPhone] = useState("******4781")
 const [textPassword, setTextPassword] = useState("********")
-const hasErrors = () => {
-  return !text.includes('@');
-};
 
 const goToDocument = () => {
   console.log('click')

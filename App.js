@@ -53,9 +53,9 @@ function App() {
           {(store.getState()?.user?.value?.token && <></>) || <Stack.Screen name='OnBoarding' component={OnBoarding} />}
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
+          <Stack.Screen name='Quotation_Display' component={Quotation_Display} />
           <Stack.Screen name='Product' component={ProductScreen} />
           <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
-          <Stack.Screen name='Quotation_Display' component={Quotation_Display} />
           <Stack.Screen name='MyQuotations' component={MyQuotations} />
           <Stack.Screen name='MyTrips' component={MyTrips} />
         </Stack.Navigator>

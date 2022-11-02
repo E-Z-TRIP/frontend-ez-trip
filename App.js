@@ -58,6 +58,7 @@ function App() {
           <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
           <Stack.Screen name='MyQuotations' component={MyQuotations} />
           <Stack.Screen name='MyTrips' component={MyTrips} />
+          <Stack.Screen name='NextStep' component={NextStep} />
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

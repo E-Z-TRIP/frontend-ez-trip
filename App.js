@@ -55,7 +55,6 @@ function App() {
           <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='Quotation_Display' component={Quotation_Display} />
           <Stack.Screen name='Product' component={ProductScreen} />
-          <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
           <Stack.Screen name='MyQuotations' component={MyQuotations} />
           <Stack.Screen name='MyTrips' component={MyTrips} /> */}
           <Stack.Screen name='NextStep' component={NextStep} />

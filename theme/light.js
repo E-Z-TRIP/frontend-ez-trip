@@ -32,6 +32,8 @@ export default class LightTheme {
     stepInfoBg: this.theme.pa3,
     lastStepInfoBg: this.theme.pa1,
     stepInfoText: this.theme.gs7,
+    modalCloseBtn: this.theme.gs0,
+    modalBg: this.theme.gs7,
   };
 
   onBoarding = {

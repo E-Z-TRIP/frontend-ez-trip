@@ -17,7 +17,7 @@ import { convertibleStartDate, convertibleEndDate, getnbDays, getNbNights } from
 
 
 
-  export default function Quotation_Display({ navigation, route: { params: props } }) {
+  export default function Quotation_Display({ navigation, route }) {
     const [order, setOrder]= useState(null)
     const [startDate, setStartDate] = useState(null)
     const [endDate, setEndDate] = useState(null)
@@ -27,7 +27,7 @@ import { convertibleStartDate, convertibleEndDate, getnbDays, getNbNights } from
 
     //*fetch
     useEffect(() => {
-    fetch(`${serverURL}/orders/offer/6362317b83acaf90122bf154`)
+    fetch(`${serverURL}/orders/offer/${route.params.id}`)
     .then(response => response.json())
     .then(data => {
       if (data.result) {
@@ -38,14 +38,14 @@ import { convertibleStartDate, convertibleEndDate, getnbDays, getNbNights } from
         setNbNights(getNbNights(data.data.start, data.data.end))
         setStatus(data.data.status)
       } else {
-        console.log('oupsi')
+        console.log('fetch failed @ quotation_display')
       }
     })
     }, [])
-    
+
     const handleButtonReceived = () => {
       console.log('oui')
-      fetch(`${serverURL}/orders/updateStatus/6362317b83acaf90122bf154`, {
+      fetch(`${serverURL}/orders/updateStatus/${route.params.id}`, {
         method: 'PUT',
       })
       .then(response => response.json())
@@ -89,7 +89,7 @@ return (
     <Text style={styles.recapTravel}>{order.nbTravelers} travelers</Text>
     <Text style={styles.recapTravel}>From {startDate} to {endDate}</Text>
     <Text style={styles.recapTravel}>Special requests :</Text>
-    <Text style={styles.recapTravel}>        {order.comments}</Text>
+    <Text style={styles.recapTravel}>{order.comments}</Text>
 
   </View>
  ) : <View></View>

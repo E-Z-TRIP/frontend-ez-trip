@@ -20,35 +20,30 @@ import {
   import styles from './style.css'
   import { serverURL } from '../../api/backend_request';
   import { useDispatch, useSelector } from 'react-redux';
+  import { getMonthName, convertDate } from '../../assets/helpers';
 
-
-
-  export default function MyTrips() {
+  export default function MyQuotations() {
 
     //constantes générales
-    const tripLiked = useSelector((state) => state.user.favorites);
     const TOKEN = useSelector((state) => state.user.value.token);
-    const favorites = useSelector((state) => state.user.favorites);
 
     //store les orders à display (sent + received)
     const [requestSent, setRequestSent] = useState([]);
     const [quotationReceived, setQuotationReceived] = useState([]);
-    const [orders, setOrders] = useState([]);
 
     useEffect(() => {
     //GET THE TRIPS BOOKED BY THE USER
     fetch(`${serverURL}/orders/${TOKEN}`)
       .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-            for (let order of data.data) {
-                console.log(order.status)
+      .then((response) => {
+        if (response.result) {
+          console.log('Fetch successful')
+            for (let order of response.data) {
                 //Si les orders sont en statut Requested ou Received, on les ajoute aux états React correspondant
-                if(order.status === 'Requested' && !requestSent.some(e => e._id ===order._id)) {
+                if(order.status === 'Requested' && !requestSent.some(e => e._id === order._id)) {
                     setRequestSent([...requestSent, order])
                 }
-
-                else if (orders.status === 'Received' && !quotationReceived.some(e => e._id ===order._id)) {
+                else if (order.status === 'Received' && !quotationReceived.some(e => e._id === order._id)) {
                     setQuotationReceived([...quotationReceived, order])
                 }
             }
@@ -63,37 +58,47 @@ import {
 
   // ---------------- MAP QUOTATION ASKED ----------------
 
-let receivedDisplay
-if (quotationReceived) {
-    receivedDisplay = quotationReceived.map((data, i) => {
-        if(data.status === 'Requested') {
+  //s'il n'y a rien à afficher (requestSent.length = 0), on ne display qu'une balise Text
+let sentDisplay = <Text style={{fontFamily:'txt'}}>No quotation asked yet.</Text>
+
+if (requestSent.length > 0) {
+  sentDisplay = requestSent.map((data, i) => {
+
+    let start = data.start.slice(5, 10)
+    let end = data.end.slice(5, 10)
+
             return (
-                <TouchableOpacity key={i} style={styles.tripContainer} >
-                        <Text>Quotation asked on XXX</Text>
-                        <Trip {...data.trip}></Trip>
+                <TouchableOpacity key={i} style={styles.tripContainer}>
+                        <Text>Quotation asked on XXX for <Text style={{fontWeight: 'bold', color: 'orange'}}>{data.nbTravelers} persons</Text>.</Text>
+                        <View name="bordereau status" style={{width: '45%', zIndex: 2, position:'absolute', top:'55%', backgroundColor: '#C46B4D', height: '20%', flex: 1, justifyContent:'center', paddingLeft: 5}}><Text style={{fontSize: 11, fontFamily:'txt', color:'white', borderBottomRightRadius:25}}>Waiting for the partner's response</Text></View>
+                        <Trip price={data.totalPrice} country= {data.trip.country} background={data.trip.background} name={data.trip.name} start={start} end={end} ></Trip>
                     </TouchableOpacity>
             )
-        }
      })
 }
 
-
    // ---------------- MAP QUOTATION RECEIVED ----------------
 
-   let sentDisplay
-   if (requestSent) {
-    sentDisplay = requestSent.map((data, i) => {
-           if(data.status === 'Requested') {
-               return (
-                   <TouchableOpacity key={i} style={styles.tripContainer} >
-                           <Text>Quotation asked on XXX</Text>
-                           <Trip {...data.trip}></Trip>
-                       </TouchableOpacity>
-               )
-           }
-        })
-   }
+  //s'il n'y a rien à afficher (requestSent.length = 0), on ne display qu'une balise Text
+  let quotationDisplay = <Text style={{fontFamily:'txt'}}>No quotation received yet.</Text>
 
+if (quotationReceived.length > 0) {
+  quotationDisplay = quotationReceived.map((data, i) => {
+
+    let start = data.start.slice(5, 10)
+    let end = data.end.slice(5, 10)
+
+            return (
+                <TouchableOpacity key={i} style={styles.tripContainer}>
+                        <Text>Quotation received on XXX for <Text style={{fontWeight: 'bold', color: 'orange'}}>{data.nbTravelers} persons</Text>.</Text>
+                        <View name="bordereau status" style={{width: '45%', zIndex: 2, position:'absolute', top:'55%', backgroundColor: '#8BC4B7', height: '20%', flex: 1, justifyContent:'center', paddingLeft: 5}}>
+                            <Text style={{fontSize: 11, fontFamily:'txt', color:'white', borderBottomRightRadius:25}}>Check it out now!</Text>
+                        </View>
+                        <Trip price={data.totalPrice} country= {data.trip.country} background={data.trip.background} name={data.trip.name} start={start} end={end} ></Trip>
+                    </TouchableOpacity>
+            )
+     })
+}
 
   //*FONT CODE
   const loadedFonts = loadFonts();
@@ -105,7 +110,7 @@ if (quotationReceived) {
       <View style={styles.header}>
         <Text style={styles.title}>My quotations</Text>
       </View>
-{/* ---------------- LIKED TRIPS ---------------- */}
+{/* ---------------- DEVIS DEMANDES ---------------- */}
     <View style={styles.cont}>
       <View style={styles.sousHeader} >
       <Ionicons name='send-outline' size={30}  color={"black"}/>
@@ -114,7 +119,7 @@ if (quotationReceived) {
       </View>
       <View style={styles.border}></View>
             <ScrollView horizontal={true} style={styles.galleryContainer}>
-            {requestSent.length > 0 ? false : <Text style={{fontFamily:'txt'}}>No quotation asked yet.</Text>}
+            {sentDisplay}
             </ScrollView>
             <View style={{marginTop: -16, zIndex: 1,top: -150, left: 340, }} >
             {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}
@@ -126,7 +131,7 @@ if (quotationReceived) {
         style={{position: 'absolute', width: 75, height: 210, top: 25, left: '82%'}}></LinearGradient>
     </View>
 
-      {/* ---------------- QUOTATIONS TO BE REVIEWED ---------------- */}
+      {/* ---------------- DEVIS RECUS ---------------- */}
       <View style={{ marginTop: 10 }}>
         <View style={styles.sousHeader}>
         <Ionicons name='mail-unread-outline' size={30}  color={"black"}/>
@@ -135,7 +140,7 @@ if (quotationReceived) {
         <View style={styles.border}></View>
 
         <ScrollView horizontal={true} style={styles.galleryContainer}>
-        {quotationReceived.length > 0 ? false : <Text style={{fontFamily:'txt'}}>You have no quotation to review.</Text>}
+        {quotationDisplay}
         </ScrollView>
         <View style={{marginTop: -16, zIndex: 1,top: -150, left: 350, }} >
         {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}

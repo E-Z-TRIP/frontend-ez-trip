@@ -29,7 +29,7 @@ export default function Discover({ navigation }) {
         if (data.result) {
           setTripsData(data.trips);
         } else {
-          console.log('Fetch of trips failed.');
+          console.log('Fetch of trips failed on Discover.');
         }
       });
 

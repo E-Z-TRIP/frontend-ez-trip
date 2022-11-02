@@ -16,24 +16,40 @@ export function getMonthName(month){
    }
  
    export function convertibleStartDate(iso) {
-    const date = iso.substr(0, 10);
-    return date
+    const date = new Date(iso)
+    let month = date.getMonth()+1 >= 10 ? date.getMonth()+1 : '0'+ (date.getMonth()+1)
+    const day = date.getDate()
+    const datey = `${day}/${month}`
+    return datey
+    
+    
+    // const date = iso.substr(0, 10);
+    return 
+    // date
   }
 
   export function convertibleEndDate(iso) {
-    const date = iso.substr(5, 5);
-    return date
+    const date = new Date(iso)
+    const year = date.getFullYear()
+    let month = date.getMonth()+1 >= 10 ? date.getMonth()+1 : '0'+ (date.getMonth()+1)
+    const day = date.getDate()
+    const datey = `${day}/${month}/${year}`
+    return datey
   }
 
   export function getnbDays(date1, date2) {
-    let datest = new Date(date1)
-    let dateen = new Date(date2)
-    const Diff_temps  = dateen.getTime() - datest.getTime(); 
+    let dateStart = new Date(date1)
+    let dateEnd = new Date(date2)
+    const Diff_temps  = dateEnd.getTime() - dateStart.getTime(); 
     var Diff_jours = Diff_temps / (1000 * 3600 * 24);
-    console.log('dif', Diff_jours)
     return Math.round(Diff_jours)
   }
 
-  export function getNbNights(number) {
+  export function getNbNights(date1, date2) {
+    let dateStart = new Date(date1)
+    let dateEnd = new Date(date2)
+    const Diff_temps  = dateEnd.getTime() - dateStart.getTime(); 
+    var Diff_jours = Diff_temps / (1000 * 3600 * 24);
+    let number = Math.round(Diff_jours)
     return number-1
   }

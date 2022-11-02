@@ -7,6 +7,7 @@ import ProductScreen from './screens/product/ProductScreen';
 import Search from './screens/search/Search';
 import OnBoarding from './screens/on_boarding/OnBoarding';
 import MyQuotations from './screens/myquotations/MyQuotations';
+import NexStep from './screens/next_step/NextStep';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { lightTheme, darkTheme } from './theme/theme';
 import { useColorScheme } from 'react-native';
@@ -15,7 +16,7 @@ import { setTheme, selectTheme } from './reducers/theme';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Quotation_Request from './screens/quotation_request/Quotation_Request';
-import Quotation_Received from './screens/Quotation_Received/Quotation_Received';
+import Quotation_Display from './screens/Quotation_Received/Quotation_Display';
 import MyDocuments from './screens/mydocuments/MyDocuments';
 import MyTrips from './screens/mytrips/MyTrips';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -35,7 +36,7 @@ function App() {
     })();
   }, []);
 
-  // console.log('dans app.js');
+  console.log(loadedStorage);
 
   // Un-comment this if using light and dark mode
 
@@ -50,12 +51,13 @@ function App() {
   return (
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <PersistGate persistor={persistor}>
-        <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false }}>
+        <Stack.Navigator initialRouteName='NextStep' screenOptions={{ headerShown: false, gestureEnabled: false }}>
+          <Stack.Screen name='NextStep' component={NexStep} />
           {(store.getState()?.user?.value?.token && <></>) || <Stack.Screen name='OnBoarding' component={OnBoarding} />}
+          <Stack.Screen name='MyTrips' component={MyTrips} />
           <Stack.Screen name='Discover' component={Discover} />
           <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='Product' component={ProductScreen} />
-          <Stack.Screen name='MyDocuments' component={MyDocuments} />
           <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
           <Stack.Screen name='Quotation_Received' component={Quotation_Received} />
           <Stack.Screen name='MyQuotations' component={MyQuotations} />

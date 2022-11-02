@@ -6,22 +6,20 @@
     "orientation": "portrait",
     "packagerOpts": {
       "config": "metro.config.js",
-      "sourceExts": [
-        "js",
-        "jsx",
-        "css",
-        "pcss"
-      ]
+      "sourceExts": ["js", "jsx", "css", "pcss"]
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "plugins": ["@react-native-google-signin/google-signin"],
+    "assetBundlePatterns": ["**/*"],
+    "android": {
+      "googleServicesFile": "./google-services.json"
+    },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "a"
+      "bundleIdentifier": "a",
+      "googleServicesFile": "./GoogleService-Info.plist"
     }
   }
 }

@@ -81,6 +81,14 @@
   font-family: 'txt';
   font-size: 18px;
 }
+.phone {
+  font-family: 'txt';
+  font-size: 18px;
+}
+.address {
+  font-family: 'txt';
+  font-size: 18px;
+}
 .documentBtn {
   align-items: center;
   justify-content: center;

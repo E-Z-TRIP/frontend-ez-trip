@@ -107,8 +107,8 @@ function SecondSlide(props) {
     <View {...props} style={styles.slideContainer}>
       <Text style={{ ...styles.descriptionSlideHeader, color: onBoarding.text }}>A human adventure</Text>
       <Text style={{ ...styles.descriptionSlideText, color: onBoarding.text }}>
-        At E-Z TRIPS, we believe that travelling broadens the mind and has the possibility to change the way you think.  
-        Through travel, we want to connect people who wouldn't have meet otherwise.
+        At EZ TRIPS, we believe that travelling broadens the mind and has the potential to change the way you think.  
+        Through a new travel experience, we want to connect people that wouldn't have met otherwise
         {/* At EZ TRIPS, our mission is to give you the best vacation of your life. And for that, we find you the best hosts
         around the world. */}
       </Text>
@@ -123,10 +123,9 @@ function ThirdSlide(props) {
     <View {...props} style={styles.slideContainer}>
       <Text style={{ ...styles.descriptionSlideHeader, color: onBoarding.text }}>Quality service</Text>
       <Text style={{ ...styles.descriptionSlideText, color: onBoarding.text }}>
-        At EZ-TRIPS, our Mission is to perform and deliver excellent quality service to our clients.
-        We hand-picked and vetted every travel agency you'll come across on our app. 
-        {/* At EZ TRIPS, our mission is to give you the best vacation of your life. And for that, we find you the best hosts
-        around the world. */}
+        At EZ TRIPS, our mission is to deliver and ensure excellent quality service to our clients.
+        We curated and vetted every travel agency and trip you'll come across on our app. 
+
       </Text>
     </View>
   );
@@ -139,9 +138,9 @@ function FourthSlide(props) {
     <View {...props} style={styles.slideContainer}>
       <Text style={{ ...styles.descriptionSlideHeader, color: onBoarding.text }}>Commited partners</Text>
       <Text style={{ ...styles.descriptionSlideText, color: onBoarding.text }}>
-        On our app, you'll only find trips from small travel agencies. We believe in the FAIR tourism industry. A fair price to compensate equitably everyone, every step of your journey. From your travel agent, to the local guide at your destination.
-        {/* At EZ TRIPS, our mission is to give you the best vacation of your life. And for that, we find you the best hosts
-        around the world. */}
+        We partner mainly with small travel agencies and make fair tourism our priority. 
+        We make sure everyone is compensated equitably, from your travel agent to your local guide.
+        
       </Text>
     </View>
   );

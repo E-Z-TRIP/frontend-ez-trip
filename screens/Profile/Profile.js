@@ -35,7 +35,15 @@ export default function Profile({ navigation }) {
           />
         </View>
         <View style={styles.userInfo}>
-          <Text style={styles.email}>{user.email}</Text>
+          <View style={styles.emailWrapper}>
+            <Text style={styles.email}>{user.email}</Text>
+          </View>
+          <View style={styles.phoneWrapper}>
+            <Text style={styles.phone}>017659091</Text>
+          </View>
+          <View style={styles.addressWrapper}>
+            <Text style={styles.address}>5 rue des moulins, 7500 Tournai, Belgique</Text>
+          </View>
         </View>
         <ViewDocumentsBtn navigation={navigation} />
       </View>
@@ -43,6 +51,10 @@ export default function Profile({ navigation }) {
       <BottomToolbar />
     </>
   );
+}
+
+function EditButton() {
+  return;
 }
 
 function ViewDocumentsBtn({ navigation }) {

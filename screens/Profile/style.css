@@ -1,114 +1,35 @@
-.container {
-  padding: 25px;
+.mainContainer {
   flex: 1;
-  height: 100%;
-  flex-direction: column;
-  justify-content: space-around;
+  align-items: center;
+  padding: 20px 30px;
 }
 
 .header {
-  margin-top: 35px;
-  width: 100%;
-  height: 30%;
-  flex: 1;
-  flex-direction: column;
-}
-
-.title {
-  font-family: 'heading';
-  font-size: 3rem;
-  margin-bottom: 8px;
-  justify-content: center;
-  align-content: center;
-}
-
-.texts {
-  font-family: 'txt';
+  margin-top: 20px;
   flex-direction: row;
-
-  align-content: center;
+  width: 100%;
+}
+.logoutBtn {
+  padding-left: 10px;
+  align-items: center;
   justify-content: center;
 }
-.textButton {
-    font-family: "txt";
-    font-size: 16;
-    color: whitesmoke;
+.logoutBtnTxt {
+  font-family: 'txt';
+  font-size: 16px;
 }
-.textLogOut {
-    font-family: "txt";
-    font-size: 16;
-    color: #C46B4D;
+.username {
+  font-family: 'heading';
+  font-size: 30px;
+  margin-right: auto;
 }
-
-.border {
-  border-bottom-color: black;
-  border-bottom-width: 1px;
-  width: 80%;
-  background-color: pink;
-  height: 1px;
-  margin-top: 80px;
-  align-self: center;
-}
-.borderie {
-    border-bottom-color: black;
-    border-bottom-width: 2px;
-    width: 85%;
-    height: 1px;
-    margin-left: 5;
-  }
-
-.profilePhoto {
-  margin-bottom: 16px;
-  background: white;
-  width: 160px;
-  height: 160px;
-  border: 2px solid black;
-  margin: auto;
-  overflow: hidden;
+.photoContainer {
+  margin-top: 30px;
+  width: 100%;
+  align-items: center;
 }
 .photo {
-    border-radius: 50px;
-    width: 100%;
-    height: 100%;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
 }
-
-.penIcon {
-  margin-left: 63%;
-}
-
-.textOverBorder {
-  font-size: 16px;
-  padding: 8px;
-  margin: -3px;
-}
-
-.logOut{
-    border: #C46B4D 1px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 35px;
-    width: 151px;
-    height: 39px;
-    margin: auto;
-    margin-top: 40px;
-    padding: 8px;
-}
-
-.myDocumentsButton {
-    background-color: #C46B4D;
-    justify-content: center;
-    align-items: center;
-    border-radius: 35px;
-    width: 302px;
-    height: 39px;
-    margin: auto;
-    margin-top: 40px;
-    padding: 8px;
-}
-
-/* .containerKeyboard {
-    flex: 1;
-    align-items: center;
-    justify-content : center;
-    
-} */

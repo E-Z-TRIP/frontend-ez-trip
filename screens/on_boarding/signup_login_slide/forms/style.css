@@ -17,7 +17,7 @@
 }
 .closeBtn {
   align-self: flex-end;
-  margin-right: 8px;
+  padding: 0 8px;
 }
 .inputWrapper {
   width: 100%;

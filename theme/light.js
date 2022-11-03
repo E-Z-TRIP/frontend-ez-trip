@@ -25,6 +25,18 @@ export default class LightTheme {
     gs7: '#ffffff',
   };
 
+  profile = {
+    textInputPrimary: this.theme.gs0,
+    textInputActive: this.theme.gs0,
+    textInputPlaceholder: this.theme.gs3,
+    textInputTxt: this.theme.gs0,
+    textInputUnderline: this.theme.gs0,
+    error: '#ff4949',
+    inputIcon: this.theme.gs1,
+    submitBtn: this.theme.pa1,
+    submitBtnText: this.theme.gs7,
+  };
+
   nextStep = {
     animatedPath: this.theme.gs7,
     animatedPointer: this.theme.pa1,

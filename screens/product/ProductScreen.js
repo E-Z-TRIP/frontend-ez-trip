@@ -11,8 +11,6 @@ import {
   Linking,
 } from 'react-native';
 
-import Contact from '../../components/icons/contact';
-
 import styles from './style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadFonts } from '../../assets/fonts/fonts';
@@ -22,7 +20,6 @@ import { serverURL } from '../../api/backend_request';
 import { Directions, ScrollView } from 'react-native-gesture-handler';
 import MapView, { Marker } from 'react-native-maps';
 import Cross from '../../components/icons/cross';
-import * as Network from 'expo-network';
 import ShowMore from 'react-native-show-more-button';
 import Scroll from '../../components/icons/scrollDown';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -32,7 +29,6 @@ import Slideshow from 'react-native-image-slider-show';
 const iso = require('iso-3166-1');
 
 export default function ProductScreen({ navigation, route: { params: props } }) {
-  console.log(props);
   /* ---------------- INITIALISATION DES CONSTANTES ----------------  */
   const dispatch = useDispatch();
   //store toutes les données du trip fetché au chargement du composant
@@ -59,10 +55,8 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
     fetch(`${serverURL}/trips/tripById/${props.id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.result) {
           setTrip(data.trip);
-          console.log('trip', data.trip.program);
         } else {
           console.log('no trip received');
         }
@@ -249,9 +243,10 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
       {/* ---------------- MODAL = FICHE PRODUIT ---------------- */}
 
       <Modal
-        animationType='slide'
+        statusBarTranslucent={true}
+        animationType='slide' 
         visible={modalVisible}
-        presentationStyle='fullScreen'
+        presentationStyle="fullScreen"
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
@@ -321,6 +316,7 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
                 <Text style={styles.smallTitle}>Localisation :</Text>
                 {lat && lon ? (
                   <MapView
+                    scrollEnabled={false}
                     loadingBackgroundColor='#C46B4D'
                     tintColor='#C46B4D'
                     style={styles.map}

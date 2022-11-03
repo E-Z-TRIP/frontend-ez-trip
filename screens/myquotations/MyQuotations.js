@@ -169,7 +169,7 @@ export default function MyQuotations() {
         </ScrollView>
         <View style={{ marginTop: -16, zIndex: 1, top: -150, left: 340 }}>
           {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}
-          {requestSent.length > 1 ? <SwipeLeft /> : false}
+          {/* {requestSent.length > 1 ? <SwipeLeft /> : false} */}
         </View>
         {/* <LinearGradient 
         start={{x: 0.75, y: 0.75}} end={{x: 0, y: 0.75}}
@@ -190,7 +190,7 @@ export default function MyQuotations() {
         </ScrollView>
         <View style={{marginTop: -16, zIndex: 1, top: -150, left: 350 }}>
           {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}
-          {quotationReceived.length > 1 ? <SwipeLeft /> : false}
+          {/* {quotationReceived.length > 1 ? <SwipeLeft /> : false} */}
         </View>
         {/* ---------------- WHITE GRADIENT ON THE RIGHT OF THE SCROLL LEFT ---------------- */}
         {/* <LinearGradient

@@ -12,7 +12,6 @@ import StepInfo from './step_info/StepInfo';
 import { inspect } from '../../lib/inspector';
 
 export default function NexStep({ navigation, route: { params: data } }) {
-  const loadedFonts = loadFonts();
   const { nextStep } = useTheme();
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -23,7 +22,8 @@ export default function NexStep({ navigation, route: { params: data } }) {
   useEffect(() => {
     if (currentStep === 0) incrementStep();
   }, [currentStep]);
-
+  
+  const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
 
   return (

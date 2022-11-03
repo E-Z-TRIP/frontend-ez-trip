@@ -12,7 +12,7 @@ import styles from './style.css';
 import { serverURL } from '../../api/backend_request';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function MyTrips({ param }) {
+export default function MyTrips({ navigation }) {
   //constantes générales
   const tripLiked = useSelector((state) => state.user.favorites);
   const TOKEN = useSelector((state) => state.user.value.token);
@@ -44,7 +44,7 @@ export default function MyTrips({ param }) {
           console.log('Fetch of booked trips successful on MyTrips');
           for (let order of response.data) {
             //Si les orders sont en statut Validated, on les ajoute à tripsBooked.
-            if (order.status === 'Validated' && !tripsBooked.some((e) => e._id === order._id)) {
+            if (order.status === 'Validated') {
               bookedTrips.push(order)
             }
           }
@@ -78,7 +78,7 @@ export default function MyTrips({ param }) {
   // ---------------- MAP PLANED TRIPS ----------------
 
   //if tripsBooked is empty, just show a default Text div.
-  let planedTrips = <Text style={{ fontFamily: 'txt' }}>No planed trip yet. Book one now! </Text>;
+  let planedTrips = <Text style={{ fontFamily: 'txt' }}>No planned trip yet. Book one now! </Text>;
   if (tripsBooked && tripsBooked.length > 0) {
     planedTrips = tripsBooked.map((data, i) => {
       let start = data.start.slice(5, 10);
@@ -133,10 +133,9 @@ export default function MyTrips({ param }) {
       <View style={{ marginTop: 10 }}>
         <View style={styles.sousHeader}>
           <TripPlaned />
-          <Text style={styles.smallTitle}>Planed trips</Text>
+          <Text style={styles.smallTitle}>Planned trips</Text>
         </View>
         <View style={styles.border}></View>
-
         <ScrollView horizontal={true} style={styles.galleryContainer}>
           {planedTrips}
         </ScrollView>
@@ -150,6 +149,9 @@ export default function MyTrips({ param }) {
           end={{ x: 0, y: 0.75 }}
           colors={['rgba(255,255,255,0.7)', 'transparent']}
           style={{ position: 'absolute', width: 75, height: 212, top: '19.5%', left: '82%' }}></LinearGradient>
+         <TouchableOpacity style={styles.documentBtn} onPress={() => navigation.navigate('MyDocuments')}>
+          <Text style={styles.documentBtnTxt}>View documents</Text>
+          </TouchableOpacity>
       </View>
 
       {/* ---------------- FOOTER BOTTOM BAR ---------------- */}

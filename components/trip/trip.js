@@ -8,7 +8,6 @@ import { addFavorites, deleteFavorite } from '../../reducers/user';
 import { serverURL } from '../../api/backend_request';
 import { getMonthName } from '../../assets/helpers';
 
-
 export default function Trip(props) {
   //constantes générales
   const dispatch = useDispatch();
@@ -83,16 +82,7 @@ export default function Trip(props) {
     }
   };
 
-  const styles = StyleSheet.create({
-    shadowProp: {
-        shadowColor: '#171717',
-        shadowOffset: {width: 0, height: 3},
-        shadowOpacity: 0.4,
-        shadowRadius: 2,
-      },})
-
   return (
-    <DropShadow style={styles.shadowProp}>
     <TouchableOpacity style={styles.container} onPress={() => handleNavigation()}>
       <ImageBackground
         imageStyle={{ borderRadius: 15 }}
@@ -145,6 +135,5 @@ export default function Trip(props) {
         </LinearGradient>
       </ImageBackground>
     </TouchableOpacity>
-    </DropShadow>
   );
 }

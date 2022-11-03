@@ -49,7 +49,7 @@ export default function LastStep({ label, step, title, information, currentStep,
                 setModalVisible(false);
                 navigation.navigate('MyQuotations');
               }}>
-              <Text style={{ ...styles.restartBtnTxt, color: nextStep.lastRestartBtnTxt }}>Restart</Text>
+              <Text style={{ ...styles.restartBtnTxt, color: nextStep.lastRestartBtnTxt }}>Go to your quotations</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -53,10 +53,10 @@ function stepInfoCollection(currentStep, incrementStep) {
 
   return [
     <StepInfo
-      label='Treatment of your request'
-      title={`What's next ?`}
+      label='Wait it out'
+      title={`Request sent`}
       information={
-        'The travel agency is treating your request.'
+        'The travel agency is treating your request and will get back to you shortly.'
       }
       step={1}
       currentStep={currentStep}
@@ -68,10 +68,10 @@ function stepInfoCollection(currentStep, incrementStep) {
       }}
     />,
     <StepInfo
-      label='Quotation ready!'
-      title='And then...'
+      label='Check it out'
+      title='Review the quotation'
       information={
-        `You'll get a notification once your quotation is ready`
+        `You'll get a notification once your quotation is ready, from there take your time to read it through and confirm it.`
       }
       step={2}
       currentStep={currentStep}
@@ -83,10 +83,10 @@ function stepInfoCollection(currentStep, incrementStep) {
       }}
     />,
     <StepInfo
-      label='Paiement'
-      title='After that...'
+      label='Cash out'
+      title='Payment'
       information={
-        `After you accept the quotation, the travel agency will get in touch with you via email for the last details and to proceed with paiement`
+        `Upon accepting the quotation, the travel agency will get in touch with you via email to review the last details and proceed with payment`
       }
       step={3}
       currentStep={currentStep}
@@ -98,10 +98,10 @@ function stepInfoCollection(currentStep, incrementStep) {
       }}
     />,
     <StepInfo
-      label='Adding your documents'
-      title='Finally...'
+      label='Getting ready'
+      title='Add your documents'
       information={
-        `You'll find all the details of your reservation directly on EZ TRIPS in 'My trips' section. You can add your travel documents on your profile, in the section 'My Documents'`
+        `You'll find all the details of your reservation directly on EZ TRIPS in the 'My trips' section. You can add your travel documents on your profile, in the 'My Documents' section`
       }
       step={4}
       currentStep={currentStep}

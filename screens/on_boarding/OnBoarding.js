@@ -108,7 +108,7 @@ function SecondSlide(props) {
       <Text style={{ ...styles.descriptionSlideHeader, color: onBoarding.text }}>A human adventure</Text>
       <Text style={{ ...styles.descriptionSlideText, color: onBoarding.text }}>
         At EZ TRIPS, we believe that travelling broadens the mind and has the potential to change the way you think.  
-        Through a new travel experience, we want to connect people that wouldn't have met otherwise
+        Through a new travel experience, we want to connect people that wouldn't have met otherwise.
         {/* At EZ TRIPS, our mission is to give you the best vacation of your life. And for that, we find you the best hosts
         around the world. */}
       </Text>

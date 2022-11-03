@@ -4,10 +4,12 @@ import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
 import CrossBtn from '../../../components/close_button/CloseButton';
 import FadeContainer from '../../../components/fade_container/FadeContainer';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LastStep({ label, step, title, information, currentStep, containerStyle, incrementStep }) {
   const { nextStep } = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
+  const navigation = useNavigation();
 
   return (
     <>
@@ -44,8 +46,8 @@ export default function LastStep({ label, step, title, information, currentStep,
               activeOpacity={0.8}
               style={{ ...styles.restartBtn, backgroundColor: nextStep.lastRestartBtn }}
               onPress={() => {
-                incrementStep();
                 setModalVisible(false);
+                navigation.navigate('MyQuotations');
               }}>
               <Text style={{ ...styles.restartBtnTxt, color: nextStep.lastRestartBtnTxt }}>Restart</Text>
             </TouchableOpacity>

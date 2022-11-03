@@ -40,13 +40,15 @@ export default function MyTrips({ param }) {
       .then((response) => response.json())
       .then((response) => {
         if (response.result) {
+          const bookedTrips = []
           console.log('Fetch of booked trips successful on MyTrips');
           for (let order of response.data) {
             //Si les orders sont en statut Validated, on les ajoute à tripsBooked.
             if (order.status === 'Validated' && !tripsBooked.some((e) => e._id === order._id)) {
-              setTripsBooked([...tripsBooked, order]);
+              bookedTrips.push(order)
             }
           }
+          setTripsBooked(bookedTrips);
         }
         //si data.result = false, le fetch a failed
         else {
@@ -55,13 +57,16 @@ export default function MyTrips({ param }) {
       });
   }, []);
 
+  useEffect(() => {
+    console.log('hooks updated', tripsLiked, tripsBooked)
+  }, [tripsLiked])
+
   //---------------- MAP LIKED TRIPS  ----------------
 
   //if tripsLiked is empty, just show a default Text div.
-  let likedTrips = <Text style={{ fontFamily: 'txt' }}>No planed trip yet. Book one now! </Text>;
+  let likedTrips = <Text style={{ fontFamily: 'txt' }}>No liked trip yet. Book one now! </Text>;
   if (tripsLiked) {
     likedTrips = tripsLiked.map((data, i) => {
-      console.log(data);
       const isFavorite = favorites.some((favorite) => favorite.id === data.id);
       return (
         <View key={i} style={styles.tripContainer}>

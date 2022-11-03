@@ -32,7 +32,6 @@ import Slideshow from 'react-native-image-slider-show';
 const iso = require('iso-3166-1');
 
 export default function ProductScreen({ navigation, route: { params: props } }) {
-  console.log(props);
   /* ---------------- INITIALISATION DES CONSTANTES ----------------  */
   const dispatch = useDispatch();
   //store toutes les données du trip fetché au chargement du composant
@@ -59,10 +58,8 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
     fetch(`${serverURL}/trips/tripById/${props.id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.result) {
           setTrip(data.trip);
-          console.log('trip', data.trip.program);
         } else {
           console.log('no trip received');
         }
@@ -200,7 +197,6 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           if (data.result) {
             //rajout dans le reducer
             dispatch(addFavorites(data.tripLiked));

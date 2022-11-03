@@ -28,15 +28,19 @@ export default function MyQuotations() {
       .then((response) => response.json())
       .then((response) => {
         if (response.result) {
+          const totalRequests = []
+          const totalQuotations = []
           console.log('Fetch of orders successful on MyQuotations');
           for (let order of response.data) {
             //Si les orders sont en statut Requested ou Received, on les ajoute aux états React correspondant
-            if (order.status === 'Requested' && !requestSent.some((e) => e._id === order._id)) {
-              setRequestSent([...requestSent, order]);
-            } else if (order.status === 'Received' && !quotationReceived.some((e) => e._id === order._id)) {
-              setQuotationReceived([...quotationReceived, order]);
+            if (order.status === 'Requested' && !totalRequests.some((e) => e._id === order._id)) {
+              totalRequests.push(order)
+            } else if (order.status === 'Received' && !totalQuotations.some((e) => e._id === order._id)) {
+              totalQuotations.push(order)
             }
           }
+          setRequestSent(totalRequests) 
+          setQuotationReceived(totalQuotations)
         }
         //si data.result = false, le fetch a failed
         else {
@@ -56,23 +60,25 @@ export default function MyQuotations() {
       let end = data.end.slice(5, 10);
 
       return (
-        <TouchableOpacity key={i} style={styles.tripContainer}>
+        <View key={i} style={styles.tripContainer}>
           <Text style={{ marginTop: 10, marginBottom: -12 }}>
-            Quotation asked on XXX for{' '}
+            Quotation asked for{' '}
             <Text style={{ fontWeight: 'bold', color: 'orange' }}>{data.nbTravelers} persons</Text>.
           </Text>
           <View
             name='bordereau status'
             style={{
-              width: '45%',
+              borderRadius: 5,
+              width: '50%',
               zIndex: 2,
               position: 'absolute',
-              top: '50%',
+              top: '45%',
               backgroundColor: '#C46B4D',
               height: '20%',
               flex: 1,
+              left: '50%',
               justifyContent: 'center',
-              paddingLeft: 5,
+              paddingLeft: 10,
             }}>
             <Text
               name='text bordereau'
@@ -88,7 +94,7 @@ export default function MyQuotations() {
             name={data.trip.name}
             start={start}
             end={end}></Trip>
-        </TouchableOpacity>
+        </View>
       );
     });
   }
@@ -106,21 +112,23 @@ export default function MyQuotations() {
       return (
         <View key={i} style={styles.tripContainer}>
           <Text style={{ marginTop: 10, marginBottom: -12 }}>
-            Quotation received on XXX for{' '}
+            Quotation received for{' '}
             <Text style={{ fontWeight: 'bold', color: 'orange' }}>{data.nbTravelers} persons</Text>.
           </Text>
           <View
             name='bordereau status'
             style={{
-              width: '45%',
+              borderRadius: 5,
+              width: '50%',
               zIndex: 2,
               position: 'absolute',
-              top: '50%',
+              top: '45%',
               backgroundColor: '#8BC4B7',
               height: '20%',
               flex: 1,
+              left: '50%',
               justifyContent: 'center',
-              paddingLeft: 5,
+              paddingLeft: 10,
             }}>
             <Text style={{ fontSize: 13, fontFamily: 'txt', color: 'white', borderBottomRightRadius: 25 }}>
               Check it out now!
@@ -180,7 +188,7 @@ export default function MyQuotations() {
         <ScrollView horizontal={true} style={styles.scrollView}>
           {quotationDisplay}
         </ScrollView>
-        <View style={{ marginTop: -16, zIndex: 1, top: -150, left: 350 }}>
+        <View style={{marginTop: -16, zIndex: 1, top: -150, left: 350 }}>
           {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}
           {quotationReceived.length > 1 ? <SwipeLeft /> : false}
         </View>

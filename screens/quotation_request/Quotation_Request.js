@@ -32,7 +32,7 @@ export default function Quotation_Request({ navigation, route }) {
   useEffect(() => {
     // console.log('ciyciy id',route.params.id)
     //fetch le trip grâce à l'id reçu en props
-    fetch(`${serverURL}/trips/tripById/6358edc49ced89a7026c3017`)
+    fetch(`${serverURL}/trips/tripById/${route.params.id}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {

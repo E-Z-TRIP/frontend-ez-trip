@@ -71,11 +71,9 @@ export default function Discover({ navigation }) {
             <Text style={styles.text}>Choose your next adventure.</Text>
             <View style={styles.border}></View>
           </View>
-
           <View style={styles.highlight}>
             <Highlight />
           </View>
-
           <View style={styles.catalogue}>
             <Text style={styles.text}>Our recommendations</Text>
             {trips}

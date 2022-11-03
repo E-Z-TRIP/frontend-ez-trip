@@ -20,16 +20,14 @@ export default function Quotation_Request({ navigation, route }) {
   const { theme } = useTheme();
   const TOKEN = useSelector((state) => state.user.value.token);
 
-
   // ///// BUTTON TRAVELERS && DATEPICKER
-   //fait apparaître / disparaître la Modal
-   const [modalVisible, setModalVisible] = useState(false);
+  //fait apparaître / disparaître la Modal
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [nbTravelers, setnbTravelers] = useState(1);
   const [selectedRange, setRange] = useState({});
   const [value, setValue] = useState('');
   const [trip, setTrip] = useState(null);
-
 
   useEffect(() => {
     // console.log('ciyciy id',route.params.id)
@@ -45,40 +43,38 @@ export default function Quotation_Request({ navigation, route }) {
       });
   }, []);
 
-
   const handleconfirmButton = () => {
     if (trip) {
-      console.log('oui')
+      console.log('oui');
       fetch(`${serverURL}/orders`, {
         method: 'POST',
-        headers: {'Content-Type' : 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          user : TOKEN,
-          trip : '6358edc49ced89a7026c3017',
-          start : selectedRange.firstDate,
-          end : selectedRange.secondDate,
-          nbDays : getnbDays(selectedRange.firstDate, selectedRange.secondDate),
-          nbTravelers : nbTravelers,
-          comments : value,
-          totalPrice : trip.program[0].price * nbTravelers,
-
-        })
+          user: TOKEN,
+          trip: '6358edc49ced89a7026c3017',
+          start: selectedRange.firstDate,
+          end: selectedRange.secondDate,
+          nbDays: getnbDays(selectedRange.firstDate, selectedRange.secondDate),
+          nbTravelers: nbTravelers,
+          comments: value,
+          totalPrice: trip.program[0].price * nbTravelers,
+        }),
       })
-      .then(response => response.json())
-      .then(data => {
-        if (data.result) {
-          navigation.navigate({name: 'Quotation_Display'})
-        } else {
-          console.log('no data result', data.error)
-          setModalVisible(true)
-        }
-      })
-    } else {console.log('no trip bg')}
-
-  }
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.result) {
+            navigation.navigate({ name: 'NextStep' });
+          } else {
+            console.log('no data result', data.error);
+            setModalVisible(true);
+          }
+        });
+    } else {
+      console.log('no trip bg');
+    }
+  };
 
   if (!loadedFonts) return <></>;
-
 
   ////////////////////////////////////////////////////////////MODAL FILTER - FUNCTIONS////////////////////////////////////////////////////////////
   //gère l'incrémentation du filter Nb Travelers
@@ -129,20 +125,24 @@ export default function Quotation_Request({ navigation, route }) {
                 multiline={true}
                 numberOfLines={1}
               />
-              {modalVisible?
-              <View style={styles.modal}>
-                <Text style={styles.modalText}> There is a missing field, did you choose dates ? </Text>
-                <TouchableOpacity onPress={() => {setModalVisible(false)}}>
-                  <Cross color='red'/>
-                </TouchableOpacity>
-              </View>
-              : <View></View>
-            }
-              <TouchableOpacity style={{ ...styles.buttonConfirm, backgroundColor: theme.pa1 }} onPress={handleconfirmButton}>
+              {modalVisible ? (
+                <View style={styles.modal}>
+                  <Text style={styles.modalText}> There is a missing field, did you choose dates ? </Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setModalVisible(false);
+                    }}>
+                    <Cross color='red' />
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <View></View>
+              )}
+              <TouchableOpacity
+                style={{ ...styles.buttonConfirm, backgroundColor: theme.pa1 }}
+                onPress={handleconfirmButton}>
                 <Text style={styles.confirmBtnTxt}>Confirm</Text>
               </TouchableOpacity>
-    
-              
             </View>
           </View>
         </ScrollView>

@@ -17,7 +17,7 @@ export default function Highlight({ navigation }) {
     <View style={styles.container}>
       <Text style={{ fontFamily: 'txt' }}>Highlight</Text>
       <View style={styles.highlightContainer}>
-        <ImageBackground imageStyle={{ borderRadius: 15 }} source={highlightImg} style={styles.img}>
+        <ImageBackground imageStyle={{ borderRadius: 15 }} source={{uri: 'https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=465&q=80'}} style={styles.img}>
           <LinearGradient
             start={[1, 1]}
             end={[1, 0]}
@@ -26,11 +26,11 @@ export default function Highlight({ navigation }) {
         </ImageBackground>
 
         <View style={styles.infoContainer}>
-          <Text style={styles.title}>Demon island, Tonga</Text>
-          <Text style={{ fontFamily: 'txt', fontWeight: 'bold', marginBottom: 5 }}>20 jan. - 30 fev.</Text>
+          <Text style={styles.title}>Norway fjords and northern lights</Text>
+          <Text style={{ fontFamily: 'txt', fontWeight: 'bold', marginBottom: 5 }}>20 jan. - 28 feb. 2023</Text>
           <Text style={{ fontFamily: 'txt' }}>
-            Lorem ipsum odor amet, consectetuer adipiscing elit. Ac purus in massa egestas mollis varius; dignissim
-            elementum. Mollis tincidunt mattis hendrerit dolor eros enim, nisi ligula ornare. Hendrerit parturient.
+          We have spent decades in search for the most beautiful spots in the north, come join us! 
+          We bring you to the right spot at the right time. Come chase the northern lights with us.
           </Text>
         </View>
       </View>

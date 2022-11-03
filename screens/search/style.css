@@ -76,13 +76,14 @@
 
 .btnSearch {
     align-self: center;
-    margin-top: 30;
+    margin-top: 100;
     width: 50%;
     height: 30;
     border-radius: 3px;
     border-color: black;
     border-width: 1px;
     align-items: center;
+    border-radius: 10px;
     justify-content: center;
 }
 /*--------------------- CALENDAR SECTION ---------------------*/
@@ -120,9 +121,7 @@
 .smallTagSection {
     flex: 1;
     margin-top: 30;
-    height: 200;
     width: 100%;
-
 }
 
 .tags {
@@ -137,7 +136,6 @@
   }
 
   .tagsContainer {
-    height: 100%;
     flex-direction: row;
     flex-wrap: wrap;
   }

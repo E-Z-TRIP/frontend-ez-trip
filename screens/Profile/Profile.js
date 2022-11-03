@@ -1,14 +1,10 @@
-import { View, Text, ScrollView, KeyboardAvoidingView, TouchableOpacityBase, Image } from 'react-native';
+import { View, Text, ScrollView, KeyboardAvoidingView, TouchableOpacity, Image } from 'react-native';
 import styles from './style.css';
 import { loadFonts } from '../../assets/fonts/fonts';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { dismountUser, selectUser } from '../../reducers/user';
-import { TouchableOpacity } from 'react-native';
-import ValidateUserForm from './form/ValidateUserForm';
-import KeyboardAwareView from '../../components/keyboard_aware_view/KeyboardAwareView';
 
 export default function Profile({ navigation }) {
   const { user } = useSelector(selectUser);
@@ -20,14 +16,14 @@ export default function Profile({ navigation }) {
 
   return (
     <>
-      <KeyboardAwareView
+      <View
         style={styles.mainContainer}
         bottomPositionOnKeyboardOpen={200}
         onKeyboardOpen={() => setAvoidKeyboard(true)}
         onKeyboardClose={() => setAvoidKeyboard(false)}
         active={lowerInputActive && avoidKeyboard ? true : false}>
         <View style={styles.header}>
-          <Text style={styles.username}>{user.firstName}</Text>
+          <Text style={styles.username}>{`${user.firstName} ${user.lastName}`}</Text>
           <LogoutBtn navigation={navigation} />
         </View>
         <View style={styles.photoContainer}>
@@ -38,15 +34,34 @@ export default function Profile({ navigation }) {
             }}
           />
         </View>
-        <ValidateUserForm
-          navigation={navigation}
-          onEmailInputFocus={() => setLowerInputActive(true)}
-          onPasswordInputFocus={() => setLowerInputActive(true)}
-        />
-      </KeyboardAwareView>
+        <View style={styles.userInfo}>
+          <View style={styles.emailWrapper}>
+            <Text style={styles.email}>{user.email}</Text>
+          </View>
+          <View style={styles.phoneWrapper}>
+            <Text style={styles.phone}>017659091</Text>
+          </View>
+          <View style={styles.addressWrapper}>
+            <Text style={styles.address}>5 rue des moulins, 7500 Tournai, Belgique</Text>
+          </View>
+        </View>
+        <ViewDocumentsBtn navigation={navigation} />
+      </View>
       <View style={{ height: 70 }}></View>
       <BottomToolbar />
     </>
+  );
+}
+
+function EditButton() {
+  return;
+}
+
+function ViewDocumentsBtn({ navigation }) {
+  return (
+    <TouchableOpacity style={styles.documentBtn} onPress={() => navigation.navigate('MyDocuments')}>
+      <Text style={styles.documentBtnTxt}>View documents</Text>
+    </TouchableOpacity>
   );
 }
 

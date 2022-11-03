@@ -32,6 +32,7 @@ import Slideshow from 'react-native-image-slider-show';
 const iso = require('iso-3166-1');
 
 export default function ProductScreen({ navigation, route: { params: props } }) {
+  console.log(props);
   /* ---------------- INITIALISATION DES CONSTANTES ----------------  */
   const dispatch = useDispatch();
   //store toutes les données du trip fetché au chargement du composant
@@ -54,12 +55,14 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
     //importe l'état favorite du trip
     setFavorite(props.isFavorite);
     //fetch le trip grâce à l'id reçu en props
+
     fetch(`${serverURL}/trips/tripById/${props.id}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         if (data.result) {
           setTrip(data.trip);
-          console.log('trip', data.trip.program)
+          console.log('trip', data.trip.program);
         } else {
           console.log('no trip received');
         }
@@ -84,12 +87,9 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
     }
   }, [trip]);
 
- 
-
   if (!loadedFonts) return <></>;
 
   if (!trip) return <></>;
- 
 
   /* ---------------- DECLARATION DES VARIABLES DYNAMIQUES ----------------  */
   const name = trip.name;
@@ -111,18 +111,18 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
   /* --------------------------------- DISPLAY PROGRAM DYNAMICALLY ---------------------------------  */
 
   // to display buttons for programs
-    // DISPLAY NBDAYS PROGRAM FORMAT BOUTON
-    const nbDaysButtons = trip.program.map((data, i) => {
-      return (
-        <TouchableOpacity onPress={() => programSetter(data)} style={styles.nbDaysModal} key={i}>
-          <Text>{data.nbday} days</Text>
-        </TouchableOpacity>
-      );
-    });
-  
+  // DISPLAY NBDAYS PROGRAM FORMAT BOUTON
+  const nbDaysButtons = trip.program.map((data, i) => {
+    return (
+      <TouchableOpacity onPress={() => programSetter(data)} style={styles.nbDaysModal} key={i}>
+        <Text>{data.nbday} days</Text>
+      </TouchableOpacity>
+    );
+  });
+
   //selon le bouton cliqué, afficher le detailed program correspondant au nombre de jour du bouton
   const programSetter = (data) => {
-    detailedProgram ? setDetailedProgram(null) : setDetailedProgram(data.nbday) ;
+    detailedProgram ? setDetailedProgram(null) : setDetailedProgram(data.nbday);
   };
 
   //displaying the right program dynamically.
@@ -146,8 +146,6 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
       );
     });
   }
-
-
 
   /* ---------------- DISPLAY TAGS DYNAMICALLY ----------------  */
 
@@ -202,7 +200,6 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           if (data.result) {
             //rajout dans le reducer
             dispatch(addFavorites(data.tripLiked));
@@ -284,7 +281,8 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
               </View>
               {/* ---------------- CARTE INFOS ORANGE + PARTENAIRE ---------------- */}
               <View style={styles.infoContainerModal}>
-                <View style={{ width: '100%', backgroundColor: 'rgba(196,107,77,0.65)', padding: 10, borderRadius: 15 }}>
+                <View
+                  style={{ width: '100%', backgroundColor: 'rgba(196,107,77,0.65)', padding: 10, borderRadius: 15 }}>
                   {minDay == maxDay ? (
                     <Text style={{ color: 'white' }}>{minDay} days</Text>
                   ) : (
@@ -299,12 +297,11 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
                   <Text style={{ color: 'white' }}>Starting from {price} €</Text>
                 </View>
 
-                  <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
-                    <Text style={{ color: 'black' }}>
-                      Offered by <Text style={{ color: 'black', textDecoration: 'underline' }}>EZTRIP</Text>
-                    </Text>
-                  </View>
-                
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+                  <Text style={{ color: 'black' }}>
+                    Offered by <Text style={{ color: 'black', textDecoration: 'underline' }}>EZTRIP</Text>
+                  </Text>
+                </View>
               </View>
               {/* ---------------- INCLUDED/NOT INCLUDED ---------------- */}
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -333,7 +330,13 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
                       longitude: lon,
                       latitudeDelta: 1.5,
                       longitudeDelta: 1.4,
-                    }}><Marker coordinate={{ latitude: lat, longitude: lon }} pinColor='#C46B4D' title={`${trip.addressDeparture}, ${trip.country}`} /></MapView>
+                    }}>
+                    <Marker
+                      coordinate={{ latitude: lat, longitude: lon }}
+                      pinColor='#C46B4D'
+                      title={`${trip.addressDeparture}, ${trip.country}`}
+                    />
+                  </MapView>
                 ) : (
                   <View></View>
                 )}
@@ -343,37 +346,36 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
               {/* si on a le temps voir pour un "showmore"/"showless" pour pas avoir des descriptions a rallonge */}
 
               <Text style={styles.smallTitle}>Description :</Text>
-              <ShowMore height={60} buttonColor={"#c46b4d"} showMoreText="Show more" showLessText="Show less">
-                <Text  ellipsizeMode='tail' style={styles.inclusModal}>
+              <ShowMore height={60} buttonColor={'#c46b4d'} showMoreText='Show more' showLessText='Show less'>
+                <Text ellipsizeMode='tail' style={styles.inclusModal}>
                   {trip.description}
                 </Text>
               </ShowMore>
-               {/* ---------------- PROGRAMS ---------------- */}
-               <Text style={styles.smallTitle}>Programs :</Text>
-              <View style={styles.nbDaysContainer}>
-                {nbDaysButtons}
-              </View>
+              {/* ---------------- PROGRAMS ---------------- */}
+              <Text style={styles.smallTitle}>Programs :</Text>
+              <View style={styles.nbDaysContainer}>{nbDaysButtons}</View>
               <View>
-                { detailedProgram? 
-
-              <ShowMore height={150} buttonColor={"#c46b4d"} showMoreText="Show more" showLessText="Show less">
-                {programDisplay}
-                </ShowMore> : <View></View>
-                }
-                </View>
-              
+                {detailedProgram ? (
+                  <ShowMore height={150} buttonColor={'#c46b4d'} showMoreText='Show more' showLessText='Show less'>
+                    {programDisplay}
+                  </ShowMore>
+                ) : (
+                  <View></View>
+                )}
+              </View>
 
               {/* ---------------- TAGS ---------------- */}
 
               <Text style={styles.smallTitle}>Tags :</Text>
-              <View style={styles.tagsContainer}>
-                {tags}
-              </View>
+              <View style={styles.tagsContainer}>{tags}</View>
 
               {/* ---------------- BOUTONS QUOTATION ET DOWNLOAD ---------------- */}
 
-              <TouchableOpacity style={styles.quotationButton} onPress={() => 
-                navigation.navigate({name:'Quotation_Request', params: { id: props.id }, merge: true})}>
+              <TouchableOpacity
+                style={styles.quotationButton}
+                onPress={() =>
+                  navigation.navigate({ name: 'Quotation_Request', params: { id: props.id }, merge: true })
+                }>
                 <Text style={styles.buttonTextQuotation}>Quotation request</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.programButton}>

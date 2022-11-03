@@ -112,6 +112,7 @@ export default function SignUpForm({ onClosePress, navigation }) {
             inputStyle={styles.input}
             defaultStyleOverides={rnPaperTextInputTheme()}
             onFocus={() => setLowerInputActive(true)}
+            onfocusEnd={() => console.log('g')}
             autoCapitalize={'none'}
           />
           <PasswordInput
@@ -140,8 +141,13 @@ export default function SignUpForm({ onClosePress, navigation }) {
           <SubmitBtn
             text='Sign up'
             onSubmit={() =>
-              handleSubmit(async (formData) => {
-                const res = await postData('/users/signup', formData);
+              handleSubmit(async ({ firstName, lastName, email, password }) => {
+                const res = await postData('/users/signup', {
+                  firstName: firstName.replace(firstName[0], firstName[0].toUpperCase()),
+                  lastName: lastName.replace(lastName[0], lastName[0].toUpperCase()),
+                  email: email.toLowerCase(),
+                  password,
+                });
                 if (res.error) return setUserExistsError(true);
                 dispatch(
                   mountUser({ firstName: res.firstName, lastName: res.lastName, email: res.email, token: res.token })

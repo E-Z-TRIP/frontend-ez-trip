@@ -120,10 +120,10 @@ export default function Quotation_Request({ navigation, route }) {
                 minDate={moment().subtract(100, 'days')}
               />
             </View>
-            <View style={styles.inputContainer}>
+            <View>
               <TextInput
                 style={styles.textArea}
-                placeholder='Any restricted diet, or infos you want us to know ?'
+                placeholder='Any additional infos you would like us to know (restricted diets, special demands...)?'
                 name='email'
                 onChangeText={(text) => setValue(text)}
                 multiline={true}

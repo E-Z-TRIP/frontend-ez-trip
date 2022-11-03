@@ -15,7 +15,7 @@ import styles from './style.css';
 import { serverURL } from '../../api/backend_request';
 import { useTheme } from '@react-navigation/native';
 import { loadFonts } from '../../assets/fonts/fonts';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import Trip from '../../components/trip/trip';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import DateRangePicker from 'rnv-date-range-picker';
@@ -25,13 +25,13 @@ import { RangeSlider } from '@sharcoux/slider';
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
 import { useDispatch, useSelector } from 'react-redux';
 
+
 export default function Search({ navigation }) {
 
   ///////////////////////////////////////////////////////////REACT STATES////////////////////////////////////////////////////////////
 
   //tous les trips récupérés par la route GET au chargement
   const [tripsData, setTripsData] = useState([]);
-  const [allTags, setAllTags] = useState([]);
   //fait apparaître / disparaître la Modal Filtres
   const [modalVisible, setModalVisible] = useState(false);
   //input Text haut de page
@@ -45,9 +45,12 @@ export default function Search({ navigation }) {
   const [endDate, setEndDate] = useState("");
   const [dropdownTagVisible, setDropdownTagVisible] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
+  const searchRef = useRef(null)
+  const [allTags, setAllTags] = useState([]);
+
   //redux store pour récupérer les favoris et gérer la couleur du coeur
   const favorites = useSelector((state) => state.user.favorites);
-
+  
   //GET ALL THE TRIPS WHEN LOADING THE SCREEN
   useEffect(() => {
     fetch(`${serverURL}/trips`)
@@ -72,25 +75,33 @@ export default function Search({ navigation }) {
   const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
 
+    //variable déclarée, mais assignée que si tripsData est bien récupéré du back pour éviter les bugs
+    let trips;
+    //MAP TO DISPLAY ALL THE TRIPS
+    if (tripsData) {
+      trips = tripsData.map((data, i) => {
+        return (
+          <View key={i} style={{ height: 180 }}>
+          <Trip id={data._id} propsKey={i} {...data} isFavorite={favorites.some((favorite) => favorite === data._id)} />
+          </View>
+        );
+      });
+    }
+
   ////////////////////////////////////////////////////////////////SEARCH RESULTS - FUNCTIONS////////////////////////////////////////////////////////////
-  //variable déclarée, mais assignée que si tripsData est bien récupéré du back pour éviter les bugs
-  let trips;
-  //MAP TO DISPLAY ALL THE TRIPS
-  if (tripsData) {
-    trips = tripsData.map((data, i) => {
-      return (
-        <View key={i} style={{ height: 180 }}>
-        <Trip id={data._id} propsKey={i} {...data} isFavorite={favorites.some((favorite) => favorite === data._id)} />
-        </View>
-      );
-    });
-  }
+  
 
   //HANDLE SEARCH WHEN BUTTON IS CLICKED
 
   const handleSearch = () => {
+    console.log('startDate searched', startDate)
+    console.log('endDate searched', endDate)
+    console.log('tags searched', selectedTags)
+    const startMonth = startDate.slice(3, 5)
+    const endMonth = endDate.slice(3, 5)
+    console.log(startMonth)
     //construit un objet regroupant tous les paramètres de filtres
-    let research = { minBudget, maxBudget, searchInput };
+    let research = { minBudget, maxBudget, searchInput, startMonth, endMonth };
     console.log(research);
     //construit l'URL avec les query correspondants aux filtres
     var url = new URL(`${serverURL}/trips/filter`);
@@ -117,27 +128,56 @@ export default function Search({ navigation }) {
   };
 
   //fonction pour ajouter le tag sélectionné au tableau SelectedTags
-  const addTag = (tag) => {
-    if (!selectedTags.some(e => e==tag)) {
-      setSelectedTags([...selectedTags, tag])
+  const addTag = (item) => {
+   if (item) {
+    if (!selectedTags.some(e => e.id==item.id)) {
+      setSelectedTags([...selectedTags, item])
     }
+    else {
+      // setSelectedTags(selectedTags.filter(e => e.title == tag.title))
+    }
+   }
+   else {
+    console.log('no tag selected');
+    return;
+   }
   }
 
-  //dataset displayed dans le tag dropdown menu 
+  //dataset displayed dans le tag dropdown menu. Attribue un ID à chacun des tags => source à partir de laquelle on travaille pour la suite. 
   let dataset = []
   if (allTags.length != 0) {
     allTags.map((tag,i) => dataset.push({id:i+1, title: tag }))
   }
-  //affichage des tags populaires suggérés en-dessous du dropdown menu
-  const populartags = allTags.slice(10, 15).map((e,i )=> {
-    return (
-      <TouchableOpacity
-        onPress={() => addTag(e)}
-        style={styles.tags}
-        key={i}>
-        <Text>{e}</Text>
-      </TouchableOpacity>
-    );
+
+  //display les boutons tags : cinq "tags populaires" (les 5 premiers du dataset) puis les tags de SelectedTags
+  const allTagsDisplay = dataset.map((e, i) => {
+    //Gère la couleur du bouton tag en fonction de s'il est sélectionné ou non
+    const selected = selectedTags ? selectedTags.some(tag => tag.id === e.id) : false;
+    //affiche les tags populaires
+    if (i<6) {
+      return (
+        <TouchableOpacity
+          onPress={() => addTag(e)}
+          //la couleur du bouton dépend de si le tag est sélectionné ou pas dans SelectedTags
+          style={selected ? {...styles.tags, backgroundColor: 'orange'} : {...styles.tags, backgroundColor: 'white'}}
+          key={i}>
+          <Text>{e.title}</Text>
+        </TouchableOpacity>
+      )}
+    //affiche les tags sélectionnés
+    else {
+      if (selectedTags.some(tag => tag.id === e.id)) {
+        return (
+          <TouchableOpacity
+          onPress={() => addTag(e)}
+          //la couleur du bouton dépend de si le tag est sélectionné ou pas dans SelectedTags
+          style={selected ? {...styles.tags, backgroundColor: 'orange'} : {...styles.tags, backgroundColor: 'white'}}
+          key={i}>
+          <Text>{e.title}</Text>
+        </TouchableOpacity>
+        )
+      }
+    }
   })
 
 
@@ -160,7 +200,7 @@ export default function Search({ navigation }) {
           </View>
           <View style={styles.catalogue}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={styles.text}>{tripsData.length} results</Text>
+              <Text style={styles.text}>{tripsData ? tripsData.length : 0} results</Text>
               <AntDesign name='filter' size={20} color='black' onPress={() => setModalVisible(!modalVisible)} />
             </View>
             <View style={styles.tripContainer}>{tripsData ? trips : <View></View>}</View>
@@ -265,7 +305,6 @@ export default function Search({ navigation }) {
                     <View style={styles.calendar}>
                       <DateRangePicker
                     onSelectDateRange={(range) => {
-                    setRange(range);
                     setStartDate(range.firstDate)
                     setEndDate(range.secondDate)
                     setCalendarVisible(false)
@@ -287,7 +326,9 @@ export default function Search({ navigation }) {
                       onChevronPress={() => {setDropdownTagVisible(!dropdownTagVisible)}}
                       closeOnSubmit={true}
                       initialValue={''}
-                      onSelectItem={addTag}
+                      onSelectItem={item => {
+                        item && addTag(item)
+                      }}
                       dataSet={dataset}
                       direction={Platform.select({ ios: 'down', android: 'down' })}
                       textInputProps={{
@@ -301,7 +342,8 @@ export default function Search({ navigation }) {
                       }}
                     />
                     <Text style={{fontFamily:'txt', fontSize: 12, marginTop: 10}}>popular tags:</Text>
-                    <View style={styles.tagsContainer}>{populartags}</View>
+                    <View style={styles.tagsContainer}>{allTagsDisplay}</View>
+
                 </View>
 
                 <TouchableOpacity

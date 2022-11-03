@@ -313,7 +313,8 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
 
               {/* ---------------- MAP LOCALISATION : Ne s'affiche que si lat et lon sont définies---------------- */}
               <View name='localisation' style={{ justifyContent: 'center', minHeight: 380, maxHeight: 380 }}>
-                <Text style={styles.smallTitle}>Localisation :</Text>
+                <Text style={styles.smallTitle}>Localisation:</Text>
+                <Text>Departure from {trip.addressDeparture}, {trip.country}.</Text>
                 {lat && lon ? (
                   <MapView
                     scrollEnabled={false}

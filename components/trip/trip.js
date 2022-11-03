@@ -110,7 +110,7 @@ export default function Trip(props) {
               onPress={() => handleLike()}
             />
           </View>
-          <Text style={{ fontFamily: 'txtBold', color: 'white', marginTop: -2 }}>{props.country}</Text>
+          <Text style={{ fontFamily: 'txtBold', color: 'white'}}>{props.country}</Text>
         </View>
 
         <LinearGradient

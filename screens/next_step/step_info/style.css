@@ -6,30 +6,24 @@
   left: 0;
   top: 600px;
   height: 45px;
-  width: 200px;
   border-radius: 25px;
   margin: 0 10px 0 10px;
+  padding-left: 15px;
+  padding-right: 10px;
 }
-.textContainer {
-  align-items: center;
-  justify-content: center;
-  width: 80%;
+.btn {
+  padding: 10px;
+  margin-left: auto;
 }
-.btnContainer {
-  align-items: center;
-  justify-content: center;
-  width: 20%;
-}
-.infoTitle {
+.label {
   font-family: 'txt';
 }
-
 .contentContainer {
   flex: 1;
   align-items: center;
   justify-content: flex-start;
   background-color: rgba(0, 0, 0, 0.458);
-  padding: 40px 50px;
+  padding: 70px 20px;
 }
 .contentWrapper {
   width: 100%;
@@ -39,4 +33,38 @@
 }
 .modalCloseBtn {
   align-self: flex-end;
+}
+.title {
+  font-family: 'heading';
+  font-size: 25px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+.information {
+  font-family: 'txt';
+  text-align: center;
+}
+.nextBtn {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+.nextBtnTxt {
+  font-family: 'txt';
+  font-size: 16px;
+}
+.restartBtn {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+.restartBtnTxt {
+  font-family: 'txt';
+  font-size: 16px;
 }

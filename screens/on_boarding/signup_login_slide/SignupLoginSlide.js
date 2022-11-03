@@ -88,7 +88,7 @@ export default function SignupLogoinSlide({ direction, progressPos, slideLength,
         {forms.login ? (
           <LoginForm onClosePress={() => resetForms()} navigation={navigation} />
         ) : forms.signUp ? (
-          <SignUpForm onClosePress={() => resetForms()} openForm={openForm} />
+          <SignUpForm onClosePress={() => resetForms()} navigation={navigation} />
         ) : (
           <></>
         )}

@@ -9,7 +9,6 @@ export default class LightTheme {
   theme = {
     pa1: '#C46B4D',
     pa2: '#177861',
-    pa3: '#8BC4B7',
     pa1C: '#ffffff',
     pa2C: '#ffffff',
 
@@ -29,11 +28,15 @@ export default class LightTheme {
   nextStep = {
     animatedPath: this.theme.gs7,
     animatedPointer: this.theme.pa1,
-    stepInfoBg: this.theme.pa3,
+    stepInfoBg: this.theme.pa2,
     lastStepInfoBg: this.theme.pa1,
     stepInfoText: this.theme.gs7,
     modalCloseBtn: this.theme.gs0,
     modalBg: this.theme.gs7,
+    infoNextBtn: this.theme.pa2,
+    infoNextBtnTxt: this.theme.gs7,
+    lastRestartBtn: this.theme.pa2,
+    lastRestartBtnTxt: this.theme.gs7,
   };
 
   onBoarding = {

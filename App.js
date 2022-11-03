@@ -21,8 +21,6 @@ import Profile from './screens/Profile/Profile';
 import MyDocuments from './screens/mydocuments/MyDocuments';
 import MyTrips from './screens/mytrips/MyTrips';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { dismountUser } from './reducers/user';
-import { useNavigation } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,18 +53,7 @@ function App() {
     <NavigationContainer theme={theme === 'dark' ? darkTheme : lightTheme}>
       <PersistGate persistor={persistor}>
         <Stack.Navigator initialRouteName='OnBoarding' screenOptions={{ headerShown: false, gestureEnabled: false }}>
-          {(store.getState()?.user?.value?.token && <></>) || <Stack.Screen name='OnBoarding' component={OnBoarding} />}
-          <Stack.Screen name='Discover' component={Discover} />
-          <Stack.Screen name='Search' component={Search} />
-          <Stack.Screen name='Quotation_Display' component={Quotation_Display} />
-          <Stack.Screen name='Quotation_Request' component={Quotation_Request} />
-          <Stack.Screen name='Product' component={ProductScreen} />
-          <Stack.Screen name='MyQuotations' component={MyQuotations} />
-          <Stack.Screen name='MyTrips' component={MyTrips} />
           <Stack.Screen name='NextStep' component={NextStep} />
-          <Stack.Screen name='Profile' component={Profile} />
-          <Stack.Screen name='MyDocuments' component={MyDocuments} />
-
         </Stack.Navigator>
       </PersistGate>
     </NavigationContainer>

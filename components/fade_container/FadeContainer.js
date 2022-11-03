@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { Animated } from 'react-native';
 
-export default function FadeContainer({ style, isVisible, children, speed }) {
+export default function FadeContainer({ style, isVisible, onLayout, speed, children }) {
   let ref = useRef(new Animated.Value(1));
 
   useEffect(() => {
@@ -24,5 +24,9 @@ export default function FadeContainer({ style, isVisible, children, speed }) {
     }).start();
   };
 
-  return <Animated.View style={[style, { opacity: ref.current }]}>{children}</Animated.View>;
+  return (
+    <Animated.View onLayout={onLayout} style={[style, { opacity: ref.current }]}>
+      {children}
+    </Animated.View>
+  );
 }

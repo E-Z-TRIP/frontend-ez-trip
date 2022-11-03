@@ -8,7 +8,7 @@ export default function AnimatedProgressPath({
   pathColor,
   pointerScale = 1,
   pointerColor,
-  step = 1,
+  step,
 }) {
   const [idx, setIdx] = useState(0);
   const [animation, setAnimation] = useState();

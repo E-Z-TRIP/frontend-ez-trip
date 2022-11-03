@@ -56,6 +56,7 @@ export default function LoginForm({ onClosePress, navigation }) {
             rules={{
               required: true,
             }}
+            autoCapitalize={'none'}
           />
           <PasswordInput
             name='password'

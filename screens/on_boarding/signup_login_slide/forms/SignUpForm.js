@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { useState, useEffect } from 'react';
 import { useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
+import { mountUser } from '../../../../reducers/user';
 import Input from '../../../../components/form_elements/Input';
 import PasswordInput from '../../../../components/form_elements/PasswordInput';
 import SubmitBtn from '../../../../components/form_elements/SubmitBtn';
@@ -111,6 +112,7 @@ export default function SignUpForm({ onClosePress, navigation }) {
             inputStyle={styles.input}
             defaultStyleOverides={rnPaperTextInputTheme()}
             onFocus={() => setPasswordInputActive(false)}
+            autoCapitalize={'none'}
           />
           <PasswordInput
             name='password'
@@ -132,7 +134,7 @@ export default function SignUpForm({ onClosePress, navigation }) {
             defaultStyleOverides={rnPaperTextInputTheme()}
             onFocus={() => setPasswordInputActive(true)}
           />
-          <HelperText type='error' visible={true}>
+          <HelperText type='error' visible={true} style={{ color: onBoarding.error, marginBottom: 20, fontSize: 17 }}>
             {userExistsError && 'User already exists'}
           </HelperText>
           <SubmitBtn
@@ -141,7 +143,9 @@ export default function SignUpForm({ onClosePress, navigation }) {
               handleSubmit(async (formData) => {
                 const res = await postData('/users/signup', formData);
                 if (res.error) return setUserExistsError(true);
-                dispatch(mountUser({ firstName, lastName, email, token }));
+                dispatch(
+                  mountUser({ firstName: res.firstName, lastName: res.lastName, email: res.email, token: res.token })
+                );
                 setUserExistsError(false);
                 navigation.navigate('Discover');
               })

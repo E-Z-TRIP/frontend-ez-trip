@@ -9,8 +9,9 @@ import { useTheme } from '@react-navigation/native';
 import { loadFonts } from '../../assets/fonts/fonts';
 import LastStep from './step_info/LastStep';
 import StepInfo from './step_info/StepInfo';
+import { inspect } from '../../lib/inspector';
 
-export default function NexStep() {
+export default function NexStep({ navigation, route: { params: data } }) {
   const loadedFonts = loadFonts();
   const { nextStep } = useTheme();
   const [currentStep, setCurrentStep] = useState(0);

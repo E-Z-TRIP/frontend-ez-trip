@@ -29,19 +29,6 @@
   align-content: center;
   justify-content: center;
 }
-<<<<<<< HEAD
-=======
-.textButton {
-    font-family: "txt";
-    font-size: 16;
-    color: whitesmoke;
-}
-.textLogOut {
-    font-family: "txt";
-    font-size: 16;
-    color: #C46B4D;
-}
->>>>>>> d433ac2798f6bc943bd0781f4d614fb214671f80
 
 .border {
   border-bottom-color: black;
@@ -85,37 +72,12 @@
   margin: -3px;
 }
 
-<<<<<<< HEAD
 .logOut {
   margin: auto;
   margin-top: 40px;
   padding: 16px;
   border-radius: 80%;
   border: 2px solid black;
-=======
-.logOut{
-    border: #C46B4D 1px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 35px;
-    width: 151px;
-    height: 39px;
-    margin: auto;
-    margin-top: 40px;
-    padding: 8px;
-}
-
-.myDocumentsButton {
-    background-color: #C46B4D;
-    justify-content: center;
-    align-items: center;
-    border-radius: 35px;
-    width: 302px;
-    height: 39px;
-    margin: auto;
-    margin-top: 40px;
-    padding: 8px;
->>>>>>> d433ac2798f6bc943bd0781f4d614fb214671f80
 }
 
 /* .containerKeyboard {

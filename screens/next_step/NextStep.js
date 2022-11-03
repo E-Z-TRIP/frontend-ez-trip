@@ -13,6 +13,7 @@ import { inspect } from '../../lib/inspector';
 
 export default function NexStep({ navigation, route: { params: data } }) {
   const { nextStep } = useTheme();
+  const loadedFonts = loadFonts();
   const [currentStep, setCurrentStep] = useState(0);
 
   const incrementStep = () => {
@@ -55,9 +56,7 @@ function stepInfoCollection(currentStep, incrementStep) {
     <StepInfo
       label='Treatment of your request'
       title={`What's next ?`}
-      information={
-        'The travel agency is treating your request.'
-      }
+      information={'The travel agency is treating your request.'}
       step={1}
       currentStep={currentStep}
       incrementStep={incrementStep}
@@ -70,9 +69,7 @@ function stepInfoCollection(currentStep, incrementStep) {
     <StepInfo
       label='Quotation ready!'
       title='And then...'
-      information={
-        `You'll get a notification once your quotation is ready`
-      }
+      information={`You'll get a notification once your quotation is ready`}
       step={2}
       currentStep={currentStep}
       incrementStep={incrementStep}
@@ -85,9 +82,7 @@ function stepInfoCollection(currentStep, incrementStep) {
     <StepInfo
       label='Paiement'
       title='After that...'
-      information={
-        `After you accept the quotation, the travel agency will get in touch with you via email for the last details and to proceed with paiement`
-      }
+      information={`After you accept the quotation, the travel agency will get in touch with you via email for the last details and to proceed with paiement`}
       step={3}
       currentStep={currentStep}
       incrementStep={incrementStep}
@@ -100,9 +95,7 @@ function stepInfoCollection(currentStep, incrementStep) {
     <StepInfo
       label='Adding your documents'
       title='Finally...'
-      information={
-        `You'll find all the details of your reservation directly on EZ TRIPS in 'My trips' section. You can add your travel documents on your profile, in the section 'My Documents'`
-      }
+      information={`You'll find all the details of your reservation directly on EZ TRIPS in 'My trips' section. You can add your travel documents on your profile, in the section 'My Documents'`}
       step={4}
       currentStep={currentStep}
       incrementStep={incrementStep}
@@ -115,9 +108,7 @@ function stepInfoCollection(currentStep, incrementStep) {
     <LastStep
       label='See you when you get back'
       title='See you when you get back'
-      information={
-        'Have a nice trip!'
-      }
+      information={'Have a nice trip!'}
       step={5}
       currentStep={currentStep}
       incrementStep={incrementStep}

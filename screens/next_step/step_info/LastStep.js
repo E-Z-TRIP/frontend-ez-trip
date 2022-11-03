@@ -1,11 +1,11 @@
 import { View, Text, Modal, TouchableOpacity } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from './style.css';
 import { useTheme } from '@react-navigation/native';
 import CrossBtn from '../../../components/close_button/CloseButton';
 import FadeContainer from '../../../components/fade_container/FadeContainer';
 
-export default function StepInfo({ label, step, title, information, currentStep, containerStyle, incrementStep }) {
+export default function LastStep({ label, step, title, information, currentStep, containerStyle, incrementStep }) {
   const { nextStep } = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -13,13 +13,13 @@ export default function StepInfo({ label, step, title, information, currentStep,
     <>
       <FadeContainer
         style={{ ...styles.infoContainer, ...containerStyle }}
-        isVisible={currentStep === step ? true : false}>
+        isVisible={step === currentStep ? true : false}>
         <Text style={{ ...styles.label, color: nextStep.stepInfoText }}>{label}</Text>
         <CrossBtn
           style={styles.btn}
           iconColor={nextStep.stepInfoText}
           iconScale={0.3}
-          iconStyle={{ transform: [{ rotate: '45deg' }] }}
+          iconStyle={{ margin: 10, transform: [{ rotate: '45deg' }] }}
           onPress={() => setModalVisible(true)}
         />
       </FadeContainer>
@@ -42,12 +42,12 @@ export default function StepInfo({ label, step, title, information, currentStep,
             <Text style={styles.information}>{information}</Text>
             <TouchableOpacity
               activeOpacity={0.8}
-              style={{ ...styles.nextBtn, backgroundColor: nextStep.infoNextBtn }}
+              style={{ ...styles.restartBtn, backgroundColor: nextStep.lastRestartBtn }}
               onPress={() => {
-                setModalVisible(false);
                 incrementStep();
+                setModalVisible(false);
               }}>
-              <Text style={{ ...styles.nextBtnTxt, color: nextStep.infoNextBtnTxt }}>Next Step</Text>
+              <Text style={{ ...styles.restartBtnTxt, color: nextStep.lastRestartBtnTxt }}>Restart</Text>
             </TouchableOpacity>
           </View>
         </View>

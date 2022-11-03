@@ -1,25 +1,20 @@
 import { View, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import KeyboardAwareView from '../../../../components/keyboard_aware_view/KeyboardAwareView';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useTheme } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { mountUser } from '../../../../reducers/user';
-import Input from '../../../../components/form_elements/Input';
-import PasswordInput from '../../../../components/form_elements/PasswordInput';
-import SubmitBtn from '../../../../components/form_elements/SubmitBtn';
-import CloseBtn from '../../../../components/close_button/CloseButton';
+import Input from '../../../components/form_elements/Input';
+import PasswordInput from '../../../components/form_elements/PasswordInput';
+import SubmitBtn from '../../../components/form_elements/SubmitBtn';
 import { rnPaperTextInputTheme } from './sharedProps';
-import { postData } from '../../../../api/backend_request';
+import { postData } from '../../../api/backend_request';
 import { HelperText } from 'react-native-paper';
 import styles from './style.css';
 
-export default function LoginForm({ onClosePress, navigation }) {
-  const { onBoarding } = useTheme();
+export default function ValidateUserForm({ navigation, onEmailInputFocus, onPasswordInputFocus }) {
+  const { profile } = useTheme();
   const dispatch = useDispatch();
   const [notFoundError, setNotFoundError] = useState(false);
-  const [lowerInputActive, setLowerInputActive] = useState(false);
-  const [avoidKeyboard, setAvoidKeyboard] = useState(false);
 
   const {
     control,
@@ -28,21 +23,9 @@ export default function LoginForm({ onClosePress, navigation }) {
   } = useForm();
 
   return (
-    <KeyboardAwareView
-      style={{ ...styles.modalInnerContainer, backgroundColor: onBoarding.formModalBackground }}
-      bottomPositionOnKeyboardOpen={200}
-      onKeyboardOpen={() => setAvoidKeyboard(true)}
-      onKeyboardClose={() => setAvoidKeyboard(false)}
-      active={lowerInputActive && avoidKeyboard ? true : false}>
-      <CloseBtn
-        style={styles.closeBtn}
-        iconColor={onBoarding.closeBtnIcon}
-        activeOpacity={0.6}
-        iconScale={0.45}
-        onPress={onClosePress}
-      />
+    <View style={{ ...styles.formContainer }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.loginFormContainer}>
+        <View style={styles.formWrapper}>
           <Input
             name='email'
             label='Email'
@@ -62,6 +45,7 @@ export default function LoginForm({ onClosePress, navigation }) {
               required: true,
             }}
             autoCapitalize={'none'}
+            onFocus={onEmailInputFocus}
           />
           <PasswordInput
             name='password'
@@ -75,35 +59,41 @@ export default function LoginForm({ onClosePress, navigation }) {
                 if (type === 'required') return 'Password is required';
               })()
             }
-            wrapperStyle={styles.inputWrapper}
+            wrapperStyle={{ ...styles.inputWrapper, marginBottom: 10 }}
             inputStyle={styles.input}
-            iconColor={onBoarding.inputIcon}
+            iconColor={profile.inputIcon}
             defaultStyleOverides={rnPaperTextInputTheme()}
             rules={{
               required: true,
             }}
+            onFocus={onPasswordInputFocus}
           />
-          <HelperText type='error' visible={true} style={{ color: onBoarding.error, marginBottom: 20, fontSize: 15 }}>
+          <HelperText
+            type='error'
+            visible={true}
+            style={{
+              color: profile.error,
+              marginBottom: 10,
+              fontSize: 15,
+            }}>
             {notFoundError && 'User not found'}
           </HelperText>
           <SubmitBtn
-            text='Login'
+            text='View documents'
             onSubmit={() =>
               handleSubmit(async (formData) => {
                 const res = await postData('/users/signin', formData);
                 if (res.error) return setNotFoundError(true);
-                const { firstName, lastName, email, token } = res;
-                dispatch(mountUser({ firstName, lastName, email, token }));
                 setNotFoundError(false);
-                navigation.navigate('Discover');
+                navigation.navigate('MyDocuments');
               })
             }
             activeOpacity={0.8}
-            btnStyle={{ ...styles.submitBtn, backgroundColor: onBoarding.submitBtn }}
-            textStyle={{ ...styles.submitBtnText, color: onBoarding.submitBtnText }}
+            btnStyle={{ ...styles.submitBtn, backgroundColor: profile.submitBtn }}
+            textStyle={{ ...styles.submitBtnText, color: profile.submitBtnText }}
           />
         </View>
       </TouchableWithoutFeedback>
-    </KeyboardAwareView>
+    </View>
   );
 }

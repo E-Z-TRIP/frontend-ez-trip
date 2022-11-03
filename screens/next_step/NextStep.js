@@ -7,13 +7,21 @@ import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import AnimatedProgressPath from './animated_progress_path/AnimatedProgressPath';
 import { useTheme } from '@react-navigation/native';
 import { loadFonts } from '../../assets/fonts/fonts';
+import LastStep from './step_info/LastStep';
 import StepInfo from './step_info/StepInfo';
 
 export default function NexStep() {
   const loadedFonts = loadFonts();
   const { nextStep } = useTheme();
   const [currentStep, setCurrentStep] = useState(0);
-  const stepInfoComponents = stepInfoCollection();
+
+  const incrementStep = () => {
+    setCurrentStep((current) => (current < 5 ? current + 1 : 0));
+  };
+
+  useEffect(() => {
+    if (currentStep === 0) incrementStep();
+  }, [currentStep]);
 
   if (!loadedFonts) return <></>;
 
@@ -32,81 +40,93 @@ export default function NexStep() {
           pointerScale={1}
           step={currentStep}
         />
-        {stepInfoComponents.map((InfoComponent, i) => (
-          <InfoComponent key={i} currentStep={currentStep} />
-        ))}
+        {stepInfoCollection(currentStep, incrementStep)[currentStep - 1]}
       </View>
       <BottomToolbar />
     </>
   );
 }
 
-function stepInfoCollection() {
+function stepInfoCollection(currentStep, incrementStep) {
   const { nextStep } = useTheme();
 
   return [
-    ({ key, currentStep }) => (
-      <StepInfo
-        key={key}
-        title='First step'
-        step={1}
-        currentStep={currentStep}
-        containerStyle={{ backgroundColor: nextStep.stepInfoBg, transform: [{ translateY: -70 }, { translateX: 20 }] }}
-      />
-    ),
-    ({ key, currentStep }) => (
-      <StepInfo
-        key={key}
-        title='Second step'
-        step={2}
-        currentStep={currentStep}
-        containerStyle={{
-          backgroundColor: nextStep.stepInfoBg,
-          width: 155,
-          transform: [{ translateY: -142 }, { translateX: 190 }],
-        }}
-      />
-    ),
-    ({ key, currentStep }) => (
-      <StepInfo
-        key={key}
-        title='Third step'
-        step={3}
-        currentStep={currentStep}
-        containerStyle={{
-          backgroundColor: nextStep.stepInfoBg,
-          width: 190,
-          transform: [{ translateY: -260 }],
-        }}
-      />
-    ),
-    ({ key, currentStep }) => (
-      <StepInfo
-        key={key}
-        title='Forth step'
-        step={4}
-        currentStep={currentStep}
-        containerStyle={{
-          backgroundColor: nextStep.stepInfoBg,
-          width: 190,
-          transform: [{ translateY: -359 }, { translateX: 145 }],
-        }}
-      />
-    ),
-    ({ key, currentStep }) => (
-      <StepInfo
-        key={key}
-        title='See you when you get back'
-        step={5}
-        currentStep={currentStep}
-        containerStyle={{
-          backgroundColor: nextStep.lastStepInfoBg,
-          width: '80%',
-          marginLeft: 0,
-          left: '10%',
-          transform: [{ translateY: -525 }],
-        }}
-      />
-    ),
+    <StepInfo
+      label='First step'
+      title='First step'
+      information={
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+      }
+      step={1}
+      currentStep={currentStep}
+      incrementStep={incrementStep}
+      containerStyle={{
+        backgroundColor: nextStep.stepInfoBg,
+        width: 140,
+        transform: [{ translateY: -70 }, { translateX: 50 }],
+      }}
+    />,
+    <StepInfo
+      label='Second step'
+      title='Second step'
+      information={
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+      }
+      step={2}
+      currentStep={currentStep}
+      incrementStep={incrementStep}
+      containerStyle={{
+        backgroundColor: nextStep.stepInfoBg,
+        width: 140,
+        transform: [{ translateY: -142 }, { translateX: 205 }],
+      }}
+    />,
+    <StepInfo
+      label='Third step'
+      title='Third step'
+      information={
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+      }
+      step={3}
+      currentStep={currentStep}
+      incrementStep={incrementStep}
+      containerStyle={{
+        backgroundColor: nextStep.stepInfoBg,
+        width: 140,
+        transform: [{ translateY: -260 }, { translateX: 40 }],
+      }}
+    />,
+    <StepInfo
+      label='Fourth step'
+      title='Fourth step'
+      information={
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+      }
+      step={4}
+      currentStep={currentStep}
+      incrementStep={incrementStep}
+      containerStyle={{
+        backgroundColor: nextStep.stepInfoBg,
+        width: 140,
+        transform: [{ translateY: -359 }, { translateX: 170 }],
+      }}
+    />,
+    <LastStep
+      label='See you when you get back'
+      title='See you when you get back'
+      information={
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+      }
+      step={5}
+      currentStep={currentStep}
+      incrementStep={incrementStep}
+      containerStyle={{
+        backgroundColor: nextStep.lastStepInfoBg,
+        width: '80%',
+        marginLeft: 0,
+        left: '10%',
+        transform: [{ translateY: -525 }],
+      }}
+    />,
   ];
 }

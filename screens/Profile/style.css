@@ -1,25 +1,18 @@
-.container {
-  padding: 25px;
+.mainContainer {
   flex: 1;
-  height: 100%;
-  flex-direction: column;
-  justify-content: space-around;
+  align-items: center;
+  padding: 20px 30px;
 }
 
 .header {
-  margin-top: 35px;
+  margin-top: 20px;
+  flex-direction: row;
   width: 100%;
-  height: 30%;
-  flex: 1;
-  flex-direction: column;
 }
-
-.title {
-  font-family: 'heading';
-  font-size: 3rem;
-  margin-bottom: 8px;
+.logoutBtn {
+  padding-left: 10px;
+  align-items: center;
   justify-content: center;
-  align-content: center;
 }
 
 .texts {
@@ -28,6 +21,16 @@
 
   align-content: center;
   justify-content: center;
+}
+.textButton {
+    font-family: "txt";
+    font-size: 16;
+    color: whitesmoke;
+}
+.textLogOut {
+    font-family: "txt";
+    font-size: 16;
+    color: #C46B4D;
 }
 
 .border {
@@ -56,10 +59,24 @@
   margin: auto;
   overflow: hidden;
 }
+.logoutBtnTxt {
+  font-family: 'txt';
+  font-size: 16px;
+}
+.username {
+  font-family: 'heading';
+  font-size: 30px;
+  margin-right: auto;
+}
+.photoContainer {
+  margin-top: 30px;
+  width: 100%;
+  align-items: center;
+}
 .photo {
-    border-radius: 50px;
-    width: 100%;
-    height: 100%;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
 }
 
 .penIcon {

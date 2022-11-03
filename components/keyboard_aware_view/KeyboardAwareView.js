@@ -5,7 +5,7 @@ export default function KeyboardAwareView({
   style,
   bottomPositionOnKeyboardOpen,
   active,
-  onKeyboardOpen,
+  onKeyboardOpen = () => {},
   onKeyboardClose = () => {},
   children,
 }) {
@@ -34,10 +34,5 @@ export default function KeyboardAwareView({
     active ? setBottomPosition(bottomPositionOnKeyboardOpen) : setBottomPosition(0);
   }, [active]);
 
-  return (
-    <View
-      style={{ width: '100%', ...style, bottom: bottomPosition }}>
-      {children}
-    </View>
-  );
+  return <View style={{ width: '100%', ...style, bottom: bottomPosition }}>{children}</View>;
 }

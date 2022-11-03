@@ -5,16 +5,14 @@ import { TextInput, HelperText } from 'react-native-paper';
 
 export default function PasswordInput({
   name,
-  label,
   control,
   error,
   helperText,
   rules,
-  inputStyle,
   wrapperStyle,
   iconColor,
-  onFocus,
   defaultStyleOverides = { theme: { colors: { error: 'red' } } },
+  ...props
 }) {
   const [hidePassword, setHidePassword] = useState(true);
 
@@ -26,11 +24,8 @@ export default function PasswordInput({
       render={({ field: { onChange, onBlur, value } }) => (
         <View style={wrapperStyle}>
           <TextInput
-            label={label}
-            style={inputStyle}
             onBlur={onBlur}
             onChangeText={onChange}
-            onFocus={onFocus}
             value={value}
             right={
               hidePassword ? (
@@ -49,6 +44,7 @@ export default function PasswordInput({
             }
             error={error}
             secureTextEntry={hidePassword}
+            {...props}
             {...defaultStyleOverides}
           />
           <HelperText type='error' style={{ color: defaultStyleOverides.theme.colors.error }} visible={error}>

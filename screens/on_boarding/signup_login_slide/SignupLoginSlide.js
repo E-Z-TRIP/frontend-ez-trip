@@ -7,14 +7,14 @@ import LoginForm from './forms/LoginForm';
 import SignUpForm from './forms/SignUpForm';
 import { useEffect, useState } from 'react';
 
-export default function SignupLogoinSlide({ direction, progressPos, slideLength, navigation }) {
+export default function SignupLogoinSlide({ progressPos, slideLength, navigation }) {
   const { onBoarding } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
   const [forms, setForms] = useState({ login: false, signUp: false });
 
   useEffect(() => {
     if (progressPos === slideLength) {
-      const timeout = setTimeout(() => setIsVisible(true), 100);
+      const timeout = setTimeout(() => setIsVisible(true), 0);
       return () => clearTimeout(timeout);
     }
     setIsVisible(false);
@@ -44,7 +44,7 @@ export default function SignupLogoinSlide({ direction, progressPos, slideLength,
 
   return (
     <>
-      <FadeContainer style={styles.slideContainer} isVisible={isVisible} speed={800}>
+      <FadeContainer style={styles.slideContainer} isVisible={isVisible} speed={1000}>
         <Logo containerStyle={styles.logoContainer} color={onBoarding.header} size={100} />
         <View style={styles.formBtnsContainer}>
           <View style={styles.btnsWrapper}>
@@ -88,7 +88,7 @@ export default function SignupLogoinSlide({ direction, progressPos, slideLength,
         {forms.login ? (
           <LoginForm onClosePress={() => resetForms()} navigation={navigation} />
         ) : forms.signUp ? (
-          <SignUpForm onClosePress={() => resetForms()} openForm={openForm} />
+          <SignUpForm onClosePress={() => resetForms()} navigation={navigation} />
         ) : (
           <></>
         )}

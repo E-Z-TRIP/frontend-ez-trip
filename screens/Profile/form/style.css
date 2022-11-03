@@ -1,0 +1,23 @@
+.formContainer {
+  width: 100%;
+}
+.formWrapper {
+  width: 100%;
+  align-items: center;
+}
+.inputWrapper {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.input {
+  width: 100%;
+}
+.submitBtn {
+  width: 80%;
+  height: 50px;
+  border-radius: 25px;
+}
+.submitBtnText {
+  font-size: 16px;
+  font-family: 'txt';
+}

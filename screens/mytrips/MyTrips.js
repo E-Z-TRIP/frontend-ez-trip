@@ -12,7 +12,7 @@ import styles from './style.css';
 import { serverURL } from '../../api/backend_request';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function MyTrips({ param }) {
+export default function MyTrips({ navigation }) {
   //constantes générales
   const tripLiked = useSelector((state) => state.user.favorites);
   const TOKEN = useSelector((state) => state.user.value.token);
@@ -40,13 +40,15 @@ export default function MyTrips({ param }) {
       .then((response) => response.json())
       .then((response) => {
         if (response.result) {
+          const bookedTrips = []
           console.log('Fetch of booked trips successful on MyTrips');
           for (let order of response.data) {
             //Si les orders sont en statut Validated, on les ajoute à tripsBooked.
-            if (order.status === 'Validated' && !tripsBooked.some((e) => e._id === order._id)) {
-              setTripsBooked([...tripsBooked, order]);
+            if (order.status === 'Validated') {
+              bookedTrips.push(order)
             }
           }
+          setTripsBooked(bookedTrips);
         }
         //si data.result = false, le fetch a failed
         else {
@@ -55,13 +57,15 @@ export default function MyTrips({ param }) {
       });
   }, []);
 
+  // useEffect(() => {
+  // }, [tripsLiked])
+
   //---------------- MAP LIKED TRIPS  ----------------
 
   //if tripsLiked is empty, just show a default Text div.
-  let likedTrips = <Text style={{ fontFamily: 'txt' }}>No planed trip yet. Book one now! </Text>;
+  let likedTrips = <Text style={{ fontFamily: 'txt' }}>No liked trip yet. Book one now! </Text>;
   if (tripsLiked) {
     likedTrips = tripsLiked.map((data, i) => {
-      console.log(data);
       const isFavorite = favorites.some((favorite) => favorite.id === data.id);
       return (
         <View key={i} style={styles.tripContainer}>
@@ -74,7 +78,7 @@ export default function MyTrips({ param }) {
   // ---------------- MAP PLANED TRIPS ----------------
 
   //if tripsBooked is empty, just show a default Text div.
-  let planedTrips = <Text style={{ fontFamily: 'txt' }}>No planed trip yet. Book one now! </Text>;
+  let planedTrips = <Text style={{ fontFamily: 'txt' }}>No planned trip yet. Book one now! </Text>;
   if (tripsBooked && tripsBooked.length > 0) {
     planedTrips = tripsBooked.map((data, i) => {
       let start = data.start.slice(5, 10);
@@ -129,16 +133,15 @@ export default function MyTrips({ param }) {
       <View style={{ marginTop: 10 }}>
         <View style={styles.sousHeader}>
           <TripPlaned />
-          <Text style={styles.smallTitle}>Planed trips</Text>
+          <Text style={styles.smallTitle}>Planned trips</Text>
         </View>
         <View style={styles.border}></View>
-
         <ScrollView horizontal={true} style={styles.galleryContainer}>
           {planedTrips}
         </ScrollView>
         <View style={{ marginTop: -16, zIndex: 1, top: -150, left: 350 }}>
           {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}
-          {tripsBooked.length > 1 ? <SwipeLeft /> : false}
+          {/* {tripsBooked.length > 1 ? <SwipeLeft /> : false} */}
         </View>
         {/* ---------------- WHITE GRADIENT ON THE RIGHT OF THE SCROLL LEFT ---------------- */}
         <LinearGradient
@@ -146,6 +149,9 @@ export default function MyTrips({ param }) {
           end={{ x: 0, y: 0.75 }}
           colors={['rgba(255,255,255,0.7)', 'transparent']}
           style={{ position: 'absolute', width: 75, height: 212, top: '19.5%', left: '82%' }}></LinearGradient>
+         <TouchableOpacity style={styles.documentBtn} onPress={() => navigation.navigate('MyDocuments')}>
+          <Text style={styles.documentBtnTxt}>View documents</Text>
+          </TouchableOpacity>
       </View>
 
       {/* ---------------- FOOTER BOTTOM BAR ---------------- */}

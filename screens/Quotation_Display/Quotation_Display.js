@@ -85,18 +85,18 @@ return (
 {/* ---------------- OFFERED BY TRAVEL AGENCY ---------------- */}
     
     <View style={styles.statusContainer}>
-      <Text style={[styles.status, status === 'Requested' ? styles.requested : status === 'Received' ? styles.received : styles.validated]}> Quotation status : {status} </Text>
+      <Text style={[styles.status, status === 'Requested' ? styles.requested : status === 'Received' ? styles.received : styles.validated]}> Quotation status : <Text style={{fontFamily:'txtBold'}}>{status}</Text> </Text>
     </View>
 
 {/* ---------------- SUMMARY ---------------- */}
  { order ? (
   <View style={styles.summaryContainer}>
     <Text style={styles.smallTitle}> Summary :</Text>
-    <Text style={styles.recapTravel}>{nbDays} days {nbNights} nights</Text>
-    <Text style={styles.recapTravel}>{order.nbTravelers} travelers</Text>
-    <Text style={styles.recapTravel}>From {startDate} to {endDate}</Text>
-    <Text style={styles.recapTravel}>Special requests :</Text>
-    <Text style={styles.recapTravel}>{order.comments}</Text>
+    <Text style={styles.recapTravel}>• {nbDays} days {nbNights} nights</Text>
+    <Text style={styles.recapTravel}>• {order.nbTravelers} travelers</Text>
+    <Text style={styles.recapTravel}>• From {startDate} to {endDate}</Text>
+    <Text style={styles.recapTravel}>• Special requests :</Text>
+    <Text style={[styles.recapTravel, {fontSize: 14, fontFamily:'txtItalic', backgroundColor:'white', borderRadius: 15, padding: 10, paddingTop:15, alignItems: 'center', display:'flex'}]}>{order.comments}</Text>
 
   </View>
  ) : <View></View>

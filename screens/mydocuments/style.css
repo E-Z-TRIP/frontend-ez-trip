@@ -8,7 +8,7 @@
 }
 .title {
   font-family: 'heading';
-  font-size: 40px;
+  font-size: 3rem;
 }
 .borderie {
   border-bottom-width: 1px;
@@ -50,7 +50,7 @@
 .addContainer {
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 .addText {
   font-family: 'txtLight';
@@ -72,9 +72,10 @@
 .contactLink {
   margin-top: auto;
   flex-direction: row;
-  align-self: center;
+  justify-content: flex-end;
 }
 .contactLinkTxt {
+  text-decoration: underline;
   font-family: 'txtLight';
   font-size: 16px;
 }

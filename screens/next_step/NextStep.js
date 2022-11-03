@@ -23,7 +23,8 @@ export default function NexStep({ navigation, route: { params: data } }) {
   useEffect(() => {
     if (currentStep === 0) incrementStep();
   }, [currentStep]);
-
+  
+  const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
 
   return (

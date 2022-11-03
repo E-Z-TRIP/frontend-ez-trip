@@ -31,22 +31,12 @@ export default function MyDocuments() {
   const dataTravelAgencies = [
     {
       document: 'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1667403204/JCVD_passeport_mz0zt0.pdf',
-      titre: 'Itinéraire',
+      titre: 'Cambodia itinerary',
     },
     {
       document:
         'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685046/grande-traversee-de-laltiplano-bolivien-2022_zfix4l.pdf',
-      titre: 'Visa',
-    },
-    {
-      document:
-        'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685046/grande-traversee-de-laltiplano-bolivien-2022_zfix4l.pdf',
-      titre: 'Baggage checklist',
-    },
-    {
-      document:
-        'https://res.cloudinary.com/dxq6tt9ur/image/upload/v1666685046/grande-traversee-de-laltiplano-bolivien-2022_zfix4l.pdf',
-      titre: 'Raya passeport',
+      titre: 'Cambodia invoice',
     },
   ];
   // FIN
@@ -82,7 +72,7 @@ export default function MyDocuments() {
   });
 
   // ---------------- map TravelAgencyDocuments ----------------
-  const travelAgencyDocuments = data.map((data, i) => {
+  const travelAgencyDocuments = dataTravelAgencies.map((data, i) => {
     return (
       <View style={styles.pdfContainer}>
         <TouchableOpacity onPress={() => Linking.openURL(data.document)}>

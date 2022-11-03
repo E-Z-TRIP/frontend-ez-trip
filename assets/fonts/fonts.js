@@ -9,6 +9,7 @@ const fontsList = {
   txtBold: require('./poppins/Poppins-Bold.ttf'),
   txtExtraBold: require('./poppins/Poppins-ExtraBold.ttf'),
   txtBlack: require('./poppins/Poppins-Black.ttf'),
+  txtExtraLight: require('./poppins/Poppins-ExtraLight.ttf'),
 };
 
 export function loadFonts() {

@@ -343,7 +343,7 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
               {/* si on a le temps voir pour un "showmore"/"showless" pour pas avoir des descriptions a rallonge */}
 
               <Text style={styles.smallTitle}>Description :</Text>
-              <ShowMore height={70} buttonColor={"#c46b4d"} showMoreText="Show more" showLessText="Show less">
+              <ShowMore height={60} buttonColor={"#c46b4d"} showMoreText="Show more" showLessText="Show less">
                 <Text  ellipsizeMode='tail' style={styles.inclusModal}>
                   {trip.description}
                 </Text>

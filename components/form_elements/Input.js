@@ -17,21 +17,23 @@ export default function Input({
       control={control}
       name={name}
       rules={rules}
-      render={({ field: { onBlur, onChange, value } }) => (
-        <View style={wrapperStyle}>
-          <TextInput
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            error={error}
-            {...props}
-            {...defaultStyleOverides}
-          />
-          <HelperText type='error' style={{ color: defaultStyleOverides.theme.colors.error }} visible={error}>
-            {helperText}
-          </HelperText>
-        </View>
-      )}
+      render={({ field: { onBlur, onChange, value } }) => {
+        return (
+          <View style={wrapperStyle}>
+            <TextInput
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              error={error}
+              {...props}
+              {...defaultStyleOverides}
+            />
+            <HelperText type='error' style={{ color: defaultStyleOverides.theme.colors.error }} visible={error}>
+              {helperText}
+            </HelperText>
+          </View>
+        );
+      }}
     />
   );
 }

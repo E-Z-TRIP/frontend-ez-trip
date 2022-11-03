@@ -89,11 +89,15 @@ export default function LoginForm({ onClosePress, navigation }) {
           <SubmitBtn
             text='Login'
             onSubmit={() =>
-              handleSubmit(async (formData) => {
-                const res = await postData('/users/signin', formData);
+              handleSubmit(async ({ email, password }) => {
+                const res = await postData('/users/signin', {
+                  email: email.toLowerCase(),
+                  password,
+                });
                 if (res.error) return setNotFoundError(true);
-                const { firstName, lastName, email, token } = res;
-                dispatch(mountUser({ firstName, lastName, email, token }));
+                dispatch(
+                  mountUser({ firstName: res.firstName, lastName: res.lastName, email: res.email, token: res.token })
+                );
                 setNotFoundError(false);
                 navigation.navigate('Discover');
               })

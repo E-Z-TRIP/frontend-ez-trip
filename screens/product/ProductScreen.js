@@ -324,6 +324,7 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
                 <Text style={styles.smallTitle}>Localisation :</Text>
                 {lat && lon ? (
                   <MapView
+                    scrollEnabled={false}
                     loadingBackgroundColor='#C46B4D'
                     tintColor='#C46B4D'
                     style={styles.map}

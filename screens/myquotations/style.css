@@ -87,5 +87,5 @@
         margin-top: 2%;
         margin-bottom: 5%;
         flex-direction: row;
-
+        max-height: 200px;
     }

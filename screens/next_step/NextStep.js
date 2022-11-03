@@ -12,7 +12,6 @@ import StepInfo from './step_info/StepInfo';
 import { inspect } from '../../lib/inspector';
 
 export default function NexStep({ navigation, route: { params: data } }) {
-  const loadedFonts = loadFonts();
   const { nextStep } = useTheme();
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -23,7 +22,8 @@ export default function NexStep({ navigation, route: { params: data } }) {
   useEffect(() => {
     if (currentStep === 0) incrementStep();
   }, [currentStep]);
-
+  
+  const loadedFonts = loadFonts();
   if (!loadedFonts) return <></>;
 
   return (
@@ -53,10 +53,10 @@ function stepInfoCollection(currentStep, incrementStep) {
 
   return [
     <StepInfo
-      label='First step'
-      title='First step'
+      label='Treatment of your request'
+      title={`What's next ?`}
       information={
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+        'The travel agency is treating your request.'
       }
       step={1}
       currentStep={currentStep}
@@ -68,10 +68,10 @@ function stepInfoCollection(currentStep, incrementStep) {
       }}
     />,
     <StepInfo
-      label='Second step'
-      title='Second step'
+      label='Quotation ready!'
+      title='And then...'
       information={
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+        `You'll get a notification once your quotation is ready`
       }
       step={2}
       currentStep={currentStep}
@@ -83,10 +83,10 @@ function stepInfoCollection(currentStep, incrementStep) {
       }}
     />,
     <StepInfo
-      label='Third step'
-      title='Third step'
+      label='Paiement'
+      title='After that...'
       information={
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+        `After you accept the quotation, the travel agency will get in touch with you via email for the last details and to proceed with paiement`
       }
       step={3}
       currentStep={currentStep}
@@ -98,10 +98,10 @@ function stepInfoCollection(currentStep, incrementStep) {
       }}
     />,
     <StepInfo
-      label='Fourth step'
-      title='Fourth step'
+      label='Adding your documents'
+      title='Finally...'
       information={
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+        `You'll find all the details of your reservation directly on EZ TRIPS in 'My trips' section. You can add your travel documents on your profile, in the section 'My Documents'`
       }
       step={4}
       currentStep={currentStep}
@@ -116,7 +116,7 @@ function stepInfoCollection(currentStep, incrementStep) {
       label='See you when you get back'
       title='See you when you get back'
       information={
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+        'Have a nice trip!'
       }
       step={5}
       currentStep={currentStep}

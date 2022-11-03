@@ -11,8 +11,6 @@ import {
   Linking,
 } from 'react-native';
 
-import Contact from '../../components/icons/contact';
-
 import styles from './style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadFonts } from '../../assets/fonts/fonts';
@@ -22,7 +20,6 @@ import { serverURL } from '../../api/backend_request';
 import { Directions, ScrollView } from 'react-native-gesture-handler';
 import MapView, { Marker } from 'react-native-maps';
 import Cross from '../../components/icons/cross';
-import * as Network from 'expo-network';
 import ShowMore from 'react-native-show-more-button';
 import Scroll from '../../components/icons/scrollDown';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -246,9 +243,10 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
       {/* ---------------- MODAL = FICHE PRODUIT ---------------- */}
 
       <Modal
-        animationType='slide'
+        statusBarTranslucent={true}
+        animationType='slide' 
         visible={modalVisible}
-        presentationStyle='fullScreen'
+        presentationStyle="fullScreen"
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>

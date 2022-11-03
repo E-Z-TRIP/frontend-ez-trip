@@ -57,9 +57,8 @@ export default function MyTrips({ param }) {
       });
   }, []);
 
-  useEffect(() => {
-    console.log('hooks updated', tripsLiked, tripsBooked)
-  }, [tripsLiked])
+  // useEffect(() => {
+  // }, [tripsLiked])
 
   //---------------- MAP LIKED TRIPS  ----------------
 
@@ -143,7 +142,7 @@ export default function MyTrips({ param }) {
         </ScrollView>
         <View style={{ marginTop: -16, zIndex: 1, top: -150, left: 350 }}>
           {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}
-          {tripsBooked.length > 1 ? <SwipeLeft /> : false}
+          {/* {tripsBooked.length > 1 ? <SwipeLeft /> : false} */}
         </View>
         {/* ---------------- WHITE GRADIENT ON THE RIGHT OF THE SCROLL LEFT ---------------- */}
         <LinearGradient

@@ -95,7 +95,7 @@ export default function Trip(props) {
                 </View>
                 <AntDesign name='heart' size={18}  color={props.isFavorite ? "#F5612F" : props.isFavorite === undefined ? 'transparent' : "white"} onPress={() => handleLike()}/>
               </View>
-            <Text style = {{fontFamily: 'txt', fontWeight: 'bold', color: 'white', marginTop: 5}}>{props.country}</Text>
+            <Text style = {{fontFamily: 'txtBold', color: 'white', marginTop: -2}}>{props.country}</Text>
           </View>
          
         <LinearGradient 
@@ -104,8 +104,8 @@ export default function Trip(props) {
         end={[1, 0]}
         style={{height : '38%', width : '100%', padding: 15, borderRadius: 15}}>
         <View style= {styles.bottomInfo}>
-            <Text style ={{color:'white', width: '70%'}}>From {start} to {end}</Text>
-            {props.price ? <Text style = {styles.text}>Total price: <Text style={{fontWeight: 'bold'}}>{price}</Text>€</Text>:<Text style = {styles.text}>From <Text style={{fontWeight: 'bold'}}>{price}</Text>€</Text>}
+            <Text style ={{color:'white', width: '73%'}}>From {start} to {end}</Text>
+            {props.price ? <Text style = {styles.text}>Total price: <Text style={{fontFamily: 'txtBold'}}>{price}</Text>€</Text>:<Text style = {styles.text}>From <Text style={{fontFamily: 'txtBold'}}>{price}</Text>€</Text>}
         </View>
         </LinearGradient>
 

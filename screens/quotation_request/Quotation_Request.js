@@ -6,7 +6,6 @@ import { loadFonts } from '../../assets/fonts/fonts';
 import { useState, useEffect } from 'react';
 import Trip from '../../components/trip/trip';
 import { getnbDays } from '../../assets/helpers';
-import user from '../../reducers/user';
 import BottomToolbar from '../../components/bottom-toolbar/bottom-toolbar';
 import { ScrollView } from 'react-native-gesture-handler';
 import moment from 'moment';
@@ -14,7 +13,7 @@ import Cross from '../../components/icons/cross';
 import DateRangePicker from 'rnv-date-range-picker';
 import { serverURL } from '../../api/backend_request';
 
-export default function Quotation_Request({ navigation, route }) {
+export default function Quotation_Request({ navigation, route: { params: props } }) {
   // console.log(route.params);
   const loadedFonts = loadFonts();
   const { theme } = useTheme();
@@ -45,7 +44,6 @@ export default function Quotation_Request({ navigation, route }) {
 
   const handleconfirmButton = () => {
     if (trip) {
-      console.log('oui');
       fetch(`${serverURL}/orders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -63,7 +61,7 @@ export default function Quotation_Request({ navigation, route }) {
         .then((response) => response.json())
         .then((data) => {
           if (data.result) {
-            navigation.navigate({ name: 'NextStep' });
+            navigation.navigate({ name: 'NextStep', params: data });
           } else {
             console.log('no data result', data.error);
             setModalVisible(true);

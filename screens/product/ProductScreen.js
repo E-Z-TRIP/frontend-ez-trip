@@ -200,7 +200,6 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           if (data.result) {
             //rajout dans le reducer
             dispatch(addFavorites(data.tripLiked));

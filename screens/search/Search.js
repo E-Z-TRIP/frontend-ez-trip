@@ -159,7 +159,7 @@ export default function Search({ navigation }) {
         <TouchableOpacity
           onPress={() => addTag(e)}
           //la couleur du bouton dépend de si le tag est sélectionné ou pas dans SelectedTags
-          style={selected ? {...styles.tags, backgroundColor: 'orange'} : {...styles.tags, backgroundColor: 'white'}}
+          style={selected ? {...styles.tags, backgroundColor: '#C46B4D'} : {...styles.tags, backgroundColor: 'white'}}
           key={i}>
           <Text>{e.title}</Text>
         </TouchableOpacity>
@@ -171,7 +171,7 @@ export default function Search({ navigation }) {
           <TouchableOpacity
           onPress={() => addTag(e)}
           //la couleur du bouton dépend de si le tag est sélectionné ou pas dans SelectedTags
-          style={selected ? {...styles.tags, backgroundColor: 'orange'} : {...styles.tags, backgroundColor: 'white'}}
+          style={selected ? {...styles.tags, backgroundColor: '#C46B4D'} : {...styles.tags, backgroundColor: 'white'}}
           key={i}>
           <Text>{e.title}</Text>
         </TouchableOpacity>

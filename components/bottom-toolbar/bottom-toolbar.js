@@ -19,13 +19,7 @@ export default function BottomToolbar() {
 
   return (
 
-
-
-
     <View style={styles.toolBar}>
-
-
-
 
       <DiscoverIcon
         stroke={4}
@@ -33,8 +27,6 @@ export default function BottomToolbar() {
         color={route.name === 'Discover' ? '#C46B4D' : 'black'}
         onPress={() => navigation.navigate('Discover')}
       />
-
-
 
       <HeartIcon
 

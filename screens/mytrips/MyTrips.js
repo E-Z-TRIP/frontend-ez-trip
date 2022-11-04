@@ -103,6 +103,7 @@ export default function MyTrips({ navigation }) {
   if (!loadedFonts) return <></>;
 
   return (
+    <>
     <View style={styles.container}>
       {/* ---------------- HEADER ---------------- */}
       <View style={styles.header}>
@@ -156,7 +157,8 @@ export default function MyTrips({ navigation }) {
 
       {/* ---------------- FOOTER BOTTOM BAR ---------------- */}
       <View style={{ height: 70 }}></View>
+      </View>
       <BottomToolbar />
-    </View>
+    </>
   );
 }

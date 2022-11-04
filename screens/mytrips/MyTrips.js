@@ -40,12 +40,12 @@ export default function MyTrips({ navigation }) {
       .then((response) => response.json())
       .then((response) => {
         if (response.result) {
-          const bookedTrips = []
+          const bookedTrips = [];
           console.log('Fetch of booked trips successful on MyTrips');
           for (let order of response.data) {
             //Si les orders sont en statut Validated, on les ajoute à tripsBooked.
             if (order.status === 'Validated') {
-              bookedTrips.push(order)
+              bookedTrips.push(order);
             }
           }
           setTripsBooked(bookedTrips);
@@ -104,59 +104,59 @@ export default function MyTrips({ navigation }) {
 
   return (
     <>
-    <View style={styles.container}>
-      {/* ---------------- HEADER ---------------- */}
-      <View style={styles.header}>
-        <Text style={styles.title}>My trips</Text>
-      </View>
-      {/* ---------------- LIKED TRIPS ---------------- */}
-      <View style={styles.cont}>
-        <View style={styles.sousHeader}>
-          <AntDesign name='heart' size={23} color={'black'} />
-          <Text style={styles.smallTitle}>Liked trips</Text>
+      <View style={styles.container}>
+        {/* ---------------- HEADER ---------------- */}
+        <View style={styles.header}>
+          <Text style={styles.title}>My trips</Text>
         </View>
-        <View style={styles.border}></View>
-        <ScrollView horizontal={true} style={styles.galleryContainer}>
-          {likedTrips}
-        </ScrollView>
-        <View style={{ marginTop: -16, zIndex: 1, top: -150, left: 340 }}>
-          {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}
-          {/* {tripsLiked.length > 1 ? <SwipeLeft /> : false}    */}
+        {/* ---------------- LIKED TRIPS ---------------- */}
+        <View style={styles.cont}>
+          <View style={styles.sousHeader}>
+            <AntDesign name='heart' size={23} color={'black'} />
+            <Text style={styles.smallTitle}>Liked trips</Text>
+          </View>
+          <View style={styles.border}></View>
+          <ScrollView horizontal={true} style={styles.galleryContainer}>
+            {likedTrips}
+          </ScrollView>
+          <View style={{ marginTop: -16, zIndex: 1, top: -150, left: 340 }}>
+            {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}
+            {/* {tripsLiked.length > 1 ? <SwipeLeft /> : false}    */}
+          </View>
+          <LinearGradient
+            start={{ x: 0.75, y: 0.75 }}
+            end={{ x: 0, y: 0.75 }}
+            colors={['rgba(255,255,255,0.7)', 'transparent']}
+            style={{ position: 'absolute', width: 75, height: 210, top: 25, left: '82%' }}></LinearGradient>
         </View>
-        <LinearGradient
-          start={{ x: 0.75, y: 0.75 }}
-          end={{ x: 0, y: 0.75 }}
-          colors={['rgba(255,255,255,0.7)', 'transparent']}
-          style={{ position: 'absolute', width: 75, height: 210, top: 25, left: '82%' }}></LinearGradient>
-      </View>
 
-      {/* ---------------- PLANED TRIPS ---------------- */}
-      <View style={{ marginTop: 10 }}>
-        <View style={styles.sousHeader}>
-          <TripPlaned />
-          <Text style={styles.smallTitle}>Planned trips</Text>
-        </View>
-        <View style={styles.border}></View>
-        <ScrollView horizontal={true} style={styles.galleryContainer}>
-          {planedTrips}
-        </ScrollView>
-        <View style={{ marginTop: -16, zIndex: 1, top: -150, left: 350 }}>
-          {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}
-          {/* {tripsBooked.length > 1 ? <SwipeLeft /> : false} */}
-        </View>
-        {/* ---------------- WHITE GRADIENT ON THE RIGHT OF THE SCROLL LEFT ---------------- */}
-        <LinearGradient
-          start={{ x: 0.75, y: 0.75 }}
-          end={{ x: 0, y: 0.75 }}
-          colors={['rgba(255,255,255,0.7)', 'transparent']}
-          style={{ position: 'absolute', width: 75, height: 212, top: '19.5%', left: '82%' }}></LinearGradient>
-         <TouchableOpacity style={styles.documentBtn} onPress={() => navigation.navigate('MyDocuments')}>
-          <Text style={styles.documentBtnTxt}>View documents</Text>
+        {/* ---------------- PLANED TRIPS ---------------- */}
+        <View style={{ marginTop: 10 }}>
+          <View style={styles.sousHeader}>
+            <TripPlaned />
+            <Text style={styles.smallTitle}>Planned trips</Text>
+          </View>
+          <View style={styles.border}></View>
+          <ScrollView horizontal={true} style={styles.galleryContainer}>
+            {planedTrips}
+          </ScrollView>
+          <View style={{ marginTop: -16, zIndex: 1, top: -150, left: 350 }}>
+            {/* ---------------- La flèche ne s'affiche que s'il y a plus d'une donnée et que le scroll s'active ---------------- */}
+            {/* {tripsBooked.length > 1 ? <SwipeLeft /> : false} */}
+          </View>
+          {/* ---------------- WHITE GRADIENT ON THE RIGHT OF THE SCROLL LEFT ---------------- */}
+          <LinearGradient
+            start={{ x: 0.75, y: 0.75 }}
+            end={{ x: 0, y: 0.75 }}
+            colors={['rgba(255,255,255,0.7)', 'transparent']}
+            style={{ position: 'absolute', width: 75, height: 212, top: '19.5%', left: '82%' }}></LinearGradient>
+          <TouchableOpacity style={styles.documentBtn} onPress={() => navigation.navigate('MyDocuments')}>
+            <Text style={styles.documentBtnTxt}>View documents</Text>
           </TouchableOpacity>
-      </View>
+        </View>
 
-      {/* ---------------- FOOTER BOTTOM BAR ---------------- */}
-      <View style={{ height: 70 }}></View>
+        {/* ---------------- FOOTER BOTTOM BAR ---------------- */}
+        <View style={{ height: 70 }}></View>
       </View>
       <BottomToolbar />
     </>

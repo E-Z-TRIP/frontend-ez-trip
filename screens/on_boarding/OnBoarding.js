@@ -95,7 +95,7 @@ function TitleSlide(props) {
 
   return (
     <FadeContainer {...props} style={styles.slideContainer}>
-      <Logo color={onBoarding.header} size={100} />
+      <Logo color={onBoarding.header} size={130} />
     </FadeContainer>
   );
 }

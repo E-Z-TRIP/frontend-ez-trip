@@ -12,5 +12,15 @@
 }
 .animatedPathContainer {
   top: 150px;
-  left: 10px;
+  left: 0px;
+}
+
+.title {
+  position: absolute;
+  top: 60px;
+  left: 30px;
+  font-family: 'heading';
+  font-size: 3rem;
+  margin-bottom: 10px;
+  color: white;
 }

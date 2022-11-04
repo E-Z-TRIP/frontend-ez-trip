@@ -19,7 +19,7 @@ export default function Profile({ navigation }) {
   const [countryEdit, setCountryEdit] = useState(false);
   const [imageEdit, setImageEdit] = useState(false);
   const [keyboardOpen, setKeyboardOpen] = useState(false);
-
+  console.disableYellowBox = true;
   if (!loadedFonts) return <></>;
 
   return (

@@ -45,7 +45,7 @@ export default function MyTrips({ navigation }) {
           for (let order of response.data) {
             //Si les orders sont en statut Validated, on les ajoute à tripsBooked.
             if (order.status === 'Validated') {
-              bookedTrips.push(order);
+              bookedTrips.unshift(order);
             }
           }
           setTripsBooked(bookedTrips);

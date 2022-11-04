@@ -94,19 +94,17 @@ export default function Search({ navigation }) {
   //HANDLE SEARCH WHEN BUTTON IS CLICKED
 
   const handleSearch = () => {
-    console.log('startDate searched', startDate)
-    console.log('endDate searched', endDate)
-    console.log('tags searched', selectedTags)
+
     const startMonth = startDate.slice(3, 5)
     const endMonth = endDate.slice(3, 5)
-    console.log(startMonth)
+
     //construit un objet regroupant tous les paramètres de filtres
     let research = { minBudget, maxBudget, searchInput, startMonth, endMonth };
-    console.log(research);
+
     //construit l'URL avec les query correspondants aux filtres
     var url = new URL(`${serverURL}/trips/filter`);
     Object.keys(research).forEach((key) => url.searchParams.append(key, research[key]));
-    console.log(url);
+  
     //fetch avec l'URL personnalisé à la recherche
     fetch(url)
       .then((response) => response.json())

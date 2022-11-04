@@ -34,9 +34,10 @@ export default function MyQuotations() {
           for (let order of response.data) {
             //Si les orders sont en statut Requested ou Received, on les ajoute aux états React correspondant
             if (order.status === 'Requested' && !totalRequests.some((e) => e._id === order._id)) {
-              totalRequests.push(order)
+              //utilisation de unshift() plutôt que push, car unshift() ajoute la valeur au début du tableau ; ainsi le dernier élément ajouté s'affiche en 1er.
+              totalRequests.unshift(order)
             } else if (order.status === 'Received' && !totalQuotations.some((e) => e._id === order._id)) {
-              totalQuotations.push(order)
+              totalQuotations.unshift(order)
             }
           }
           setRequestSent(totalRequests) 

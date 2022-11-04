@@ -12,6 +12,7 @@ import StepInfo from './step_info/StepInfo';
 import { inspect } from '../../lib/inspector';
 
 export default function NexStep({ navigation, route: { params: data } }) {
+  console.disableYellowBox = true;
   const { nextStep } = useTheme();
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -33,6 +34,7 @@ export default function NexStep({ navigation, route: { params: data } }) {
         style={{
           ...styles.mainContainer,
         }}>
+          <Text style={styles.title}>Next Steps</Text>
         <AnimatedProgressPath
           containerScale={1.4}
           containerStyle={styles.animatedPathContainer}
@@ -64,7 +66,7 @@ function stepInfoCollection(currentStep, incrementStep) {
       containerStyle={{
         backgroundColor: nextStep.stepInfoBg,
         width: 140,
-        transform: [{ translateY: -70 }, { translateX: 50 }],
+        transform: [{ translateY: -48 }, { translateX: 50 }],
       }}
     />,
     <StepInfo
@@ -79,7 +81,7 @@ function stepInfoCollection(currentStep, incrementStep) {
       containerStyle={{
         backgroundColor: nextStep.stepInfoBg,
         width: 140,
-        transform: [{ translateY: -142 }, { translateX: 205 }],
+        transform: [{ translateY: -120 }, { translateX: 220 }],
       }}
     />,
     <StepInfo
@@ -94,7 +96,7 @@ function stepInfoCollection(currentStep, incrementStep) {
       containerStyle={{
         backgroundColor: nextStep.stepInfoBg,
         width: 140,
-        transform: [{ translateY: -260 }, { translateX: 40 }],
+        transform: [{ translateY: -240 }, { translateX: 50 }],
       }}
     />,
     <StepInfo
@@ -109,7 +111,7 @@ function stepInfoCollection(currentStep, incrementStep) {
       containerStyle={{
         backgroundColor: nextStep.stepInfoBg,
         width: 140,
-        transform: [{ translateY: -359 }, { translateX: 170 }],
+        transform: [{ translateY: -340 }, { translateX: 170 }],
       }}
     />,
     <LastStep
@@ -124,7 +126,7 @@ function stepInfoCollection(currentStep, incrementStep) {
         width: '80%',
         marginLeft: 0,
         left: '10%',
-        transform: [{ translateY: -525 }],
+        transform: [{ translateY: -470 }],
       }}
     />,
   ];

@@ -27,17 +27,15 @@ export default function Quotation_Request({ navigation, route: { params: props }
   const [selectedRange, setRange] = useState({});
   const [value, setValue] = useState('');
   const [trip, setTrip] = useState(null);
+  console.disableYellowBox = true;
 
   useEffect(() => {
-    // console.log('ciyciy id', route.params.id);
     //fetch le trip grâce à l'id reçu en props
     fetch(`${serverURL}/trips/tripById/${props.id}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
           setTrip(data.trip);
-        } else {
-          console.log('no trip received');
         }
       });
   }, []);
@@ -67,9 +65,7 @@ export default function Quotation_Request({ navigation, route: { params: props }
             setModalVisible(true);
           }
         });
-    } else {
-      console.log('no trip bg');
-    }
+    } 
   };
 
   if (!loadedFonts) return <></>;

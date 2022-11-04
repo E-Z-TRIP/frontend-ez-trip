@@ -57,9 +57,7 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
       .then((data) => {
         if (data.result) {
           setTrip(data.trip);
-        } else {
-          console.log('no trip received');
-        }
+        } 
       });
   }, []);
 
@@ -166,7 +164,6 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
 
   const handleLike = () => {
     if (favorite) {
-      console.log('déjà liké!');
       //supprime en BDD
       fetch(`${serverURL}/users/like`, {
         method: 'DELETE',
@@ -178,14 +175,11 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
           if (data.result) {
             //une fois supprimé en BDD, supprime dans le reducer
             dispatch(deleteFavorite(props.id));
-            console.log('fetch successful + supprimé du reducer');
             setFavorite(false);
           } else {
-            console.log('no data from fetch');
           }
         });
     } else {
-      console.log('trip liked');
       //rajout dans la BDD
       fetch(`${serverURL}/users/like`, {
         method: 'POST',
@@ -198,8 +192,6 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
             //rajout dans le reducer
             dispatch(addFavorites(data.tripLiked));
             setFavorite(true);
-          } else {
-            console.log('no data from fetch');
           }
         });
     }
@@ -317,6 +309,8 @@ export default function ProductScreen({ navigation, route: { params: props } }) 
                 <Text>Departure from {trip.addressDeparture}, {trip.country}.</Text>
                 {lat && lon ? (
                   <MapView
+                  zoomTapEnabled = {true}
+                    zoomEnabled={true}
                     scrollEnabled={false}
                     loadingBackgroundColor='#C46B4D'
                     tintColor='#C46B4D'

@@ -8,7 +8,7 @@ import FadeContainer from '../../../components/fade_container/FadeContainer';
 export default function StepInfo({ label, step, title, information, currentStep, containerStyle, incrementStep }) {
   const { nextStep } = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
-
+  console.disableYellowBox = true;
   return (
     <>
       <FadeContainer

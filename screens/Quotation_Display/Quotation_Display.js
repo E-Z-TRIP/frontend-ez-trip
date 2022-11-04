@@ -37,14 +37,12 @@ import { convertibleStartDate, convertibleEndDate, getnbDays, getNbNights } from
         setNbDays(getnbDays(data.data.start, data.data.end))
         setNbNights(getNbNights(data.data.start, data.data.end))
         setStatus(data.data.status)
-      } else {
-        console.log('fetch failed @ quotation_display')
       }
     })
     }, [])
 
     const handleButtonReceived = () => {
-      console.log('oui')
+      
       fetch(`${serverURL}/orders/updateStatus/${route.params.id}`, {
         method: 'PUT',
       })

@@ -26,7 +26,7 @@ export default function AnimatedProgressPath({
   useEffect(() => {
     if (idx >= translations.length - 1 || points.includes(idx) || step <= 0) return clearInterval(animation);
   }, [idx]);
-
+  console.disableYellowBox = true;
   containerScale = containerScale < 0.1 ? 1 : containerScale;
   pointerScale = pointerScale < 0.1 ? 1 : pointerScale;
 

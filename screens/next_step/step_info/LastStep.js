@@ -10,7 +10,7 @@ export default function LastStep({ label, step, title, information, currentStep,
   const { nextStep } = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
-
+  console.disableYellowBox = true;
   return (
     <>
       <FadeContainer
